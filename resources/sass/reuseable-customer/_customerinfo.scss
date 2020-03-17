@@ -1,16 +1,8 @@
 .customer-container {
-    .customer-detail-row {
-        table {
-            border: 1px solid $grey;
-            border-radius: 10px;
-            tr {
-                color: $text-black;
-                .table-color {
-                    width: 38%;
-                    background-color: $grey;
-                    color: $text-gery;
-                }
-            }
-        }
+  .customer-detail-row {
+    table {
+      border: 1px solid $grey;
+      border-radius: 10px;
     }
+  }
 }

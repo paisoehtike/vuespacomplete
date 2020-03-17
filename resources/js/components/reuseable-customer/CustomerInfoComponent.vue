@@ -8,38 +8,7 @@
     <div class="customer-detail-row">
       <table>
         <tbody>
-          <tr>
-            <td class="table-color">Customer Name</td>
-            <td>{{name}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">Customer Account No</td>
-            <td>{{account_number}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">Customer RMN</td>
-            <td>{{customer_rmn}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">PPOE Username</td>
-            <td>{{p_username}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">PPOE Password</td>
-            <td>{{p_password}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">Phone</td>
-            <td>{{phone}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">Address</td>
-            <td>{{address}}</td>
-          </tr>
-          <tr>
-            <td class="table-color">Township</td>
-            <td>{{township}}</td>
-          </tr>
+          <slot></slot>
         </tbody>
       </table>
     </div>
