@@ -1,0 +1,9 @@
+.home-container {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+
+    .home-header-row,
+    .home-customer-row{
+        grid-column: 2/3;
+    }
+}
