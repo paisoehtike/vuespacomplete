@@ -1,0 +1,11 @@
+.home-header-container {
+    .header-row {
+        display: flex;
+        i {
+            font-size: 26px;
+            margin-left: auto;
+            align-self: center;
+            color: $text-gery;
+        }
+    }
+}

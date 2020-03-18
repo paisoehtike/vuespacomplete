@@ -1,0 +1,33 @@
+.home-customer-footer-row {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border: 1px solid $border-gery;
+  border-left: 0;
+  background-color: $text-white;
+  border-right: 0;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  .installation {
+    grid-column: 1/2;
+  }
+  .on-call {
+    grid-column: 2/3;
+  }
+  .team {
+    grid-column: 3/4;
+  }
+  .inventory {
+    grid-column: 4/5;
+  }
+  a {
+    width: 100%;
+    color: $text-gery;
+    text-align: center;
+    margin-top: 9px;
+    margin-bottom: 9px;
+    i {
+      font-size: 18px;
+    }
+  }
+}

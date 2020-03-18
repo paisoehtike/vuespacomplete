@@ -1,0 +1,14 @@
+.customer-detail-chip {
+  margin-top: 12px;
+  margin-left: 16px;
+
+  .customer-detail-name,
+  .customer-detail-address {
+    i {
+      margin-right: 7px;
+    }
+    i,span {
+        color: $text-gery;
+    }
+  }
+}
