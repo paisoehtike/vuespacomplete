@@ -3,14 +3,6 @@
         table {
             border: 1px solid $gery;
             border-radius: 10px;
-            tr {
-                color: $text-black;
-                .table-color {
-                    width: 38%;
-                    background-color: $gery;
-                    color: $text-gery;
-                }
-            }
         }
     }
 }

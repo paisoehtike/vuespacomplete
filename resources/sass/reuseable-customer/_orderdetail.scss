@@ -1,22 +1,6 @@
 .order-detail-container {
     .order-detail-header {
         display: flex;
-
-        .order-customer-type {
-            margin-right: 5px;
-            background-color: $text-pink;
-            color: $text-white;
-            width: 60px;
-            text-align: center;
-            border-radius: 10px;
-        }
-        .order-step {
-            background-color: $text-purple;
-            color: $text-white;
-            width: 80px;
-            text-align: center;
-            border-radius: 10px;
-        }
     }
 
     .order-detail-id {

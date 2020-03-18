@@ -3,6 +3,8 @@ import NotFound from './components/NotFound'
 import Order from './components/lsp-order/OrderComponent'
 import LSPOrder from './components/lsp-team-order/LSPOrderComponent'
 import Home from './components/lsp-home/HomeComponent'
+import OnCall from './components/lsp-on-call/OnCallComponent'
+import LSPHome from './components/lsp-team-home/LSPTeamHomeComponent'
 
 export default {
     mode: 'history',
@@ -26,6 +28,14 @@ export default {
         {
             path: '/home',
             component: Home
+        },
+        {
+            path: '/on-call',
+            component: OnCall
+        },
+        {
+            path: '/lsp-home',
+            component: LSPHome
         }
     ]
 }

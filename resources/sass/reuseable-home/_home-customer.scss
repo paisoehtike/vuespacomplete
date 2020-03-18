@@ -1,63 +1,95 @@
 .customer-home-container {
-  display: grid;
-  grid-template-columns: 5% 90% 5%;
-  grid-template-rows: 40% auto;
   border-radius: 15px;
   box-shadow: 1px 2px 2px 2px rgba(0, 0.1, 0.1, 0.1);
   width: 100%;
   height: 207px;
+  margin-bottom: 10px;
 
   .customer-home-header {
-      h4 {
-        margin-top: 17px;
-      }
-  }
-  .customer-header-row,
-  .customer-home-body-row {
-    grid-column: 2/3;
-  }
-
-  .customer-header-row {
-    display: grid;
-    grid-template-columns: 50% 50%;
-
-    .customer-type-container {
-      margin-top: 10px;
-      justify-self: end;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .customer-type-row {
-        display: flex;
-        .order-customer-type {
-          margin-right: 5px;
-          background-color: $text-pink;
-          color: $text-white;
-          width: 60px;
-          height: 22px;
-          text-align: center;
-          border-radius: 10px;
-        }
-        .order-step {
-          background-color: $text-purple;
-          color: $text-white;
-          width: 80px;
-          height: 22px;
-          text-align: center;
-          border-radius: 10px;
-        }
-      }
-      .customer-date {
-          text-align: end;
-      }
+    h4 {
+      margin-top: 17px;
     }
   }
+  .home-customer-container {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    grid-template-rows: 55% 45%;
 
-  .customer-home-body-row {
+    .customer-header-row,
+    .customer-home-body-row {
+      grid-column: 2/3;
+    }
+
+    .customer-header-row {
+      display: grid;
+      grid-template-columns: 50% 50%;
+
+      .customer-type-container {
+        margin-top: 10px;
+        justify-self: end;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .customer-type-row {
+          display: flex;
+          .order-customer-type {
+            margin-right: 5px;
+            background-color: $text-pink;
+            color: $text-white;
+            width: 60px;
+            height: 22px;
+            text-align: center;
+            border-radius: 10px;
+          }
+          .order-step {
+            background-color: $text-purple;
+            color: $text-white;
+            width: 80px;
+            height: 22px;
+            text-align: center;
+            border-radius: 10px;
+          }
+        }
+        .customer-date {
+          text-align: end;
+
+          .issue {
+            color: $text-red;
+          }
+        }
+      }
+    }
+
+    .customer-home-body-row {
       width: 100%;
       height: 69px;
       margin-top: 5px;
       background-color: $white-gery;
       color: $text-gery;
+    }
+  }
+  .customer-home-footer-row {
+    display: grid;
+    grid-template-columns: 5% auto;
+
+    .customer-home-footer-detail-row {
+      grid-column: 2/3;
+
+      display: flex;
+      .customer-home-assigned-button {
+        margin-left: auto;
+        margin-top: 10px;
+        a {
+          width: 120px;
+          border: 1px solid $border-gery;
+          background-color: $text-white;
+          color: $text-orange;
+          box-shadow: none;
+          border-bottom: 0;
+          border-right: 0;
+          border-radius: 15px 0 0 0;
+        }
+      }
+    }
   }
 }
