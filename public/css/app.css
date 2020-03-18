@@ -1,0 +1,128 @@
+.order-container {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+}
+
+.order-container .order-header-row,
+.order-container .order-detail-row,
+.order-container .order-assigned-row,
+.order-container .customer-info-row,
+.order-container .order-info-row,
+.order-container .order-button {
+  grid-column: 2/3;
+}
+
+.order-container .order-header-row {
+  display: flex;
+  margin-top: 16px;
+}
+
+.order-container .order-header-row i {
+  margin-top: 7px;
+  margin-right: 30px;
+}
+
+.order-container .order-header-row h5 {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.order-container .customer-info-row {
+  margin-bottom: 30px;
+}
+
+.order-container .order-assigned-row span {
+  margin-right: 16px;
+}
+
+.order-container .order-assigned-row a {
+  width: 120px;
+  height: 40px;
+  box-shadow: none;
+  background-color: #ffffff;
+  color: #ec911a;
+  border: 1px solid #e7eaeb;
+}
+
+.order-container .order-button {
+  margin-top: 40px;
+  margin-bottom: 47px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.order-container .order-button .view-detail {
+  align-self: center;
+}
+
+.order-container .order-button .view-detail a {
+  color: #303030;
+}
+
+.order-container .order-button .complete-btn a {
+  width: 100%;
+}
+
+.square-image-container .square-image-row img {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.customer-container .customer-detail-row table {
+  border: 1px solid #e7eaeb;
+  border-radius: 10px;
+}
+
+.order-detail-container .order-detail-header {
+  display: flex;
+}
+
+.order-detail-container .order-detail-id {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.order-detail-container .order-detail-id h4 {
+  margin: 0;
+}
+
+.order-detail-container .order-type p {
+  margin: 0;
+}
+
+.order-info-container .order-info-detail-row table {
+  border: 1px solid #e7eaeb;
+  border-radius: 10px;
+}
+
+.table-row-component tr {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  color: #303030;
+}
+
+.table-row-component tr .table-color {
+  width: 100%;
+  background-color: #e7eaeb;
+  color: #5f5f5f;
+  border-radius: 0;
+}
+
+.order-customer-type {
+  margin-right: 5px;
+  background-color: #f35998;
+  color: #ffffff;
+  width: 60px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.order-step {
+  background-color: #8759f3;
+  color: #ffffff;
+  width: 80px;
+  text-align: center;
+  border-radius: 10px;
+}
+

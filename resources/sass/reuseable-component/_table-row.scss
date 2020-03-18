@@ -1,0 +1,13 @@
+.table-row-component {
+  tr {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: $text-black;
+    .table-color {
+      width: 100%;
+      background-color: $grey;
+      color: $text-gery;
+      border-radius: 0;
+    }
+  }
+}
