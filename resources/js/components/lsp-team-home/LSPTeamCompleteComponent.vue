@@ -19,25 +19,19 @@
           <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
 
           <CustomerIssueDate slot="customer-date">
+            <!-- <span>{{customer.date}}</span> -->
             {{customer.date}}
-            <template v-slot:issue>{{customer.issue}}</template>
           </CustomerIssueDate>
-
           <CustomerDetailChip
             slot="customer-detail-chip"
             :value="customer.customerName"
             :address="customer.address"
           ></CustomerDetailChip>
-
-          <CustomerHomeFooterButton slot="customer-home-footer">
-            <template v-slot:assign>{{customer.assigned}}</template>
-            <a class="btn" slot="button">Accept</a>
-          </CustomerHomeFooterButton>
         </Customer>
       </div>
     </div>
 
-    <HomeFooterButton></HomeFooterButton>
+    <!-- <HomeFooterButton></HomeFooterButton> -->
   </div>
 </template>
 <script>
@@ -68,9 +62,9 @@ export default {
   data() {
     return {
       header: {
-        new: "New",
-        accept: "Accept",
-        history: "History"
+        new: "Remaining",
+        accept: "History",
+        history: "Complete"
       },
       customers: [
         {
@@ -81,8 +75,7 @@ export default {
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "No Internet Connection"
+          assigned: "Not Assigned"
         },
         {
           name: "5531",
@@ -92,8 +85,7 @@ export default {
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "Broke"
+          assigned: "Not Assigned"
         },
         {
           name: "5531",
@@ -103,8 +95,7 @@ export default {
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "Wifi Error"
+          assigned: "Not Assigned"
         },
         {
           name: "5531",
@@ -114,8 +105,7 @@ export default {
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "Cable Error"
+          assigned: "Not Assigned"
         },
         {
           name: "5531",
@@ -125,8 +115,7 @@ export default {
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "Something"
+          assigned: "Not Assigned"
         }
       ]
     };
