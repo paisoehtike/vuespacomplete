@@ -5,10 +5,10 @@
         <Header></Header>
       </div>
       <div class="home-customer-header-button">
-        <HomeHeaderButton>
-          <template v-slot:new>{{header.new}}</template>
-          <template v-slot:accept>{{header.accept}}</template>
-          <template v-slot:history>{{header.history}}</template>
+        <HomeHeaderButton :firstUrl="url.remain" :secondUrl="url.history" :thirdUrl="url.complete">
+          <template v-slot:new>{{label.remain}}</template>
+          <template v-slot:accept>{{label.history}}</template>
+          <template v-slot:history>{{label.complete}}</template>
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
@@ -27,10 +27,6 @@
             :value="customer.customerName"
             :address="customer.address"
           ></CustomerDetailChip>
-          <CustomerHomeFooterButton slot="customer-home-footer">
-            <template v-slot:assign>{{customer.assigned}}</template>
-            <a class="btn" slot="button">Accept</a>
-          </CustomerHomeFooterButton>
         </Customer>
       </div>
     </div>
@@ -65,10 +61,15 @@ export default {
   },
   data() {
     return {
-      header: {
-        new: "Remaining",
-        accept: "History",
-        history: "Complete"
+      url: {
+        remain: '/lsp-home/remaining',
+        history: '/lsp-home/history',
+        complete: '/lsp-home/complete'
+      },
+      label: {
+        remain: "Remaining",
+        history: "History",
+        complete: "Complete"
       },
       customers: [
         {
