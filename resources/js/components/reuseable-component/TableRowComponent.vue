@@ -26,7 +26,11 @@ export default {
                 status: "Status",
                 planName: "Plan Name",
                 promoName: "Promo Name",
-                createdDate: "Created Date"
+                createdDate: "Created Date",
+                leaderName: "Leader Name",
+                manPower: "Man Power",
+                assignJob: "Assigned Job",
+                remainJob: "Remaining Job"
             },
         }
     },

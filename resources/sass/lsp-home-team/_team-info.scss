@@ -1,0 +1,18 @@
+.team-info-container {
+  grid-column: 2/3;
+  z-index: 1000;
+
+  table {
+    border: 1px solid $border-gery;
+    .table-row-component {
+      border-bottom: 1px solid $border-gery;
+    }
+    tr {
+      border: none;
+    }
+    td {
+      background-color: $text-white;
+      border-radius: 0;
+    }
+  }
+}
