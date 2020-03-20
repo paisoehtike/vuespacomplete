@@ -1,0 +1,44 @@
+.create-team-container {
+  display: grid;
+  grid-template-columns: 5% 70% auto 5%;
+
+  .create-team-header,
+  .create-team-name,
+  .create-leader-name,
+  .create-man-power {
+    grid-column: 2/3;
+    label {
+        color: $text-black;
+        font-size: 14px;
+    }
+  }
+
+  .create-team-header {
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 27px;
+    i {
+      margin-top: 7px;
+      margin-right: 30px;
+    }
+    h5 {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+  }
+  
+  .create-button {
+    grid-column: 2/4;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 5% auto 5%;
+    bottom: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+
+    a {
+      grid-column: 2/3;
+      width: 100%;
+    }
+  }
+}

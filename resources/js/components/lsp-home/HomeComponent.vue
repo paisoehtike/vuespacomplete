@@ -76,7 +76,7 @@ export default {
       header: {
         new: 'New',
         accept: 'Accept',
-        history: 'Historys'
+        history: 'History'
       },
       customers: [
         {

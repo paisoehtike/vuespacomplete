@@ -7,10 +7,13 @@ import Accept from './components/lsp-home/AcceptComponent'
 import OnCall from './components/lsp-on-call/OnCallComponent'
 import OnCallAccept from './components/lsp-on-call/OnCallAcceptComponent'
 import OnCallHistory from './components/lsp-on-call/OnCallHistoryComponent'
-import LSPTeamRemaining from './components/lsp-team-home/LSPTeamRemainingComponent'
+import LSPTeamRemaining from './components/lsp-team/LSPTeamRemainingComponent'
 import History from './components/lsp-home/HistoryComponent'
-import LSPTeamHistory from './components/lsp-team-home/LSPTeamHistoryComponent'
-import LSPTeamComplete from './components/lsp-team-home/LSPTeamCompleteComponent'
+import LSPTeamHistory from './components/lsp-team/LSPTeamHistoryComponent'
+import LSPTeamComplete from './components/lsp-team/LSPTeamCompleteComponent'
+import TeamIndex from './components/lsp-home-team/TeamIndexComponent'
+import TeamCreate from './components/lsp-home-team/CreateTeamComponent'
+import Inventroy from './components/lsp-home-inventory/InventoryComponent'
 
 export default {
     mode: 'history',
@@ -29,15 +32,18 @@ export default {
         },
         {
             path: '/home/new',
-            component: Home
+            component: Home,
+            name: 'home-new'
         },
         {
             path: '/home/accept',
-            component: Accept
+            component: Accept,
+            name: 'home-accept'
         },
         {
             path: '/home/history',
-            component: History
+            component: History,
+            name: 'home-history'
         },
         {
             path: '/on-call/new',
@@ -52,6 +58,14 @@ export default {
             component: OnCallHistory
         },
         {
+            path: '/team',
+            component: TeamIndex
+        },
+        {
+            path: '/team/create',
+            component: TeamCreate
+        },
+        {
             path: '/lsp-home/remaining',
             component: LSPTeamRemaining
         },
@@ -63,6 +77,9 @@ export default {
             path: '/lsp-home/complete',
             component: LSPTeamComplete
         },
-        
+        {
+            path: '/inventory',
+            component: Inventroy
+        },
     ]
 }

@@ -1,0 +1,18 @@
+.inventory-container {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;   
+
+    table {
+        grid-column: 2/3;
+
+        thead {
+            tr {
+                border-bottom: 1px solid $text-black;
+            }
+        }
+
+        .qty {
+            text-align: center;
+        }
+    }
+}
