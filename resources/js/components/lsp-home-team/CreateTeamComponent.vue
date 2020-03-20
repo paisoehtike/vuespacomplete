@@ -1,7 +1,9 @@
 <template>
   <div class="create-team-container">
     <div class="create-team-header">
-      <i class="fas fa-chevron-left"></i>
+      <router-link :to="{name: 'team'}">
+        <i class="fas fa-chevron-left chevron-icon"></i>
+      </router-link>
       <h5>Create New Team</h5>
     </div>
     <SquareImage></SquareImage>

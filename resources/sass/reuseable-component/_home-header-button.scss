@@ -2,7 +2,13 @@
     margin-bottom: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    a {
+    .router-link-active {
+      span {
+        color: $text-white;
+        background-color: $text-orange;
+      }
+    }
+    span {
       width: 100%;
       background-color: $text-white;
       color: $text-gery;

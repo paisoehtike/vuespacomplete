@@ -38,16 +38,17 @@ export default {
         {
             path: '/home/accept',
             component: Accept,
-            name: 'home-accept'
+            // name: 'home-accept'
         },
         {
             path: '/home/history',
             component: History,
-            name: 'home-history'
+            // name: 'home-history'
         },
         {
             path: '/on-call/new',
-            component: OnCall
+            component: OnCall,
+            name: 'on-call-new'
         },
         {
             path: '/on-call/accept',
@@ -59,11 +60,13 @@ export default {
         },
         {
             path: '/team',
-            component: TeamIndex
+            component: TeamIndex,
+            name: 'team'
         },
         {
             path: '/team/create',
-            component: TeamCreate
+            component: TeamCreate,
+            name: 'team-create'
         },
         {
             path: '/lsp-home/remaining',
@@ -79,7 +82,8 @@ export default {
         },
         {
             path: '/inventory',
-            component: Inventroy
+            component: Inventroy,
+            name: 'inventory'
         },
     ]
 }

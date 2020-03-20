@@ -18,10 +18,12 @@
     </div>
 
     <div class="create-new-team-button">
-      <a class="waves-effect waves-light btn orange">
-        <i class="fas fa-plus"></i>
-        <span>Create New Team</span>
-      </a>
+      <router-link :to="{name: 'team-create'}">
+        <span class="waves-effect waves-light btn orange">
+          <i class="fas fa-plus"></i>
+          <span>Create New Team</span>
+        </span>
+      </router-link>
     </div>
     <HomeFooterButton></HomeFooterButton>
   </div>

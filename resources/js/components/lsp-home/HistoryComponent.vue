@@ -5,15 +5,15 @@
         <Header></Header>
       </div>
       <div class="home-customer-header-button">
-        <HomeHeaderButton>
+        <HomeHeaderButton :firstUrl='url.new' :secondUrl='url.accept' :thirdUrl='url.history'>
           <template v-slot:new>
-            {{header.new}}
+            {{label.new}}
           </template>
           <template v-slot:accept>
-            {{header.accept}}
+            {{label.accept}}
           </template>
           <template v-slot:history>
-            {{header.history}}
+            {{label.history}}
           </template>
         </HomeHeaderButton>
       </div>
@@ -73,10 +73,15 @@ export default {
   },
   data() {
     return {
-      header: {
+      label: {
         new: 'New',
         accept: 'Accept',
         history: 'History'
+      },
+      url: {
+        new: '/home/new',
+        accept: '/home/accept',
+        history: '/home/history'
       },
       customers: [
         {

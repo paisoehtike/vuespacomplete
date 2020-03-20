@@ -278,7 +278,12 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.home-customer-header-button-container a {
+.home-customer-header-button-container .router-link-active span {
+  color: #ffffff;
+  background-color: #ec911a;
+}
+
+.home-customer-header-button-container span {
   width: 100%;
   background-color: #ffffff;
   color: #5f5f5f;
@@ -302,6 +307,24 @@
   grid-template-columns: 25% 25% 25% 25%;
 }
 
+.home-customer-footer-row .router-link-active .installation i,
+.home-customer-footer-row .router-link-active .installation span,
+.home-customer-footer-row .router-link-active .on-call i,
+.home-customer-footer-row .router-link-active .on-call span,
+.home-customer-footer-row .router-link-active .team i,
+.home-customer-footer-row .router-link-active .team span,
+.home-customer-footer-row .router-link-active .inventory i,
+.home-customer-footer-row .router-link-active .inventory span {
+  color: #ec911a;
+}
+
+.home-customer-footer-row .isInstallation i,
+.home-customer-footer-row .isInstallation span,
+.home-customer-footer-row .isOnCall i,
+.home-customer-footer-row .isOnCall span {
+  color: #ec911a;
+}
+
 .home-customer-footer-row .installation {
   grid-column: 1/2;
 }
@@ -316,6 +339,11 @@
 
 .home-customer-footer-row .inventory {
   grid-column: 4/5;
+}
+
+.home-customer-footer-row .inventory img {
+  width: 22.5px;
+  height: 18px;
 }
 
 .home-customer-footer-row a {
@@ -347,15 +375,15 @@
   right: 10px;
 }
 
-.team-index-container .create-new-team-button a {
+.team-index-container .create-new-team-button span {
   border-radius: 20px;
 }
 
-.team-index-container .create-new-team-button a i {
+.team-index-container .create-new-team-button span i {
   margin-right: 5px;
 }
 
-.team-index-container .create-new-team-button a span {
+.team-index-container .create-new-team-button span span {
   margin-bottom: 5px;
 }
 
@@ -431,9 +459,10 @@
   margin-bottom: 27px;
 }
 
-.create-team-container .create-team-header i {
+.create-team-container .create-team-header .chevron-icon {
   margin-top: 7px;
   margin-right: 30px;
+  color: #303030;
 }
 
 .create-team-container .create-team-header h5 {

@@ -173,6 +173,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -194,6 +196,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
 /* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
 /* harmony import */ var _TeamComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TeamComponent */ "./resources/js/components/lsp-home-team/TeamComponent.vue");
+//
+//
 //
 //
 //
@@ -376,10 +380,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "New",
-        accept: "Accept",
-        history: "History"
+      label: {
+        "new": 'New',
+        accept: 'Accept',
+        history: 'History'
+      },
+      url: {
+        "new": '/home/new',
+        accept: '/home/accept',
+        history: '/home/history'
       },
       customers: [(_ref = {
         name: "5531",
@@ -509,10 +518,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
+      label: {
         "new": 'New',
         accept: 'Accept',
         history: 'History'
+      },
+      url: {
+        "new": '/home/new',
+        accept: '/home/accept',
+        history: '/home/history'
       },
       customers: [(_ref = {
         name: "5531",
@@ -642,10 +656,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
+      label: {
         "new": 'New',
         accept: 'Accept',
         history: 'History'
+      },
+      url: {
+        "new": '/home/new',
+        accept: '/home/accept',
+        history: '/home/history'
       },
       customers: [(_ref = {
         name: "5531",
@@ -769,10 +788,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "New",
-        accept: "Accept",
-        history: "History"
+      label: {
+        "new": 'New',
+        accept: 'Accept',
+        history: 'History'
+      },
+      url: {
+        "new": '/on-call/new',
+        accept: '/on-call/accept',
+        history: '/on-call/history'
       },
       customers: [(_ref = {
         name: "5531",
@@ -896,10 +920,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "New",
-        accept: "Accept",
-        history: "History"
+      label: {
+        "new": 'New',
+        accept: 'Accept',
+        history: 'History'
+      },
+      url: {
+        "new": '/on-call/new',
+        accept: '/on-call/accept',
+        history: '/on-call/history'
       },
       customers: [(_ref = {
         name: "5531",
@@ -1023,10 +1052,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "New",
-        accept: "Accept",
-        history: "History"
+      label: {
+        "new": 'New',
+        accept: 'Accept',
+        history: 'History'
+      },
+      url: {
+        "new": '/on-call/new',
+        accept: '/on-call/accept',
+        history: '/on-call/history'
       },
       customers: [(_ref = {
         name: "5531",
@@ -1372,10 +1406,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "Remaining",
-        accept: "History",
-        history: "Complete"
+      url: {
+        remain: "/lsp-home/remaining",
+        history: "/lsp-home/history",
+        complete: "/lsp-home/complete"
+      },
+      label: {
+        remain: "Remaining",
+        history: "History",
+        complete: "Complete"
       },
       customers: [(_ref = {
         name: "5531",
@@ -1493,10 +1532,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "Remaining",
-        accept: "History",
-        history: "Complete"
+      url: {
+        remain: '/lsp-home/remaining',
+        history: '/lsp-home/history',
+        complete: '/lsp-home/complete'
+      },
+      label: {
+        remain: "Remaining",
+        history: "History",
+        complete: "Complete"
       },
       customers: [(_ref = {
         name: "5531",
@@ -1614,10 +1658,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5;
 
     return {
-      header: {
-        "new": "Remaining",
-        accept: "History",
-        history: "Complete"
+      url: {
+        remain: '/lsp-home/remaining',
+        history: '/lsp-home/history',
+        complete: '/lsp-home/complete'
+      },
+      label: {
+        remain: "Remaining",
+        history: "History",
+        complete: "Complete"
       },
       customers: [(_ref = {
         name: "5531",
@@ -1698,6 +1747,69 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      isInstallation: "",
+      isOnCall: "",
+      splittedUrl: ""
+    };
+  },
+  created: function created() {
+    this.splittedUrl = window.location.pathname.split("/");
+
+    if (this.splittedUrl[1] == 'home') {
+      this.isInstallation = 'isInstallation';
+    } else if (this.splittedUrl[1] == 'on-call') {
+      this.isOnCall = 'isOnCall';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue?vue&type=script&lang=js& ***!
@@ -1722,11 +1834,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["new"],
-  created: function created() {
-    console.log(this["new"], "new");
-  }
+  props: ["firstUrl", "secondUrl", "thirdUrl"]
 });
 
 /***/ }),
@@ -2455,32 +2568,33 @@ var render = function() {
     "div",
     { staticClass: "create-team-container" },
     [
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "create-team-header" },
+        [
+          _c("router-link", { attrs: { to: { name: "team" } } }, [
+            _c("i", { staticClass: "fas fa-chevron-left chevron-icon" })
+          ]),
+          _vm._v(" "),
+          _c("h5", [_vm._v("Create New Team")])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("SquareImage"),
+      _vm._v(" "),
+      _vm._m(0),
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
-      _vm._m(3),
-      _vm._v(" "),
-      _vm._m(4)
+      _vm._m(3)
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "create-team-header" }, [
-      _c("i", { staticClass: "fas fa-chevron-left" }),
-      _vm._v(" "),
-      _c("h5", [_vm._v("Create New Team")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -2662,27 +2776,27 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "create-new-team-button" },
+        [
+          _c("router-link", { attrs: { to: { name: "team-create" } } }, [
+            _c("span", { staticClass: "waves-effect waves-light btn orange" }, [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Create New Team")])
+            ])
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("HomeFooterButton")
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "create-new-team-button" }, [
-      _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-        _c("i", { staticClass: "fas fa-plus" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("Create New Team")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -2716,25 +2830,30 @@ var render = function() {
           { staticClass: "home-customer-header-button" },
           [
             _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.new,
+                secondUrl: _vm.url.accept,
+                thirdUrl: _vm.url.history
+              },
               scopedSlots: _vm._u([
                 {
                   key: "new",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.new))]
+                    return [_vm._v(_vm._s(_vm.label.new))]
                   },
                   proxy: true
                 },
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.accept))]
+                    return [_vm._v(_vm._s(_vm.label.accept))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.history))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -2867,13 +2986,18 @@ var render = function() {
           { staticClass: "home-customer-header-button" },
           [
             _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.new,
+                secondUrl: _vm.url.accept,
+                thirdUrl: _vm.url.history
+              },
               scopedSlots: _vm._u([
                 {
                   key: "new",
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n          " + _vm._s(_vm.header.new) + "\n        "
+                        "\n          " + _vm._s(_vm.label.new) + "\n        "
                       )
                     ]
                   },
@@ -2884,9 +3008,7 @@ var render = function() {
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.header.accept) +
-                          "\n        "
+                        "\n          " + _vm._s(_vm.label.accept) + "\n        "
                       )
                     ]
                   },
@@ -2898,7 +3020,7 @@ var render = function() {
                     return [
                       _vm._v(
                         "\n          " +
-                          _vm._s(_vm.header.history) +
+                          _vm._s(_vm.label.history) +
                           "\n        "
                       )
                     ]
@@ -3040,13 +3162,18 @@ var render = function() {
           { staticClass: "home-customer-header-button" },
           [
             _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.new,
+                secondUrl: _vm.url.accept,
+                thirdUrl: _vm.url.history
+              },
               scopedSlots: _vm._u([
                 {
                   key: "new",
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n          " + _vm._s(_vm.header.new) + "\n        "
+                        "\n          " + _vm._s(_vm.label.new) + "\n        "
                       )
                     ]
                   },
@@ -3057,9 +3184,7 @@ var render = function() {
                   fn: function() {
                     return [
                       _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.header.accept) +
-                          "\n        "
+                        "\n          " + _vm._s(_vm.label.accept) + "\n        "
                       )
                     ]
                   },
@@ -3071,7 +3196,7 @@ var render = function() {
                     return [
                       _vm._v(
                         "\n          " +
-                          _vm._s(_vm.header.history) +
+                          _vm._s(_vm.label.history) +
                           "\n        "
                       )
                     ]
@@ -3213,25 +3338,30 @@ var render = function() {
           { staticClass: "home-customer-header-button" },
           [
             _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.new,
+                secondUrl: _vm.url.accept,
+                thirdUrl: _vm.url.history
+              },
               scopedSlots: _vm._u([
                 {
                   key: "new",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.new))]
+                    return [_vm._v(_vm._s(_vm.label.new))]
                   },
                   proxy: true
                 },
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.accept))]
+                    return [_vm._v(_vm._s(_vm.label.accept))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.history))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -3380,25 +3510,30 @@ var render = function() {
           { staticClass: "home-customer-header-button" },
           [
             _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.new,
+                secondUrl: _vm.url.accept,
+                thirdUrl: _vm.url.history
+              },
               scopedSlots: _vm._u([
                 {
                   key: "new",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.new))]
+                    return [_vm._v(_vm._s(_vm.label.new))]
                   },
                   proxy: true
                 },
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.accept))]
+                    return [_vm._v(_vm._s(_vm.label.accept))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.history))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -3547,25 +3682,30 @@ var render = function() {
           { staticClass: "home-customer-header-button" },
           [
             _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.new,
+                secondUrl: _vm.url.accept,
+                thirdUrl: _vm.url.history
+              },
               scopedSlots: _vm._u([
                 {
                   key: "new",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.new))]
+                    return [_vm._v(_vm._s(_vm.label.new))]
                   },
                   proxy: true
                 },
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.accept))]
+                    return [_vm._v(_vm._s(_vm.label.accept))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.header.history))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -3965,25 +4105,30 @@ var render = function() {
         { staticClass: "home-customer-header-button" },
         [
           _c("HomeHeaderButton", {
+            attrs: {
+              firstUrl: _vm.url.remain,
+              secondUrl: _vm.url.history,
+              thirdUrl: _vm.url.complete
+            },
             scopedSlots: _vm._u([
               {
                 key: "new",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.new))]
+                  return [_vm._v(_vm._s(_vm.label.remain))]
                 },
                 proxy: true
               },
               {
                 key: "accept",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.accept))]
+                  return [_vm._v(_vm._s(_vm.label.history))]
                 },
                 proxy: true
               },
               {
                 key: "history",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.history))]
+                  return [_vm._v(_vm._s(_vm.label.complete))]
                 },
                 proxy: true
               }
@@ -4069,25 +4214,30 @@ var render = function() {
         { staticClass: "home-customer-header-button" },
         [
           _c("HomeHeaderButton", {
+            attrs: {
+              firstUrl: _vm.url.remain,
+              secondUrl: _vm.url.history,
+              thirdUrl: _vm.url.complete
+            },
             scopedSlots: _vm._u([
               {
                 key: "new",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.new))]
+                  return [_vm._v(_vm._s(_vm.label.remain))]
                 },
                 proxy: true
               },
               {
                 key: "accept",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.accept))]
+                  return [_vm._v(_vm._s(_vm.label.history))]
                 },
                 proxy: true
               },
               {
                 key: "history",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.history))]
+                  return [_vm._v(_vm._s(_vm.label.complete))]
                 },
                 proxy: true
               }
@@ -4173,25 +4323,30 @@ var render = function() {
         { staticClass: "home-customer-header-button" },
         [
           _c("HomeHeaderButton", {
+            attrs: {
+              firstUrl: _vm.url.remain,
+              secondUrl: _vm.url.history,
+              thirdUrl: _vm.url.complete
+            },
             scopedSlots: _vm._u([
               {
                 key: "new",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.new))]
+                  return [_vm._v(_vm._s(_vm.label.remain))]
                 },
                 proxy: true
               },
               {
                 key: "accept",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.accept))]
+                  return [_vm._v(_vm._s(_vm.label.history))]
                 },
                 proxy: true
               },
               {
                 key: "history",
                 fn: function() {
-                  return [_vm._v(_vm._s(_vm.header.history))]
+                  return [_vm._v(_vm._s(_vm.label.complete))]
                 },
                 proxy: true
               }
@@ -4403,48 +4558,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "home-customer-footer-row" }, [
-      _c("a", { staticClass: "installation" }, [
-        _c("i", { staticClass: "fas fa-cogs" }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("span", [_vm._v("Installation")])
+  return _c(
+    "div",
+    { staticClass: "home-customer-footer-row" },
+    [
+      _c("router-link", { attrs: { to: { name: "home-new" } } }, [
+        _c("span", { staticClass: "installation", class: _vm.isInstallation }, [
+          _c("i", { staticClass: "fas fa-cogs" }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [_vm._v("Installation")])
+        ])
       ]),
       _vm._v(" "),
-      _c("a", { staticClass: "on-call" }, [
-        _c("i", { staticClass: "fas fa-tools" }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("span", [_vm._v("On Call")])
+      _c("router-link", { attrs: { to: { name: "on-call-new" } } }, [
+        _c("span", { staticClass: "on-call", class: _vm.isOnCall }, [
+          _c("i", { staticClass: "fas fa-tools" }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [_vm._v("On Call")])
+        ])
       ]),
       _vm._v(" "),
-      _c("a", { staticClass: "team" }, [
-        _c("i", { staticClass: "fas fa-users" }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("span", [_vm._v("Team")])
+      _c("router-link", { attrs: { to: { name: "team" } } }, [
+        _c("span", { staticClass: "team" }, [
+          _c("i", { staticClass: "fas fa-users" }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [_vm._v("Team")])
+        ])
       ]),
       _vm._v(" "),
-      _c("a", { staticClass: "inventory" }, [
-        _c("img", { attrs: { src: "/images/icons/shelf.png", alt: "" } }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("span", [_vm._v("Inventory")])
+      _c("router-link", { attrs: { to: { name: "inventory" } } }, [
+        _c("span", { staticClass: "inventory" }, [
+          _vm.splittedUrl[1] == "inventory"
+            ? _c("img", {
+                attrs: { src: "/images/icons/shelf-1.png", alt: "" }
+              })
+            : _c("img", { attrs: { src: "/images/icons/shelf.png", alt: "" } }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("span", [_vm._v("Inventory")])
+        ])
       ])
-    ])
-  }
-]
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -4470,23 +4635,27 @@ var render = function() {
     "div",
     { staticClass: "home-customer-header-button-container" },
     [
-      _c("router-link", { attrs: { to: { name: "home-new" } } }, [
-        _c("a", { staticClass: "waves-effect btn new" }, [_vm._t("new")], 2)
+      _c("router-link", { attrs: { to: _vm.firstUrl } }, [
+        _c("span", { staticClass: "waves-effect btn new" }, [_vm._t("new")], 2)
       ]),
       _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "waves-effect btn accept" },
-        [_vm._t("accept")],
-        2
-      ),
+      _c("router-link", { attrs: { to: _vm.secondUrl } }, [
+        _c(
+          "span",
+          { staticClass: "waves-effect btn accept" },
+          [_vm._t("accept")],
+          2
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "waves-effect btn history" },
-        [_vm._t("history")],
-        2
-      )
+      _c("router-link", { attrs: { to: _vm.thirdUrl } }, [
+        _c(
+          "span",
+          { staticClass: "waves-effect btn history" },
+          [_vm._t("history")],
+          2
+        )
+      ])
     ],
     1
   )
@@ -21237,15 +21406,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HomeFooterButtonComponent_vue_vue_type_template_id_0e0c63c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HomeFooterButtonComponent.vue?vue&type=template&id=0e0c63c5& */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=template&id=0e0c63c5&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _HomeFooterButtonComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HomeFooterButtonComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HomeFooterButtonComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _HomeFooterButtonComponent_vue_vue_type_template_id_0e0c63c5___WEBPACK_IMPORTED_MODULE_0__["render"],
   _HomeFooterButtonComponent_vue_vue_type_template_id_0e0c63c5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -21259,6 +21430,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/reuseable-component/HomeFooterButtonComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeFooterButtonComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HomeFooterButtonComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeFooterButtonComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -21963,15 +22148,16 @@ __webpack_require__.r(__webpack_exports__);
     name: 'home-new'
   }, {
     path: '/home/accept',
-    component: _components_lsp_home_AcceptComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    name: 'home-accept'
+    component: _components_lsp_home_AcceptComponent__WEBPACK_IMPORTED_MODULE_4__["default"] // name: 'home-accept'
+
   }, {
     path: '/home/history',
-    component: _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
-    name: 'home-history'
+    component: _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_9__["default"] // name: 'home-history'
+
   }, {
     path: '/on-call/new',
-    component: _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
+    name: 'on-call-new'
   }, {
     path: '/on-call/accept',
     component: _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -21980,10 +22166,12 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/team',
-    component: _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_12__["default"],
+    name: 'team'
   }, {
     path: '/team/create',
-    component: _components_lsp_home_team_CreateTeamComponent__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _components_lsp_home_team_CreateTeamComponent__WEBPACK_IMPORTED_MODULE_13__["default"],
+    name: 'team-create'
   }, {
     path: '/lsp-home/remaining',
     component: _components_lsp_team_LSPTeamRemainingComponent__WEBPACK_IMPORTED_MODULE_8__["default"]
@@ -21995,7 +22183,8 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_lsp_team_LSPTeamCompleteComponent__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
     path: '/inventory',
-    component: _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_14__["default"]
+    component: _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_14__["default"],
+    name: 'inventory'
   }]
 });
 

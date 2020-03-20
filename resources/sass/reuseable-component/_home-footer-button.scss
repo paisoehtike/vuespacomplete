@@ -8,6 +8,26 @@
   border-right: 0;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
+  .router-link-active {
+    .installation,
+    .on-call,
+    .team,
+    .inventory {
+      i,
+      span {
+        color: $text-orange;
+      }
+    }
+  }
+
+  .isInstallation,
+  .isOnCall {
+    i,
+    span {
+      color: $text-orange;
+    }
+  }
+
   .installation {
     grid-column: 1/2;
   }
@@ -19,6 +39,10 @@
   }
   .inventory {
     grid-column: 4/5;
+    img {
+      width: 22.5px;
+      height: 18px;
+    }
   }
   a {
     width: 100%;

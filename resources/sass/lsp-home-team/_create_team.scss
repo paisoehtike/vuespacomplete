@@ -17,9 +17,10 @@
     display: flex;
     margin-top: 16px;
     margin-bottom: 27px;
-    i {
+    .chevron-icon {
       margin-top: 7px;
       margin-right: 30px;
+      color: $text-black;
     }
     h5 {
       margin-top: 0;
