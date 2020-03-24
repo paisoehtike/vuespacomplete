@@ -15,6 +15,7 @@ import TeamIndex from './components/lsp-home-team/TeamIndexComponent'
 import TeamDetail from './components/lsp-home-team/TeamDetailComponent'
 import TeamCreate from './components/lsp-home-team/CreateTeamComponent'
 import Inventroy from './components/lsp-home-inventory/InventoryComponent'
+import LSPOrderDetail from './components/lsp-team-order-detail/LSPOrderDetailComponent'
 
 export default {
     mode: 'history',
@@ -90,6 +91,10 @@ export default {
             path: '/inventory',
             component: Inventroy,
             name: 'inventory'
+        },
+        {
+            path: '/lsp-order/detail',
+            component: LSPOrderDetail
         },
     ]
 }
