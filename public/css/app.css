@@ -128,6 +128,7 @@
 }
 
 .customer-home-container {
+  grid-column: 2/3;
   border-radius: 15px;
   box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -273,9 +274,15 @@
 }
 
 .home-customer-header-button-container {
+  grid-column: 2/3;
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.home-customer-header-button-container span:hover {
+  background-color: #ffffff;
+  color: #5f5f5f;
 }
 
 .home-customer-header-button-container .router-link-active span {
@@ -483,6 +490,98 @@
 .create-team-container .create-button a {
   grid-column: 2/3;
   width: 100%;
+}
+
+.team-detail-container {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+}
+
+.team-detail-container .detail-header-row {
+  grid-column: 2/3;
+  display: flex;
+  margin-top: 16px;
+}
+
+.team-detail-container .detail-header-row i {
+  margin-top: 7px;
+  margin-right: 30px;
+}
+
+.team-detail-container .detail-header-row h5 {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.team-detail-container .detail-header-row .fa-edit {
+  margin-left: auto;
+  z-index: 1000;
+  font-size: 20px;
+}
+
+.team-detail-container .detail-button {
+  grid-column: 2/3;
+  margin-top: 31px;
+  display: grid;
+  grid-template-columns: 5% 30% 30% 30% 5%;
+  text-align: center;
+}
+
+.team-detail-container .detail-button .button {
+  color: #5f5f5f;
+}
+
+.team-detail-container .detail-button .remain {
+  grid-column: 2/3;
+}
+
+.team-detail-container .detail-button .complete {
+  grid-column: 3/4;
+}
+
+.team-detail-container .detail-button .history {
+  grid-column: 4/5;
+}
+
+.team-detail-container .detail-button .remain,
+.team-detail-container .detail-button .complete,
+.team-detail-container .detail-button .history {
+  cursor: pointer;
+}
+
+.team-detail-container .detail-button .remain-class,
+.team-detail-container .detail-button .complete-class,
+.team-detail-container .detail-button .history-class {
+  border-bottom: 2px solid #ec911a;
+  color: #303030;
+  font-weight: bold;
+}
+
+.team-detail-container .team-customer-detail {
+  grid-column: 2/3;
+  margin-top: 20px;
+}
+
+.team-info-container {
+  grid-column: 2/3;
+  z-index: 1000;
+}
+
+.team-info-container table {
+  border: 1px solid #d8d8d8;
+}
+
+.team-info-container table .table-row-component {
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.team-info-container table tr {
+  border: none;
+}
+
+.team-info-container table td {
+  background-color: #ffffff;
+  border-radius: 0;
 }
 
 .inventory-container {

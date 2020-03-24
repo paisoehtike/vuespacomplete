@@ -12,6 +12,7 @@ import History from './components/lsp-home/HistoryComponent'
 import LSPTeamHistory from './components/lsp-team/LSPTeamHistoryComponent'
 import LSPTeamComplete from './components/lsp-team/LSPTeamCompleteComponent'
 import TeamIndex from './components/lsp-home-team/TeamIndexComponent'
+import TeamDetail from './components/lsp-home-team/TeamDetailComponent'
 import TeamCreate from './components/lsp-home-team/CreateTeamComponent'
 import Inventroy from './components/lsp-home-inventory/InventoryComponent'
 
@@ -62,6 +63,11 @@ export default {
             path: '/team',
             component: TeamIndex,
             name: 'team'
+        },
+        {
+            path: '/team/detail/:id',
+            component: TeamDetail,
+            name: 'team-detail'
         },
         {
             path: '/team/create',
