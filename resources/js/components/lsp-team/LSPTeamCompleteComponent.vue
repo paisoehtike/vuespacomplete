@@ -21,6 +21,10 @@
           <CustomerIssueDate slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
             {{customer.date}}
+            <template
+              v-slot:priority-date
+              v-if="customer.priority"
+            >| {{customer.priority}} Hrs</template>
           </CustomerIssueDate>
           <CustomerDetailChip
             slot="customer-detail-chip"

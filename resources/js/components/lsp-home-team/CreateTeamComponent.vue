@@ -15,8 +15,17 @@
       <label for="Name">Leader Name:</label>
       <input type="text" />
     </div>
+    <div class="create-phone-number">
+      <label for="Name">Phone Number:</label>
+      <input type="text" />
+    </div>
+    <div class="create-password">
+      <label for="Name">First Time Password:</label>
+      <input type="text" />
+    </div>
     <div class="create-man-power">
       <label for="Name">Man Power:</label>
+      <br />
       <input type="text" />
     </div>
     <div class="create-button">

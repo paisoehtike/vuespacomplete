@@ -48,9 +48,9 @@
           }
         }
         .customer-date {
-          text-align: end;
+          text-align: end; 
 
-          .issue {
+          .priority, .issue {
             color: $text-red;
           }
         }

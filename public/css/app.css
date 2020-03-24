@@ -37,17 +37,22 @@
   margin-bottom: 30px;
 }
 
+.order-container .order-assigned-row {
+  display: flex;
+  align-items: center;
+}
+
 .order-container .order-assigned-row span {
   margin-right: 16px;
 }
 
 .order-container .order-assigned-row a {
-  width: 120px;
-  height: 40px;
+  width: 100px;
   box-shadow: none;
   background-color: #ffffff;
   color: #ec911a;
   border: 1px solid #e7eaeb;
+  border-radius: 15px;
 }
 
 .order-container .order-button {
@@ -103,8 +108,17 @@
   margin: 0;
 }
 
+.order-detail-container .order-type {
+  margin-bottom: 10px;
+}
+
 .order-detail-container .order-type p {
   margin: 0;
+}
+
+.order-detail-container .order-type .issue,
+.order-detail-container .order-type .priority-level {
+  color: #ed1c24;
 }
 
 .order-info-container .order-info-detail-row table {
@@ -188,6 +202,7 @@
   text-align: end;
 }
 
+.customer-home-container .home-customer-container .customer-header-row .customer-type-container .customer-date .priority,
 .customer-home-container .home-customer-container .customer-header-row .customer-type-container .customer-date .issue {
   color: #ed1c24;
 }
@@ -448,6 +463,8 @@
 .create-team-container .create-team-header,
 .create-team-container .create-team-name,
 .create-team-container .create-leader-name,
+.create-team-container .create-phone-number,
+.create-team-container .create-password,
 .create-team-container .create-man-power {
   grid-column: 2/3;
 }
@@ -455,6 +472,8 @@
 .create-team-container .create-team-header label,
 .create-team-container .create-team-name label,
 .create-team-container .create-leader-name label,
+.create-team-container .create-phone-number label,
+.create-team-container .create-password label,
 .create-team-container .create-man-power label {
   color: #303030;
   font-size: 14px;
@@ -475,6 +494,10 @@
 .create-team-container .create-team-header h5 {
   margin-top: 0;
   margin-bottom: 30px;
+}
+
+.create-team-container .create-man-power input {
+  width: 100px;
 }
 
 .create-team-container .create-button {

@@ -175,6 +175,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -568,6 +577,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -596,14 +609,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       label: {
-        "new": 'New',
-        accept: 'Accept',
-        history: 'History'
+        "new": "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        "new": '/home/new',
-        accept: '/home/accept',
-        history: '/home/history'
+        "new": "/home/new",
+        accept: "/home/accept",
+        history: "/home/history"
       },
       customers: [(_ref = {
         name: "5531",
@@ -702,10 +715,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -734,14 +743,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       label: {
-        "new": 'New',
-        accept: 'Accept',
-        history: 'History'
+        "new": "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        "new": '/home/new',
-        accept: '/home/accept',
-        history: '/home/history'
+        "new": "/home/new",
+        accept: "/home/accept",
+        history: "/home/history"
       },
       customers: [(_ref = {
         name: "5531",
@@ -840,10 +849,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -872,41 +877,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       label: {
-        "new": 'New',
-        accept: 'Accept',
-        history: 'History'
+        "new": "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        "new": '/home/new',
-        accept: '/home/accept',
-        history: '/home/history'
+        "new": "/home/new",
+        accept: "/home/accept",
+        history: "/home/history"
       },
       customers: [(_ref = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
         customerType: "VIP"
-      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
+      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _defineProperty(_ref, "priority", "24"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
         customerType: "VIP"
-      }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
+      }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _defineProperty(_ref2, "priority", "24"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
         customerType: "VIP"
-      }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
+      }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _defineProperty(_ref3, "priority", "24"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
         customerType: "VIP"
-      }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
+      }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _defineProperty(_ref4, "priority", "24"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
         customerType: "VIP"
-      }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
+      }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
     };
   }
 });
@@ -976,6 +981,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1004,21 +1013,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       label: {
-        "new": 'New',
-        accept: 'Accept',
-        history: 'History'
+        "new": "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        "new": '/on-call/new',
-        accept: '/on-call/accept',
-        history: '/on-call/history'
+        "new": "/on-call/new",
+        accept: "/on-call/accept",
+        history: "/on-call/history"
       },
       customers: [(_ref = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
         customerType: "VIP"
-      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _defineProperty(_ref, "issue", "No Internet Connection"), _ref), (_ref2 = {
+      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _defineProperty(_ref, "issue", "No Internet Connection"), _defineProperty(_ref, "priority", "24"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
@@ -1108,6 +1117,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1136,14 +1149,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       label: {
-        "new": 'New',
-        accept: 'Accept',
-        history: 'History'
+        "new": "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        "new": '/on-call/new',
-        accept: '/on-call/accept',
-        history: '/on-call/history'
+        "new": "/on-call/new",
+        accept: "/on-call/accept",
+        history: "/on-call/history"
       },
       customers: [(_ref = {
         name: "5531",
@@ -1240,6 +1253,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1268,14 +1285,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     return {
       label: {
-        "new": 'New',
-        accept: 'Accept',
-        history: 'History'
+        "new": "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        "new": '/on-call/new',
-        accept: '/on-call/accept',
-        history: '/on-call/history'
+        "new": "/on-call/new",
+        accept: "/on-call/accept",
+        history: "/on-call/history"
       },
       customers: [(_ref = {
         name: "5531",
@@ -1377,6 +1394,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1418,7 +1445,10 @@ __webpack_require__.r(__webpack_exports__);
       customerType: "VVIP",
       orderStep: "Splicing",
       orderDetailID: "5531",
-      orderType: "On Call"
+      orderType: "On Call",
+      issueType: "No Internet Connection",
+      dueDate: "2020/1/19",
+      priorityLevel: "24"
     };
   }
 });
@@ -1594,6 +1624,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1720,6 +1754,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1810,6 +1848,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -2808,7 +2850,11 @@ var render = function() {
       _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
-      _vm._m(3)
+      _vm._m(3),
+      _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
+      _vm._m(5)
     ],
     1
   )
@@ -2838,8 +2884,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "create-phone-number" }, [
+      _c("label", { attrs: { for: "Name" } }, [_vm._v("Phone Number:")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "create-password" }, [
+      _c("label", { attrs: { for: "Name" } }, [_vm._v("First Time Password:")]),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "text" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "create-man-power" }, [
       _c("label", { attrs: { for: "Name" } }, [_vm._v("Man Power:")]),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c("input", { attrs: { type: "text" } })
     ])
@@ -3467,10 +3535,32 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "CustomerIssueDate",
-                  { attrs: { slot: "customer-date" }, slot: "customer-date" },
+                  {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        customer.priority
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    "| " + _vm._s(customer.priority) + " Hrs"
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null
+                      ],
+                      null,
+                      true
+                    )
+                  },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n        "
+                      "\n          " + _vm._s(customer.date) + "\n          "
                     )
                   ]
                 ),
@@ -3572,35 +3662,21 @@ var render = function() {
                 {
                   key: "new",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n          " + _vm._s(_vm.label.new) + "\n        "
-                      )
-                    ]
+                    return [_vm._v(_vm._s(_vm.label.new))]
                   },
                   proxy: true
                 },
                 {
                   key: "accept",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n          " + _vm._s(_vm.label.accept) + "\n        "
-                      )
-                    ]
+                    return [_vm._v(_vm._s(_vm.label.accept))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.label.history) +
-                          "\n        "
-                      )
-                    ]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -3637,10 +3713,32 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "CustomerIssueDate",
-                  { attrs: { slot: "customer-date" }, slot: "customer-date" },
+                  {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        customer.priority
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    "| " + _vm._s(customer.priority) + " Hrs"
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null
+                      ],
+                      null,
+                      true
+                    )
+                  },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n        "
+                      "\n          " + _vm._s(customer.date) + "\n          "
                     )
                   ]
                 ),
@@ -3664,13 +3762,7 @@ var render = function() {
                         {
                           key: "assign",
                           fn: function() {
-                            return [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(customer.assigned) +
-                                  "\n          "
-                              )
-                            ]
+                            return [_vm._v(_vm._s(customer.assigned))]
                           },
                           proxy: true
                         }
@@ -3748,35 +3840,21 @@ var render = function() {
                 {
                   key: "new",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n          " + _vm._s(_vm.label.new) + "\n        "
-                      )
-                    ]
+                    return [_vm._v(_vm._s(_vm.label.new))]
                   },
                   proxy: true
                 },
                 {
                   key: "accept",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n          " + _vm._s(_vm.label.accept) + "\n        "
-                      )
-                    ]
+                    return [_vm._v(_vm._s(_vm.label.accept))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [
-                      _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.label.history) +
-                          "\n        "
-                      )
-                    ]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -3813,10 +3891,32 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "CustomerIssueDate",
-                  { attrs: { slot: "customer-date" }, slot: "customer-date" },
+                  {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        customer.priority
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    "| " + _vm._s(customer.priority) + " Hrs"
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null
+                      ],
+                      null,
+                      true
+                    )
+                  },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n        "
+                      "\n          " + _vm._s(customer.date) + "\n          "
                     )
                   ]
                 ),
@@ -3840,13 +3940,7 @@ var render = function() {
                         {
                           key: "assign",
                           fn: function() {
-                            return [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(customer.assigned) +
-                                  "\n          "
-                              )
-                            ]
+                            return [_vm._v(_vm._s(customer.assigned))]
                           },
                           proxy: true
                         }
@@ -3980,6 +4074,19 @@ var render = function() {
                     slot: "customer-date",
                     scopedSlots: _vm._u(
                       [
+                        customer.priority
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    "| " + _vm._s(customer.priority) + " Hrs"
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
                         {
                           key: "issue",
                           fn: function() {
@@ -4152,6 +4259,19 @@ var render = function() {
                     slot: "customer-date",
                     scopedSlots: _vm._u(
                       [
+                        customer.priority
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    "| " + _vm._s(customer.priority) + " Hrs"
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
                         {
                           key: "issue",
                           fn: function() {
@@ -4324,6 +4444,19 @@ var render = function() {
                     slot: "customer-date",
                     scopedSlots: _vm._u(
                       [
+                        customer.priority
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    "| " + _vm._s(customer.priority) + " Hrs"
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
                         {
                           key: "issue",
                           fn: function() {
@@ -4445,7 +4578,35 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "order-type" }, [
-            _c("p", [_vm._v(_vm._s(_vm.orderType))])
+            _c("p", [
+              _vm._v("Order Type : "),
+              _c("span", [_vm._v(_vm._s(_vm.orderType))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "order-type" }, [
+            _c("p", [
+              _vm._v("Possible Issue : "),
+              _c("span", { staticClass: "issue" }, [
+                _vm._v(_vm._s(_vm.issueType))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "order-type" }, [
+            _c("p", [
+              _vm._v("Due Date : "),
+              _c("span", [_vm._v(_vm._s(_vm.dueDate))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "order-type" }, [
+            _c("p", [
+              _vm._v("Priority Level : "),
+              _c("span", { staticClass: "priority-level" }, [
+                _vm._v(_vm._s(_vm.priorityLevel) + " Hrs")
+              ])
+            ])
           ])
         ])
       ],
@@ -4509,6 +4670,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "order-assigned-row" }, [
+      _c("span", [_vm._v("Assigned Team :")]),
+      _vm._v(" "),
       _c("span", [_vm._v("Not Assigned")]),
       _vm._v(" "),
       _c("a", { staticClass: "waves-effect btn" }, [_vm._v("Assign")])
@@ -4739,8 +4902,34 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "CustomerIssueDate",
-                { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                [_vm._v("\n          " + _vm._s(customer.date) + "\n        ")]
+                {
+                  attrs: { slot: "customer-date" },
+                  slot: "customer-date",
+                  scopedSlots: _vm._u(
+                    [
+                      customer.priority
+                        ? {
+                            key: "priority-date",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  "| " + _vm._s(customer.priority) + " Hrs"
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null
+                    ],
+                    null,
+                    true
+                  )
+                },
+                [
+                  _vm._v(
+                    "\n          " + _vm._s(customer.date) + "\n          "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("CustomerDetailChip", {
@@ -4848,8 +5037,34 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "CustomerIssueDate",
-                { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                [_vm._v("\n          " + _vm._s(customer.date) + "\n        ")]
+                {
+                  attrs: { slot: "customer-date" },
+                  slot: "customer-date",
+                  scopedSlots: _vm._u(
+                    [
+                      customer.priority
+                        ? {
+                            key: "priority-date",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  "| " + _vm._s(customer.priority) + " Hrs"
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null
+                    ],
+                    null,
+                    true
+                  )
+                },
+                [
+                  _vm._v(
+                    "\n          " + _vm._s(customer.date) + "\n          "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("CustomerDetailChip", {
@@ -4957,8 +5172,34 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "CustomerIssueDate",
-                { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                [_vm._v("\n          " + _vm._s(customer.date) + "\n        ")]
+                {
+                  attrs: { slot: "customer-date" },
+                  slot: "customer-date",
+                  scopedSlots: _vm._u(
+                    [
+                      customer.priority
+                        ? {
+                            key: "priority-date",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  "| " + _vm._s(customer.priority) + " Hrs"
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null
+                    ],
+                    null,
+                    true
+                  )
+                },
+                [
+                  _vm._v(
+                    "\n          " + _vm._s(customer.date) + "\n          "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("CustomerDetailChip", {
@@ -5081,6 +5322,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "customer-date" }, [
     _c("span", [_vm._t("default")], 2),
+    _vm._v(" "),
+    _c("span", { staticClass: "priority" }, [_vm._t("priority-date")], 2),
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),

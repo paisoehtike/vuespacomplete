@@ -17,11 +17,21 @@
           <h4>{{orderDetailID}}</h4>
         </div>
         <div class="order-type">
-          <p>{{orderType}}</p>
+          <p>Order Type : <span>{{orderType}}</span></p>
+        </div>
+        <div class="order-type">
+          <p>Possible Issue : <span class="issue">{{issueType}}</span></p>
+        </div>
+        <div class="order-type">
+          <p>Due Date : <span>{{dueDate}}</span></p>
+        </div>
+        <div class="order-type">
+          <p>Priority Level : <span class="priority-level">{{priorityLevel}} Hrs</span></p>
         </div>
       </OrderDetail>
     </div>
     <div class="order-assigned-row">
+      <span>Assigned Team :</span>
       <span>Not Assigned</span>
       <a class="waves-effect btn">Assign</a>
     </div>
@@ -93,7 +103,10 @@ export default {
       customerType: "VVIP",
       orderStep: "Splicing",
       orderDetailID: "5531",
-      orderType: "On Call"
+      orderType: "On Call",
+      issueType: "No Internet Connection",
+      dueDate: "2020/1/19",
+      priorityLevel: "24"
     };
   }
 };
