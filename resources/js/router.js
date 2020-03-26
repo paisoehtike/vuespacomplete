@@ -15,7 +15,10 @@ import TeamIndex from './components/lsp-home-team/TeamIndexComponent'
 import TeamDetail from './components/lsp-home-team/TeamDetailComponent'
 import TeamCreate from './components/lsp-home-team/CreateTeamComponent'
 import Inventroy from './components/lsp-home-inventory/InventoryComponent'
-import LSPOrderDetail from './components/lsp-team-order-detail/LSPOrderDetailComponent'
+import LSPOrderSurvey from './components/lsp-team-order-detail/LSPOrderSurveyComponent'
+import LSPOrderCabling from './components/lsp-team-order-detail/LSPOrderCablingComponent.vue'
+import LSPOrderSplicing from './components/lsp-team-order-detail/LSPOrderSplicingComponent.vue'
+import LSPOrderActivate from './components/lsp-team-order-detail/LSPOrderActivateComponent.vue'
 
 export default {
     mode: 'history',
@@ -93,8 +96,20 @@ export default {
             name: 'inventory'
         },
         {
-            path: '/lsp-order/detail',
-            component: LSPOrderDetail
+            path: '/lsp-order/survey',
+            component: LSPOrderSurvey
+        },
+        {
+            path: '/lsp-order/cabling',
+            component: LSPOrderCabling
+        },
+        {
+            path: '/lsp-order/splicing',
+            component: LSPOrderSplicing
+        },
+        {
+            path: '/lsp-order/activate',
+            component: LSPOrderActivate
         },
     ]
 }

@@ -16,15 +16,15 @@
         </div>
         <div class="divider"></div>
         <div class="valign-wrapper issue-remark">
-            <div>
+            <div class="ir-1">
                 <p class="remark-header">Remark</p>
             </div>
-            <div class="right">
+            <div class="right ir-2">
                 <i v-show="!isMark" @click="remark()" class="fas fa-plus add-remark"></i>
                 <i v-show="isMark" class="far fa-edit remark-setting"></i>
                 <i v-show="isMark" class="far fa-trash-alt remark-setting"></i>
             </div>
-            <div v-show="isMark" class="remark-body">
+            <div v-show="isMark" class="remark-body ir-3">
                 <p>Lat - 23.222211</p>
                 <p>Lng - 21.221122</p>
                 <p>

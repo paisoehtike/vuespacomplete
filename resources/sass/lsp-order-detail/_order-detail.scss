@@ -7,6 +7,7 @@
 .progressbar {
     counter-reset: step;
     margin: 0 auto;
+    text-align: center;
 }
 
 .progressbar li {
@@ -60,28 +61,28 @@
     content: none;
 }
 
-.progressbar li.active {
+.progressbar li.selected {
     color: #fff;
 }
 
-.progressbar .active p {
+.progressbar .selected p {
     color: #000;
 }
 
-.progressbar li:not(.active) {
+.progressbar li:not(.selected) {
     color: #000;
 }
 
-.progressbar li.active:before {
+.progressbar li.selected:before {
     border-color: #eeeeee;
     /*   background: #ddd; */
 }
 
-.progressbar li.active + li:after {
+.progressbar li.selected + li:after {
     background-color: #ffd503;
 }
 
-.progressbar li:not(.active):before {
+.progressbar li:not(.selected):before {
     background: #eeeeee;
     color: #eeeeee;
 }
@@ -128,6 +129,7 @@
 
 .button-finish {
     background: #ec911a;
+    border: none;
     width: 100%;
     padding: 12px 0;
     margin: 50px auto;
@@ -137,7 +139,7 @@
 }
 
 .issue-header .issue-name {
-    font-size: 20px;
+    font-size: 15px;
     line-height: 24px;
     color: 303030;
 }
@@ -145,10 +147,12 @@
 .issue-remark {
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-template-areas: "ir-1 ir-2"
+                         "ir-3 ir-3";
 }
 
 .remark-header {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 19px;
     color: #303030;
     font-weight: 400;
@@ -181,4 +185,120 @@
 
 .right {
     text-align: right;
+}
+
+.ir-1 {
+    grid-area: ir-1;
+}
+.ir-2 {
+    grid-area: ir-2;
+}
+.ir-3 {
+    grid-area: ir-3;
+}
+
+// ------ Multiple Remark ------
+
+.multi-remark {
+    grid-column: 2/3;
+    padding: 0 16px 10px;
+    margin-top: 10px;
+}
+
+.multi-issue-remark {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.multi-remark-header {
+    font-size: 23px;
+    line-height: 24px;
+    color: #303030;
+    font-weight: 500;
+}
+
+.multi-remark-body {
+    display: grid;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "mrb-1 mrb-1"
+                         "mrb-2 mrb-3";
+}
+
+.mrb-1 {
+    grid-area: mrb-1;
+}
+.mrb-2 {
+    grid-area: mrb-2;
+}
+.mrb-2 p {
+    font-size: 10px;
+    line-height: 13px;
+    color: #949fa2;
+}
+
+.mrb-3 {
+    grid-area: mrb-3;
+}
+
+// ------ Activate Form ------
+
+.activate-form {
+    grid-column: 2/3;
+    padding: 0 16px 10px;
+    margin-top: 10px;
+}
+
+.activate-label {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 1.1px;
+    word-spacing: 3px;
+}
+
+.activate-input {
+    box-sizing: border-box !important;
+    background: #e7eaeb !important;
+    padding: 7px 10px !important;
+    color: #303030 !important;
+    border-radius: 3px !important;
+    border: 1px solid #d8d8d8 !important;
+    margin: 10px 0 20px !important;
+}
+
+.activate-input:not([readonly]) {
+    box-sizing: border-box !important;
+    background: #fff !important;
+}
+
+.add-img {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    grid-gap: 5px 5px;
+    margin-top: 11px;
+    margin-bottom: 28px;
+}
+
+.img-item {
+    padding: 29px 0;
+    background: #ddd;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+// ------ Slideable Div ------
+
+.swiper-slide {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 9px 0;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 11px;
 }

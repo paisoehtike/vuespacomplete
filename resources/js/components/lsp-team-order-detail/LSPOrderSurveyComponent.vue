@@ -3,22 +3,9 @@
         <SquareImage></SquareImage>
         <div class="order-header-row">
             <i class="fas fa-chevron-left"></i>
-            <h5>Survey</h5>
+            <p>Survey</p>
         </div>
-        <ProgressBar>
-            <li class="active">
-                <p>Survey</p>
-            </li>
-            <li class="">
-                <p>Cabling</p>
-            </li>
-            <li class="">
-                <p>Splicing</p>
-            </li>
-            <li class="">
-                <p>Activate</p>
-            </li>
-        </ProgressBar>
+        <ProgressBar :step="'survey'"></ProgressBar>
         <SurveyIssue v-slot:issue-name>
             ODN Issue
         </SurveyIssue>
