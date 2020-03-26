@@ -461,20 +461,12 @@
 }
 
 .create-team-container .create-team-header,
-.create-team-container .create-team-name,
-.create-team-container .create-leader-name,
-.create-team-container .create-phone-number,
-.create-team-container .create-password,
-.create-team-container .create-man-power {
+.create-team-container .create-value-name {
   grid-column: 2/3;
 }
 
 .create-team-container .create-team-header label,
-.create-team-container .create-team-name label,
-.create-team-container .create-leader-name label,
-.create-team-container .create-phone-number label,
-.create-team-container .create-password label,
-.create-team-container .create-man-power label {
+.create-team-container .create-value-name label {
   color: #303030;
   font-size: 14px;
 }
@@ -496,7 +488,7 @@
   margin-bottom: 30px;
 }
 
-.create-team-container .create-man-power input {
+.create-team-container .create-value-name .create-man-power {
   width: 100px;
 }
 
