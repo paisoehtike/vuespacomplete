@@ -3,7 +3,7 @@
     <div class="header-row">
       <h4>LSP</h4>
 
-      <i class="fas fa-user-circle"></i>
+      <router-link to="/lsp-team/profile" tag="i" class="fas fa-user-circle"></router-link>
     </div>
   </div>
 </template>

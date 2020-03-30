@@ -30,25 +30,11 @@ export default {
     },
     methods: {
         addType() {
-            this.onuTypes = this.type;
-        },
-        lightOnClick() {
-            let swipeHead = shadowRoot.getElementByClassName('swiper');
-            let swipeItems = swipeHead.getElementsByTagName('swiper-slide');
-            for (var i=0; i < swipeItems.length; i++) {
-                swipeItems[i].addEventListener("click", () => {
-                    let current = shadowRoot.getElementsByClassName("selected");
-                    if(current) {
-                        current[0].className = current[0].className.replace(" selected", "");
-                    }
-                    this.className += " selected";
-                })
-            }
+            this.onuTypes = this.type();
         }
     },
     mounted() {
         this.addType();
-        // this.lightOnClick();
     }
 }
 </script>

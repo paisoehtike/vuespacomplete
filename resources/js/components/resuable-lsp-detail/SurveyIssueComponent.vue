@@ -20,7 +20,8 @@
                 <p class="remark-header">Remark</p>
             </div>
             <div class="right ir-2">
-                <i v-show="!isMark" @click="remark()" class="fas fa-plus add-remark"></i>
+                <RemarkModal v-show="!isMark" @review-remark="storeRemark"></RemarkModal>
+                <!-- <i v-show="!isMark" @click="remark()" class="fas fa-plus add-remark"></i> -->
                 <i v-show="isMark" class="far fa-edit remark-setting"></i>
                 <i v-show="isMark" class="far fa-trash-alt remark-setting"></i>
             </div>
@@ -28,7 +29,7 @@
                 <p>Lat - 23.222211</p>
                 <p>Lng - 21.221122</p>
                 <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo reprehenderit perspiciatis sapiente aut.
+                    {{ remark }}
                 </p>
             </div>
         </div>
@@ -36,16 +37,26 @@
 </template>
 
 <script>
+import RemarkModal from './../reuseable-component/RemarkModalComponent';
+
 export default {
+    components: {
+        RemarkModal,
+    },
     data() {
         return {
             isSelect: false,
             isFail: false,
             isPass: false,
             isMark: false,
+            remark: null,
         }
     },
     methods: {
+        storeRemark(remark) {
+            this.remark = remark.remark;
+            this.isMark = true;
+        },
         fail() {
             this.isFail = true;
             this.isPass = false;
@@ -60,9 +71,6 @@ export default {
             this.isFail = false;
             this.isPass = false;
             this.isSelect = false;
-        },
-        remark() {
-            this.isMark = true;
         }
     }
 }

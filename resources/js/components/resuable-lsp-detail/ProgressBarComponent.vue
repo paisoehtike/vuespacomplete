@@ -1,16 +1,16 @@
 <template>
     <div class="progress-bar">
         <ul class="progressbar">
-            <router-link to="/lsp-order/survey" tag="li" :class="{ selected: isSurvey }">
+            <router-link to="/lsp-order/survey" tag="li" :class="stepNo >= 1 ? 'selected': ''">
                 <p>Survey</p>
             </router-link>
-            <router-link to="/lsp-order/cabling" tag="li" :class="{ selected: isCabling }">
+            <router-link to="/lsp-order/cabling" tag="li" :class="stepNo >= 2 ? 'selected': '' ">
                 <p>Cabling</p>
             </router-link>
-            <router-link to="/lsp-order/splicing" tag="li" :class="{ selected: isSplicing }">
+            <router-link to="/lsp-order/splicing" tag="li" :class="stepNo >= 3 ? 'selected': '' ">
                 <p>Splicing</p>
             </router-link>
-            <router-link to="/lsp-order/activate" tag="li" :class="{ selected: isActivate }">
+            <router-link to="/lsp-order/activate" tag="li" :class="stepNo >= 4 ? 'selected': '' ">
                 <p>Activate</p>
             </router-link>
         </ul>
@@ -20,43 +20,7 @@
 <script>
 export default {
     props: [
-        'step',
-    ],
-    data() {
-        return {
-            isSurvey: false,
-            isCabling: false,
-            isSplicing: false,
-            isActivate: false,
-        }
-    },
-    methods: {
-        whichStep() {
-            if ( this.step == 'survey' ) {
-                this.isSurvey = true;
-                this.isCabling = false;
-                this.isSplicing = false;
-                this.isActivate = false;
-            } else if ( this.step == 'cabling' ) {
-                this.isSurvey = true;
-                this.isCabling = true;
-                this.isSplicing = false;
-                this.isActivate = false;
-            } else if ( this.step == 'splicing' ) {
-                this.isSurvey = true;
-                this.isCabling = true;
-                this.isSplicing = true;
-                this.isActivate = false;
-            } else if ( this.step == 'activate' ) {
-                this.isSurvey = true;
-                this.isCabling = true;
-                this.isSplicing = true;
-                this.isActivate = true;
-            }
-        }
-    },
-    mounted() {
-        this.whichStep();
-    }
+        'stepNo',
+    ]
 }
 </script>

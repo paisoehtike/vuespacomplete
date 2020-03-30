@@ -3,9 +3,9 @@
         <SquareImage></SquareImage>
         <router-link to="/lsp-order/splicing" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
-            <p>Activating For ONU</p>
+            <h2>Activating For ONU</h2>
         </router-link>
-        <ProgressBar :step="'activate'"></ProgressBar>
+        <ProgressBar :stepNo="'4'"></ProgressBar>
         <form action="" class="activate-form">
             <label class="activate-label" for="image">Add Image :</label>
             <div class="add-img">
@@ -13,27 +13,42 @@
                     <i class="fas fa-plus center-align"></i>
                 </div>
             </div>
-            <label class="activate-label" for="ppoe-username">PPOE Username :</label>
-            <input class="activate-input" type="text" value="YGN233HTt" name="ppoe-username" readonly>
-            <label class="activate-label" for="ppoe-password">PPOE Password :</label>
-            <input class="activate-input" type="text" value="YGN233HTt" name="ppoe-password" readonly>
-            <label class="activate-label" for="olt">OLT :</label>
-            <input class="activate-input" type="text" name="olt">
-            <label class="activate-label" for="fdt">FDT :</label>
-            <input class="activate-input" type="text" name="fdt">
-            <label class="activate-label" for="fat-port">FAT Port :</label>
-            <input class="activate-input" type="text" name="fat-port">
-            <label class="activate-label" for="onu-sn">ONU S/N :</label>
-            <input class="activate-input" type="text" name="onu-sn">
+            <div>
+                <label class="activate-label" for="ppoe-username">PPOE Username :</label>
+                <input class="activate-input" type="text" value="YGN233HTt" id="ppoe-username" name="ppoe-username" readonly>
+            </div>
+            <div>
+                <label class="activate-label" for="ppoe-password">PPOE Password :</label>
+                <input class="activate-input" type="text" value="YGN233HTt" id="ppoe-password" name="ppoe-password" readonly>
+            </div>
+            <div>
+                <label class="activate-label" for="olt">OLT :</label>
+                <input class="activate-input" type="text" id="olt" name="olt">
+            </div>
+            <div>
+                <label class="activate-label" for="fdt">FDT :</label>
+                <input class="activate-input" type="text" id="fdt" name="fdt">
+            </div>
+            <div>
+                <label class="activate-label" for="fat-port">FAT Port :</label>
+                <input class="activate-input" type="text" id="fat-port" name="fat-port">
+            </div>
+            <div>
+                <label class="activate-label" for="onu-sn">ONU S/N :</label>
+                <input class="activate-input" type="text" id="onu-sn" name="onu-sn">
+            </div>
             <label class="activate-label" for="onu-type">ONU S/N :</label>
-            <TypeSlider :type="onuType()"></TypeSlider>
+            <TypeSlider id="onu-type" :type="onuType"></TypeSlider>
             <label class="activate-label" for="fpc">Fibre Patch Cord :</label>
-            <TypeSlider :type="fpc()"></TypeSlider>
-            <label class="activate-label" for="fb-cable">Fibre Cable :</label>
-            <input class="activate-input" type="text" name="fb-cable">
+            <TypeSlider id="fpc" :type="fpc"></TypeSlider>
+            <div>
+                <label class="activate-label" for="fb-cable">Fibre Cable :</label>
+                <input class="activate-input" type="text" id="fb-cable" name="fb-cable">
+            </div>
         </form>
         <MultipleRemark></MultipleRemark>
-        <FinishButton></FinishButton>
+        <FinishButton :type="'Save'"></FinishButton>
+        <FinishButton :type="'Finish'"></FinishButton>
     </div>
 </template>
 

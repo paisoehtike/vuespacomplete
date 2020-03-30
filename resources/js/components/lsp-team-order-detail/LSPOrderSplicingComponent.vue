@@ -3,11 +3,11 @@
         <SquareImage></SquareImage>
         <router-link to="/lsp-order/cabling" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
-            <p>Splicing</p>
+            <h2>Splicing</h2>
         </router-link>
-        <ProgressBar :step="'splicing'"></ProgressBar>
+        <ProgressBar :stepNo="'3'"></ProgressBar>
         <MultipleRemark></MultipleRemark>
-        <FinishButton></FinishButton>
+        <FinishButton :type="'Finish'"></FinishButton>
     </div>
 </template>
 

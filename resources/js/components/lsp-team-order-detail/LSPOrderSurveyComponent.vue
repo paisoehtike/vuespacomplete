@@ -3,16 +3,25 @@
         <SquareImage></SquareImage>
         <div class="order-header-row">
             <i class="fas fa-chevron-left"></i>
-            <p>Survey</p>
+            <h2>Survey</h2>
         </div>
-        <ProgressBar :step="'survey'"></ProgressBar>
+        <ProgressBar :stepNo="'1'"></ProgressBar>
+        <SurveyIssue v-slot:issue-name>
+            Pole Issue
+        </SurveyIssue>
+        <SurveyIssue v-slot:issue-name>
+            FAT
+        </SurveyIssue>
+        <SurveyIssue v-slot:issue-name>
+            Authority
+        </SurveyIssue>
         <SurveyIssue v-slot:issue-name>
             ODN Issue
         </SurveyIssue>
         <SurveyIssue v-slot:issue-name>
             Customer Issue
         </SurveyIssue>
-        <FinishButton></FinishButton>
+        <FinishButton :type="'Finish'"></FinishButton>
     </div>
 </template>
 

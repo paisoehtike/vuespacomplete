@@ -1,5 +1,9 @@
 // import LspHomeComponent from './components/LspHomeComponent'
 import NotFound from './components/NotFound'
+import LSPTeamLogin from './components/lsp-team/LSPTeamLoginComponent.vue'
+import Profile from './components/lsp-home/ProfileComponent.vue'
+import LSPTeamProfile from './components/lsp-team/LSPTeamProfileComponent.vue'
+import LSPTeamFirstTimePassword from './components/lsp-team/LSPTeamFirstTimePasswordComponent.vue'
 import Order from './components/lsp-order/OrderComponent'
 import LSPOrder from './components/lsp-team-order/LSPOrderComponent'
 import Home from './components/lsp-home/HomeComponent'
@@ -19,6 +23,7 @@ import LSPOrderSurvey from './components/lsp-team-order-detail/LSPOrderSurveyCom
 import LSPOrderCabling from './components/lsp-team-order-detail/LSPOrderCablingComponent.vue'
 import LSPOrderSplicing from './components/lsp-team-order-detail/LSPOrderSplicingComponent.vue'
 import LSPOrderActivate from './components/lsp-team-order-detail/LSPOrderActivateComponent.vue'
+import LSPOrderRepair from './components/lsp-team-order-detail/LSPOrderRepairComponent.vue'
 
 export default {
     mode: 'history',
@@ -34,6 +39,10 @@ export default {
         {
             path: '/lsp-order',
             component: LSPOrder
+        },
+        {
+            path: '/home/profile',
+            component: Profile,
         },
         {
             path: '/home/new',
@@ -79,6 +88,18 @@ export default {
             name: 'team-create'
         },
         {
+            path: '/lsp-team/login',
+            component: LSPTeamLogin
+        },
+        {
+            path: '/lsp-team/profile',
+            component: LSPTeamProfile
+        },
+        {
+            path: '/lsp-team/first-time-password',
+            component: LSPTeamFirstTimePassword
+        },
+        {
             path: '/lsp-home/remaining',
             component: LSPTeamRemaining
         },
@@ -110,6 +131,10 @@ export default {
         {
             path: '/lsp-order/activate',
             component: LSPOrderActivate
+        },
+        {
+            path: '/lsp-order/repair',
+            component: LSPOrderRepair
         },
     ]
 }
