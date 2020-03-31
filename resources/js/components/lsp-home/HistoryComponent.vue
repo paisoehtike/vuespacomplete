@@ -5,16 +5,10 @@
         <Header></Header>
       </div>
       <div class="home-customer-header-button">
-        <HomeHeaderButton :firstUrl='url.new' :secondUrl='url.accept' :thirdUrl='url.history'>
-          <template v-slot:new>
-            {{label.new}}
-          </template>
-          <template v-slot:accept>
-            {{label.accept}}
-          </template>
-          <template v-slot:history>
-            {{label.history}}
-          </template>
+        <HomeHeaderButton :firstUrl="url.new" :secondUrl="url.accept" :thirdUrl="url.history">
+          <template v-slot:new>{{label.new}}</template>
+          <template v-slot:accept>{{label.accept}}</template>
+          <template v-slot:history>{{label.history}}</template>
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
@@ -27,6 +21,10 @@
           <CustomerIssueDate slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
             {{customer.date}}
+            <template
+              v-slot:priority-date
+              v-if="customer.priority"
+            >| {{customer.priority}} Hrs</template>
           </CustomerIssueDate>
           <CustomerDetailChip
             slot="customer-detail-chip"
@@ -34,9 +32,7 @@
             :address="customer.address"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton slot="customer-home-footer">
-            <template v-slot:assign>
-              {{customer.assigned}}
-            </template>
+            <template v-slot:assign>{{customer.assigned}}</template>
             <a class="btn" slot="button">Accept</a>
           </CustomerHomeFooterButton>
         </Customer>
@@ -74,14 +70,14 @@ export default {
   data() {
     return {
       label: {
-        new: 'New',
-        accept: 'Accept',
-        history: 'History'
+        new: "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        new: '/home/new',
-        accept: '/home/accept',
-        history: '/home/history'
+        new: "/home/new",
+        accept: "/home/accept",
+        history: "/home/history"
       },
       customers: [
         {
