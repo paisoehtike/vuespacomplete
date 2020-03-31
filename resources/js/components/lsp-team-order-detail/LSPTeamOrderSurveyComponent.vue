@@ -5,7 +5,7 @@
             <i class="fas fa-chevron-left"></i>
             <h2>Survey</h2>
         </div>
-        <ProgressBar :stepNo="'1'"></ProgressBar>
+        <ProgressBar :stepNo="'1'" :type="'team'"></ProgressBar>
         <SurveyIssue v-slot:issue-name>
             Pole Issue
         </SurveyIssue>

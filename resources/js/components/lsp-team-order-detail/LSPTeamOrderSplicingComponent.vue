@@ -1,11 +1,11 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="/lsp-order/survey" tag="div" class="order-header-row">
+        <router-link to="/lsp-team-order/cabling" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
-            <h2>Cabling</h2>
+            <h2>Splicing</h2>
         </router-link>
-        <ProgressBar :stepNo="'2'"></ProgressBar>
+        <ProgressBar :stepNo="'3'" :type="'team'"></ProgressBar>
         <MultipleRemark></MultipleRemark>
         <FinishButton :type="'Finish'"></FinishButton>
     </div>
@@ -23,9 +23,6 @@ export default {
         ProgressBar,
         FinishButton,
         MultipleRemark,
-    },
-    created() {
-        this.modalBoxMixin;
     }
 }
 </script>

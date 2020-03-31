@@ -566,6 +566,7 @@
 .team-info-container {
   grid-column: 2/3;
   z-index: 1000;
+  margin-top: 20px;
 }
 
 .team-info-container table {
@@ -1122,5 +1123,50 @@
 
 .logout-button {
   padding: 20px;
+}
+
+.remarks {
+  grid-column: 2/3;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.remarks h3 {
+  font-size: 20px;
+  line-height: 24px;
+  color: #303030;
+  margin-bottom: 16px;
+}
+
+.remark {
+  width: 100%;
+  width: 100%;
+  border-bottom: 1px solid #949fa2a1;
+}
+
+.remark p:first-child {
+  font-size: 14px;
+  line-height: 24px;
+  text-align: left;
+  color: #000000b8;
+  margin-bottom: 6px;
+}
+
+.remark p:first-child + p {
+  text-align: right;
+  font-size: 10px;
+  line-height: 13px;
+  color: #949fa2;
+}
+
+.replace-item {
+  grid-column: 2/3;
+}
+
+.replace-item h3 {
+  font-size: 20px;
+  line-height: 24px;
+  color: #303030;
+  margin-bottom: 16px;
 }
 

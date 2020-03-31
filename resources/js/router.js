@@ -19,11 +19,16 @@ import TeamIndex from './components/lsp-home-team/TeamIndexComponent'
 import TeamDetail from './components/lsp-home-team/TeamDetailComponent'
 import TeamCreate from './components/lsp-home-team/CreateTeamComponent'
 import Inventroy from './components/lsp-home-inventory/InventoryComponent'
-import LSPOrderSurvey from './components/lsp-team-order-detail/LSPOrderSurveyComponent'
-import LSPOrderCabling from './components/lsp-team-order-detail/LSPOrderCablingComponent.vue'
-import LSPOrderSplicing from './components/lsp-team-order-detail/LSPOrderSplicingComponent.vue'
-import LSPOrderActivate from './components/lsp-team-order-detail/LSPOrderActivateComponent.vue'
-import LSPOrderRepair from './components/lsp-team-order-detail/LSPOrderRepairComponent.vue'
+import LSPTeamOrderSurvey from './components/lsp-team-order-detail/LSPTeamOrderSurveyComponent'
+import LSPTeamOrderCabling from './components/lsp-team-order-detail/LSPTeamOrderCablingComponent.vue'
+import LSPTeamOrderSplicing from './components/lsp-team-order-detail/LSPTeamOrderSplicingComponent.vue'
+import LSPTeamOrderActivate from './components/lsp-team-order-detail/LSPTeamOrderActivateComponent.vue'
+import LSPTeamOrderRepair from './components/lsp-team-order-detail/LSPTeamOrderRepairComponent.vue'
+import LSPOrderSurvey from './components/lsp-order-detail/LSPOrderSurveyComponent'
+import LSPOrderCabling from './components/lsp-order-detail/LSPOrderCablingComponent'
+import LSPOrderSplicing from './components/lsp-order-detail/LSPOrderSplicingComponent'
+import LSPOrderActivate from './components/lsp-order-detail/LSPOrderActivateComponent'
+import LSPOrderRepair from './components/lsp-order-detail/LSPOrderRepairComponent.vue'
 
 export default {
     mode: 'history',
@@ -115,6 +120,26 @@ export default {
             path: '/inventory',
             component: Inventroy,
             name: 'inventory'
+        },
+        {
+            path: '/lsp-team-order/survey',
+            component: LSPTeamOrderSurvey
+        },
+        {
+            path: '/lsp-team-order/cabling',
+            component: LSPTeamOrderCabling
+        },
+        {
+            path: '/lsp-team-order/splicing',
+            component: LSPTeamOrderSplicing
+        },
+        {
+            path: '/lsp-team-order/activate',
+            component: LSPTeamOrderActivate
+        },
+        {
+            path: '/lsp-team-order/repair',
+            component: LSPTeamOrderRepair
         },
         {
             path: '/lsp-order/survey',
