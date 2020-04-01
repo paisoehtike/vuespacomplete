@@ -21,6 +21,10 @@
           <CustomerIssueDate slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
             {{customer.date}}
+            <template
+              v-slot:priority-date
+              v-if="customer.priority"
+            >| {{customer.priority}} Hrs</template>
             <template v-slot:issue>{{ customer.issue }}</template>
           </CustomerIssueDate>
           <CustomerDetailChip
@@ -63,9 +67,9 @@ export default {
   data() {
     return {
       url: {
-        remain: '/lsp-home/remaining',
-        history: '/lsp-home/history',
-        complete: '/lsp-home/complete'
+        remain: "/lsp-home/remaining",
+        history: "/lsp-home/history",
+        complete: "/lsp-home/complete"
       },
       label: {
         remain: "Remaining",

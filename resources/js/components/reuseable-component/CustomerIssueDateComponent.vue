@@ -4,6 +4,10 @@
       <slot></slot>
     </span>
     <span> | </span>
+    <span class="priority">
+      <slot name="priority-date"></slot>
+    </span>
+    <br />
     <span class="issue">
       <slot name="issue"></slot>
     </span>

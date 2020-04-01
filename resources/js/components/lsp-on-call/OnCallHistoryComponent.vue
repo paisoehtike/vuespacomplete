@@ -5,7 +5,7 @@
         <Header></Header>
       </div>
       <div class="home-customer-header-button">
-        <HomeHeaderButton :firstUrl='url.new' :secondUrl='url.accept' :thirdUrl='url.history'>
+        <HomeHeaderButton :firstUrl="url.new" :secondUrl="url.accept" :thirdUrl="url.history">
           <template v-slot:new>{{label.new}}</template>
           <template v-slot:accept>{{label.accept}}</template>
           <template v-slot:history>{{label.history}}</template>
@@ -20,6 +20,10 @@
 
           <CustomerIssueDate slot="customer-date">
             {{customer.date}}
+            <template
+              v-slot:priority-date
+              v-if="customer.priority"
+            >| {{customer.priority}} Hrs</template>
             <template v-slot:issue>{{customer.issue}}</template>
           </CustomerIssueDate>
 
@@ -68,14 +72,14 @@ export default {
   data() {
     return {
       label: {
-        new: 'New',
-        accept: 'Accept',
-        history: 'History'
+        new: "New",
+        accept: "Accept",
+        history: "History"
       },
       url: {
-        new: '/on-call/new',
-        accept: '/on-call/accept',
-        history: '/on-call/history'
+        new: "/on-call/new",
+        accept: "/on-call/accept",
+        history: "/on-call/history"
       },
       customers: [
         {

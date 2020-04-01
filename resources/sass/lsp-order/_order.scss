@@ -30,16 +30,19 @@
   }
 
   .order-assigned-row {
+    display: flex;
+    align-items: center;
     span {
       margin-right: 16px;
     }
     a {
-      width: 120px;
-      height: 40px;
+      width: 100px;
+      // height: 30px;
       box-shadow: none;
       background-color: $text-white;
       color: $text-orange;
       border: 1px solid $gery;
+      border-radius: 15px;
     }
   }
 

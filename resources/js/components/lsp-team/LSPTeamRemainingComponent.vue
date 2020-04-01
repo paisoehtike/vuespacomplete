@@ -19,18 +19,21 @@
             <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
             <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
 
-            <CustomerIssueDate slot="customer-date">
-              <!-- <span>{{customer.date}}</span> -->
-              {{customer.date}}
-              <template v-slot:issue>{{ customer.issue }}</template>
-            </CustomerIssueDate>
-            <CustomerDetailChip
-              slot="customer-detail-chip"
-              :value="customer.customerName"
-              :address="customer.address"
-            ></CustomerDetailChip>
-          </Customer>
-        </router-link>
+          <CustomerIssueDate slot="customer-date">
+            <!-- <span>{{customer.date}}</span> -->
+            {{customer.date}}
+            <template
+              v-slot:priority-date
+              v-if="customer.priority"
+            >| {{customer.priority}} Hrs</template>
+            <template v-slot:issue>{{ customer.issue }}</template>
+          </CustomerIssueDate>
+          <CustomerDetailChip
+            slot="customer-detail-chip"
+            :value="customer.customerName"
+            :address="customer.address"
+          ></CustomerDetailChip>
+        </Customer>
       </div>
     </div>
 

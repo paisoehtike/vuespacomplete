@@ -3,13 +3,11 @@
   grid-template-columns: 5% 70% auto 5%;
 
   .create-team-header,
-  .create-team-name,
-  .create-leader-name,
-  .create-man-power {
+  .create-value-name {
     grid-column: 2/3;
     label {
-        color: $text-black;
-        font-size: 14px;
+      color: $text-black;
+      font-size: 14px;
     }
   }
 
@@ -27,7 +25,13 @@
       margin-bottom: 30px;
     }
   }
-  
+
+  .create-value-name {
+    .create-man-power {
+      width: 100px;
+    }
+  }
+
   .create-button {
     grid-column: 2/4;
     position: absolute;

@@ -49,7 +49,11 @@
           }
         }
         .customer-date {
-          text-align: end;
+          text-align: end; 
+
+          .priority, .issue {
+            color: $text-red;
+          }
         }
       }
     }
