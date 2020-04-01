@@ -29,9 +29,8 @@
             :address="customer.address"
           ></CustomerDetailChip>
 
-          <CustomerHomeFooterButton slot="customer-home-footer">
+          <CustomerHomeFooterButton :customer="customer" :type="'Accept'" slot="customer-home-footer">
             <template v-slot:assign>{{customer.assigned}}</template>
-            <a class="btn" slot="button">Accept</a>
           </CustomerHomeFooterButton>
         </Customer>
       </div>

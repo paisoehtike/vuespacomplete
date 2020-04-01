@@ -21,6 +21,7 @@
           <CustomerIssueDate slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
             {{customer.date}}
+            <template v-slot:issue>{{ customer.issue }}</template>
           </CustomerIssueDate>
           <CustomerDetailChip
             slot="customer-detail-chip"
@@ -76,6 +77,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -86,6 +88,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -96,6 +99,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -106,6 +110,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -116,6 +121,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",

@@ -1,10 +1,10 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <div class="order-header-row">
+        <router-link to="/lsp-order" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Survey</h2>
-        </div>
+        </router-link>
         <ProgressBar :stepNo="'1'" :type="'team'"></ProgressBar>
         <SurveyIssue v-slot:issue-name>
             Pole Issue

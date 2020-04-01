@@ -1,9 +1,9 @@
 <template>
   <div class="order-container">
-    <div class="order-header-row">
-      <i class="fas fa-chevron-left"></i>
-      <h5>Detail</h5>
-    </div>
+    <router-link to="/lsp-home/remaining" tag="div" class="order-header-row">
+        <i class="fas fa-chevron-left"></i>
+        <h2>Detail</h2>
+    </router-link>
     <div class="order-image-container">
       <SquareImage></SquareImage>
     </div>
@@ -36,13 +36,10 @@
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>
       </OrderInfo>
     </div>
-    <div class="order-button">
-      <div class="col s12 m6 l3 view-detail">
-        <a>View Installation Detail</a>
-      </div>
-      <div class="col s12 m6 l3 complete-btn">
-        <a class="waves-effect waves-light btn orange">Complete</a>
-      </div>
+    <div class="team-order-button">
+      <router-link to="/lsp-team-order/survey" tag="div" class="col s12 m6 l3 complete-btn">
+        <a class="waves-effect waves-light btn orange">Start Installation</a>
+      </router-link>
     </div>
   </div>
 </template>

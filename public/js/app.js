@@ -609,28 +609,167 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
+/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
+/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
+/* harmony import */ var _lsp_home_team_TeamComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../lsp-home-team/TeamComponent */ "./resources/js/components/lsp-home-team/TeamComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['customer', 'type'],
+  components: {
+    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Teams: _lsp_home_team_TeamComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
+  data: function data() {
+    return {
+      showModal: false,
+      assignedTeam: {
+        teamName: "Team A",
+        customerName: "Min Min",
+        remaining: "5",
+        manPower: "6",
+        complete: "3"
+      },
+      teams: [{
+        teamName: "Team A",
+        customerName: "Min Min",
+        remaining: "5",
+        manPower: "6",
+        complete: "3"
+      }, {
+        teamName: "Team B",
+        customerName: "Aung Aung",
+        remaining: "5",
+        manPower: "6",
+        complete: "3"
+      }, {
+        teamName: "Team C",
+        customerName: "Kyaw Aung",
+        remaining: "5",
+        manPower: "6",
+        complete: "3"
+      }]
     };
   }
 });
@@ -658,6 +797,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -747,26 +887,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
     };
@@ -885,29 +1030,96 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
     };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-customer/SquareImageComponent */ "./resources/js/components/reuseable-customer/SquareImageComponent.vue");
+/* harmony import */ var _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../resuable-login-password/SignInAndFirstTimePasswordComponent */ "./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SignInAndFirstTimePassword: _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-customer/SquareImageComponent */ "./resources/js/components/reuseable-customer/SquareImageComponent.vue");
+/* harmony import */ var _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../resuable-login-password/SignInAndFirstTimePasswordComponent */ "./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SignInAndFirstTimePassword: _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -973,7 +1185,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -1105,7 +1316,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -2116,9 +2326,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2224,6 +2431,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2265,26 +2473,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
     };
@@ -2381,6 +2594,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2422,26 +2636,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
     };
@@ -2583,6 +2802,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2624,26 +2846,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2), (_ref3 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4), (_ref5 = {
         name: "5531",
         orderStep: "Installation",
         date: "2020/3/19",
+        issue: "24 Hrs",
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5)]
     };
@@ -2682,8 +2909,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type'],
+  props: ['type', 'isAdmin'],
   data: function data() {
     return {
       isSignIn: true
@@ -3034,8 +3271,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["value", "address"]
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lsp-home/AssignOrSwitchTeamComponent */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['customer', 'type'],
+  components: {
+    AssignOrSwitchTeamComponent: _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -15080,10 +15354,26 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "CustomerIssueDate",
-                  { attrs: { slot: "customer-date" }, slot: "customer-date" },
+                  {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "issue",
+                          fn: function() {
+                            return [_vm._v(_vm._s(customer.issue))]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      true
+                    )
+                  },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n        "
+                      "\n          " + _vm._s(customer.date) + "\n          "
                     )
                   ]
                 ),
@@ -15097,38 +15387,27 @@ var render = function() {
                   slot: "customer-detail-chip"
                 }),
                 _vm._v(" "),
-                _c(
-                  "CustomerHomeFooterButton",
-                  {
-                    attrs: { slot: "customer-home-footer" },
+                _c("CustomerHomeFooterButton", {
+                  attrs: {
                     slot: "customer-home-footer",
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "assign",
-                          fn: function() {
-                            return [_vm._v(_vm._s(customer.assigned))]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
+                    customer: customer,
+                    type: "Accept"
                   },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "a",
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
                       {
-                        staticClass: "btn",
-                        attrs: { slot: "button" },
-                        slot: "button"
-                      },
-                      [_vm._v("Accept")]
-                    )
-                  ]
-                )
+                        key: "assign",
+                        fn: function() {
+                          return [_vm._v(_vm._s(customer.assigned))]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                })
               ],
               1
             )
@@ -15138,6 +15417,288 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("HomeFooterButton")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "dummy" },
+    [
+      _c(
+        "a",
+        {
+          staticClass: "btn",
+          on: {
+            click: function($event) {
+              _vm.showModal = true
+            }
+          }
+        },
+        [_vm._v("Accept")]
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade", appear: "" } }, [
+        _vm.showModal
+          ? _c("div", {
+              staticClass: "modal-box1",
+              on: {
+                click: function($event) {
+                  _vm.showModal = false
+                }
+              }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "slide", appear: "" } }, [
+        _vm.showModal
+          ? _c(
+              "div",
+              { staticClass: "modal-box" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "assign-team-modal-header" },
+                  [
+                    _c("CustomerTypeChip", {
+                      attrs: {
+                        slot: "customer-chip",
+                        value: _vm.customer.customerType
+                      },
+                      slot: "customer-chip"
+                    }),
+                    _vm._v(" "),
+                    _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        value: _vm.customer.orderStep
+                      },
+                      slot: "order-chip"
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "customer-request-detail" }, [
+                  _c(
+                    "div",
+                    [
+                      _c("CustomerHeader", {
+                        attrs: {
+                          id: _vm.customer.name,
+                          step: _vm.customer.orderStep
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "customer-request-date" },
+                    [
+                      _c(
+                        "CustomerIssueDate",
+                        {
+                          attrs: { slot: "customer-date" },
+                          slot: "customer-date",
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "issue",
+                                fn: function() {
+                                  return [
+                                    _vm._v(
+                                      "\n                            " +
+                                        _vm._s(_vm.customer.issue) +
+                                        "\n                        "
+                                    )
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            ],
+                            null,
+                            false,
+                            607606810
+                          )
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.customer.date) +
+                              "\n                        "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("CustomerDetailChip", {
+                  attrs: {
+                    slot: "customer-detail-chip",
+                    value: _vm.customer.customerName,
+                    address: _vm.customer.address
+                  },
+                  slot: "customer-detail-chip"
+                }),
+                _vm._v(" "),
+                _vm.type == "Accept"
+                  ? _c("h2", [_vm._v("Assigned Team :")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.type == "Accept"
+                  ? _c("Teams", {
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "team-name",
+                            fn: function() {
+                              return [_vm._v(_vm._s(_vm.assignedTeam.teamName))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "customer-name",
+                            fn: function() {
+                              return [
+                                _vm._v(_vm._s(_vm.assignedTeam.customerName))
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-remaining",
+                            fn: function() {
+                              return [
+                                _vm._v(_vm._s(_vm.assignedTeam.remaining))
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-man-power",
+                            fn: function() {
+                              return [_vm._v(_vm._s(_vm.assignedTeam.manPower))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-complete",
+                            fn: function() {
+                              return [_vm._v(_vm._s(_vm.assignedTeam.complete))]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        false,
+                        1547696449
+                      )
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("h2", [_vm._v("Select Team to Assign :")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "assign-team-wrapper" },
+                  _vm._l(_vm.teams, function(team, index) {
+                    return _c("Teams", {
+                      key: index,
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "team-name",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.teamName))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "customer-name",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.customerName))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-remaining",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.remaining))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-man-power",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.manPower))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-complete",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.complete))]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    })
+                  }),
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-button-box" }, [
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.showModal = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "remark-save-btn" }, [
+                    _vm._v("Save")
+                  ])
+                ])
+              ],
+              1
+            )
+          : _vm._e()
+      ])
     ],
     1
   )
@@ -15250,10 +15811,26 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "CustomerIssueDate",
-                  { attrs: { slot: "customer-date" }, slot: "customer-date" },
+                  {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "issue",
+                          fn: function() {
+                            return [_vm._v(_vm._s(customer.issue))]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      true
+                    )
+                  },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n        "
+                      "\n          " + _vm._s(customer.date) + "\n          "
                     )
                   ]
                 ),
@@ -15426,10 +16003,26 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "CustomerIssueDate",
-                  { attrs: { slot: "customer-date" }, slot: "customer-date" },
+                  {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "issue",
+                          fn: function() {
+                            return [_vm._v(_vm._s(customer.issue))]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      true
+                    )
+                  },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n        "
+                      "\n          " + _vm._s(customer.date) + "\n          "
                     )
                   ]
                 ),
@@ -15443,44 +16036,29 @@ var render = function() {
                   slot: "customer-detail-chip"
                 }),
                 _vm._v(" "),
-                _c(
-                  "CustomerHomeFooterButton",
-                  {
-                    attrs: { slot: "customer-home-footer" },
-                    slot: "customer-home-footer",
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "assign",
-                          fn: function() {
-                            return [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(customer.assigned) +
-                                  "\n          "
-                              )
-                            ]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "a",
+                _c("CustomerHomeFooterButton", {
+                  attrs: { slot: "customer-home-footer", customer: customer },
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
                       {
-                        staticClass: "btn",
-                        attrs: { slot: "button" },
-                        slot: "button"
-                      },
-                      [_vm._v("Accept")]
-                    )
-                  ]
-                )
+                        key: "assign",
+                        fn: function() {
+                          return [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(customer.assigned) +
+                                "\n          "
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                })
               ],
               1
             )
@@ -15490,6 +16068,80 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("HomeFooterButton")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "order-container" },
+    [
+      _c("SquareImage"),
+      _vm._v(" "),
+      _c(
+        "SignInAndFirstTimePassword",
+        { attrs: { type: "password", isAdmin: "Admin" } },
+        [_vm._v("\n        LSP\n    ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=template&id=2978defc&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=template&id=2978defc& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "order-container" },
+    [
+      _c("SquareImage"),
+      _vm._v(" "),
+      _c(
+        "SignInAndFirstTimePassword",
+        { attrs: { type: "sign-in", isAdmin: "Admin" } },
+        [_vm._v("\n        LSP\n    ")]
+      )
     ],
     1
   )
@@ -15679,38 +16331,27 @@ var render = function() {
                   slot: "customer-detail-chip"
                 }),
                 _vm._v(" "),
-                _c(
-                  "CustomerHomeFooterButton",
-                  {
-                    attrs: { slot: "customer-home-footer" },
+                _c("CustomerHomeFooterButton", {
+                  attrs: {
                     slot: "customer-home-footer",
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "assign",
-                          fn: function() {
-                            return [_vm._v(_vm._s(customer.assigned))]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
+                    customer: customer,
+                    type: "Accept"
                   },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "a",
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
                       {
-                        staticClass: "btn",
-                        attrs: { slot: "button" },
-                        slot: "button"
-                      },
-                      [_vm._v("Accept")]
-                    )
-                  ]
-                )
+                        key: "assign",
+                        fn: function() {
+                          return [_vm._v(_vm._s(customer.assigned))]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                })
               ],
               1
             )
@@ -15851,38 +16492,23 @@ var render = function() {
                   slot: "customer-detail-chip"
                 }),
                 _vm._v(" "),
-                _c(
-                  "CustomerHomeFooterButton",
-                  {
-                    attrs: { slot: "customer-home-footer" },
-                    slot: "customer-home-footer",
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "assign",
-                          fn: function() {
-                            return [_vm._v(_vm._s(customer.assigned))]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "a",
+                _c("CustomerHomeFooterButton", {
+                  attrs: { slot: "customer-home-footer", customer: customer },
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
                       {
-                        staticClass: "btn",
-                        attrs: { slot: "button" },
-                        slot: "button"
-                      },
-                      [_vm._v("Accept")]
-                    )
-                  ]
-                )
+                        key: "assign",
+                        fn: function() {
+                          return [_vm._v(_vm._s(customer.assigned))]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                })
               ],
               1
             )
@@ -16985,7 +17611,18 @@ var render = function() {
     [
       _c("SquareImage"),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "router-link",
+        {
+          staticClass: "order-header-row",
+          attrs: { to: "/lsp-order", tag: "div" }
+        },
+        [
+          _c("i", { staticClass: "fas fa-chevron-left" }),
+          _vm._v(" "),
+          _c("h2", [_vm._v("Survey")])
+        ]
+      ),
       _vm._v(" "),
       _c("ProgressBar", { attrs: { stepNo: "1", type: "team" } }),
       _vm._v(" "),
@@ -17054,18 +17691,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "order-header-row" }, [
-      _c("i", { staticClass: "fas fa-chevron-left" }),
-      _vm._v(" "),
-      _c("h2", [_vm._v("Survey")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -17087,106 +17713,118 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "order-container" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "order-image-container" }, [_c("SquareImage")], 1),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "order-detail-row" },
-      [
-        _c("OrderDetail", [
-          _c(
-            "div",
-            { staticClass: "order-detail-header" },
-            [
-              _c("CustomerTypeChip", { attrs: { value: _vm.customerType } }),
-              _vm._v(" "),
-              _c("OrderStepChip", { attrs: { value: _vm.orderStep } })
-            ],
-            1
-          ),
+  return _c(
+    "div",
+    { staticClass: "order-container" },
+    [
+      _c(
+        "router-link",
+        {
+          staticClass: "order-header-row",
+          attrs: { to: "/lsp-home/remaining", tag: "div" }
+        },
+        [
+          _c("i", { staticClass: "fas fa-chevron-left" }),
           _vm._v(" "),
-          _c("div", { staticClass: "order-detail-id" }, [
-            _c("h4", [_vm._v(_vm._s(_vm.orderDetailID))])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order-type" }, [
-            _c("p", [_vm._v(_vm._s(_vm.orderType))])
+          _c("h2", [_vm._v("Detail")])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "order-image-container" },
+        [_c("SquareImage")],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "order-detail-row" },
+        [
+          _c("OrderDetail", [
+            _c(
+              "div",
+              { staticClass: "order-detail-header" },
+              [
+                _c("CustomerTypeChip", { attrs: { value: _vm.customerType } }),
+                _vm._v(" "),
+                _c("OrderStepChip", { attrs: { value: _vm.orderStep } })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-detail-id" }, [
+              _c("h4", [_vm._v(_vm._s(_vm.orderDetailID))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [_vm._v(_vm._s(_vm.orderType))])
+            ])
           ])
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "customer-info-row" },
-      [
-        _c(
-          "CustomerInfo",
-          _vm._l(_vm.customerDetails, function(value, label) {
-            return _c("TableRow", {
-              key: label,
-              attrs: { label: label, value: value }
-            })
-          }),
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "order-info-row" },
-      [
-        _c(
-          "OrderInfo",
-          _vm._l(_vm.orderDetails, function(value, label) {
-            return _c("TableRow", {
-              key: label,
-              attrs: { label: label, value: value }
-            })
-          }),
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _vm._m(1)
-  ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "customer-info-row" },
+        [
+          _c(
+            "CustomerInfo",
+            _vm._l(_vm.customerDetails, function(value, label) {
+              return _c("TableRow", {
+                key: label,
+                attrs: { label: label, value: value }
+              })
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "order-info-row" },
+        [
+          _c(
+            "OrderInfo",
+            _vm._l(_vm.orderDetails, function(value, label) {
+              return _c("TableRow", {
+                key: label,
+                attrs: { label: label, value: value }
+              })
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "team-order-button" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "col s12 m6 l3 complete-btn",
+              attrs: { to: "/lsp-team-order/survey", tag: "div" }
+            },
+            [
+              _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
+                _vm._v("Start Installation")
+              ])
+            ]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "order-header-row" }, [
-      _c("i", { staticClass: "fas fa-chevron-left" }),
-      _vm._v(" "),
-      _c("h5", [_vm._v("Detail")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "order-button" }, [
-      _c("div", { staticClass: "col s12 m6 l3 view-detail" }, [
-        _c("a", [_vm._v("View Installation Detail")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col s12 m6 l3 complete-btn" }, [
-        _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-          _vm._v("Complete")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -17274,8 +17912,28 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "CustomerIssueDate",
-                { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                [_vm._v("\n          " + _vm._s(customer.date) + "\n        ")]
+                {
+                  attrs: { slot: "customer-date" },
+                  slot: "customer-date",
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "issue",
+                        fn: function() {
+                          return [_vm._v(_vm._s(customer.issue))]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                },
+                [
+                  _vm._v(
+                    "\n          " + _vm._s(customer.date) + "\n          "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("CustomerDetailChip", {
@@ -17418,8 +18076,28 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "CustomerIssueDate",
-                { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                [_vm._v("\n          " + _vm._s(customer.date) + "\n        ")]
+                {
+                  attrs: { slot: "customer-date" },
+                  slot: "customer-date",
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "issue",
+                        fn: function() {
+                          return [_vm._v(_vm._s(customer.issue))]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                },
+                [
+                  _vm._v(
+                    "\n          " + _vm._s(customer.date) + "\n          "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("CustomerDetailChip", {
@@ -17606,43 +18284,75 @@ var render = function() {
       _c(
         "div",
         { staticClass: "home-customer-row" },
-        _vm._l(_vm.customers, function(customer, index) {
-          return _c(
-            "Customer",
-            { key: index },
-            [
-              _c("CustomerHeader", {
-                attrs: { id: customer.name, step: customer.orderStep }
-              }),
-              _vm._v(" "),
-              _c("CustomerTypeChip", {
-                attrs: { slot: "customer-chip", value: customer.customerType },
-                slot: "customer-chip"
-              }),
-              _vm._v(" "),
-              _c("OrderStepChip", {
-                attrs: { slot: "order-chip", value: customer.orderStep },
-                slot: "order-chip"
-              }),
-              _vm._v(" "),
-              _c(
-                "CustomerIssueDate",
-                { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                [_vm._v("\n          " + _vm._s(customer.date) + "\n        ")]
-              ),
-              _vm._v(" "),
-              _c("CustomerDetailChip", {
-                attrs: {
-                  slot: "customer-detail-chip",
-                  value: customer.customerName,
-                  address: customer.address
-                },
-                slot: "customer-detail-chip"
-              })
-            ],
+        [
+          _c(
+            "router-link",
+            { attrs: { to: "/lsp-order" } },
+            _vm._l(_vm.customers, function(customer, index) {
+              return _c(
+                "Customer",
+                { key: index },
+                [
+                  _c("CustomerHeader", {
+                    attrs: { id: customer.name, step: customer.orderStep }
+                  }),
+                  _vm._v(" "),
+                  _c("CustomerTypeChip", {
+                    attrs: {
+                      slot: "customer-chip",
+                      value: customer.customerType
+                    },
+                    slot: "customer-chip"
+                  }),
+                  _vm._v(" "),
+                  _c("OrderStepChip", {
+                    attrs: { slot: "order-chip", value: customer.orderStep },
+                    slot: "order-chip"
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "CustomerIssueDate",
+                    {
+                      attrs: { slot: "customer-date" },
+                      slot: "customer-date",
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "issue",
+                            fn: function() {
+                              return [_vm._v(_vm._s(customer.issue))]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(customer.date) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("CustomerDetailChip", {
+                    attrs: {
+                      slot: "customer-detail-chip",
+                      value: customer.customerName,
+                      address: customer.address
+                    },
+                    slot: "customer-detail-chip"
+                  })
+                ],
+                1
+              )
+            }),
             1
           )
-        }),
+        ],
         1
       )
     ])
@@ -17768,37 +18478,53 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "right" }, [
-      _c(
-        "button",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.isSignIn,
-              expression: "isSignIn"
+    _c(
+      "div",
+      { staticClass: "right" },
+      [
+        _c(
+          "router-link",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.type == "sign-in",
+                expression: "type == 'sign-in'"
+              }
+            ],
+            attrs: {
+              to:
+                _vm.isAdmin == "Admin"
+                  ? "/lsp/first-time-password"
+                  : "/lsp-team/first-time-password",
+              tag: "button"
             }
-          ]
-        },
-        [_vm._v("Sign In")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: !_vm.isSignIn,
-              expression: "!isSignIn"
+          },
+          [_vm._v("\n        Sign In\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.type !== "sign-in",
+                expression: "type !== 'sign-in'"
+              }
+            ],
+            attrs: {
+              to: _vm.isAdmin == "Admin" ? "/home/new" : "/lsp-home/remaining",
+              tag: "button"
             }
-          ]
-        },
-        [_vm._v("Save")]
-      )
-    ])
+          },
+          [_vm._v("\n        Save\n        ")]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -18300,17 +19026,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "customer-detail-chip" }, [
-    _c("div", { staticClass: "customer-detail-name" }, [
-      _c("i", { staticClass: "fas fa-user-alt" }),
+  return _c("div", { staticClass: "customer-home-body-row" }, [
+    _c("div", { staticClass: "customer-detail-chip" }, [
+      _c("div", { staticClass: "customer-detail-name" }, [
+        _c("i", { staticClass: "fas fa-user-alt" }),
+        _vm._v(" "),
+        _c("span", [_vm._v(_vm._s(_vm.value))])
+      ]),
       _vm._v(" "),
-      _c("span", [_vm._v(_vm._s(_vm.value))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "customer-detail-address" }, [
-      _c("i", { staticClass: "fas fa-map-marker-alt" }),
-      _vm._v(" "),
-      _c("span", [_vm._v(_vm._s(_vm.address))])
+      _c("div", { staticClass: "customer-detail-address" }, [
+        _c("i", { staticClass: "fas fa-map-marker-alt" }),
+        _vm._v(" "),
+        _c("span", [_vm._v(_vm._s(_vm.address))])
+      ])
     ])
   ])
 }
@@ -18351,8 +19079,12 @@ var render = function() {
       _c(
         "div",
         { staticClass: "customer-home-assigned-button" },
-        [_vm._t("button")],
-        2
+        [
+          _c("AssignOrSwitchTeamComponent", {
+            attrs: { customer: _vm.customer, type: _vm.type }
+          })
+        ],
+        1
       )
     ])
   ])
@@ -18382,7 +19114,7 @@ var render = function() {
   return _c("div", { staticClass: "customer-date" }, [
     _c("span", [_vm._t("default")], 2),
     _vm._v(" "),
-    _c("br"),
+    _c("span", [_vm._v(" | ")]),
     _vm._v(" "),
     _c("span", { staticClass: "issue" }, [_vm._t("issue")], 2)
   ])
@@ -34677,6 +35409,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AssignOrSwitchTeamComponent_vue_vue_type_template_id_fca8788e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e& */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e&");
+/* harmony import */ var _AssignOrSwitchTeamComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AssignOrSwitchTeamComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AssignOrSwitchTeamComponent_vue_vue_type_template_id_fca8788e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AssignOrSwitchTeamComponent_vue_vue_type_template_id_fca8788e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignOrSwitchTeamComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignOrSwitchTeamComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e& ***!
+  \*********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignOrSwitchTeamComponent_vue_vue_type_template_id_fca8788e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue?vue&type=template&id=fca8788e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignOrSwitchTeamComponent_vue_vue_type_template_id_fca8788e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignOrSwitchTeamComponent_vue_vue_type_template_id_fca8788e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/lsp-home/HistoryComponent.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/components/lsp-home/HistoryComponent.vue ***!
@@ -34810,6 +35611,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_template_id_527e391d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_template_id_527e391d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LSPFirstTimePasswordComponent_vue_vue_type_template_id_18978126___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126& */ "./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126&");
+/* harmony import */ var _LSPFirstTimePasswordComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LSPFirstTimePasswordComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LSPFirstTimePasswordComponent_vue_vue_type_template_id_18978126___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LSPFirstTimePasswordComponent_vue_vue_type_template_id_18978126___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPFirstTimePasswordComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPFirstTimePasswordComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPFirstTimePasswordComponent_vue_vue_type_template_id_18978126___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue?vue&type=template&id=18978126&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPFirstTimePasswordComponent_vue_vue_type_template_id_18978126___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPFirstTimePasswordComponent_vue_vue_type_template_id_18978126___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/LSPLoginComponent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/lsp-home/LSPLoginComponent.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LSPLoginComponent_vue_vue_type_template_id_2978defc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LSPLoginComponent.vue?vue&type=template&id=2978defc& */ "./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=template&id=2978defc&");
+/* harmony import */ var _LSPLoginComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LSPLoginComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LSPLoginComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LSPLoginComponent_vue_vue_type_template_id_2978defc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LSPLoginComponent_vue_vue_type_template_id_2978defc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/lsp-home/LSPLoginComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPLoginComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LSPLoginComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPLoginComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=template&id=2978defc&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=template&id=2978defc& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPLoginComponent_vue_vue_type_template_id_2978defc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LSPLoginComponent.vue?vue&type=template&id=2978defc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/lsp-home/LSPLoginComponent.vue?vue&type=template&id=2978defc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPLoginComponent_vue_vue_type_template_id_2978defc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPLoginComponent_vue_vue_type_template_id_2978defc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -36895,15 +37834,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CustomerHomeFooterButton_vue_vue_type_template_id_4a7df2c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustomerHomeFooterButton.vue?vue&type=template&id=4a7df2c6& */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=template&id=4a7df2c6&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustomerHomeFooterButton.vue?vue&type=script&lang=js& */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _CustomerHomeFooterButton_vue_vue_type_template_id_4a7df2c6___WEBPACK_IMPORTED_MODULE_0__["render"],
   _CustomerHomeFooterButton_vue_vue_type_template_id_4a7df2c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -36917,6 +37858,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/reuseable-component/CustomerHomeFooterButton.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CustomerHomeFooterButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -37940,36 +38895,40 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_NotFound__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/NotFound */ "./resources/js/components/NotFound.vue");
-/* harmony import */ var _components_lsp_team_LSPTeamLoginComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamLoginComponent.vue */ "./resources/js/components/lsp-team/LSPTeamLoginComponent.vue");
-/* harmony import */ var _components_lsp_home_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/lsp-home/ProfileComponent.vue */ "./resources/js/components/lsp-home/ProfileComponent.vue");
-/* harmony import */ var _components_lsp_team_LSPTeamProfileComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamProfileComponent.vue */ "./resources/js/components/lsp-team/LSPTeamProfileComponent.vue");
-/* harmony import */ var _components_lsp_team_LSPTeamFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamFirstTimePasswordComponent.vue */ "./resources/js/components/lsp-team/LSPTeamFirstTimePasswordComponent.vue");
-/* harmony import */ var _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/lsp-order/OrderComponent */ "./resources/js/components/lsp-order/OrderComponent.vue");
-/* harmony import */ var _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/lsp-team-order/LSPOrderComponent */ "./resources/js/components/lsp-team-order/LSPOrderComponent.vue");
-/* harmony import */ var _components_lsp_home_HomeComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/lsp-home/HomeComponent */ "./resources/js/components/lsp-home/HomeComponent.vue");
-/* harmony import */ var _components_lsp_home_AcceptComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/lsp-home/AcceptComponent */ "./resources/js/components/lsp-home/AcceptComponent.vue");
-/* harmony import */ var _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/lsp-on-call/OnCallComponent */ "./resources/js/components/lsp-on-call/OnCallComponent.vue");
-/* harmony import */ var _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/lsp-on-call/OnCallAcceptComponent */ "./resources/js/components/lsp-on-call/OnCallAcceptComponent.vue");
-/* harmony import */ var _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/lsp-on-call/OnCallHistoryComponent */ "./resources/js/components/lsp-on-call/OnCallHistoryComponent.vue");
-/* harmony import */ var _components_lsp_team_LSPTeamRemainingComponent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamRemainingComponent */ "./resources/js/components/lsp-team/LSPTeamRemainingComponent.vue");
-/* harmony import */ var _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/lsp-home/HistoryComponent */ "./resources/js/components/lsp-home/HistoryComponent.vue");
-/* harmony import */ var _components_lsp_team_LSPTeamHistoryComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamHistoryComponent */ "./resources/js/components/lsp-team/LSPTeamHistoryComponent.vue");
-/* harmony import */ var _components_lsp_team_LSPTeamCompleteComponent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamCompleteComponent */ "./resources/js/components/lsp-team/LSPTeamCompleteComponent.vue");
-/* harmony import */ var _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/lsp-home-team/TeamIndexComponent */ "./resources/js/components/lsp-home-team/TeamIndexComponent.vue");
-/* harmony import */ var _components_lsp_home_team_TeamDetailComponent__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/lsp-home-team/TeamDetailComponent */ "./resources/js/components/lsp-home-team/TeamDetailComponent.vue");
-/* harmony import */ var _components_lsp_home_team_CreateTeamComponent__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/lsp-home-team/CreateTeamComponent */ "./resources/js/components/lsp-home-team/CreateTeamComponent.vue");
-/* harmony import */ var _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/lsp-home-inventory/InventoryComponent */ "./resources/js/components/lsp-home-inventory/InventoryComponent.vue");
-/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderSurveyComponent */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderSurveyComponent.vue");
-/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderCablingComponent_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderCablingComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderCablingComponent.vue");
-/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderSplicingComponent_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderSplicingComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderSplicingComponent.vue");
-/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderActivateComponent_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderActivateComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderActivateComponent.vue");
-/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderRepairComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderRepairComponent.vue");
-/* harmony import */ var _components_lsp_order_detail_LSPOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderSurveyComponent */ "./resources/js/components/lsp-order-detail/LSPOrderSurveyComponent.vue");
-/* harmony import */ var _components_lsp_order_detail_LSPOrderCablingComponent__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderCablingComponent */ "./resources/js/components/lsp-order-detail/LSPOrderCablingComponent.vue");
-/* harmony import */ var _components_lsp_order_detail_LSPOrderSplicingComponent__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderSplicingComponent */ "./resources/js/components/lsp-order-detail/LSPOrderSplicingComponent.vue");
-/* harmony import */ var _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderActivateComponent */ "./resources/js/components/lsp-order-detail/LSPOrderActivateComponent.vue");
-/* harmony import */ var _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderRepairComponent.vue */ "./resources/js/components/lsp-order-detail/LSPOrderRepairComponent.vue");
+/* harmony import */ var _components_lsp_home_LSPLoginComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/lsp-home/LSPLoginComponent.vue */ "./resources/js/components/lsp-home/LSPLoginComponent.vue");
+/* harmony import */ var _components_lsp_team_LSPTeamLoginComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamLoginComponent.vue */ "./resources/js/components/lsp-team/LSPTeamLoginComponent.vue");
+/* harmony import */ var _components_lsp_home_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/lsp-home/ProfileComponent.vue */ "./resources/js/components/lsp-home/ProfileComponent.vue");
+/* harmony import */ var _components_lsp_team_LSPTeamProfileComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamProfileComponent.vue */ "./resources/js/components/lsp-team/LSPTeamProfileComponent.vue");
+/* harmony import */ var _components_lsp_team_LSPTeamFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamFirstTimePasswordComponent.vue */ "./resources/js/components/lsp-team/LSPTeamFirstTimePasswordComponent.vue");
+/* harmony import */ var _components_lsp_home_LSPFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/lsp-home/LSPFirstTimePasswordComponent.vue */ "./resources/js/components/lsp-home/LSPFirstTimePasswordComponent.vue");
+/* harmony import */ var _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/lsp-order/OrderComponent */ "./resources/js/components/lsp-order/OrderComponent.vue");
+/* harmony import */ var _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/lsp-team-order/LSPOrderComponent */ "./resources/js/components/lsp-team-order/LSPOrderComponent.vue");
+/* harmony import */ var _components_lsp_home_HomeComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/lsp-home/HomeComponent */ "./resources/js/components/lsp-home/HomeComponent.vue");
+/* harmony import */ var _components_lsp_home_AcceptComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/lsp-home/AcceptComponent */ "./resources/js/components/lsp-home/AcceptComponent.vue");
+/* harmony import */ var _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/lsp-on-call/OnCallComponent */ "./resources/js/components/lsp-on-call/OnCallComponent.vue");
+/* harmony import */ var _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/lsp-on-call/OnCallAcceptComponent */ "./resources/js/components/lsp-on-call/OnCallAcceptComponent.vue");
+/* harmony import */ var _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/lsp-on-call/OnCallHistoryComponent */ "./resources/js/components/lsp-on-call/OnCallHistoryComponent.vue");
+/* harmony import */ var _components_lsp_team_LSPTeamRemainingComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamRemainingComponent */ "./resources/js/components/lsp-team/LSPTeamRemainingComponent.vue");
+/* harmony import */ var _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/lsp-home/HistoryComponent */ "./resources/js/components/lsp-home/HistoryComponent.vue");
+/* harmony import */ var _components_lsp_team_LSPTeamHistoryComponent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamHistoryComponent */ "./resources/js/components/lsp-team/LSPTeamHistoryComponent.vue");
+/* harmony import */ var _components_lsp_team_LSPTeamCompleteComponent__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/lsp-team/LSPTeamCompleteComponent */ "./resources/js/components/lsp-team/LSPTeamCompleteComponent.vue");
+/* harmony import */ var _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/lsp-home-team/TeamIndexComponent */ "./resources/js/components/lsp-home-team/TeamIndexComponent.vue");
+/* harmony import */ var _components_lsp_home_team_TeamDetailComponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/lsp-home-team/TeamDetailComponent */ "./resources/js/components/lsp-home-team/TeamDetailComponent.vue");
+/* harmony import */ var _components_lsp_home_team_CreateTeamComponent__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/lsp-home-team/CreateTeamComponent */ "./resources/js/components/lsp-home-team/CreateTeamComponent.vue");
+/* harmony import */ var _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/lsp-home-inventory/InventoryComponent */ "./resources/js/components/lsp-home-inventory/InventoryComponent.vue");
+/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderSurveyComponent */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderSurveyComponent.vue");
+/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderCablingComponent_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderCablingComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderCablingComponent.vue");
+/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderSplicingComponent_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderSplicingComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderSplicingComponent.vue");
+/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderActivateComponent_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderActivateComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderActivateComponent.vue");
+/* harmony import */ var _components_lsp_team_order_detail_LSPTeamOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/lsp-team-order-detail/LSPTeamOrderRepairComponent.vue */ "./resources/js/components/lsp-team-order-detail/LSPTeamOrderRepairComponent.vue");
+/* harmony import */ var _components_lsp_order_detail_LSPOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderSurveyComponent */ "./resources/js/components/lsp-order-detail/LSPOrderSurveyComponent.vue");
+/* harmony import */ var _components_lsp_order_detail_LSPOrderCablingComponent__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderCablingComponent */ "./resources/js/components/lsp-order-detail/LSPOrderCablingComponent.vue");
+/* harmony import */ var _components_lsp_order_detail_LSPOrderSplicingComponent__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderSplicingComponent */ "./resources/js/components/lsp-order-detail/LSPOrderSplicingComponent.vue");
+/* harmony import */ var _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderActivateComponent */ "./resources/js/components/lsp-order-detail/LSPOrderActivateComponent.vue");
+/* harmony import */ var _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderRepairComponent.vue */ "./resources/js/components/lsp-order-detail/LSPOrderRepairComponent.vue");
 // import LspHomeComponent from './components/LspHomeComponent'
+
+
 
 
 
@@ -38006,100 +38965,106 @@ __webpack_require__.r(__webpack_exports__);
     path: '*',
     component: _components_NotFound__WEBPACK_IMPORTED_MODULE_0__["default"]
   }, {
+    path: '/lsp/login',
+    component: _components_lsp_home_LSPLoginComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  }, {
+    path: '/lsp/first-time-password',
+    component: _components_lsp_home_LSPFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }, {
     path: '/order',
-    component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/lsp-order',
-    component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: '/home/profile',
-    component: _components_lsp_home_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _components_lsp_home_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/home/new',
-    component: _components_lsp_home_HomeComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
+    component: _components_lsp_home_HomeComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
     name: 'home-new'
   }, {
     path: '/home/accept',
-    component: _components_lsp_home_AcceptComponent__WEBPACK_IMPORTED_MODULE_8__["default"] // name: 'home-accept'
+    component: _components_lsp_home_AcceptComponent__WEBPACK_IMPORTED_MODULE_10__["default"] // name: 'home-accept'
 
   }, {
     path: '/home/history',
-    component: _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_13__["default"] // name: 'home-history'
+    component: _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_15__["default"] // name: 'home-history'
 
   }, {
     path: '/on-call/new',
-    component: _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
+    component: _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_11__["default"],
     name: 'on-call-new'
   }, {
     path: '/on-call/accept',
-    component: _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
     path: '/on-call/history',
-    component: _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_13__["default"]
   }, {
     path: '/team',
-    component: _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_16__["default"],
+    component: _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_18__["default"],
     name: 'team'
   }, {
     path: '/team/detail/:id',
-    component: _components_lsp_home_team_TeamDetailComponent__WEBPACK_IMPORTED_MODULE_17__["default"],
+    component: _components_lsp_home_team_TeamDetailComponent__WEBPACK_IMPORTED_MODULE_19__["default"],
     name: 'team-detail'
   }, {
     path: '/team/create',
-    component: _components_lsp_home_team_CreateTeamComponent__WEBPACK_IMPORTED_MODULE_18__["default"],
+    component: _components_lsp_home_team_CreateTeamComponent__WEBPACK_IMPORTED_MODULE_20__["default"],
     name: 'team-create'
   }, {
     path: '/lsp-team/login',
-    component: _components_lsp_team_LSPTeamLoginComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: _components_lsp_team_LSPTeamLoginComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/lsp-team/profile',
-    component: _components_lsp_team_LSPTeamProfileComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_lsp_team_LSPTeamProfileComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/lsp-team/first-time-password',
-    component: _components_lsp_team_LSPTeamFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_lsp_team_LSPTeamFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/lsp-home/remaining',
-    component: _components_lsp_team_LSPTeamRemainingComponent__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _components_lsp_team_LSPTeamRemainingComponent__WEBPACK_IMPORTED_MODULE_14__["default"]
   }, {
     path: '/lsp-home/history',
-    component: _components_lsp_team_LSPTeamHistoryComponent__WEBPACK_IMPORTED_MODULE_14__["default"]
+    component: _components_lsp_team_LSPTeamHistoryComponent__WEBPACK_IMPORTED_MODULE_16__["default"]
   }, {
     path: '/lsp-home/complete',
-    component: _components_lsp_team_LSPTeamCompleteComponent__WEBPACK_IMPORTED_MODULE_15__["default"]
+    component: _components_lsp_team_LSPTeamCompleteComponent__WEBPACK_IMPORTED_MODULE_17__["default"]
   }, {
     path: '/inventory',
-    component: _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_19__["default"],
+    component: _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_21__["default"],
     name: 'inventory'
   }, {
     path: '/lsp-team-order/survey',
-    component: _components_lsp_team_order_detail_LSPTeamOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_20__["default"]
+    component: _components_lsp_team_order_detail_LSPTeamOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_22__["default"]
   }, {
     path: '/lsp-team-order/cabling',
-    component: _components_lsp_team_order_detail_LSPTeamOrderCablingComponent_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
+    component: _components_lsp_team_order_detail_LSPTeamOrderCablingComponent_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
   }, {
     path: '/lsp-team-order/splicing',
-    component: _components_lsp_team_order_detail_LSPTeamOrderSplicingComponent_vue__WEBPACK_IMPORTED_MODULE_22__["default"]
+    component: _components_lsp_team_order_detail_LSPTeamOrderSplicingComponent_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
   }, {
     path: '/lsp-team-order/activate',
-    component: _components_lsp_team_order_detail_LSPTeamOrderActivateComponent_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
+    component: _components_lsp_team_order_detail_LSPTeamOrderActivateComponent_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
   }, {
     path: '/lsp-team-order/repair',
-    component: _components_lsp_team_order_detail_LSPTeamOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+    component: _components_lsp_team_order_detail_LSPTeamOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
   }, {
     path: '/lsp-order/survey',
-    component: _components_lsp_order_detail_LSPOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_25__["default"]
+    component: _components_lsp_order_detail_LSPOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_27__["default"]
   }, {
     path: '/lsp-order/cabling',
-    component: _components_lsp_order_detail_LSPOrderCablingComponent__WEBPACK_IMPORTED_MODULE_26__["default"]
+    component: _components_lsp_order_detail_LSPOrderCablingComponent__WEBPACK_IMPORTED_MODULE_28__["default"]
   }, {
     path: '/lsp-order/splicing',
-    component: _components_lsp_order_detail_LSPOrderSplicingComponent__WEBPACK_IMPORTED_MODULE_27__["default"]
+    component: _components_lsp_order_detail_LSPOrderSplicingComponent__WEBPACK_IMPORTED_MODULE_29__["default"]
   }, {
     path: '/lsp-order/activate',
-    component: _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_28__["default"]
+    component: _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_30__["default"]
   }, {
     path: '/lsp-order/repair',
-    component: _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_29__["default"]
+    component: _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_31__["default"]
   }]
 });
 

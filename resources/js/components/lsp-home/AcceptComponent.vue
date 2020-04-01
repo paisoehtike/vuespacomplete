@@ -21,15 +21,15 @@
           <CustomerIssueDate slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
             {{customer.date}}
+            <template v-slot:issue>{{ customer.issue }}</template>
           </CustomerIssueDate>
           <CustomerDetailChip
             slot="customer-detail-chip"
             :value="customer.customerName"
             :address="customer.address"
           ></CustomerDetailChip>
-          <CustomerHomeFooterButton slot="customer-home-footer">
+          <CustomerHomeFooterButton :customer="customer" :type="'Accept'" slot="customer-home-footer">
             <template v-slot:assign>{{customer.assigned}}</template>
-            <a class="btn" slot="button">Accept</a>
           </CustomerHomeFooterButton>
         </Customer>
       </div>
@@ -80,6 +80,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -90,6 +91,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -100,6 +102,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -110,6 +113,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -120,6 +124,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",

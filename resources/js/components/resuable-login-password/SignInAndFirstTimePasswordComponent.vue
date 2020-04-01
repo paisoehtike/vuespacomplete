@@ -13,8 +13,18 @@
             <input class="activate-input" type="text" name="onu-sn">
         </div>
         <div class="right">
-            <button v-show="isSignIn">Sign In</button>
-            <button v-show="!isSignIn">Save</button>
+            <router-link v-show="type == 'sign-in'" 
+                         :to="isAdmin == 'Admin' ? '/lsp/first-time-password': '/lsp-team/first-time-password'"
+                         tag="button">
+            Sign In
+            </router-link>
+            <router-link v-show="type !== 'sign-in'" 
+                         :to="isAdmin == 'Admin' ? '/home/new': '/lsp-home/remaining'" 
+                         tag="button">
+            Save
+            </router-link>
+            <!-- <button v-show="isSignIn">Sign In</button> -->
+            <!-- <button v-show="!isSignIn">Save</button> -->
         </div>
     </form>
 </template>
@@ -22,7 +32,7 @@
 <script>
 export default {
     props: [
-        'type'
+        'type', 'isAdmin',
     ],
     data() {
         return {

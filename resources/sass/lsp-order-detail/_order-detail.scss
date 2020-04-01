@@ -367,7 +367,7 @@
 
 .modal-box {
     position: fixed;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 99;
@@ -377,6 +377,18 @@
     background-color: #fff;
     border-radius: 5px;
     padding: 24px 13px 15px;
+    max-height: 93vh;
+    overflow: auto;
+
+    h2 {
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: .4px;
+    }
+}
+
+.modal-button-box {
+    text-align: right;
 }
 
 .modal-box h3 {
@@ -565,4 +577,20 @@
         color: #303030;
         margin-bottom: 16px;
     }
+}
+
+// ------ Assign Or Switch Team Modal ------
+
+.assign-team-modal-header {
+    display: flex;
+}
+
+.customer-request-detail {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.customer-request-date {
+    padding-top: 69px;
+    text-align: right;
 }

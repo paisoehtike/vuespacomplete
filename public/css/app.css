@@ -70,6 +70,14 @@
   width: 100%;
 }
 
+.team-order-button {
+  margin-top: 40px;
+  margin-bottom: 47px;
+  grid-column: 2/3;
+  width: 100%;
+  text-align: center;
+}
+
 .home-container .home-container-row {
   display: grid;
   grid-template-columns: 5% 90% 5%;
@@ -142,6 +150,7 @@
   display: grid;
   grid-template-columns: 5% 90% 5%;
   grid-template-rows: 55% 45%;
+  color: #000;
 }
 
 .customer-home-container .home-customer-container .customer-header-row,
@@ -189,18 +198,6 @@
   text-align: end;
 }
 
-.customer-home-container .home-customer-container .customer-header-row .customer-type-container .customer-date .issue {
-  color: #ed1c24;
-}
-
-.customer-home-container .home-customer-container .customer-home-body-row {
-  width: 100%;
-  height: 69px;
-  margin-top: 5px;
-  background-color: #f9f9f9;
-  color: #5f5f5f;
-}
-
 .customer-home-container .customer-home-footer-row {
   display: grid;
   grid-template-columns: 5% auto;
@@ -225,6 +222,19 @@
   border-bottom: 0;
   border-right: 0;
   border-radius: 15px 0 15px 0;
+}
+
+.issue {
+  color: #ed1c24;
+}
+
+.customer-home-body-row {
+  width: 100%;
+  height: 69px;
+  margin-top: 5px;
+  background-color: #f9f9f9;
+  color: #5f5f5f;
+  padding: 1px 0 0px;
 }
 
 .table-row-component tr {
@@ -439,6 +449,11 @@
 .team-container .team-complete-row .team-user-row,
 .team-container .team-complete-row .complete-row {
   color: #5f5f5f;
+}
+
+.assign-team-wrapper {
+  height: 191px;
+  overflow: auto;
 }
 
 .create-team-container {
@@ -966,7 +981,7 @@
 
 .modal-box {
   position: fixed;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 99;
@@ -975,6 +990,18 @@
   background-color: #fff;
   border-radius: 5px;
   padding: 24px 13px 15px;
+  max-height: 93vh;
+  overflow: auto;
+}
+
+.modal-box h2 {
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.4px;
+}
+
+.modal-button-box {
+  text-align: right;
 }
 
 .modal-box h3 {
@@ -1168,5 +1195,19 @@
   line-height: 24px;
   color: #303030;
   margin-bottom: 16px;
+}
+
+.assign-team-modal-header {
+  display: flex;
+}
+
+.customer-request-detail {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.customer-request-date {
+  padding-top: 69px;
+  text-align: right;
 }
 

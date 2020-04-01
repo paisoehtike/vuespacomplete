@@ -7,8 +7,21 @@
         <span><slot name="assign"></slot></span>
       </div>
       <div class="customer-home-assigned-button">
-        <slot name="button"></slot>
+        <AssignOrSwitchTeamComponent :customer="customer" :type="type"></AssignOrSwitchTeamComponent>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import AssignOrSwitchTeamComponent from "./../lsp-home/AssignOrSwitchTeamComponent";
+
+export default {
+  props: [
+    'customer', 'type',
+  ],
+  components: {
+    AssignOrSwitchTeamComponent,
+  }
+}
+</script>

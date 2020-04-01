@@ -12,22 +12,25 @@
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
-        <Customer v-for="(customer,index) in customers" :key="index">
-          <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+        <router-link to="/lsp-order">
+          <Customer v-for="(customer,index) in customers" :key="index">
+            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
 
-          <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+            <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
+            <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
 
-          <CustomerIssueDate slot="customer-date">
-            <!-- <span>{{customer.date}}</span> -->
-            {{customer.date}}
-          </CustomerIssueDate>
-          <CustomerDetailChip
-            slot="customer-detail-chip"
-            :value="customer.customerName"
-            :address="customer.address"
-          ></CustomerDetailChip>
-        </Customer>
+            <CustomerIssueDate slot="customer-date">
+              <!-- <span>{{customer.date}}</span> -->
+              {{customer.date}}
+              <template v-slot:issue>{{ customer.issue }}</template>
+            </CustomerIssueDate>
+            <CustomerDetailChip
+              slot="customer-detail-chip"
+              :value="customer.customerName"
+              :address="customer.address"
+            ></CustomerDetailChip>
+          </Customer>
+        </router-link>
       </div>
     </div>
 
@@ -76,6 +79,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -86,6 +90,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -96,6 +101,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -106,6 +112,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
@@ -116,6 +123,7 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
+          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",

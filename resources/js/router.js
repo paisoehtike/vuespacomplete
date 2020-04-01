@@ -1,9 +1,11 @@
 // import LspHomeComponent from './components/LspHomeComponent'
 import NotFound from './components/NotFound'
+import LSPLogin from './components/lsp-home/LSPLoginComponent.vue'
 import LSPTeamLogin from './components/lsp-team/LSPTeamLoginComponent.vue'
 import Profile from './components/lsp-home/ProfileComponent.vue'
 import LSPTeamProfile from './components/lsp-team/LSPTeamProfileComponent.vue'
 import LSPTeamFirstTimePassword from './components/lsp-team/LSPTeamFirstTimePasswordComponent.vue'
+import LSPFirstTimePassword from './components/lsp-home/LSPFirstTimePasswordComponent.vue'
 import Order from './components/lsp-order/OrderComponent'
 import LSPOrder from './components/lsp-team-order/LSPOrderComponent'
 import Home from './components/lsp-home/HomeComponent'
@@ -36,6 +38,14 @@ export default {
         {
             path: '*',
             component: NotFound
+        },
+        {
+            path: '/lsp/login',
+            component: LSPLogin
+        },
+        {
+            path: '/lsp/first-time-password',
+            component: LSPFirstTimePassword
         },
         {
             path: '/order',

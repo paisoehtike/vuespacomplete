@@ -3,7 +3,7 @@
     <span>
       <slot></slot>
     </span>
-    <br />
+    <span> | </span>
     <span class="issue">
       <slot name="issue"></slot>
     </span>
