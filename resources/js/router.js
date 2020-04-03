@@ -40,6 +40,10 @@ export default {
             component: NotFound
         },
         {
+            path: '/',
+            component: LSPLogin
+        },
+        {
             path: '/lsp/login',
             component: LSPLogin
         },

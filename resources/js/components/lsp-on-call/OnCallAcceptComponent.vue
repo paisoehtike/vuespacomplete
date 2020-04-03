@@ -13,8 +13,10 @@
       </div>
       <div class="home-customer-row">
         <Customer v-for="(customer,index) in customers" :key="index">
-          <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
-
+          <router-link to="/lsp-order/repair" tag="div">
+            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+          </router-link>
+          
           <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
           <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
 
@@ -91,7 +93,6 @@ export default {
           address: "Mingalar Taung Nyunt",
           assigned: "Not Assigned",
           issue: "No Internet Connection",
-          priority: "24"
         },
         {
           name: "5531",
@@ -102,7 +103,7 @@ export default {
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
           assigned: "Not Assigned",
-          issue: "Broke"
+          issue: "No Internet Connection",
         },
         {
           name: "5531",
@@ -113,7 +114,7 @@ export default {
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
           assigned: "Not Assigned",
-          issue: "Wifi Error"
+          issue: "No Internet Connection",
         },
         {
           name: "5531",

@@ -1,9 +1,9 @@
 <template>
   <div class="order-container">
-    <div class="order-header-row">
+    <router-link tag="div" to="/home/new" class="order-header-row">
       <i class="fas fa-chevron-left"></i>
-      <h5>Detail</h5>
-    </div>
+      <h2>Detail</h2>
+    </router-link>
     <div class="order-image-container">
       <SquareImage></SquareImage>
     </div>
@@ -51,9 +51,9 @@
       </OrderInfo>
     </div>
     <div class="order-button">
-      <div class="col s12 m6 l3 view-detail">
+      <router-link tag="div" to="/lsp-order/survey" class="col s12 m6 l3 view-detail">
         <a>View Installation Detail</a>
-      </div>
+      </router-link>
       <div class="col s12 m6 l3 complete-btn">
         <a class="waves-effect waves-light btn orange">Complete</a>
       </div>

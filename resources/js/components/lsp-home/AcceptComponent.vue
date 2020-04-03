@@ -13,7 +13,9 @@
       </div>
       <div class="home-customer-row">
         <Customer v-for="(customer,index) in customers" :key="index">
-          <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+          <router-link to="/order" tag="div">
+            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+          </router-link>
 
           <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
           <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
@@ -25,7 +27,7 @@
               v-slot:priority-date
               v-if="customer.priority"
             >| {{customer.priority}} Hrs</template>
-            <template v-slot:issue>{{ customer.issue }}</template>
+            <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
           <CustomerDetailChip
             slot="customer-detail-chip"
@@ -84,56 +86,56 @@ export default {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
-          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
+          assigned: "Not Assigned",
+          priority: "24",
         },
         {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
-          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
+          assigned: "Not Assigned",
+          priority: "24",
         },
         {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
-          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
+          assigned: "Not Assigned",
+          priority: "24",
         },
         {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
-          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
+          assigned: "Not Assigned",
+          priority: "24",
         },
         {
           name: "5531",
           orderStep: "Installation",
           date: "2020/3/19",
-          issue: "24 Hrs",
           customerType: "VIP",
           orderStep: "Installation",
           customerName: "U Min Thant",
           address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
+          assigned: "Not Assigned",
+          priority: "24",
         }
       ]
     };

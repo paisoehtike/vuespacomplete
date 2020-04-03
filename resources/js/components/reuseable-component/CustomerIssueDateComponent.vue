@@ -3,7 +3,6 @@
     <span>
       <slot></slot>
     </span>
-    <span> | </span>
     <span class="priority">
       <slot name="priority-date"></slot>
     </span>
