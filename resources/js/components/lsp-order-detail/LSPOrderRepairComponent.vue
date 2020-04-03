@@ -1,10 +1,10 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="" tag="div" class="order-header-row">
+        <div @click="$router.go(-1)" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Repair</h2>
-        </router-link>
+        </div>
         <div class="replace-item">
             <h3>Replace Items</h3>
             <TeamInfo>

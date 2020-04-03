@@ -20,9 +20,14 @@
                     <div class="customer-request-date">
                         <CustomerIssueDate slot="customer-date">
                             {{customer.date}}
-                            <template v-slot:issue>
-                                {{ customer.issue }}
-                            </template>
+                            <template
+                                v-slot:priority-date
+                                v-if="customer.priority"
+                                >| {{customer.priority}} Hrs</template>
+                            <template
+                                v-slot:issue
+                                v-if="customer.issue"
+                                >| {{ customer.issue }}</template>
                         </CustomerIssueDate>
                     </div>
                 </div>
@@ -58,8 +63,8 @@
                     </Teams>
                 </div>
                 <div class="modal-button-box">
-                    <button @click="showModal = false">Cancel</button>
-                    <button class="remark-save-btn">Save</button>
+                    <button @click="showModal = false" class="cancel-button">Cancel</button>
+                    <button @click="showModal = false" class="remark-save-btn">Save</button>
                 </div>
             </div>
         </transition>

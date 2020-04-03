@@ -13,8 +13,10 @@
       </div>
       <div class="home-customer-row">
         <Customer v-for="(customer,index) in customers" :key="index">
-          <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
-
+          <router-link to="/lsp-order/repair" tag="div">
+            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+          </router-link>
+          
           <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
           <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
 
