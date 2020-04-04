@@ -33,7 +33,9 @@
     <div class="order-assigned-row">
       <span>Assigned Team :</span>
       <span>Not Assigned</span>
-      <a class="waves-effect btn">Assign</a>
+      <AssignOrSwitchTeamComponent :customer="customer" :type="'New'"></AssignOrSwitchTeamComponent>
+      <AssignOrSwitchTeamComponent :customer="customer" :type="'Accept'"></AssignOrSwitchTeamComponent>
+      <!-- <a class="waves-effect btn">Assign</a> -->
     </div>
     <div class="customer-info-row">
       <CustomerInfo>
@@ -68,6 +70,7 @@ import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import TableRow from "./../reuseable-component/TableRowComponent";
 import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
 import OrderStepChip from "./../reuseable-component/OrderStepChipComponent";
+import AssignOrSwitchTeamComponent from "./../lsp-home/AssignOrSwitchTeamComponent";
 
 export default {
   components: {
@@ -77,10 +80,22 @@ export default {
     SquareImage,
     TableRow,
     CustomerTypeChip,
-    OrderStepChip
+    OrderStepChip,
+    AssignOrSwitchTeamComponent
   },
   data() {
     return {
+      customer: {
+        name: "5531",
+        orderStep: "Installation",
+        date: "2020/3/19",
+        customerType: "VIP",
+        orderStep: "Installation",
+        customerName: "U Min Thant",
+        address: "Mingalar Taung Nyunt",
+        assigned: "Not Assigned",
+        priority: "24"
+      },
       customerDetails: {
         name: "Mg Mg",
         accountNo: "YGNFX008",

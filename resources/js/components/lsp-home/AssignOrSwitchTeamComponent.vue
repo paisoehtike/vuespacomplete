@@ -1,6 +1,6 @@
 <template>
     <div class="dummy">
-        <a @click="showModal = true" class="btn">Accept</a>
+        <a @click="showModal = true" class="waves-effect btn">{{ assignOrSwitch }}</a>
 
         <transition name="fade" appear>
             <div class="modal-box1" v-if="showModal" @click="showModal = false">
@@ -94,6 +94,7 @@ export default {
     data() {
         return {
             showModal: false,
+            assignOrSwitch: null,
             assignedTeam: {
                 teamName: "Team A",
                 customerName: "Min Min",
@@ -125,6 +126,18 @@ export default {
                 },
             ]
         }
+    },
+    methods: {
+        isAssigned() {
+            if(this.type == 'New') {
+                this.assignOrSwitch = 'Assign';
+            } else {
+                this.assignOrSwitch = 'Switch';
+            }
+        }
+    },
+    mounted() {
+        this.isAssigned();
     }
 }
 </script>

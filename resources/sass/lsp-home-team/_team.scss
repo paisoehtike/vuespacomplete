@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: 5% 45% 45% 5%;
   margin-bottom: 5px;
+  cursor: pointer;
 
   .team-body-row {
     grid-column: 2/3;
