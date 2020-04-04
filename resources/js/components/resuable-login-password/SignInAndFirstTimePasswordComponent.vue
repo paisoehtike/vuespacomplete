@@ -1,19 +1,22 @@
 <template>
-    <form action="" class="activate-form">
+    <div class="activate-form">
         <h5><slot></slot></h5>
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
         <div>
             <p v-show="!isSignIn" class="password-label">Set your new password</p>
             <label v-show="!isSignIn" class="activate-label">Password</label>
-            <label v-show="isSignIn" class="activate-label">User Name</label>
-            <input class="activate-input" type="text" name="fat-port">
+            <label v-show="isSignIn" class="activate-label">Phone</label>
+            <span v-if="errors.phone">{{ errors.phone }}</span>
+            <input v-model="phone" class="activate-input" type="text" name="phone">
         </div>
         <div>
             <label v-show="!isSignIn" class="activate-label">Confirm Password</label>
             <label v-show="isSignIn" class="activate-label" for="onu-sn">Password</label>
-            <input class="activate-input" type="text" name="onu-sn">
+            <span v-if="errors.password">{{ errors.password }}</span>
+            <input v-model="password" class="activate-input" type="text" name="password">
         </div>
         <div class="right">
-            <router-link v-show="type == 'sign-in'" 
+            <!-- <router-link v-show="type == 'sign-in'" 
                          :to="isAdmin == 'Admin' ? '/lsp/first-time-password': '/lsp-team/first-time-password'"
                          tag="button">
             Sign In
@@ -22,28 +25,57 @@
                          :to="isAdmin == 'Admin' ? '/home/new': '/lsp-home/remaining'" 
                          tag="button">
             Save
-            </router-link>
-            <!-- <button v-show="isSignIn">Sign In</button> -->
-            <!-- <button v-show="!isSignIn">Save</button> -->
+            </router-link> -->
+            <button @click="formSubmit" v-show="isSignIn">Sign In</button>
+            <button v-show="!isSignIn">Save</button>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>
 export default {
     props: [
-        'type', 'isAdmin',
+        'type', 'isAdmin', 'errorMessage',
     ],
     data() {
         return {
             isSignIn: true,
+            phone: null,
+            password: null,
+            errors: {
+                phone: null,
+                password: null
+            }
         }
     },
     methods: {
+        formSubmit() {
+            let formData = {
+                'phone': this.phone,
+                'password': this.password
+            }
+            this.resetErrorMessages();
+
+            if(!this.phone) {
+                this.errors.phone = "*Phone number field is required*";
+            }
+            if(!this.password) {
+                this.errors.password = "*Password field is required*";
+            }
+            
+            if(this.phone && this.password) {
+                this.$emit('submit', formData);
+                this.resetErrorMessages();
+            }
+        },
         whichType() {
             if(this.type !== 'sign-in') {
                 this.isSignIn = false;
             }
+        },
+        resetErrorMessages() {
+            this.errors.phone = null;
+            this.errors.password = null;
         }
     },
     mounted() {
