@@ -1,7 +1,7 @@
 <template>
   <div class="team-detail-container">
     <div class="detail-header-row">
-      <i class="fas fa-chevron-left"></i>
+      <router-link to="/team" tag="i" class="fas fa-chevron-left"></router-link>
       <h5>Team A</h5>
       <i class="fas fa-edit"></i>
     </div>

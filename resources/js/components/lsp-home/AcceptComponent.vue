@@ -12,32 +12,32 @@
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
-        <Customer v-for="(customer,index) in customers" :key="index">
-          <router-link to="/order" tag="div">
+        <router-link to="/order" tag="div">
+          <Customer v-for="(customer,index) in customers" :key="index">
             <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
-          </router-link>
 
-          <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+            <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
+            <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
 
-          <CustomerIssueDate slot="customer-date">
-            <!-- <span>{{customer.date}}</span> -->
-            {{customer.date}}
-            <template
-              v-slot:priority-date
-              v-if="customer.priority"
-            >| {{customer.priority}} Hrs</template>
-            <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
-          </CustomerIssueDate>
-          <CustomerDetailChip
-            slot="customer-detail-chip"
-            :value="customer.customerName"
-            :address="customer.address"
-          ></CustomerDetailChip>
-          <CustomerHomeFooterButton :customer="customer" :type="'Accept'" slot="customer-home-footer">
-            <template v-slot:assign>{{customer.assigned}}</template>
-          </CustomerHomeFooterButton>
-        </Customer>
+            <CustomerIssueDate slot="customer-date">
+              <!-- <span>{{customer.date}}</span> -->
+              {{customer.date}}
+              <template
+                v-slot:priority-date
+                v-if="customer.priority"
+              >| {{customer.priority}} Hrs</template>
+              <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
+            </CustomerIssueDate>
+            <CustomerDetailChip
+              slot="customer-detail-chip"
+              :value="customer.customerName"
+              :address="customer.address"
+            ></CustomerDetailChip>
+            <CustomerHomeFooterButton :customer="customer" :type="'Accept'" slot="customer-home-footer">
+              <template v-slot:assign>{{customer.assigned}}</template>
+            </CustomerHomeFooterButton>
+          </Customer>
+        </router-link>
       </div>
     </div>
 

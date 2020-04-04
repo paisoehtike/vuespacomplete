@@ -756,6 +756,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showModal: false,
+      assignOrSwitch: null,
       assignedTeam: {
         teamName: "Team A",
         customerName: "Min Min",
@@ -783,6 +784,18 @@ __webpack_require__.r(__webpack_exports__);
         complete: "3"
       }]
     };
+  },
+  methods: {
+    isAssigned: function isAssigned() {
+      if (this.type == 'New') {
+        this.assignOrSwitch = 'Assign';
+      } else {
+        this.assignOrSwitch = 'Switch';
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.isAssigned();
   }
 });
 
@@ -1885,6 +1898,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+/* harmony import */ var _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../lsp-home/AssignOrSwitchTeamComponent */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1947,6 +1963,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -1962,10 +1981,19 @@ __webpack_require__.r(__webpack_exports__);
     SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     TableRow: _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
     CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
+    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
+    AssignOrSwitchTeamComponent: _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   data: function data() {
+    var _customer;
+
     return {
+      customer: (_customer = {
+        name: "5531",
+        orderStep: "Installation",
+        date: "2020/3/19",
+        customerType: "VIP"
+      }, _defineProperty(_customer, "orderStep", "Installation"), _defineProperty(_customer, "customerName", "U Min Thant"), _defineProperty(_customer, "address", "Mingalar Taung Nyunt"), _defineProperty(_customer, "assigned", "Not Assigned"), _defineProperty(_customer, "priority", "24"), _customer),
       customerDetails: {
         name: "Mg Mg",
         accountNo: "YGNFX008",
@@ -3322,41 +3350,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["value", "address"]
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lsp-home/AssignOrSwitchTeamComponent */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['customer', 'type'],
-  components: {
-    AssignOrSwitchTeamComponent: _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
 });
 
 /***/ }),
@@ -14868,37 +14861,44 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "team-container" }, [
-    _c("div", { staticClass: "team-body-row" }, [
-      _c("h5", [_vm._t("team-name")], 2),
-      _vm._v(" "),
-      _c("span", { staticClass: "name" }, [_vm._t("customer-name")], 2),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "remaing-row" }, [
-        _c("span", [_vm._v("Remaining Jobs:")]),
+  return _c(
+    "router-link",
+    {
+      staticClass: "team-container",
+      attrs: { to: "/team/detail/1", tag: "div" }
+    },
+    [
+      _c("div", { staticClass: "team-body-row" }, [
+        _c("h5", [_vm._t("team-name")], 2),
         _vm._v(" "),
-        _c("span", [_vm._t("total-remaining")], 2)
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "team-complete-row" }, [
-      _c("div", { staticClass: "team-user-row" }, [
-        _c("i", { staticClass: "fas fa-users" }),
+        _c("span", { staticClass: "name" }, [_vm._t("customer-name")], 2),
         _vm._v(" "),
-        _c("span", [_vm._t("total-man-power")], 2)
+        _c("br"),
+        _vm._v(" "),
+        _c("div", { staticClass: "remaing-row" }, [
+          _c("span", [_vm._v("Remaining Jobs:")]),
+          _vm._v(" "),
+          _c("span", [_vm._t("total-remaining")], 2)
+        ])
       ]),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "complete-row" }, [
-        _c("span", [_vm._v("Complete:")]),
+      _c("div", { staticClass: "team-complete-row" }, [
+        _c("div", { staticClass: "team-user-row" }, [
+          _c("i", { staticClass: "fas fa-users" }),
+          _vm._v(" "),
+          _c("span", [_vm._t("total-man-power")], 2)
+        ]),
         _vm._v(" "),
-        _c("span", [_vm._t("total-complete")], 2)
+        _c("br"),
+        _vm._v(" "),
+        _c("div", { staticClass: "complete-row" }, [
+          _c("span", [_vm._v("Complete:")]),
+          _vm._v(" "),
+          _c("span", [_vm._t("total-complete")], 2)
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14926,7 +14926,21 @@ var render = function() {
     "div",
     { staticClass: "team-detail-container" },
     [
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "detail-header-row" },
+        [
+          _c("router-link", {
+            staticClass: "fas fa-chevron-left",
+            attrs: { to: "/team", tag: "i" }
+          }),
+          _vm._v(" "),
+          _c("h5", [_vm._v("Team A")]),
+          _vm._v(" "),
+          _c("i", { staticClass: "fas fa-edit" })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("SquareImage"),
       _vm._v(" "),
@@ -15219,20 +15233,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "detail-header-row" }, [
-      _c("i", { staticClass: "fas fa-chevron-left" }),
-      _vm._v(" "),
-      _c("h5", [_vm._v("Team A")]),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-edit" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -15435,101 +15436,105 @@ var render = function() {
         _c(
           "div",
           { staticClass: "home-customer-row" },
-          _vm._l(_vm.customers, function(customer, index) {
-            return _c(
-              "Customer",
-              { key: index },
-              [
-                _c(
-                  "router-link",
-                  { attrs: { to: "/order", tag: "div" } },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: "/order", tag: "div" } },
+              _vm._l(_vm.customers, function(customer, index) {
+                return _c(
+                  "Customer",
+                  { key: index },
                   [
                     _c("CustomerHeader", {
                       attrs: { id: customer.name, step: customer.orderStep }
+                    }),
+                    _vm._v(" "),
+                    _c("CustomerTypeChip", {
+                      attrs: {
+                        slot: "customer-chip",
+                        value: customer.customerType
+                      },
+                      slot: "customer-chip"
+                    }),
+                    _vm._v(" "),
+                    _c("OrderStepChip", {
+                      attrs: { slot: "order-chip", value: customer.orderStep },
+                      slot: "order-chip"
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "CustomerIssueDate",
+                      {
+                        attrs: { slot: "customer-date" },
+                        slot: "customer-date",
+                        scopedSlots: _vm._u(
+                          [
+                            customer.priority
+                              ? {
+                                  key: "priority-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        "| " +
+                                          _vm._s(customer.priority) +
+                                          " Hrs"
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null
+                          ],
+                          null,
+                          true
+                        )
+                      },
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(customer.date) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("CustomerDetailChip", {
+                      attrs: {
+                        slot: "customer-detail-chip",
+                        value: customer.customerName,
+                        address: customer.address
+                      },
+                      slot: "customer-detail-chip"
+                    }),
+                    _vm._v(" "),
+                    _c("CustomerHomeFooterButton", {
+                      attrs: {
+                        slot: "customer-home-footer",
+                        customer: customer,
+                        type: "Accept"
+                      },
+                      slot: "customer-home-footer",
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "assign",
+                            fn: function() {
+                              return [_vm._v(_vm._s(customer.assigned))]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
                     })
                   ],
                   1
-                ),
-                _vm._v(" "),
-                _c("CustomerTypeChip", {
-                  attrs: {
-                    slot: "customer-chip",
-                    value: customer.customerType
-                  },
-                  slot: "customer-chip"
-                }),
-                _vm._v(" "),
-                _c("OrderStepChip", {
-                  attrs: { slot: "order-chip", value: customer.orderStep },
-                  slot: "order-chip"
-                }),
-                _vm._v(" "),
-                _c(
-                  "CustomerIssueDate",
-                  {
-                    attrs: { slot: "customer-date" },
-                    slot: "customer-date",
-                    scopedSlots: _vm._u(
-                      [
-                        customer.priority
-                          ? {
-                              key: "priority-date",
-                              fn: function() {
-                                return [
-                                  _vm._v(
-                                    "| " + _vm._s(customer.priority) + " Hrs"
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null
-                      ],
-                      null,
-                      true
-                    )
-                  },
-                  [
-                    _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n          "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("CustomerDetailChip", {
-                  attrs: {
-                    slot: "customer-detail-chip",
-                    value: customer.customerName,
-                    address: customer.address
-                  },
-                  slot: "customer-detail-chip"
-                }),
-                _vm._v(" "),
-                _c("CustomerHomeFooterButton", {
-                  attrs: {
-                    slot: "customer-home-footer",
-                    customer: customer,
-                    type: "Accept"
-                  },
-                  slot: "customer-home-footer",
-                  scopedSlots: _vm._u(
-                    [
-                      {
-                        key: "assign",
-                        fn: function() {
-                          return [_vm._v(_vm._s(customer.assigned))]
-                        },
-                        proxy: true
-                      }
-                    ],
-                    null,
-                    true
-                  )
-                })
-              ],
+                )
+              }),
               1
             )
-          }),
+          ],
           1
         )
       ]),
@@ -15568,14 +15573,14 @@ var render = function() {
       _c(
         "a",
         {
-          staticClass: "btn",
+          staticClass: "waves-effect btn",
           on: {
             click: function($event) {
               _vm.showModal = true
             }
           }
         },
-        [_vm._v("Accept")]
+        [_vm._v(_vm._s(_vm.assignOrSwitch))]
       ),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
@@ -15915,121 +15920,127 @@ var render = function() {
         _c(
           "div",
           { staticClass: "home-customer-row" },
-          _vm._l(_vm.customers, function(customer, index) {
-            return _c(
-              "Customer",
-              { key: index },
-              [
-                _c(
-                  "router-link",
-                  { attrs: { to: "/order", tag: "div" } },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: "/order", tag: "div" } },
+              _vm._l(_vm.customers, function(customer, index) {
+                return _c(
+                  "Customer",
+                  { key: index },
                   [
                     _c("CustomerHeader", {
                       attrs: { id: customer.name, step: customer.orderStep }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("CustomerTypeChip", {
-                  attrs: {
-                    slot: "customer-chip",
-                    value: customer.customerType
-                  },
-                  slot: "customer-chip"
-                }),
-                _vm._v(" "),
-                _c("OrderStepChip", {
-                  attrs: { slot: "order-chip", value: customer.orderStep },
-                  slot: "order-chip"
-                }),
-                _vm._v(" "),
-                _c(
-                  "CustomerIssueDate",
-                  {
-                    attrs: { slot: "customer-date" },
-                    slot: "customer-date",
-                    scopedSlots: _vm._u(
-                      [
-                        customer.priority
-                          ? {
-                              key: "priority-date",
-                              fn: function() {
-                                return [
-                                  _vm._v(
-                                    "| " + _vm._s(customer.priority) + " Hrs"
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null,
-                        customer.issue
-                          ? {
-                              key: "issue",
-                              fn: function() {
-                                return [_vm._v("| " + _vm._s(customer.issue))]
-                              },
-                              proxy: true
-                            }
-                          : null
-                      ],
-                      null,
-                      true
-                    )
-                  },
-                  [
-                    _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n          "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("CustomerDetailChip", {
-                  attrs: {
-                    slot: "customer-detail-chip",
-                    value: customer.customerName,
-                    address: customer.address
-                  },
-                  slot: "customer-detail-chip"
-                }),
-                _vm._v(" "),
-                _c(
-                  "CustomerHomeFooterButton",
-                  {
-                    attrs: { slot: "customer-home-footer" },
-                    slot: "customer-home-footer",
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "assign",
-                          fn: function() {
-                            return [_vm._v(_vm._s(customer.assigned))]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  },
-                  [
+                    }),
+                    _vm._v(" "),
+                    _c("CustomerTypeChip", {
+                      attrs: {
+                        slot: "customer-chip",
+                        value: customer.customerType
+                      },
+                      slot: "customer-chip"
+                    }),
+                    _vm._v(" "),
+                    _c("OrderStepChip", {
+                      attrs: { slot: "order-chip", value: customer.orderStep },
+                      slot: "order-chip"
+                    }),
                     _vm._v(" "),
                     _c(
-                      "a",
+                      "CustomerIssueDate",
                       {
-                        staticClass: "btn",
-                        attrs: { slot: "button" },
-                        slot: "button"
+                        attrs: { slot: "customer-date" },
+                        slot: "customer-date",
+                        scopedSlots: _vm._u(
+                          [
+                            customer.priority
+                              ? {
+                                  key: "priority-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        "| " +
+                                          _vm._s(customer.priority) +
+                                          " Hrs"
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null,
+                            customer.issue
+                              ? {
+                                  key: "issue",
+                                  fn: function() {
+                                    return [
+                                      _vm._v("| " + _vm._s(customer.issue))
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null
+                          ],
+                          null,
+                          true
+                        )
                       },
-                      [_vm._v("Completed")]
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(customer.date) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("CustomerDetailChip", {
+                      attrs: {
+                        slot: "customer-detail-chip",
+                        value: customer.customerName,
+                        address: customer.address
+                      },
+                      slot: "customer-detail-chip"
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "CustomerHomeFooterButton",
+                      {
+                        attrs: { slot: "customer-home-footer" },
+                        slot: "customer-home-footer",
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "assign",
+                              fn: function() {
+                                return [_vm._v(_vm._s(customer.assigned))]
+                              },
+                              proxy: true
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      },
+                      [
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn",
+                            attrs: { slot: "button" },
+                            slot: "button"
+                          },
+                          [_vm._v("Completed")]
+                        )
+                      ]
                     )
-                  ]
+                  ],
+                  1
                 )
-              ],
+              }),
               1
             )
-          }),
+          ],
           1
         )
       ]),
@@ -16109,101 +16120,105 @@ var render = function() {
         _c(
           "div",
           { staticClass: "home-customer-row" },
-          _vm._l(_vm.customers, function(customer, index) {
-            return _c(
-              "Customer",
-              { key: index },
-              [
-                _c(
-                  "router-link",
-                  { attrs: { to: "/order", tag: "div" } },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: "/order", tag: "div" } },
+              _vm._l(_vm.customers, function(customer, index) {
+                return _c(
+                  "Customer",
+                  { key: index },
                   [
                     _c("CustomerHeader", {
                       attrs: { id: customer.name, step: customer.orderStep }
+                    }),
+                    _vm._v(" "),
+                    _c("CustomerTypeChip", {
+                      attrs: {
+                        slot: "customer-chip",
+                        value: customer.customerType
+                      },
+                      slot: "customer-chip"
+                    }),
+                    _vm._v(" "),
+                    _c("OrderStepChip", {
+                      attrs: { slot: "order-chip", value: customer.orderStep },
+                      slot: "order-chip"
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "CustomerIssueDate",
+                      {
+                        attrs: { slot: "customer-date" },
+                        slot: "customer-date",
+                        scopedSlots: _vm._u(
+                          [
+                            customer.priority
+                              ? {
+                                  key: "priority-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        "| " +
+                                          _vm._s(customer.priority) +
+                                          " Hrs"
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null
+                          ],
+                          null,
+                          true
+                        )
+                      },
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(customer.date) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("CustomerDetailChip", {
+                      attrs: {
+                        slot: "customer-detail-chip",
+                        value: customer.customerName,
+                        address: customer.address
+                      },
+                      slot: "customer-detail-chip"
+                    }),
+                    _vm._v(" "),
+                    _c("CustomerHomeFooterButton", {
+                      attrs: {
+                        slot: "customer-home-footer",
+                        customer: customer,
+                        type: "New"
+                      },
+                      slot: "customer-home-footer",
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "assign",
+                            fn: function() {
+                              return [_vm._v(_vm._s(customer.assigned))]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
                     })
                   ],
                   1
-                ),
-                _vm._v(" "),
-                _c("CustomerTypeChip", {
-                  attrs: {
-                    slot: "customer-chip",
-                    value: customer.customerType
-                  },
-                  slot: "customer-chip"
-                }),
-                _vm._v(" "),
-                _c("OrderStepChip", {
-                  attrs: { slot: "order-chip", value: customer.orderStep },
-                  slot: "order-chip"
-                }),
-                _vm._v(" "),
-                _c(
-                  "CustomerIssueDate",
-                  {
-                    attrs: { slot: "customer-date" },
-                    slot: "customer-date",
-                    scopedSlots: _vm._u(
-                      [
-                        customer.priority
-                          ? {
-                              key: "priority-date",
-                              fn: function() {
-                                return [
-                                  _vm._v(
-                                    "| " + _vm._s(customer.priority) + " Hrs"
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null
-                      ],
-                      null,
-                      true
-                    )
-                  },
-                  [
-                    _vm._v(
-                      "\n          " + _vm._s(customer.date) + "\n          "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("CustomerDetailChip", {
-                  attrs: {
-                    slot: "customer-detail-chip",
-                    value: customer.customerName,
-                    address: customer.address
-                  },
-                  slot: "customer-detail-chip"
-                }),
-                _vm._v(" "),
-                _c("CustomerHomeFooterButton", {
-                  attrs: {
-                    slot: "customer-home-footer",
-                    customer: customer,
-                    type: "New"
-                  },
-                  slot: "customer-home-footer",
-                  scopedSlots: _vm._u(
-                    [
-                      {
-                        key: "assign",
-                        fn: function() {
-                          return [_vm._v(_vm._s(customer.assigned))]
-                        },
-                        proxy: true
-                      }
-                    ],
-                    null,
-                    true
-                  )
-                })
-              ],
+                )
+              }),
               1
             )
-          }),
+          ],
           1
         )
       ]),
@@ -17335,7 +17350,24 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "order-assigned-row" },
+        [
+          _c("span", [_vm._v("Assigned Team :")]),
+          _vm._v(" "),
+          _c("span", [_vm._v("Not Assigned")]),
+          _vm._v(" "),
+          _c("AssignOrSwitchTeamComponent", {
+            attrs: { customer: _vm.customer, type: "New" }
+          }),
+          _vm._v(" "),
+          _c("AssignOrSwitchTeamComponent", {
+            attrs: { customer: _vm.customer, type: "Accept" }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -17386,7 +17418,7 @@ var render = function() {
             [_c("a", [_vm._v("View Installation Detail")])]
           ),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ],
         1
       )
@@ -17395,18 +17427,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "order-assigned-row" }, [
-      _c("span", [_vm._v("Assigned Team :")]),
-      _vm._v(" "),
-      _c("span", [_vm._v("Not Assigned")]),
-      _vm._v(" "),
-      _c("a", { staticClass: "waves-effect btn" }, [_vm._v("Assign")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -19391,20 +19411,20 @@ var render = function() {
         _c("span", [_vm._t("assign")], 2)
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "customer-home-assigned-button" },
-        [
-          _c("AssignOrSwitchTeamComponent", {
-            attrs: { customer: _vm.customer, type: _vm.type }
-          })
-        ],
-        1
-      )
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "customer-home-assigned-button" }, [
+      _c("a", { staticClass: "btn" }, [_vm._v("Accept")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -19715,6 +19735,7 @@ var render = function() {
               _c(
                 "button",
                 {
+                  staticClass: "remark-cancel-btn",
                   on: {
                     click: function($event) {
                       _vm.showModal = false
@@ -38181,17 +38202,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CustomerHomeFooterButton_vue_vue_type_template_id_4a7df2c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustomerHomeFooterButton.vue?vue&type=template&id=4a7df2c6& */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=template&id=4a7df2c6&");
-/* harmony import */ var _CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustomerHomeFooterButton.vue?vue&type=script&lang=js& */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-
-
+var script = {}
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
   _CustomerHomeFooterButton_vue_vue_type_template_id_4a7df2c6___WEBPACK_IMPORTED_MODULE_0__["render"],
   _CustomerHomeFooterButton_vue_vue_type_template_id_4a7df2c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -38205,20 +38224,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/reuseable-component/CustomerHomeFooterButton.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CustomerHomeFooterButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerHomeFooterButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
