@@ -67,6 +67,7 @@
       grid-column: 2/3;
 
       display: flex;
+      margin-top: 17px;
       .customer-home-assigned-button {
         margin-left: auto;
         margin-top: 10px;
@@ -92,7 +93,6 @@
 .customer-home-body-row {
   width: 100%;
   height: 69px;
-  margin-top: 5px;
   background-color: $white-gery;
   color: $text-gery;
   padding: 1px 0 0px;

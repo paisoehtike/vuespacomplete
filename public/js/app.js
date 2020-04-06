@@ -2393,6 +2393,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -2422,7 +2424,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       label: {
         "new": "New",
-        accept: "Accept",
+        accept: "Accepted",
         history: "History"
       },
       url: {
@@ -2430,6 +2432,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         accept: "/home/accept",
         history: "/home/history"
       },
+      requests: null,
       customers: [(_ref = {
         name: "5531",
         orderStep: "Installation",
@@ -2457,6 +2460,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
     };
+  },
+  methods: {
+    toOrder: function toOrder() {
+      this.$router.push('/order');
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.requests = response.data.data;
+      console.log(this.requests);
+    },
+    getNew: function getNew() {
+      var _this = this;
+
+      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=accepted').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    }
+  },
+  created: function created() {
+    this.getNew();
   }
 });
 
@@ -2681,10 +2703,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -2714,7 +2734,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       label: {
         "new": "New",
-        accept: "Accept",
+        accept: "Accepted",
         history: "History"
       },
       url: {
@@ -2722,6 +2742,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         accept: "/home/accept",
         history: "/home/history"
       },
+      requests: null,
       customers: [(_ref = {
         name: "5531",
         orderStep: "Installation",
@@ -2749,6 +2770,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
     };
+  },
+  methods: {
+    toOrder: function toOrder() {
+      this.$router.push('/order');
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.requests = response.data.data;
+      console.log(this.requests);
+    },
+    getNew: function getNew() {
+      var _this = this;
+
+      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=history').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    }
+  },
+  created: function created() {
+    this.getNew();
   }
 });
 
@@ -2820,6 +2860,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -2849,7 +2891,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       label: {
         "new": "New",
-        accept: "Accept",
+        accept: "Accepted",
         history: "History"
       },
       url: {
@@ -2857,6 +2899,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         accept: "/home/accept",
         history: "/home/history"
       },
+      requests: null,
       customers: [(_ref = {
         name: "5531",
         orderStep: "Installation",
@@ -2884,6 +2927,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         customerType: "VIP"
       }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
     };
+  },
+  methods: {
+    toOrder: function toOrder() {
+      this.$router.push('/order');
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.requests = response.data.data;
+      console.log(this.requests);
+    },
+    getNew: function getNew() {
+      var _this = this;
+
+      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=new').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    }
+  },
+  created: function created() {
+    this.getNew();
   }
 });
 
@@ -2964,8 +3026,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     formSubmit: function formSubmit(formData) {
       var _this = this;
 
-      axios.post('http://s-5bb-lsp-management-dashboard.test/api/create_token', formData).then(function (response) {
-        _this.$cookie.set('token', response.data.data, 1);
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData).then(function (response) {
+        _this.$cookie.set('token', response.data.token, 1);
 
         _this.errorMessage = null;
         console.log('Token Saved!');
@@ -17521,47 +17583,61 @@ var render = function() {
         _c(
           "div",
           { staticClass: "home-customer-row" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: "/order", tag: "div" } },
-              _vm._l(_vm.customers, function(customer, index) {
-                return _c(
-                  "Customer",
-                  { key: index },
-                  [
-                    _c("CustomerHeader", {
-                      attrs: { id: customer.name, step: customer.orderStep }
-                    }),
-                    _vm._v(" "),
-                    _c("CustomerTypeChip", {
+          _vm._l(_vm.requests, function(request, index) {
+            return _c(
+              "Customer",
+              {
+                key: index,
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.toOrder($event)
+                  }
+                }
+              },
+              [
+                _c("CustomerHeader", {
+                  attrs: {
+                    id: request.customer,
+                    step: request.installation_step
+                  }
+                }),
+                _vm._v(" "),
+                request.customer_type
+                  ? _c("CustomerTypeChip", {
                       attrs: {
                         slot: "customer-chip",
-                        value: customer.customerType
+                        value: request.customer_type
                       },
                       slot: "customer-chip"
-                    }),
-                    _vm._v(" "),
-                    _c("OrderStepChip", {
-                      attrs: { slot: "order-chip", value: customer.orderStep },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                request.installation_step
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        value: request.installation_step
+                      },
                       slot: "order-chip"
-                    }),
-                    _vm._v(" "),
-                    _c(
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                request.due_date
+                  ? _c(
                       "CustomerIssueDate",
                       {
                         attrs: { slot: "customer-date" },
                         slot: "customer-date",
                         scopedSlots: _vm._u(
                           [
-                            customer.priority
+                            request.priority_level
                               ? {
                                   key: "priority-date",
                                   fn: function() {
                                     return [
                                       _vm._v(
                                         "| " +
-                                          _vm._s(customer.priority) +
+                                          _vm._s(request.priority_level) +
                                           " Hrs"
                                       )
                                     ]
@@ -17576,50 +17652,46 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n            " +
-                            _vm._s(customer.date) +
-                            "\n            "
+                          "\n          " +
+                            _vm._s(request.due_date) +
+                            "\n          "
                         )
                       ]
-                    ),
-                    _vm._v(" "),
-                    _c("CustomerDetailChip", {
-                      attrs: {
-                        slot: "customer-detail-chip",
-                        value: customer.customerName,
-                        address: customer.address
-                      },
-                      slot: "customer-detail-chip"
-                    }),
-                    _vm._v(" "),
-                    _c("CustomerHomeFooterButton", {
-                      attrs: {
-                        slot: "customer-home-footer",
-                        customer: customer,
-                        type: "Accept"
-                      },
-                      slot: "customer-home-footer",
-                      scopedSlots: _vm._u(
-                        [
-                          {
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("CustomerDetailChip", {
+                  attrs: {
+                    slot: "customer-detail-chip",
+                    value: request.name,
+                    address: request.address
+                  },
+                  slot: "customer-detail-chip"
+                }),
+                _vm._v(" "),
+                _c("CustomerHomeFooterButton", {
+                  attrs: { slot: "customer-home-footer" },
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
+                      request.team
+                        ? {
                             key: "assign",
                             fn: function() {
-                              return [_vm._v(_vm._s(customer.assigned))]
+                              return [_vm._v(_vm._s(request.team.name))]
                             },
                             proxy: true
                           }
-                        ],
-                        null,
-                        true
-                      )
-                    })
-                  ],
-                  1
-                )
-              }),
+                        : null
+                    ],
+                    null,
+                    true
+                  )
+                })
+              ],
               1
             )
-          ],
+          }),
           1
         )
       ]),
@@ -18005,60 +18077,63 @@ var render = function() {
         _c(
           "div",
           { staticClass: "home-customer-row" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: "/order", tag: "div" } },
-              _vm._l(_vm.customers, function(customer, index) {
-                return _c(
-                  "Customer",
-                  { key: index },
-                  [
-                    _c("CustomerHeader", {
-                      attrs: { id: customer.name, step: customer.orderStep }
-                    }),
-                    _vm._v(" "),
-                    _c("CustomerTypeChip", {
+          _vm._l(_vm.requests, function(request, index) {
+            return _c(
+              "Customer",
+              {
+                key: index,
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.toOrder($event)
+                  }
+                }
+              },
+              [
+                _c("CustomerHeader", {
+                  attrs: {
+                    id: request.customer,
+                    step: request.installation_step
+                  }
+                }),
+                _vm._v(" "),
+                request.customer_type
+                  ? _c("CustomerTypeChip", {
                       attrs: {
                         slot: "customer-chip",
-                        value: customer.customerType
+                        value: request.customer_type
                       },
                       slot: "customer-chip"
-                    }),
-                    _vm._v(" "),
-                    _c("OrderStepChip", {
-                      attrs: { slot: "order-chip", value: customer.orderStep },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                request.installation_step
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        value: request.installation_step
+                      },
                       slot: "order-chip"
-                    }),
-                    _vm._v(" "),
-                    _c(
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                request.due_date
+                  ? _c(
                       "CustomerIssueDate",
                       {
                         attrs: { slot: "customer-date" },
                         slot: "customer-date",
                         scopedSlots: _vm._u(
                           [
-                            customer.priority
+                            request.priority_level
                               ? {
                                   key: "priority-date",
                                   fn: function() {
                                     return [
                                       _vm._v(
                                         "| " +
-                                          _vm._s(customer.priority) +
+                                          _vm._s(request.priority_level) +
                                           " Hrs"
                                       )
-                                    ]
-                                  },
-                                  proxy: true
-                                }
-                              : null,
-                            customer.issue
-                              ? {
-                                  key: "issue",
-                                  fn: function() {
-                                    return [
-                                      _vm._v("| " + _vm._s(customer.issue))
                                     ]
                                   },
                                   proxy: true
@@ -18071,61 +18146,46 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n            " +
-                            _vm._s(customer.date) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("CustomerDetailChip", {
-                      attrs: {
-                        slot: "customer-detail-chip",
-                        value: customer.customerName,
-                        address: customer.address
-                      },
-                      slot: "customer-detail-chip"
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "CustomerHomeFooterButton",
-                      {
-                        attrs: { slot: "customer-home-footer" },
-                        slot: "customer-home-footer",
-                        scopedSlots: _vm._u(
-                          [
-                            {
-                              key: "assign",
-                              fn: function() {
-                                return [_vm._v(_vm._s(customer.assigned))]
-                              },
-                              proxy: true
-                            }
-                          ],
-                          null,
-                          true
-                        )
-                      },
-                      [
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn",
-                            attrs: { slot: "button" },
-                            slot: "button"
-                          },
-                          [_vm._v("Completed")]
+                          "\n          " +
+                            _vm._s(request.due_date) +
+                            "\n          "
                         )
                       ]
                     )
-                  ],
-                  1
-                )
-              }),
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("CustomerDetailChip", {
+                  attrs: {
+                    slot: "customer-detail-chip",
+                    value: request.name,
+                    address: request.address
+                  },
+                  slot: "customer-detail-chip"
+                }),
+                _vm._v(" "),
+                _c("CustomerHomeFooterButton", {
+                  attrs: { slot: "customer-home-footer" },
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
+                      request.team
+                        ? {
+                            key: "assign",
+                            fn: function() {
+                              return [_vm._v(_vm._s(request.team.name))]
+                            },
+                            proxy: true
+                          }
+                        : null
+                    ],
+                    null,
+                    true
+                  )
+                })
+              ],
               1
             )
-          ],
+          }),
           1
         )
       ]),
@@ -18205,47 +18265,61 @@ var render = function() {
         _c(
           "div",
           { staticClass: "home-customer-row" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: "/order", tag: "div" } },
-              _vm._l(_vm.customers, function(customer, index) {
-                return _c(
-                  "Customer",
-                  { key: index },
-                  [
-                    _c("CustomerHeader", {
-                      attrs: { id: customer.name, step: customer.orderStep }
-                    }),
-                    _vm._v(" "),
-                    _c("CustomerTypeChip", {
+          _vm._l(_vm.requests, function(request, index) {
+            return _c(
+              "Customer",
+              {
+                key: index,
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.toOrder($event)
+                  }
+                }
+              },
+              [
+                _c("CustomerHeader", {
+                  attrs: {
+                    id: request.customer,
+                    step: request.installation_step
+                  }
+                }),
+                _vm._v(" "),
+                request.customer_type
+                  ? _c("CustomerTypeChip", {
                       attrs: {
                         slot: "customer-chip",
-                        value: customer.customerType
+                        value: request.customer_type
                       },
                       slot: "customer-chip"
-                    }),
-                    _vm._v(" "),
-                    _c("OrderStepChip", {
-                      attrs: { slot: "order-chip", value: customer.orderStep },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                request.installation_step
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        value: request.installation_step
+                      },
                       slot: "order-chip"
-                    }),
-                    _vm._v(" "),
-                    _c(
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                request.due_date
+                  ? _c(
                       "CustomerIssueDate",
                       {
                         attrs: { slot: "customer-date" },
                         slot: "customer-date",
                         scopedSlots: _vm._u(
                           [
-                            customer.priority
+                            request.priority_level
                               ? {
                                   key: "priority-date",
                                   fn: function() {
                                     return [
                                       _vm._v(
                                         "| " +
-                                          _vm._s(customer.priority) +
+                                          _vm._s(request.priority_level) +
                                           " Hrs"
                                       )
                                     ]
@@ -18260,50 +18334,44 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n            " +
-                            _vm._s(customer.date) +
-                            "\n            "
+                          "\n          " +
+                            _vm._s(request.due_date) +
+                            "\n          "
                         )
                       ]
-                    ),
-                    _vm._v(" "),
-                    _c("CustomerDetailChip", {
-                      attrs: {
-                        slot: "customer-detail-chip",
-                        value: customer.customerName,
-                        address: customer.address
-                      },
-                      slot: "customer-detail-chip"
-                    }),
-                    _vm._v(" "),
-                    _c("CustomerHomeFooterButton", {
-                      attrs: {
-                        slot: "customer-home-footer",
-                        customer: customer,
-                        type: "New"
-                      },
-                      slot: "customer-home-footer",
-                      scopedSlots: _vm._u(
-                        [
-                          {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(customer.assigned))]
-                            },
-                            proxy: true
-                          }
-                        ],
-                        null,
-                        true
-                      )
-                    })
-                  ],
-                  1
-                )
-              }),
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("CustomerDetailChip", {
+                  attrs: {
+                    slot: "customer-detail-chip",
+                    value: request.name,
+                    address: request.address
+                  },
+                  slot: "customer-detail-chip"
+                }),
+                _vm._v(" "),
+                _c("CustomerHomeFooterButton", {
+                  attrs: { slot: "customer-home-footer" },
+                  slot: "customer-home-footer",
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "assign",
+                        fn: function() {
+                          return [_vm._v("Not Assigned")]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                })
+              ],
               1
             )
-          ],
+          }),
           1
         )
       ]),

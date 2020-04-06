@@ -12,32 +12,32 @@
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
-        <router-link to="/order" tag="div">
-          <Customer v-for="(customer,index) in customers" :key="index">
-            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+        <Customer @click.native="toOrder" v-for="(request, index) in requests" :key="index">
+          <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
-            <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-            <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+          <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type" slot="customer-chip"></CustomerTypeChip>
+          <OrderStepChip v-if="request.installation_step" :value="request.installation_step" slot="order-chip"></OrderStepChip>
 
-            <CustomerIssueDate slot="customer-date">
-              <!-- <span>{{customer.date}}</span> -->
-              {{customer.date}}
-              <template
-                v-slot:priority-date
-                v-if="customer.priority"
-              >| {{customer.priority}} Hrs</template>
-              <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
-            </CustomerIssueDate>
-            <CustomerDetailChip
-              slot="customer-detail-chip"
-              :value="customer.customerName"
-              :address="customer.address"
-            ></CustomerDetailChip>
-            <CustomerHomeFooterButton :customer="customer" :type="'Accept'" slot="customer-home-footer">
-              <template v-slot:assign>{{customer.assigned}}</template>
-            </CustomerHomeFooterButton>
-          </Customer>
-        </router-link>
+          <CustomerIssueDate v-if="request.due_date" slot="customer-date">
+            <!-- <span>{{customer.date}}</span> -->
+            {{request.due_date}}
+            <template
+              v-slot:priority-date
+              v-if="request.priority_level"
+            >| {{request.priority_level}} Hrs</template>
+            <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
+          </CustomerIssueDate>
+
+          <CustomerDetailChip
+            slot="customer-detail-chip"
+            :value="request.name"
+            :address="request.address"
+          ></CustomerDetailChip>
+          <CustomerHomeFooterButton slot="customer-home-footer">
+            <template v-if="request.team = null" v-slot:assign>Not Assigned</template>
+            <template v-if="request.team" v-slot:assign>{{ request.team.name }}</template>
+          </CustomerHomeFooterButton>
+        </Customer>
       </div>
     </div>
 
@@ -45,6 +45,8 @@
   </div>
 </template>
 <script>
+const axios = require('axios');
+
 import Header from "./../reuseable-home/HeaderComponent";
 import Customer from "./../reuseable-home/CustomerComponent";
 import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
@@ -73,7 +75,7 @@ export default {
     return {
       label: {
         new: "New",
-        accept: "Accept",
+        accept: "Accepted",
         history: "History"
       },
       url: {
@@ -81,6 +83,7 @@ export default {
         accept: "/home/accept",
         history: "/home/history"
       },
+      requests: null,
       customers: [
         {
           name: "5531",
@@ -139,6 +142,23 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    toOrder() {
+      this.$router.push('/order');
+    },
+    bindResponseData(response) {
+      this.requests = response.data.data;
+      console.log(this.requests);
+    },
+    getNew() {
+      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=accepted')
+      .then( response => { this.bindResponseData(response) })
+      .catch(console.log('Something Went Wrong!'));
+    }
+  },
+  created() {
+    this.getNew();
   }
 };
 </script>
