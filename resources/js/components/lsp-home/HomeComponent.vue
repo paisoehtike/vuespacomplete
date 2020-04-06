@@ -12,31 +12,31 @@
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
-        <router-link to="/order" tag="div">
-          <Customer v-for="(customer,index) in customers" :key="index">
-            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
-            <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-            <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+        <Customer @click.native="toOrder" v-for="(request, index) in requests" :key="index">
+          <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
-            <CustomerIssueDate slot="customer-date">
-              <!-- <span>{{customer.date}}</span> -->
-              {{customer.date}}
-              <template
-                v-slot:priority-date
-                v-if="customer.priority"
-              >| {{customer.priority}} Hrs</template>
-              <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
-            </CustomerIssueDate>
-            <CustomerDetailChip
-              slot="customer-detail-chip"
-              :value="customer.customerName"
-              :address="customer.address"
-            ></CustomerDetailChip>
-            <CustomerHomeFooterButton :customer="customer" :type="'New'" slot="customer-home-footer">
-              <template v-slot:assign>{{customer.assigned}}</template>
-            </CustomerHomeFooterButton>
-          </Customer>
-        </router-link>
+          <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type" slot="customer-chip"></CustomerTypeChip>
+          <OrderStepChip v-if="request.installation_step" :value="request.installation_step" slot="order-chip"></OrderStepChip>
+
+          <CustomerIssueDate v-if="request.due_date" slot="customer-date">
+            <!-- <span>{{customer.date}}</span> -->
+            {{request.due_date}}
+            <template
+              v-slot:priority-date
+              v-if="request.priority_level"
+            >| {{request.priority_level}} Hrs</template>
+            <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
+          </CustomerIssueDate>
+
+          <CustomerDetailChip
+            slot="customer-detail-chip"
+            :value="request.name"
+            :address="request.address"
+          ></CustomerDetailChip>
+          <CustomerHomeFooterButton slot="customer-home-footer">
+            <template v-slot:assign>Not Assigned</template>
+          </CustomerHomeFooterButton>
+        </Customer>
       </div>
     </div>
 
@@ -44,6 +44,8 @@
   </div>
 </template>
 <script>
+const axios = require('axios');
+
 import Header from "./../reuseable-home/HeaderComponent";
 import Customer from "./../reuseable-home/CustomerComponent";
 import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
@@ -72,7 +74,7 @@ export default {
     return {
       label: {
         new: "New",
-        accept: "Accept",
+        accept: "Accepted",
         history: "History"
       },
       url: {
@@ -80,64 +82,25 @@ export default {
         accept: "/home/accept",
         history: "/home/history"
       },
-      customers: [
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        }
-      ]
+      requests: null
     };
+  },
+  methods: {
+    toOrder() {
+      this.$router.push('/order');
+    },
+    bindResponseData(response) {
+      this.requests = response.data.data;
+      console.log(this.requests);
+    },
+    getNew() {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new')
+      .then( response => { this.bindResponseData(response) })
+      .catch(console.log('Something Went Wrong!'));
+    }
+  },
+  created() {
+    this.getNew();
   }
 };
 </script>
