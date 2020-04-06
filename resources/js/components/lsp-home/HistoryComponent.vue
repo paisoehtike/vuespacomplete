@@ -12,7 +12,7 @@
         </HomeHeaderButton>
       </div>
       <div class="home-customer-row">
-        <Customer @click.native="toOrder" v-for="(request, index) in requests" :key="index">
+        <Customer @click.native="toOrder(request)" v-for="(request, index) in requests" :key="index">
           <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
           <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type" slot="customer-chip"></CustomerTypeChip>
@@ -87,8 +87,8 @@ export default {
     };
   },
   methods: {
-    toOrder() {
-      this.$router.push('/order');
+    toOrder(request) {
+      this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
     },
     bindResponseData(response) {
       this.requests = response.data.data;

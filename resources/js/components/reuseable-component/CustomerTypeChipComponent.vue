@@ -1,6 +1,6 @@
 <template>
   <div class="order-customer-type">
-    <span>{{value}}</span>
+    <span v-if="value">{{value}}</span>
   </div>
 </template>
 <script>

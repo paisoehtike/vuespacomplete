@@ -2345,8 +2345,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2419,8 +2417,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
   data: function data() {
-    var _ref, _ref2, _ref3, _ref4, _ref5;
-
     return {
       label: {
         "new": "New",
@@ -2432,38 +2428,18 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         accept: "/home/accept",
         history: "/home/history"
       },
-      requests: null,
-      customers: [(_ref = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _defineProperty(_ref, "priority", "24"), _ref), (_ref2 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _defineProperty(_ref2, "priority", "24"), _ref2), (_ref3 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _defineProperty(_ref3, "priority", "24"), _ref3), (_ref4 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _defineProperty(_ref4, "priority", "24"), _ref4), (_ref5 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
+      requests: null
     };
   },
   methods: {
-    toOrder: function toOrder() {
-      this.$router.push('/order');
+    toOrder: function toOrder(request) {
+      this.$router.push({
+        name: 'order',
+        params: {
+          id: request.id,
+          order_type: 'Installation'
+        }
+      });
     },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
@@ -2472,7 +2448,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getNew: function getNew() {
       var _this = this;
 
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=accepted').then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted').then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     }
@@ -2655,8 +2631,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2729,8 +2703,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
   data: function data() {
-    var _ref, _ref2, _ref3, _ref4, _ref5;
-
     return {
       label: {
         "new": "New",
@@ -2742,38 +2714,18 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         accept: "/home/accept",
         history: "/home/history"
       },
-      requests: null,
-      customers: [(_ref = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _defineProperty(_ref, "priority", "24"), _ref), (_ref2 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _defineProperty(_ref2, "priority", "24"), _ref2), (_ref3 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _defineProperty(_ref3, "priority", "24"), _ref3), (_ref4 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _defineProperty(_ref4, "priority", "24"), _ref4), (_ref5 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
+      requests: null
     };
   },
   methods: {
-    toOrder: function toOrder() {
-      this.$router.push('/order');
+    toOrder: function toOrder(request) {
+      this.$router.push({
+        name: 'order',
+        params: {
+          id: request.id,
+          order_type: 'Installation'
+        }
+      });
     },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
@@ -2782,7 +2734,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getNew: function getNew() {
       var _this = this;
 
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=history').then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history').then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     }
@@ -2813,8 +2765,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2886,8 +2836,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
   data: function data() {
-    var _ref, _ref2, _ref3, _ref4, _ref5;
-
     return {
       label: {
         "new": "New",
@@ -2899,38 +2847,18 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         accept: "/home/accept",
         history: "/home/history"
       },
-      requests: null,
-      customers: [(_ref = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _defineProperty(_ref, "priority", "24"), _ref), (_ref2 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _defineProperty(_ref2, "priority", "24"), _ref2), (_ref3 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref3, "orderStep", "Installation"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _defineProperty(_ref3, "priority", "24"), _ref3), (_ref4 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref4, "orderStep", "Installation"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _defineProperty(_ref4, "priority", "24"), _ref4), (_ref5 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref5, "orderStep", "Installation"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _defineProperty(_ref5, "priority", "24"), _ref5)]
+      requests: null
     };
   },
   methods: {
-    toOrder: function toOrder() {
-      this.$router.push('/order');
+    toOrder: function toOrder(request) {
+      this.$router.push({
+        name: 'order',
+        params: {
+          id: request.id,
+          order_type: 'Installation'
+        }
+      });
     },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
@@ -2939,7 +2867,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getNew: function getNew() {
       var _this = this;
 
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=new').then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new').then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     }
@@ -3867,6 +3795,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3876,6 +3824,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id', 'order_type'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3890,6 +3839,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _customer;
 
     return {
+      detail: null,
+      request_id: null,
       customer: (_customer = {
         name: "5531",
         orderStep: "Installation",
@@ -3918,11 +3869,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       customerType: "VVIP",
       orderStep: "Splicing",
       orderDetailID: "5531",
-      orderType: "On Call",
+      // orderType: "On Call",
       issueType: "No Internet Connection",
       dueDate: "2020/1/19",
       priorityLevel: "24"
     };
+  },
+  methods: {
+    getDetail: function getDetail() {
+      var _this = this;
+
+      this.request_id = this.$route.params.id;
+      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests/' + this.request_id).then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+      console.log(this.detail);
+    }
+  },
+  created: function created() {
+    this.getDetail();
   }
 });
 
@@ -17590,7 +17558,7 @@ var render = function() {
                 key: index,
                 nativeOn: {
                   click: function($event) {
-                    return _vm.toOrder($event)
+                    return _vm.toOrder(request)
                   }
                 }
               },
@@ -18084,7 +18052,7 @@ var render = function() {
                 key: index,
                 nativeOn: {
                   click: function($event) {
-                    return _vm.toOrder($event)
+                    return _vm.toOrder(request)
                   }
                 }
               },
@@ -18272,7 +18240,7 @@ var render = function() {
                 key: index,
                 nativeOn: {
                   click: function($event) {
-                    return _vm.toOrder($event)
+                    return _vm.toOrder(request)
                   }
                 }
               },
@@ -19430,161 +19398,241 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "order-container" },
-    [
-      _c(
-        "router-link",
-        {
-          staticClass: "order-header-row",
-          attrs: { tag: "div", to: "/home/new" }
-        },
-        [
-          _c("i", { staticClass: "fas fa-chevron-left" }),
-          _vm._v(" "),
-          _c("h2", [_vm._v("Detail")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-image-container" },
-        [_c("SquareImage")],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-detail-row" },
-        [
-          _c("OrderDetail", [
-            _c(
-              "div",
-              { staticClass: "order-detail-header" },
-              [
-                _c("CustomerTypeChip", { attrs: { value: _vm.customerType } }),
-                _vm._v(" "),
-                _c("OrderStepChip", { attrs: { value: _vm.orderStep } })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-detail-id" }, [
-              _c("h4", [_vm._v(_vm._s(_vm.orderDetailID))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Order Type : "),
-                _c("span", [_vm._v(_vm._s(_vm.orderType))])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Possible Issue : "),
-                _c("span", { staticClass: "issue" }, [
-                  _vm._v(_vm._s(_vm.issueType))
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Due Date : "),
-                _c("span", [_vm._v(_vm._s(_vm.dueDate))])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Priority Level : "),
-                _c("span", { staticClass: "priority-level" }, [
-                  _vm._v(_vm._s(_vm.priorityLevel) + " Hrs")
-                ])
-              ])
-            ])
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-assigned-row" },
-        [
-          _c("span", [_vm._v("Assigned Team :")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("Not Assigned")]),
-          _vm._v(" "),
-          _c("AssignOrSwitchTeamComponent", {
-            attrs: { customer: _vm.customer, type: "New" }
-          }),
-          _vm._v(" "),
-          _c("AssignOrSwitchTeamComponent", {
-            attrs: { customer: _vm.customer, type: "Accept" }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "customer-info-row" },
-        [
+  return _c("div", { staticClass: "order-container" }, [
+    _c(
+      "div",
+      {
+        staticClass: "order-header-row",
+        on: {
+          click: function($event) {
+            return _vm.$router.go(-1)
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "fas fa-chevron-left" }),
+        _vm._v(" "),
+        _c("h2", [_vm._v("Detail")])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "order-image-container" }, [_c("SquareImage")], 1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "order-detail-row" },
+      [
+        _c("OrderDetail", [
           _c(
-            "CustomerInfo",
-            _vm._l(_vm.customerDetails, function(value, label) {
-              return _c("TableRow", {
-                key: label,
-                attrs: { label: label, value: value }
+            "div",
+            { staticClass: "order-detail-header" },
+            [
+              _c("CustomerTypeChip", {
+                attrs: { value: _vm.detail.customer_type }
+              }),
+              _vm._v(" "),
+              _c("OrderStepChip", {
+                attrs: { value: _vm.detail.installation_step }
               })
-            }),
+            ],
             1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-info-row" },
-        [
-          _c(
-            "OrderInfo",
-            _vm._l(_vm.orderDetails, function(value, label) {
-              return _c("TableRow", {
-                key: label,
-                attrs: { label: label, value: value }
-              })
-            }),
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-button" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "col s12 m6 l3 view-detail",
-              attrs: { tag: "div", to: "/lsp-order/survey" }
-            },
-            [_c("a", [_vm._v("View Installation Detail")])]
           ),
           _vm._v(" "),
-          _vm._m(0)
-        ],
-        1
-      )
-    ],
-    1
-  )
+          _c("div", { staticClass: "order-detail-id" }, [
+            _c("h4", [_vm._v(_vm._s(_vm.detail.customer))])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "order-type" }, [
+            _c("p", [
+              _vm._v("Order Type : "),
+              _c("span", [_vm._v(_vm._s(_vm.order_type))])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.order_type == "On Call"
+            ? _c("div", { staticClass: "order-type" }, [
+                _c("p", [
+                  _vm._v("Possible Issue : "),
+                  _c("span", { staticClass: "issue" }, [
+                    _vm._v(_vm._s(_vm.issueType))
+                  ])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.detail.due_date
+            ? _c("div", { staticClass: "order-type" }, [
+                _c("p", [
+                  _vm._v("Due Date : "),
+                  _c("span", [_vm._v(_vm._s(_vm.detail.due_date))])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.detail.priority_level
+            ? _c("div", { staticClass: "order-type" }, [
+                _c("p", [
+                  _vm._v("Priority Level : "),
+                  _c("span", { staticClass: "priority-level" }, [
+                    _vm._v(_vm._s(_vm.detail.priority_level) + " Hrs")
+                  ])
+                ])
+              ])
+            : _vm._e()
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "order-assigned-row" },
+      [
+        _c("span", [_vm._v("Assigned Team :")]),
+        _vm._v(" "),
+        !_vm.detail.team ? _c("span", [_vm._v("Not Assigned")]) : _vm._e(),
+        _vm._v(" "),
+        _vm.detail.team
+          ? _c("span", [_vm._v(_vm._s(_vm.detail.team.name))])
+          : _vm._e(),
+        _vm._v(" "),
+        !_vm.detail.team
+          ? _c("AssignOrSwitchTeamComponent", {
+              attrs: { customer: _vm.customer, type: "New" }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.detail.team
+          ? _c("AssignOrSwitchTeamComponent", {
+              attrs: { customer: _vm.customer, type: "Accept" }
+            })
+          : _vm._e()
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "customer-info-row" },
+      [
+        _c(
+          "CustomerInfo",
+          [
+            _c("TableRow", {
+              attrs: { label: "Customer Name", value: _vm.detail.name }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Customer Account No",
+                value: _vm.detail.customer
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Customer RMN",
+                value: _vm.detail.customer_detail.rmn
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "PPOE Username",
+                value: _vm.detail.customer_detail.ppoe_user_name
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "PPOE Password",
+                value: _vm.detail.customer_detail.ppoe_password
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Phone", value: _vm.detail.customer_detail.phone }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Address",
+                value: _vm.detail.customer_detail.address
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Township",
+                value: _vm.detail.customer_detail.township.name
+              }
+            })
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "order-info-row" },
+      [
+        _c(
+          "OrderInfo",
+          [
+            _c("TableRow", {
+              attrs: { label: "Order Id", value: _vm.detail.order_id }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Order Type", value: _vm.detail.order_type }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Due", value: _vm.detail.due_date }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Status", value: _vm.detail.status }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Plan Name", value: _vm.detail.plan }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Promotion", value: _vm.detail.promotion }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Create Date", value: _vm.detail.createdDate }
+            })
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "order-button" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "col s12 m6 l3 view-detail",
+            attrs: { tag: "div", to: "/lsp-order/survey" }
+          },
+          [_c("a", [_vm._v("View Installation Detail")])]
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -21672,7 +21720,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "order-customer-type" }, [
-    _c("span", [_vm._v(_vm._s(_vm.value))])
+    _vm.value ? _c("span", [_vm._v(_vm._s(_vm.value))]) : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -21977,9 +22025,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "table-row-component" }, [
     _c("tr", [
-      _c("td", { staticClass: "table-color" }, [
-        _vm._v(_vm._s(_vm.data[_vm.label]))
-      ]),
+      _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))]),
       _vm._v(" "),
       _c("td", [_vm._v(_vm._s(_vm.value))])
     ])
@@ -41592,8 +41638,10 @@ __webpack_require__.r(__webpack_exports__);
     path: '/lsp/first-time-password',
     component: _components_lsp_home_LSPFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
-    path: '/order',
-    component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
+    path: '/order/:id',
+    name: 'order',
+    component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
+    props: true
   }, {
     path: '/lsp-order',
     component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__["default"]

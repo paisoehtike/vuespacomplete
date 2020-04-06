@@ -52,8 +52,10 @@ export default {
             component: LSPFirstTimePassword
         },
         {
-            path: '/order',
-            component: Order
+            path: '/order/:id',
+            name: 'order',
+            component: Order,
+            props: true
         },
         {
             path: '/lsp-order',

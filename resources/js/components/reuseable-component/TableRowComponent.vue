@@ -1,7 +1,7 @@
 <template>
   <div class="table-row-component">
     <tr>
-      <td class="table-color">{{ data[label] }}</td>
+      <td class="table-color">{{ label }}</td>
       <td>{{value}}</td>
     </tr>
   </div>
