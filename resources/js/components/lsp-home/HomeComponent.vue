@@ -94,7 +94,7 @@ export default {
       console.log(this.requests);
     },
     getNew() {
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests?type=new')
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new')
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     }
