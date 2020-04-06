@@ -20,7 +20,7 @@
 
           <CustomerIssueDate v-if="request.due_date" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
-            {{request.due_date}}
+            {{request.due_date | format-date}}
             <template
               v-slot:priority-date
               v-if="request.priority_level"
