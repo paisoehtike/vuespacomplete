@@ -83,64 +83,7 @@ export default {
         accept: "/home/accept",
         history: "/home/history"
       },
-      requests: null,
-      customers: [
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          priority: "24"
-        }
-      ]
+      requests: null
     };
   },
   methods: {
