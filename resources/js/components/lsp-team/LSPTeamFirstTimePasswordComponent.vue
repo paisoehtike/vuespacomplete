@@ -42,7 +42,7 @@ export default {
             }
         },
         formSubmit(formData) {
-            axios.post('http://S-5BB-LSP-Management-Dashboard.test/api/lsp_team/change_password',
+            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/change_password',
                  { password: formData.password },
                  this.headerConfig)
             .then( response => {
