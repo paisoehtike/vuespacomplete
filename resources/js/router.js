@@ -26,6 +26,7 @@ import LSPTeamOrderCabling from './components/lsp-team-order-detail/LSPTeamOrder
 import LSPTeamOrderSplicing from './components/lsp-team-order-detail/LSPTeamOrderSplicingComponent.vue'
 import LSPTeamOrderActivate from './components/lsp-team-order-detail/LSPTeamOrderActivateComponent.vue'
 import LSPTeamOrderRepair from './components/lsp-team-order-detail/LSPTeamOrderRepairComponent.vue'
+import LSPOrderIndex from './components/lsp-order-detail/LSPOrderIndexComponent.vue'
 import LSPOrderSurvey from './components/lsp-order-detail/LSPOrderSurveyComponent'
 import LSPOrderCabling from './components/lsp-order-detail/LSPOrderCablingComponent'
 import LSPOrderSplicing from './components/lsp-order-detail/LSPOrderSplicingComponent'
@@ -52,44 +53,55 @@ export default {
             component: LSPFirstTimePassword
         },
         {
-            path: '/order',
-            component: Order
+            path: '/order/:id',
+            name: 'order',
+            component: Order,
+            props: true
         },
         {
             path: '/lsp-order',
             component: LSPOrder
         },
         {
-            path: '/home/profile',
-            component: Profile,
+            path: '/home/',
+            component: LSPOrderIndex,
+            children: [
+                {
+                    path: 'profile',
+                    component: Profile,
+                },
+                {
+                    path: 'new',
+                    component: Home,
+                    name: 'home-new',
+                },
+                {
+                    path: 'accept',
+                    component: Accept,
+                },
+                {
+                    path: 'history',
+                    component: History,
+                }
+            ]
         },
         {
-            path: '/home/new',
-            component: Home,
-            name: 'home-new'
-        },
-        {
-            path: '/home/accept',
-            component: Accept,
-            // name: 'home-accept'
-        },
-        {
-            path: '/home/history',
-            component: History,
-            // name: 'home-history'
-        },
-        {
-            path: '/on-call/new',
-            component: OnCall,
-            name: 'on-call-new'
-        },
-        {
-            path: '/on-call/accept',
-            component: OnCallAccept
-        },
-        {
-            path: '/on-call/history',
-            component: OnCallHistory
+            path: '/on-call/',
+            component: LSPOrderIndex,
+            children: [
+                {
+                    path: 'new',
+                    component: OnCall,
+                },
+                {
+                    path: 'accept',
+                    component: OnCallAccept,
+                },
+                {
+                    path: 'history',
+                    component: OnCallHistory,
+                }
+            ]
         },
         {
             path: '/team',
@@ -107,28 +119,40 @@ export default {
             name: 'team-create'
         },
         {
-            path: '/lsp-team/login',
-            component: LSPTeamLogin
+            path: '/lsp-team/',
+            component: LSPOrderIndex,
+            children: [
+                {
+                    path: 'login',
+                    component: LSPTeamLogin
+                },
+                {
+                    path: 'profile',
+                    component: LSPTeamProfile
+                },
+                {
+                    path: 'first-time-password',
+                    component: LSPTeamFirstTimePassword
+                }
+            ]
         },
         {
-            path: '/lsp-team/profile',
-            component: LSPTeamProfile
-        },
-        {
-            path: '/lsp-team/first-time-password',
-            component: LSPTeamFirstTimePassword
-        },
-        {
-            path: '/lsp-home/remaining',
-            component: LSPTeamRemaining
-        },
-        {
-            path: '/lsp-home/history',
-            component: LSPTeamHistory
-        },
-        {
-            path: '/lsp-home/complete',
-            component: LSPTeamComplete
+            path: '/lsp-home/',
+            component: LSPOrderIndex,
+            children: [
+                {
+                    path: 'remaining',
+                    component: LSPTeamRemaining
+                },
+                {
+                    path: 'history',
+                    component: LSPTeamHistory
+                },
+                {
+                    path: 'complete',
+                    component: LSPTeamComplete
+                }
+            ]
         },
         {
             path: '/inventory',
@@ -136,44 +160,56 @@ export default {
             name: 'inventory'
         },
         {
-            path: '/lsp-team-order/survey',
-            component: LSPTeamOrderSurvey
+            path: '/lsp-team-order/',
+            component: LSPOrderIndex,
+            children: [
+                {
+                    path: 'survey',
+                    component: LSPTeamOrderSurvey
+                },
+                {
+                    path: 'cabling',
+                    component: LSPTeamOrderCabling
+                },
+                {
+                    path: 'splicing',
+                    component: LSPTeamOrderSplicing
+                },
+                {
+                    path: 'activate',
+                    component: LSPTeamOrderActivate
+                },
+                {
+                    path: 'repair',
+                    component: LSPTeamOrderRepair
+                }
+            ]
         },
         {
-            path: '/lsp-team-order/cabling',
-            component: LSPTeamOrderCabling
-        },
-        {
-            path: '/lsp-team-order/splicing',
-            component: LSPTeamOrderSplicing
-        },
-        {
-            path: '/lsp-team-order/activate',
-            component: LSPTeamOrderActivate
-        },
-        {
-            path: '/lsp-team-order/repair',
-            component: LSPTeamOrderRepair
-        },
-        {
-            path: '/lsp-order/survey',
-            component: LSPOrderSurvey
-        },
-        {
-            path: '/lsp-order/cabling',
-            component: LSPOrderCabling
-        },
-        {
-            path: '/lsp-order/splicing',
-            component: LSPOrderSplicing
-        },
-        {
-            path: '/lsp-order/activate',
-            component: LSPOrderActivate
-        },
-        {
-            path: '/lsp-order/repair',
-            component: LSPOrderRepair
+            path: '/lsp-order/',
+            component: LSPOrderIndex,
+            children: [
+                {
+                    path: 'survey',
+                    component: LSPOrderSurvey
+                },
+                {
+                    path: 'cabling',
+                    component: LSPOrderCabling
+                },
+                {
+                    path: 'splicing',
+                    component: LSPOrderSplicing
+                },
+                {
+                    path: 'activate',
+                    component: LSPOrderActivate
+                },
+                {
+                    path: 'repair',
+                    component: LSPOrderRepair
+                }
+            ]
         },
     ]
 }
