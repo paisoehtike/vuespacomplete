@@ -2728,7 +2728,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
-      console.log(this.requests);
     },
     getNew: function getNew() {
       var _this = this;
@@ -2817,14 +2816,26 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    authenticated: function authenticated(response) {
+      this.$cookie.set('token', response.data.data.token, '1m');
+      console.log('Token Saved!');
+      this.errorMessage = null;
+
+      if (response.data.data.is_admin == 1) {
+        this.$router.push('/home/new');
+      } else {
+        if (response.data.data.is_password_change == null) {
+          this.$router.push('/lsp-team/first-time-password');
+        } else {
+          this.$router.push('/lsp-home/remaining');
+        }
+      }
+    },
     formSubmit: function formSubmit(formData) {
       var _this = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData).then(function (response) {
-        _this.$cookie.set('token', response.data.token, 1);
-
-        _this.errorMessage = null;
-        console.log('Token Saved!');
+      axios.post('http://S-5BB-LSP-Management-Dashboard.test/api/create_token', formData).then(function (response) {
+        _this.authenticated(response);
       })["catch"](function (error) {
         _this.errorMessage = error.response.data.message;
       });
@@ -4318,6 +4329,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-customer/SquareImageComponent */ "./resources/js/components/reuseable-customer/SquareImageComponent.vue");
 /* harmony import */ var _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../resuable-login-password/SignInAndFirstTimePasswordComponent */ "./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue");
+/* harmony import */ var _mixins_GetToken__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/GetToken */ "./resources/js/components/mixins/GetToken.js");
 //
 //
 //
@@ -4327,12 +4339,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     SignInAndFirstTimePassword: _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mixins: [_mixins_GetToken__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  data: function data() {
+    return {
+      errorMessage: null
+    };
+  },
+  methods: {
+    isAuthenticate: function isAuthenticate() {
+      if (!this.$cookie.get('token')) {
+        this.$router.push('/');
+      }
+    },
+    authenticated: function authenticated(response) {
+      if (response.status == 200) {
+        this.$router.push('/lsp-home/remaining');
+      }
+    },
+    formSubmit: function formSubmit(formData) {
+      var _this = this;
+
+      axios.post('http://S-5BB-LSP-Management-Dashboard.test/api/lsp_team/change_password', {
+        password: formData.password
+      }, this.headerConfig).then(function (response) {
+        _this.authenticated(response);
+      })["catch"](function (error) {
+        _this.errorMessage = error.response.data.message;
+      });
+    }
+  },
+  created: function created() {
+    this.isAuthenticate();
   }
 });
 
@@ -4733,6 +4783,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['type', 'isAdmin', 'errorMessage'],
   data: function data() {
@@ -4740,9 +4791,11 @@ __webpack_require__.r(__webpack_exports__);
       isSignIn: true,
       phone: null,
       password: null,
+      isMatch: true,
       errors: {
         phone: null,
-        password: null
+        password: null,
+        passwordDoesntMatch: null
       }
     };
   },
@@ -4754,17 +4807,31 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.resetErrorMessages();
 
+      if (this.phone !== this.password) {
+        this.errors.passwordDoesntMatch = "Password Doesn't Match!";
+        this.isMatch = false;
+      } else {
+        this.isMatch = true;
+      }
+
       if (!this.phone) {
-        this.errors.phone = "*Phone number field is required*";
+        this.errors.phone = "*This field is required*";
       }
 
       if (!this.password) {
-        this.errors.password = "*Password field is required*";
+        this.errors.password = "*This field is required*";
       }
 
-      if (this.phone && this.password) {
-        this.$emit('submit', formData);
-        this.resetErrorMessages();
+      if (!this.isSignIn) {
+        if (this.phone && this.password && this.isMatch) {
+          this.$emit('submit', formData);
+          this.resetErrorMessages();
+        }
+      } else {
+        if (this.phone && this.password) {
+          this.$emit('submit', formData);
+          this.resetErrorMessages();
+        }
       }
     },
     whichType: function whichType() {
@@ -4775,6 +4842,7 @@ __webpack_require__.r(__webpack_exports__);
     resetErrorMessages: function resetErrorMessages() {
       this.errors.phone = null;
       this.errors.password = null;
+      this.errors.passwordDoesntMatch = null;
     }
   },
   mounted: function mounted() {
@@ -20123,9 +20191,14 @@ var render = function() {
     [
       _c("SquareImage"),
       _vm._v(" "),
-      _c("SignInAndFirstTimePassword", { attrs: { type: "password" } }, [
-        _vm._v("\n        LSP Team\n    ")
-      ])
+      _c(
+        "SignInAndFirstTimePassword",
+        {
+          attrs: { type: "password", errorMessage: _vm.errorMessage },
+          on: { submit: _vm.formSubmit }
+        },
+        [_vm._v("\n        LSP Team\n    ")]
+      )
     ],
     1
   )
@@ -20562,6 +20635,12 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
+    !_vm.isMatch
+      ? _c("p", { staticClass: "error-message" }, [
+          _vm._v(_vm._s(_vm.errors.passwordDoesntMatch))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", [
       _c(
         "p",
@@ -20686,7 +20765,7 @@ var render = function() {
           }
         ],
         staticClass: "activate-input",
-        attrs: { type: "text", name: "password" },
+        attrs: { type: "password", name: "password" },
         domProps: { value: _vm.password },
         on: {
           input: function($event) {
@@ -20726,7 +20805,8 @@ var render = function() {
               value: !_vm.isSignIn,
               expression: "!isSignIn"
             }
-          ]
+          ],
+          on: { click: _vm.formSubmit }
         },
         [_vm._v("Save")]
       )
@@ -39681,6 +39761,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPTeamRemainingComponent_vue_vue_type_template_id_cb37556c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/mixins/GetToken.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/mixins/GetToken.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var getToken = {
+  data: function data() {
+    return {
+      headerConfig: {
+        headers: {
+          'Authorization': 'Bearer ' + this.$cookie.get('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    };
+  },
+  methods: {
+    getCookie: function getCookie(name) {
+      var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return v ? v[2] : null;
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (getToken);
 
 /***/ }),
 

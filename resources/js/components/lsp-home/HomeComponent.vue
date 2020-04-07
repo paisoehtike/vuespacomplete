@@ -53,7 +53,6 @@ export default {
     },
     bindResponseData(response) {
       this.requests = response.data.data;
-      console.log(this.requests);
     },
     getNew() {
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new')
