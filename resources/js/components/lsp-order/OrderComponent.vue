@@ -33,9 +33,9 @@
     <div class="order-assigned-row">
       <span>Assigned Team :</span>
       <span v-if="!detail.team">Not Assigned</span>
-      <span v-if="detail.team">{{ detail.team.name }}</span>
+      <span v-else>{{ detail.team.name }}</span>
       <AssignOrSwitchTeamComponent v-if="!detail.team" :customer="customer" :type="'New'"></AssignOrSwitchTeamComponent>
-      <AssignOrSwitchTeamComponent v-if="detail.team" :customer="customer" :type="'Accept'"></AssignOrSwitchTeamComponent>
+      <AssignOrSwitchTeamComponent v-else :customer="customer" :type="'Accept'"></AssignOrSwitchTeamComponent>
       <!-- <a class="waves-effect btn">Assign</a> -->
     </div>
     <div class="customer-info-row">
