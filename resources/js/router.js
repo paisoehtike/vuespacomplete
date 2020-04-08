@@ -59,8 +59,10 @@ export default {
             props: true
         },
         {
-            path: '/lsp-order',
-            component: LSPOrder
+            path: '/lsp-order/:id',
+            name: 'lsp-order',
+            component: LSPOrder,
+            props: true
         },
         {
             path: '/home/',

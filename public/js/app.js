@@ -3827,6 +3827,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3835,6 +3906,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id', 'order_type'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3846,6 +3918,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      detail: null,
+      request_id: null,
       customerDetails: {
         name: "Mg Mg",
         accountNo: "YGNFX008",
@@ -3870,6 +3944,22 @@ __webpack_require__.r(__webpack_exports__);
       orderDetailID: "5531",
       orderType: "On Call"
     };
+  },
+  methods: {
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id).then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+      console.log(this.detail);
+    }
+  },
+  created: function created() {
+    this.getDetail();
   }
 });
 
@@ -3885,15 +3975,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
-/* harmony import */ var _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-home/CustomerComponent */ "./resources/js/components/reuseable-home/CustomerComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
-/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
-/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
-/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
-/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
+/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
+/* harmony import */ var _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/RequestListComponent */ "./resources/js/components/reuseable-component/RequestListComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -3915,36 +3999,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
 
 
 
@@ -3952,15 +4006,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
+    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RequestList: _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     var _ref, _ref2, _ref3, _ref4, _ref5;
@@ -4054,15 +4102,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
-/* harmony import */ var _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-home/CustomerComponent */ "./resources/js/components/reuseable-home/CustomerComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
-/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
-/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
-/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
-/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
+/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
+/* harmony import */ var _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/RequestListComponent */ "./resources/js/components/reuseable-component/RequestListComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -4084,36 +4126,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
 
 
 
@@ -4121,15 +4133,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
+    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RequestList: _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     var _ref, _ref2, _ref3, _ref4, _ref5;
@@ -4268,15 +4274,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
-/* harmony import */ var _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-home/CustomerComponent */ "./resources/js/components/reuseable-home/CustomerComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
-/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
-/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
-/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
-/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
+/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
+/* harmony import */ var _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/RequestListComponent */ "./resources/js/components/reuseable-component/RequestListComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
@@ -4298,36 +4298,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
 
 
 
@@ -4335,15 +4305,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
+    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RequestList: _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     var _ref, _ref2, _ref3, _ref4, _ref5;
@@ -5107,7 +5071,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
         oncallNew: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new',
         oncallAccepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted',
-        oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history'
+        oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history',
+        lspTeamRemain: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining',
+        lspTeamHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history',
+        lspTeamComplete: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete'
       }
     };
   },
@@ -5157,6 +5124,18 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           this.apiCall(this.apis.oncallHistory);
           break;
 
+        case 'lsp-team-remain':
+          this.apiCall(this.apis.lspTeamRemain);
+          break;
+
+        case 'lsp-team-history':
+          this.apiCall(this.apis.lspTeamHistory);
+          break;
+
+        case 'lsp-team-complete':
+          this.apiCall(this.apis.lspTeamComplete);
+          break;
+
         default:
           this.errorMessage;
           break;
@@ -5194,6 +5173,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           });
         }
       }
+    },
+    toTeamOrder: function toTeamOrder(request) {
+      this.$router.push({
+        name: 'lsp-order',
+        params: {
+          id: request.id,
+          order_type: 'Installation'
+        }
+      });
     }
   },
   created: function created() {
@@ -19328,116 +19316,216 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "order-container" },
-    [
-      _c(
-        "router-link",
-        {
-          staticClass: "order-header-row",
-          attrs: { to: "/lsp-home/remaining", tag: "div" }
-        },
-        [
-          _c("i", { staticClass: "fas fa-chevron-left" }),
-          _vm._v(" "),
-          _c("h2", [_vm._v("Detail")])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-image-container" },
-        [_c("SquareImage")],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-detail-row" },
-        [
-          _c("OrderDetail", [
-            _c(
-              "div",
-              { staticClass: "order-detail-header" },
-              [
-                _c("CustomerTypeChip", { attrs: { value: _vm.customerType } }),
-                _vm._v(" "),
-                _c("OrderStepChip", { attrs: { value: _vm.orderStep } })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-detail-id" }, [
-              _c("h4", [_vm._v(_vm._s(_vm.orderDetailID))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [_vm._v(_vm._s(_vm.orderType))])
-            ])
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "customer-info-row" },
-        [
+  return _c("div", { staticClass: "order-container" }, [
+    _c(
+      "div",
+      {
+        staticClass: "order-header-row",
+        on: {
+          click: function($event) {
+            return _vm.$router.go(-1)
+          }
+        }
+      },
+      [
+        _c("i", { staticClass: "fas fa-chevron-left" }),
+        _vm._v(" "),
+        _c("h2", [_vm._v("Detail")])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "order-image-container" }, [_c("SquareImage")], 1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "order-detail-row" },
+      [
+        _c("OrderDetail", [
           _c(
-            "CustomerInfo",
-            _vm._l(_vm.customerDetails, function(value, label) {
-              return _c("TableRow", {
-                key: label,
-                attrs: { label: label, value: value }
-              })
-            }),
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-info-row" },
-        [
-          _c(
-            "OrderInfo",
-            _vm._l(_vm.orderDetails, function(value, label) {
-              return _c("TableRow", {
-                key: label,
-                attrs: { label: label, value: value }
-              })
-            }),
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "team-order-button" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "col s12 m6 l3 complete-btn",
-              attrs: { to: "/lsp-team-order/survey", tag: "div" }
-            },
+            "div",
+            { staticClass: "order-detail-header" },
             [
-              _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-                _vm._v("Start Installation")
+              _c("CustomerTypeChip", {
+                attrs: { value: _vm.detail.customer_type }
+              }),
+              _vm._v(" "),
+              _c("OrderStepChip", {
+                attrs: { value: _vm.detail.installation_step }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "order-detail-id" }, [
+            _c("h4", [_vm._v(_vm._s(_vm.detail.customer))])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "order-type" }, [
+            _c("p", [
+              _vm._v("Order Type : "),
+              _c("span", [_vm._v(_vm._s(_vm.order_type))])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.order_type == "On Call"
+            ? _c("div", { staticClass: "order-type" }, [
+                _c("p", [
+                  _vm._v("Possible Issue : "),
+                  _c("span", { staticClass: "issue" }, [
+                    _vm._v(_vm._s(_vm.issueType))
+                  ])
+                ])
               ])
-            ]
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.detail.due_date
+            ? _c("div", { staticClass: "order-type" }, [
+                _c("p", [
+                  _vm._v("Due Date : "),
+                  _c("span", [_vm._v(_vm._s(_vm.detail.due_date))])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.detail.priority_level
+            ? _c("div", { staticClass: "order-type" }, [
+                _c("p", [
+                  _vm._v("Priority Level : "),
+                  _c("span", { staticClass: "priority-level" }, [
+                    _vm._v(_vm._s(_vm.detail.priority_level) + " Hrs")
+                  ])
+                ])
+              ])
+            : _vm._e()
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "customer-info-row" },
+      [
+        _c(
+          "CustomerInfo",
+          [
+            _c("TableRow", {
+              attrs: { label: "Customer Name", value: _vm.detail.name }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Customer Account No",
+                value: _vm.detail.customer
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Customer RMN",
+                value: _vm.detail.customer_detail.rmn
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "PPOE Username",
+                value: _vm.detail.customer_detail.ppoe_user_name
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "PPOE Password",
+                value: _vm.detail.customer_detail.ppoe_password
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Phone", value: _vm.detail.customer_detail.phone }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Address",
+                value: _vm.detail.customer_detail.address
+              }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: {
+                label: "Township",
+                value: _vm.detail.customer_detail.township.name
+              }
+            })
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "order-info-row" },
+      [
+        _c(
+          "OrderInfo",
+          [
+            _c("TableRow", {
+              attrs: { label: "Order Id", value: _vm.detail.order_id }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Order Type", value: _vm.detail.order_type }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Due", value: _vm.detail.due_date }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Status", value: _vm.detail.status }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Plan Name", value: _vm.detail.plan }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Promotion", value: _vm.detail.promotion }
+            }),
+            _vm._v(" "),
+            _c("TableRow", {
+              attrs: { label: "Create Date", value: _vm.detail.createdDate }
+            })
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "team-order-button" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "col s12 m6 l3 complete-btn",
+            attrs: { to: "/lsp-team-order/survey", tag: "div" }
+          },
+          [
+            _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
+              _vm._v("Start Installation")
+            ])
+          ]
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -19462,135 +19550,56 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "home-container" }, [
-    _c("div", { staticClass: "home-container-row" }, [
-      _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "home-customer-header-button" },
-        [
-          _c("HomeHeaderButton", {
-            attrs: {
-              firstUrl: _vm.url.remain,
-              secondUrl: _vm.url.history,
-              thirdUrl: _vm.url.complete
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "new",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.remain))]
-                },
-                proxy: true
+    _c(
+      "div",
+      { staticClass: "home-container-row" },
+      [
+        _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "home-customer-header-button" },
+          [
+            _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.remain,
+                secondUrl: _vm.url.history,
+                thirdUrl: _vm.url.complete
               },
-              {
-                key: "accept",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.history))]
+              scopedSlots: _vm._u([
+                {
+                  key: "new",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.remain))]
+                  },
+                  proxy: true
                 },
-                proxy: true
-              },
-              {
-                key: "history",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.complete))]
+                {
+                  key: "accept",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.history))]
+                  },
+                  proxy: true
                 },
-                proxy: true
-              }
-            ])
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "home-customer-row" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/lsp-order" } },
-            _vm._l(_vm.customers, function(customer, index) {
-              return _c(
-                "Customer",
-                { key: index },
-                [
-                  _c("CustomerHeader", {
-                    attrs: { id: customer.name, step: customer.orderStep }
-                  }),
-                  _vm._v(" "),
-                  _c("CustomerTypeChip", {
-                    attrs: {
-                      slot: "customer-chip",
-                      value: customer.customerType
-                    },
-                    slot: "customer-chip"
-                  }),
-                  _vm._v(" "),
-                  _c("OrderStepChip", {
-                    attrs: { slot: "order-chip", value: customer.orderStep },
-                    slot: "order-chip"
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "CustomerIssueDate",
-                    {
-                      attrs: { slot: "customer-date" },
-                      slot: "customer-date",
-                      scopedSlots: _vm._u(
-                        [
-                          customer.priority
-                            ? {
-                                key: "priority-date",
-                                fn: function() {
-                                  return [
-                                    _vm._v(
-                                      "| " + _vm._s(customer.priority) + " Hrs"
-                                    )
-                                  ]
-                                },
-                                proxy: true
-                              }
-                            : null,
-                          {
-                            key: "issue",
-                            fn: function() {
-                              return [_vm._v(_vm._s(customer.issue))]
-                            },
-                            proxy: true
-                          }
-                        ],
-                        null,
-                        true
-                      )
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(customer.date) +
-                          "\n            "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("CustomerDetailChip", {
-                    attrs: {
-                      slot: "customer-detail-chip",
-                      value: customer.customerName,
-                      address: customer.address
-                    },
-                    slot: "customer-detail-chip"
-                  })
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
-        1
-      )
-    ])
+                {
+                  key: "history",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.complete))]
+                  },
+                  proxy: true
+                }
+              ])
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("RequestList", {
+          attrs: { type: "team", status: "lsp-team-complete" }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -19651,135 +19660,56 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "home-container" }, [
-    _c("div", { staticClass: "home-container-row" }, [
-      _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "home-customer-header-button" },
-        [
-          _c("HomeHeaderButton", {
-            attrs: {
-              firstUrl: _vm.url.remain,
-              secondUrl: _vm.url.history,
-              thirdUrl: _vm.url.complete
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "new",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.remain))]
-                },
-                proxy: true
+    _c(
+      "div",
+      { staticClass: "home-container-row" },
+      [
+        _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "home-customer-header-button" },
+          [
+            _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.remain,
+                secondUrl: _vm.url.history,
+                thirdUrl: _vm.url.complete
               },
-              {
-                key: "accept",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.history))]
+              scopedSlots: _vm._u([
+                {
+                  key: "new",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.remain))]
+                  },
+                  proxy: true
                 },
-                proxy: true
-              },
-              {
-                key: "history",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.complete))]
+                {
+                  key: "accept",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.history))]
+                  },
+                  proxy: true
                 },
-                proxy: true
-              }
-            ])
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "home-customer-row" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/lsp-order" } },
-            _vm._l(_vm.customers, function(customer, index) {
-              return _c(
-                "Customer",
-                { key: index },
-                [
-                  _c("CustomerHeader", {
-                    attrs: { id: customer.name, step: customer.orderStep }
-                  }),
-                  _vm._v(" "),
-                  _c("CustomerTypeChip", {
-                    attrs: {
-                      slot: "customer-chip",
-                      value: customer.customerType
-                    },
-                    slot: "customer-chip"
-                  }),
-                  _vm._v(" "),
-                  _c("OrderStepChip", {
-                    attrs: { slot: "order-chip", value: customer.orderStep },
-                    slot: "order-chip"
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "CustomerIssueDate",
-                    {
-                      attrs: { slot: "customer-date" },
-                      slot: "customer-date",
-                      scopedSlots: _vm._u(
-                        [
-                          customer.priority
-                            ? {
-                                key: "priority-date",
-                                fn: function() {
-                                  return [
-                                    _vm._v(
-                                      "| " + _vm._s(customer.priority) + " Hrs"
-                                    )
-                                  ]
-                                },
-                                proxy: true
-                              }
-                            : null,
-                          {
-                            key: "issue",
-                            fn: function() {
-                              return [_vm._v(_vm._s(customer.issue))]
-                            },
-                            proxy: true
-                          }
-                        ],
-                        null,
-                        true
-                      )
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(customer.date) +
-                          "\n            "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("CustomerDetailChip", {
-                    attrs: {
-                      slot: "customer-detail-chip",
-                      value: customer.customerName,
-                      address: customer.address
-                    },
-                    slot: "customer-detail-chip"
-                  })
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
-        1
-      )
-    ])
+                {
+                  key: "history",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.complete))]
+                  },
+                  proxy: true
+                }
+              ])
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("RequestList", {
+          attrs: { type: "team", status: "lsp-team-history" }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -19905,128 +19835,56 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "home-container" }, [
-    _c("div", { staticClass: "home-container-row" }, [
-      _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "home-customer-header-button" },
-        [
-          _c("HomeHeaderButton", {
-            attrs: {
-              firstUrl: _vm.url.remain,
-              secondUrl: _vm.url.history,
-              thirdUrl: _vm.url.complete
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "new",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.remain))]
-                },
-                proxy: true
+    _c(
+      "div",
+      { staticClass: "home-container-row" },
+      [
+        _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "home-customer-header-button" },
+          [
+            _c("HomeHeaderButton", {
+              attrs: {
+                firstUrl: _vm.url.remain,
+                secondUrl: _vm.url.history,
+                thirdUrl: _vm.url.complete
               },
-              {
-                key: "accept",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.history))]
+              scopedSlots: _vm._u([
+                {
+                  key: "new",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.remain))]
+                  },
+                  proxy: true
                 },
-                proxy: true
-              },
-              {
-                key: "history",
-                fn: function() {
-                  return [_vm._v(_vm._s(_vm.label.complete))]
+                {
+                  key: "accept",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.history))]
+                  },
+                  proxy: true
                 },
-                proxy: true
-              }
-            ])
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "home-customer-row" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/lsp-order" } },
-            _vm._l(_vm.customers, function(customer, index) {
-              return _c(
-                "Customer",
-                { key: index },
-                [
-                  _c("CustomerHeader", {
-                    attrs: { id: customer.name, step: customer.orderStep }
-                  }),
-                  _vm._v(" "),
-                  _c("CustomerTypeChip", {
-                    attrs: {
-                      slot: "customer-chip",
-                      value: customer.customerType
-                    },
-                    slot: "customer-chip"
-                  }),
-                  _vm._v(" "),
-                  _c("OrderStepChip", {
-                    attrs: { slot: "order-chip", value: customer.orderStep },
-                    slot: "order-chip"
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "CustomerIssueDate",
-                    {
-                      attrs: { slot: "customer-date" },
-                      slot: "customer-date",
-                      scopedSlots: _vm._u(
-                        [
-                          customer.priority
-                            ? {
-                                key: "priority-date",
-                                fn: function() {
-                                  return [
-                                    _vm._v(
-                                      "| " + _vm._s(customer.priority) + " Hrs"
-                                    )
-                                  ]
-                                },
-                                proxy: true
-                              }
-                            : null
-                        ],
-                        null,
-                        true
-                      )
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(customer.date) +
-                          "\n            "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("CustomerDetailChip", {
-                    attrs: {
-                      slot: "customer-detail-chip",
-                      value: customer.customerName,
-                      address: customer.address
-                    },
-                    slot: "customer-detail-chip"
-                  })
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
-        1
-      )
-    ])
+                {
+                  key: "history",
+                  fn: function() {
+                    return [_vm._v(_vm._s(_vm.label.complete))]
+                  },
+                  proxy: true
+                }
+              ])
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("RequestList", {
+          attrs: { type: "team", status: "lsp-team-remain" }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -21163,7 +21021,9 @@ var render = function() {
           key: index,
           nativeOn: {
             click: function($event) {
-              return _vm.toOrder(request, $event)
+              _vm.type !== "team"
+                ? _vm.toOrder(request, $event)
+                : _vm.toTeamOrder(request)
             }
           }
         },
@@ -21237,6 +21097,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("CustomerHomeFooterButton", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.type !== "team",
+                expression: "type !== 'team'"
+              }
+            ],
             attrs: { slot: "customer-home-footer" },
             slot: "customer-home-footer",
             scopedSlots: _vm._u(
@@ -36774,8 +36642,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var VueCookie = __webpack_require__(/*! vue-cookie */ "./node_modules/vue-cookie/src/vue-cookie.js");
 
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(VueCookie);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  created: function created() {
+    if (this.$cookie.get('token') !== null) {
+      axios.defaults.headers.common = {
+        'Authorization': 'Bearer ' + this.$cookie.get('token')
+      };
+    }
+  }
+});
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date', function (value) {
   var cuttedValue = value.slice(0, 10);
   return cuttedValue.replace(/-/gi, '/');
@@ -41038,8 +40917,10 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
   }, {
-    path: '/lsp-order',
-    component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__["default"]
+    path: '/lsp-order/:id',
+    name: 'lsp-order',
+    component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__["default"],
+    props: true
   }, {
     path: '/home/',
     component: _components_lsp_order_detail_LSPOrderIndexComponent_vue__WEBPACK_IMPORTED_MODULE_27__["default"],
