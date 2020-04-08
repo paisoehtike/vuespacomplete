@@ -4374,7 +4374,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/change_password', {
         password: formData.password
-      }, this.headerConfig).then(function (response) {
+      }).then(function (response) {
         _this.authenticated(response);
       })["catch"](function (error) {
         _this.errorMessage = error.response.data.message;
@@ -37339,9 +37339,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(VueCookie);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
-  router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_router__WEBPACK_IMPORTED_MODULE_2__["default"]),
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   created: function created() {
     if (this.$cookie.get('token') !== null) {
       axios.defaults.headers.common = {
@@ -37349,6 +37347,10 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       };
     }
   }
+});
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#app',
+  router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_router__WEBPACK_IMPORTED_MODULE_2__["default"])
 });
 
 /***/ }),

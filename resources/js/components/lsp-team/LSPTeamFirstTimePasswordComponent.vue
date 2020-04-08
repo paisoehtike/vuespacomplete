@@ -43,8 +43,7 @@ export default {
         },
         formSubmit(formData) {
             axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/change_password',
-                 { password: formData.password },
-                 this.headerConfig)
+                 { password: formData.password })
             .then( response => {
                 this.authenticated(response);
             })

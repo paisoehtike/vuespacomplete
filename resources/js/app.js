@@ -6,10 +6,7 @@ const axios = require('axios');
 
 Vue.use(VueCookie);
 Vue.use(VueRouter);
-
-const app = new Vue({
-    el: '#app',
-    router: new VueRouter(routes),
+Vue.mixin({
     created() {
         if (this.$cookie.get('token') !== null) {
             axios.defaults.headers.common = {
@@ -17,4 +14,9 @@ const app = new Vue({
             }
         }
     }
+})
+
+const app = new Vue({
+    el: '#app',
+    router: new VueRouter(routes)
 })
