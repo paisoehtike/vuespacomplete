@@ -51,36 +51,67 @@ export default {
         ConfirmModal
     },
     props: [
-        'id', 'multipleRemarks'
+        'type', 'id', 'multipleRemarks'
     ],
     methods: {
         deleteRemark(id) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id)
+            if(this.type == 'splicing') {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_splicing/' + id)
                 .then( response => { 
                     this.$emit('reload');
                 })
                 .catch(console.log('Error'));
-            },
+            } else {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id)
+                .then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            }
+        },
         remarkUpdate(id, remark) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id,
+            if(this.type == 'splicing') {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id,
                 {
                     remark: remark.remark
                 }
-            ).then( response => { 
-                this.$emit('reload');
-             })
-            .catch(console.log('Error'));
+                ).then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            } else {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id,
+                {
+                    remark: remark.remark
+                }
+                ).then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            }
         },
         storeRemark(remark) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling',
+            if(this.type == 'splicing') {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_splicing',
                 {
                     installation_request_id: this.id,
                     remark: remark.remark
                 }
-            ).then( response => { 
-                this.$emit('reload');
-             })
-            .catch(console.log('Error'));
+                ).then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            } else {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling',
+                {
+                    installation_request_id: this.id,
+                    remark: remark.remark
+                }
+                ).then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            }
         }
     }
 }

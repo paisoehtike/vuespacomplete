@@ -3715,6 +3715,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3725,6 +3727,26 @@ __webpack_require__.r(__webpack_exports__);
     ProgressBar: _resuable_lsp_detail_ProgressBarComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     FinishButton: _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
     MultipleRemark: _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      remarks: null
+    };
+  },
+  methods: {
+    getRemarks: function getRemarks(response) {
+      this.remarks = response.data.data;
+    },
+    getSplicing: function getSplicing() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/splicing?installation_id=' + this.$route.params.id).then(function (response) {
+        _this.getRemarks(response);
+      })["catch"](console.log('Error'));
+    }
+  },
+  created: function created() {
+    this.getSplicing();
   }
 });
 
@@ -4621,33 +4643,56 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['id', 'multipleRemarks'],
+  props: ['type', 'id', 'multipleRemarks'],
   methods: {
     deleteRemark: function deleteRemark(id) {
       var _this = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
-        _this.$emit('reload');
-      })["catch"](console.log('Error'));
+      if (this.type == 'splicing') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_splicing/' + id).then(function (response) {
+          _this.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
+          _this.$emit('reload');
+        })["catch"](console.log('Error'));
+      }
     },
     remarkUpdate: function remarkUpdate(id, remark) {
       var _this2 = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id, {
-        remark: remark.remark
-      }).then(function (response) {
-        _this2.$emit('reload');
-      })["catch"](console.log('Error'));
+      if (this.type == 'splicing') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id, {
+          remark: remark.remark
+        }).then(function (response) {
+          _this2.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id, {
+          remark: remark.remark
+        }).then(function (response) {
+          _this2.$emit('reload');
+        })["catch"](console.log('Error'));
+      }
     },
     storeRemark: function storeRemark(remark) {
       var _this3 = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
-        installation_request_id: this.id,
-        remark: remark.remark
-      }).then(function (response) {
-        _this3.$emit('reload');
-      })["catch"](console.log('Error'));
+      if (this.type == 'splicing') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_splicing', {
+          installation_request_id: this.id,
+          remark: remark.remark
+        }).then(function (response) {
+          _this3.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
+          installation_request_id: this.id,
+          remark: remark.remark
+        }).then(function (response) {
+          _this3.$emit('reload');
+        })["catch"](console.log('Error'));
+      }
     }
   }
 });
@@ -19416,7 +19461,18 @@ var render = function() {
         attrs: { stepNo: "3", type: "team", id: this.$route.params.id }
       }),
       _vm._v(" "),
-      _c("MultipleRemark"),
+      _c("MultipleRemark", {
+        attrs: {
+          type: "splicing",
+          id: this.$route.params.id,
+          multipleRemarks: _vm.remarks
+        },
+        on: {
+          reload: function($event) {
+            return _vm.getSplicing()
+          }
+        }
+      }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Finish" } })
     ],
