@@ -5204,6 +5204,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5223,23 +5224,27 @@ __webpack_require__.r(__webpack_exports__);
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   methods: {
-    toOrder: function toOrder(request) {
-      if (this.type == 'On-call') {
-        this.$router.push({
-          name: 'order-repair',
-          params: {
-            id: request.id,
-            order_type: 'On Call'
-          }
-        });
+    toOrder: function toOrder(request, event) {
+      if (event.target.id == 'accept') {
+        alert('Yes Its Accept');
       } else {
-        this.$router.push({
-          name: 'order',
-          params: {
-            id: request.id,
-            order_type: 'Installation'
-          }
-        });
+        if (this.type == 'On-call') {
+          this.$router.push({
+            name: 'order-repair',
+            params: {
+              id: request.id,
+              order_type: 'On Call'
+            }
+          });
+        } else {
+          this.$router.push({
+            name: 'order',
+            params: {
+              id: request.id,
+              order_type: 'Installation'
+            }
+          });
+        }
       }
     }
   }
@@ -20834,7 +20839,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "customer-home-assigned-button" }, [
-      _c("a", { staticClass: "btn" }, [_vm._v("Accept")])
+      _c("a", { staticClass: "btn", attrs: { id: "accept" } }, [
+        _vm._v("Accept")
+      ])
     ])
   }
 ]
@@ -21205,7 +21212,7 @@ var render = function() {
           key: index,
           nativeOn: {
             click: function($event) {
-              return _vm.toOrder(request)
+              return _vm.toOrder(request, $event)
             }
           }
         },
@@ -21283,13 +21290,21 @@ var render = function() {
             slot: "customer-home-footer",
             scopedSlots: _vm._u(
               [
-                {
-                  key: "assign",
-                  fn: function() {
-                    return [_vm._v("Not Assigned")]
-                  },
-                  proxy: true
-                }
+                request.team !== null
+                  ? {
+                      key: "assign",
+                      fn: function() {
+                        return [_vm._v(_vm._s(request.team.name))]
+                      },
+                      proxy: true
+                    }
+                  : {
+                      key: "assign",
+                      fn: function() {
+                        return [_vm._v("Not Assigned")]
+                      },
+                      proxy: true
+                    }
               ],
               null,
               true

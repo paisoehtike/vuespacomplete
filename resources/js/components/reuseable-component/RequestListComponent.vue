@@ -1,6 +1,6 @@
 <template>
     <div class="home-customer-row">
-        <Customer @click.native="toOrder(request)" v-for="(request, index) in requests" :key="index">
+        <Customer @click.native="toOrder(request, $event)" v-for="(request, index) in requests" :key="index">
           <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
           <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
@@ -22,7 +22,8 @@
             :address="request.address"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton slot="customer-home-footer">
-            <template v-slot:assign>Not Assigned</template>
+            <template v-if="request.team !== null" v-slot:assign>{{ request.team.name }}</template>
+            <template v-else v-slot:assign>Not Assigned</template>
           </CustomerHomeFooterButton>
         </Customer>
     </div>
@@ -52,13 +53,13 @@ export default {
         CustomerHeader
     },
     methods: {
-      toOrder(request) {
+      toOrder(request, event) {
         if(this.type == 'On-call') {
           this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
         } else {
           this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
         }
-    },
+      },
     }
 }
 </script>
