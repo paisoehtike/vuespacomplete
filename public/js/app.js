@@ -2387,15 +2387,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
-    toOrder: function toOrder(request) {
-      this.$router.push({
-        name: 'order',
-        params: {
-          id: request.id,
-          order_type: 'Installation'
-        }
-      });
-    },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
       console.log(this.requests);
@@ -2628,15 +2619,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
-    toOrder: function toOrder(request) {
-      this.$router.push({
-        name: 'order',
-        params: {
-          id: request.id,
-          order_type: 'Installation'
-        }
-      });
-    },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
       console.log(this.requests);
@@ -2717,15 +2699,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
-    toOrder: function toOrder(request) {
-      this.$router.push({
-        name: 'order',
-        params: {
-          id: request.id,
-          order_type: 'Installation'
-        }
-      });
-    },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
     },
@@ -2882,42 +2855,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
-/* harmony import */ var _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-home/CustomerComponent */ "./resources/js/components/reuseable-home/CustomerComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
-/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
-/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
-/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
-/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
+/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
+/* harmony import */ var _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/RequestListComponent */ "./resources/js/components/reuseable-component/RequestListComponent.vue");
 //
 //
 //
@@ -2943,24 +2883,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 
-
-
-
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
+    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RequestList: _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -3010,42 +2938,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
-/* harmony import */ var _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-home/CustomerComponent */ "./resources/js/components/reuseable-home/CustomerComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
-/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
-/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
-/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
-/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
+/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
+/* harmony import */ var _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/RequestListComponent */ "./resources/js/components/reuseable-component/RequestListComponent.vue");
 //
 //
 //
@@ -3071,24 +2966,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 
-
-
-
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
+    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RequestList: _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -3106,9 +2989,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
-    toRepair: function toRepair() {
-      this.$router.push('/lsp-order/repair');
-    },
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
       console.log(this.requests);
@@ -3138,42 +3018,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-home/HeaderComponent */ "./resources/js/components/reuseable-home/HeaderComponent.vue");
-/* harmony import */ var _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-home/CustomerComponent */ "./resources/js/components/reuseable-home/CustomerComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
-/* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerDetailChipComponent */ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue");
-/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
-/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
-/* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
-/* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/HomeHeaderButtonComponent */ "./resources/js/components/reuseable-component/HomeHeaderButtonComponent.vue");
+/* harmony import */ var _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../reuseable-component/HomeFooterButtonComponent */ "./resources/js/components/reuseable-component/HomeFooterButtonComponent.vue");
+/* harmony import */ var _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/RequestListComponent */ "./resources/js/components/reuseable-component/RequestListComponent.vue");
 //
 //
 //
@@ -3199,24 +3046,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 
-
-
-
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
+    HomeHeaderButton: _reuseable_component_HomeHeaderButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HomeFooterButton: _reuseable_component_HomeFooterButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RequestList: _reuseable_component_RequestListComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -3412,6 +3247,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3425,6 +3262,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      detail: null,
       remarks: [{
         remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
         created_at: '2020/03/12 | 14:92'
@@ -3440,6 +3278,22 @@ __webpack_require__.r(__webpack_exports__);
         fiberCable: "500m"
       }
     };
+  },
+  methods: {
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests/' + this.$route.params.id).then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+      console.log(this.detail);
+    }
+  },
+  created: function created() {
+    this.getDetail();
   }
 });
 
@@ -3717,7 +3571,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this = this;
 
       this.request_id = this.$route.params.id;
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests/' + this.request_id).then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests/' + this.request_id).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
@@ -5358,7 +5212,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['requests'],
+  props: ['requests', 'type'],
   components: {
     Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5367,6 +5221,27 @@ __webpack_require__.r(__webpack_exports__);
     CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
     CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__["default"],
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
+  methods: {
+    toOrder: function toOrder(request) {
+      if (this.type == 'On-call') {
+        this.$router.push({
+          name: 'order-repair',
+          params: {
+            id: request.id,
+            order_type: 'On Call'
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'order',
+          params: {
+            id: request.id,
+            order_type: 'Installation'
+          }
+        });
+      }
+    }
   }
 });
 
@@ -18097,156 +17972,56 @@ var render = function() {
     "div",
     { staticClass: "home-container" },
     [
-      _c("div", { staticClass: "home-container-row" }, [
-        _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "home-customer-header-button" },
-          [
-            _c("HomeHeaderButton", {
-              attrs: {
-                firstUrl: _vm.url.new,
-                secondUrl: _vm.url.accept,
-                thirdUrl: _vm.url.history
-              },
-              scopedSlots: _vm._u([
-                {
-                  key: "new",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.new))]
-                  },
-                  proxy: true
+      _c(
+        "div",
+        { staticClass: "home-container-row" },
+        [
+          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "home-customer-header-button" },
+            [
+              _c("HomeHeaderButton", {
+                attrs: {
+                  firstUrl: _vm.url.new,
+                  secondUrl: _vm.url.accept,
+                  thirdUrl: _vm.url.history
                 },
-                {
-                  key: "accept",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.accept))]
-                  },
-                  proxy: true
-                },
-                {
-                  key: "history",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.history))]
-                  },
-                  proxy: true
-                }
-              ])
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "home-customer-row" },
-          _vm._l(_vm.requests, function(request, index) {
-            return _c(
-              "Customer",
-              {
-                key: index,
-                nativeOn: {
-                  click: function($event) {
-                    return _vm.toRepair($event)
-                  }
-                }
-              },
-              [
-                _c("CustomerHeader", { attrs: { id: request.customer } }),
-                _vm._v(" "),
-                request.customer_type
-                  ? _c("CustomerTypeChip", {
-                      attrs: {
-                        slot: "customer-chip",
-                        value: request.customer_type.name
-                      },
-                      slot: "customer-chip"
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "CustomerIssueDate",
+                scopedSlots: _vm._u([
                   {
-                    attrs: { slot: "customer-date" },
-                    slot: "customer-date",
-                    scopedSlots: _vm._u(
-                      [
-                        request.priority_level
-                          ? {
-                              key: "priority-date",
-                              fn: function() {
-                                return [
-                                  _vm._v(
-                                    "| " +
-                                      _vm._s(request.priority_level.name) +
-                                      " Hrs"
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null,
-                        request.estimated_issue
-                          ? {
-                              key: "issue",
-                              fn: function() {
-                                return [
-                                  _vm._v(_vm._s(request.estimated_issue.name))
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null
-                      ],
-                      null,
-                      true
-                    )
+                    key: "new",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.new))]
+                    },
+                    proxy: true
                   },
-                  [
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm._f("format-date")(request.due_date)) +
-                        "\n          "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("CustomerDetailChip", {
-                  attrs: {
-                    slot: "customer-detail-chip",
-                    value: request.name,
-                    address: request.address
+                  {
+                    key: "accept",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.accept))]
+                    },
+                    proxy: true
                   },
-                  slot: "customer-detail-chip"
-                }),
-                _vm._v(" "),
-                _c("CustomerHomeFooterButton", {
-                  attrs: { slot: "customer-home-footer" },
-                  slot: "customer-home-footer",
-                  scopedSlots: _vm._u(
-                    [
-                      request.team != null
-                        ? {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(request.team.name))]
-                            },
-                            proxy: true
-                          }
-                        : null
-                    ],
-                    null,
-                    true
-                  )
-                })
-              ],
-              1
-            )
-          }),
-          1
-        )
-      ]),
+                  {
+                    key: "history",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.history))]
+                    },
+                    proxy: true
+                  }
+                ])
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("RequestList", {
+            attrs: { type: "On-call", requests: _vm.requests }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("HomeFooterButton")
     ],
@@ -18279,156 +18054,56 @@ var render = function() {
     "div",
     { staticClass: "home-container" },
     [
-      _c("div", { staticClass: "home-container-row" }, [
-        _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "home-customer-header-button" },
-          [
-            _c("HomeHeaderButton", {
-              attrs: {
-                firstUrl: _vm.url.new,
-                secondUrl: _vm.url.accept,
-                thirdUrl: _vm.url.history
-              },
-              scopedSlots: _vm._u([
-                {
-                  key: "new",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.new))]
-                  },
-                  proxy: true
+      _c(
+        "div",
+        { staticClass: "home-container-row" },
+        [
+          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "home-customer-header-button" },
+            [
+              _c("HomeHeaderButton", {
+                attrs: {
+                  firstUrl: _vm.url.new,
+                  secondUrl: _vm.url.accept,
+                  thirdUrl: _vm.url.history
                 },
-                {
-                  key: "accept",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.accept))]
-                  },
-                  proxy: true
-                },
-                {
-                  key: "history",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.history))]
-                  },
-                  proxy: true
-                }
-              ])
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "home-customer-row" },
-          _vm._l(_vm.requests, function(request, index) {
-            return _c(
-              "Customer",
-              {
-                key: index,
-                nativeOn: {
-                  click: function($event) {
-                    return _vm.toRepair($event)
-                  }
-                }
-              },
-              [
-                _c("CustomerHeader", { attrs: { id: request.customer } }),
-                _vm._v(" "),
-                request.customer_type
-                  ? _c("CustomerTypeChip", {
-                      attrs: {
-                        slot: "customer-chip",
-                        value: request.customer_type.name
-                      },
-                      slot: "customer-chip"
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "CustomerIssueDate",
+                scopedSlots: _vm._u([
                   {
-                    attrs: { slot: "customer-date" },
-                    slot: "customer-date",
-                    scopedSlots: _vm._u(
-                      [
-                        request.priority_level
-                          ? {
-                              key: "priority-date",
-                              fn: function() {
-                                return [
-                                  _vm._v(
-                                    "| " +
-                                      _vm._s(request.priority_level.name) +
-                                      " Hrs"
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null,
-                        request.estimated_issue
-                          ? {
-                              key: "issue",
-                              fn: function() {
-                                return [
-                                  _vm._v(_vm._s(request.estimated_issue.name))
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null
-                      ],
-                      null,
-                      true
-                    )
+                    key: "new",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.new))]
+                    },
+                    proxy: true
                   },
-                  [
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm._f("format-date")(request.due_date)) +
-                        "\n          "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("CustomerDetailChip", {
-                  attrs: {
-                    slot: "customer-detail-chip",
-                    value: request.name,
-                    address: request.address
+                  {
+                    key: "accept",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.accept))]
+                    },
+                    proxy: true
                   },
-                  slot: "customer-detail-chip"
-                }),
-                _vm._v(" "),
-                _c("CustomerHomeFooterButton", {
-                  attrs: { slot: "customer-home-footer" },
-                  slot: "customer-home-footer",
-                  scopedSlots: _vm._u(
-                    [
-                      request.team != null
-                        ? {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(request.team.name))]
-                            },
-                            proxy: true
-                          }
-                        : null
-                    ],
-                    null,
-                    true
-                  )
-                })
-              ],
-              1
-            )
-          }),
-          1
-        )
-      ]),
+                  {
+                    key: "history",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.history))]
+                    },
+                    proxy: true
+                  }
+                ])
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("RequestList", {
+            attrs: { type: "On-call", requests: _vm.requests }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("HomeFooterButton")
     ],
@@ -18461,156 +18136,56 @@ var render = function() {
     "div",
     { staticClass: "home-container" },
     [
-      _c("div", { staticClass: "home-container-row" }, [
-        _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "home-customer-header-button" },
-          [
-            _c("HomeHeaderButton", {
-              attrs: {
-                firstUrl: _vm.url.new,
-                secondUrl: _vm.url.accept,
-                thirdUrl: _vm.url.history
-              },
-              scopedSlots: _vm._u([
-                {
-                  key: "new",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.new))]
-                  },
-                  proxy: true
+      _c(
+        "div",
+        { staticClass: "home-container-row" },
+        [
+          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "home-customer-header-button" },
+            [
+              _c("HomeHeaderButton", {
+                attrs: {
+                  firstUrl: _vm.url.new,
+                  secondUrl: _vm.url.accept,
+                  thirdUrl: _vm.url.history
                 },
-                {
-                  key: "accept",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.accept))]
-                  },
-                  proxy: true
-                },
-                {
-                  key: "history",
-                  fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.history))]
-                  },
-                  proxy: true
-                }
-              ])
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "home-customer-row" },
-          _vm._l(_vm.requests, function(request, index) {
-            return _c(
-              "Customer",
-              {
-                key: index,
-                nativeOn: {
-                  click: function($event) {
-                    return _vm.toRepair($event)
-                  }
-                }
-              },
-              [
-                _c("CustomerHeader", { attrs: { id: request.customer } }),
-                _vm._v(" "),
-                request.customer_type
-                  ? _c("CustomerTypeChip", {
-                      attrs: {
-                        slot: "customer-chip",
-                        value: request.customer_type.name
-                      },
-                      slot: "customer-chip"
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "CustomerIssueDate",
+                scopedSlots: _vm._u([
                   {
-                    attrs: { slot: "customer-date" },
-                    slot: "customer-date",
-                    scopedSlots: _vm._u(
-                      [
-                        request.priority_level
-                          ? {
-                              key: "priority-date",
-                              fn: function() {
-                                return [
-                                  _vm._v(
-                                    "| " +
-                                      _vm._s(request.priority_level.name) +
-                                      " Hrs"
-                                  )
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null,
-                        request.estimated_issue
-                          ? {
-                              key: "issue",
-                              fn: function() {
-                                return [
-                                  _vm._v(_vm._s(request.estimated_issue.name))
-                                ]
-                              },
-                              proxy: true
-                            }
-                          : null
-                      ],
-                      null,
-                      true
-                    )
+                    key: "new",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.new))]
+                    },
+                    proxy: true
                   },
-                  [
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm._f("format-date")(request.due_date)) +
-                        "\n          "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("CustomerDetailChip", {
-                  attrs: {
-                    slot: "customer-detail-chip",
-                    value: request.name,
-                    address: request.address
+                  {
+                    key: "accept",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.accept))]
+                    },
+                    proxy: true
                   },
-                  slot: "customer-detail-chip"
-                }),
-                _vm._v(" "),
-                _c("CustomerHomeFooterButton", {
-                  attrs: { slot: "customer-home-footer" },
-                  slot: "customer-home-footer",
-                  scopedSlots: _vm._u(
-                    [
-                      request.team != null
-                        ? {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(request.team.name))]
-                            },
-                            proxy: true
-                          }
-                        : null
-                    ],
-                    null,
-                    true
-                  )
-                })
-              ],
-              1
-            )
-          }),
-          1
-        )
-      ]),
+                  {
+                    key: "history",
+                    fn: function() {
+                      return [_vm._v(_vm._s(_vm.label.history))]
+                    },
+                    proxy: true
+                  }
+                ])
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("RequestList", {
+            attrs: { type: "On-call", requests: _vm.requests }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("HomeFooterButton")
     ],
@@ -21641,7 +21216,10 @@ var render = function() {
           _vm._v(" "),
           request.customer_type
             ? _c("CustomerTypeChip", {
-                attrs: { slot: "customer-chip", value: request.customer_type },
+                attrs: {
+                  slot: "customer-chip",
+                  value: request.customer_type.name
+                },
                 slot: "customer-chip"
               })
             : _vm._e(),
@@ -21667,7 +21245,9 @@ var render = function() {
                             fn: function() {
                               return [
                                 _vm._v(
-                                  "| " + _vm._s(request.priority_level) + " Hrs"
+                                  "| " +
+                                    _vm._s(request.priority_level.name) +
+                                    " Hrs"
                                 )
                               ]
                             },
@@ -21679,7 +21259,13 @@ var render = function() {
                     true
                   )
                 },
-                [_vm._v("\n        " + _vm._s(request.due_date) + "\n        ")]
+                [
+                  _vm._v(
+                    "\n        " +
+                      _vm._s(_vm._f("format-date")(request.due_date)) +
+                      "\n        "
+                  )
+                ]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -41506,18 +41092,15 @@ __webpack_require__.r(__webpack_exports__);
       component: _components_lsp_home_HistoryComponent__WEBPACK_IMPORTED_MODULE_15__["default"]
     }]
   }, {
-    path: '/on-call/',
-    component: _components_lsp_order_detail_LSPOrderIndexComponent_vue__WEBPACK_IMPORTED_MODULE_27__["default"],
-    children: [{
-      path: 'new',
-      component: _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_11__["default"]
-    }, {
-      path: 'accept',
-      component: _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_12__["default"]
-    }, {
-      path: 'history',
-      component: _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_13__["default"]
-    }]
+    path: '/on-call/new',
+    component: _components_lsp_on_call_OnCallComponent__WEBPACK_IMPORTED_MODULE_11__["default"],
+    name: 'on-call-new'
+  }, {
+    path: '/on-call/accept',
+    component: _components_lsp_on_call_OnCallAcceptComponent__WEBPACK_IMPORTED_MODULE_12__["default"]
+  }, {
+    path: '/on-call/history',
+    component: _components_lsp_on_call_OnCallHistoryComponent__WEBPACK_IMPORTED_MODULE_13__["default"]
   }, {
     path: '/team',
     component: _components_lsp_home_team_TeamIndexComponent__WEBPACK_IMPORTED_MODULE_18__["default"],
@@ -41594,10 +41177,12 @@ __webpack_require__.r(__webpack_exports__);
     }, {
       path: 'activate',
       component: _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_31__["default"]
-    }, {
-      path: 'repair',
-      component: _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_32__["default"]
     }]
+  }, {
+    path: '/lsp-order/repair/:id',
+    component: _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_32__["default"],
+    name: 'order-repair',
+    props: true
   }]
 });
 

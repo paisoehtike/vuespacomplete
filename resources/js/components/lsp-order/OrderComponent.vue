@@ -152,7 +152,7 @@ export default {
   methods: {
     getDetail() {
       this.request_id = this.$route.params.id;
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests/' + this.request_id)
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests/' + this.request_id)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     },

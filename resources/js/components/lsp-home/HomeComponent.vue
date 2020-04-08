@@ -48,9 +48,6 @@ export default {
     };
   },
   methods: {
-    toOrder(request) {
-      this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
-    },
     bindResponseData(response) {
       this.requests = response.data.data;
     },

@@ -3,16 +3,16 @@
         <Customer @click.native="toOrder(request)" v-for="(request, index) in requests" :key="index">
           <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
-          <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type" slot="customer-chip"></CustomerTypeChip>
+          <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
           <OrderStepChip v-if="request.installation_step" :value="request.installation_step" slot="order-chip"></OrderStepChip>
 
           <CustomerIssueDate v-if="request.due_date" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
-            {{request.due_date}}
+            {{request.due_date | format-date}}
             <template
               v-slot:priority-date
               v-if="request.priority_level"
-            >| {{request.priority_level}} Hrs</template>
+            >| {{request.priority_level.name}} Hrs</template>
             <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
 
@@ -40,7 +40,7 @@ import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
 
 export default {
     props: [
-        'requests'
+        'requests', 'type',
     ],
     components: {
         Customer,
@@ -51,5 +51,14 @@ export default {
         CustomerHomeFooterButton,
         CustomerHeader
     },
+    methods: {
+      toOrder(request) {
+        if(this.type == 'On-call') {
+          this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
+        } else {
+          this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
+        }
+    },
+    }
 }
 </script>
