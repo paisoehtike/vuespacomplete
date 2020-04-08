@@ -3751,6 +3751,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3761,6 +3769,28 @@ __webpack_require__.r(__webpack_exports__);
     ProgressBar: _resuable_lsp_detail_ProgressBarComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     SurveyIssue: _resuable_lsp_detail_SurveyIssueComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
     FinishButton: _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      surveyIssues: null,
+      masterId: this.$route.params.id
+    };
+  },
+  methods: {
+    addSurvey: function addSurvey(response) {
+      this.surveyIssues = response.data.data;
+      console.log(this.surveyIssues);
+    },
+    getSurvey: function getSurvey() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
+        _this.addSurvey(response);
+      })["catch"](console.log('Hint Hint'));
+    }
+  },
+  created: function created() {
+    this.getSurvey();
   }
 });
 
@@ -3956,6 +3986,23 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     bindResponseData: function bindResponseData(response) {
       this.detail = response.data.data;
       console.log(this.detail);
+    },
+    toSurvey: function toSurvey() {
+      if (this.order_type == 'installation') {
+        this.$router.push({
+          name: 'LSPTeamOrderSurvey',
+          params: {
+            id: this.detail.id
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'LSPTeamOrderRepair',
+          params: {
+            id: this.detail.id
+          }
+        });
+      }
     }
   },
   created: function created() {
@@ -4597,7 +4644,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['stepNo', 'type']
+  props: ['stepNo', 'type', 'id']
 });
 
 /***/ }),
@@ -4636,6 +4683,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-component/RemarkModalComponent */ "./resources/js/components/reuseable-component/RemarkModalComponent.vue");
+/* harmony import */ var _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/ConfirmModalComponent */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue");
 //
 //
 //
@@ -4673,40 +4721,105 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  props: ['id', 'name', 'data'],
   data: function data() {
     return {
       isSelect: false,
       isFail: false,
       isPass: false,
       isMark: false,
-      remark: null
+      remark: this.data.remark.name
     };
   },
   methods: {
+    preConfig: function preConfig() {
+      if (this.data.status == 'false') {
+        this.isFail = true;
+        this.isPass = false;
+        this.isSelect = true;
+      } else if (this.data.status == 'true') {
+        this.isPass = true;
+        this.isFail = false;
+        this.isSelect = true;
+      } else {
+        this.isFail = false;
+        this.isPass = false;
+        this.isSelect = false;
+      }
+    },
+    apiCall: function apiCall(status) {
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_survey_issue_status', {
+        survey_step_id: this.id,
+        status: status
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](console.log('Something Went Wrong'));
+    },
     storeRemark: function storeRemark(remark) {
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_survey', {
+        remark: remark.remark,
+        name: this.name,
+        installation_request_id: this.id
+      }).then(function (response) {
+        console.log(response, 'Response of Remark');
+      })["catch"](console.log('Something Went Wrong'));
       this.remark = remark.remark;
       this.isMark = true;
     },
+    updateRemark: function updateRemark(remark) {
+      var _this = this;
+
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_survey/' + this.data.id, {
+        remark_list_id: this.data.remark.remark_list_id,
+        remark: remark.remark
+      }).then(function (response) {
+        _this.remark = remark.remark;
+        _this.isMark = true;
+      })["catch"](console.log('Something Went Wrong'));
+    },
+    deleteRemark: function deleteRemark() {
+      var _this2 = this;
+
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_survey/' + this.data.id).then(function (response) {
+        console.log(response);
+        _this2.isMark = false;
+      })["catch"](console.log('Something Went Wrong'));
+    },
     fail: function fail() {
+      this.apiCall('false');
       this.isFail = true;
       this.isPass = false;
       this.isSelect = true;
     },
     pass: function pass() {
+      this.apiCall('true');
       this.isPass = true;
       this.isFail = false;
       this.isSelect = true;
     },
     undo: function undo() {
+      this.apiCall('pending');
       this.isFail = false;
       this.isPass = false;
       this.isSelect = false;
+    }
+  },
+  created: function created() {
+    if (this.data.status !== null) {
+      this.preConfig();
+    }
+
+    if (this.data.remark !== null) {
+      this.isMark = true;
     }
   }
 });
@@ -4759,6 +4872,50 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.addType();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      showModal: false
+    };
+  },
+  methods: {
+    submitRemark: function submitRemark() {
+      this.$emit('delete-confirm');
+      this.showModal = false;
+    }
   }
 });
 
@@ -4982,7 +5139,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['type', 'preRemark'],
   data: function data() {
     return {
       showModal: false,
@@ -4997,6 +5156,11 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('review-remark', remark);
       this.showModal = false;
       this.remark = null;
+    }
+  },
+  created: function created() {
+    if (this.preRemark !== null) {
+      this.remark = this.preRemark;
     }
   }
 });
@@ -5179,7 +5343,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         name: 'lsp-order',
         params: {
           id: request.id,
-          order_type: 'Installation'
+          order_type: request.request_type
         }
       });
     }
@@ -18567,7 +18731,7 @@ var render = function() {
           _c("div", { staticClass: "order-type" }, [
             _c("p", [
               _vm._v("Order Type : "),
-              _c("span", [_vm._v(_vm._s(_vm.order_type))])
+              _c("span", [_vm._v(_vm._s(_vm.detail.request_type))])
             ])
           ]),
           _vm._v(" "),
@@ -18586,7 +18750,9 @@ var render = function() {
             ? _c("div", { staticClass: "order-type" }, [
                 _c("p", [
                   _vm._v("Due Date : "),
-                  _c("span", [_vm._v(_vm._s(_vm.detail.due_date))])
+                  _c("span", [
+                    _vm._v(_vm._s(_vm._f("format-date")(_vm.detail.due_date)))
+                  ])
                 ])
               ])
             : _vm._e(),
@@ -18793,7 +18959,12 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/lsp-team-order/splicing", tag: "div" }
+          attrs: {
+            to: {
+              path: "/lsp-team-order/" + this.$route.params.id + "/splicing"
+            },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -18802,7 +18973,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "4", type: "team" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "4", type: "team", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c(
         "form",
@@ -19026,7 +19199,12 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/lsp-team-order/survey", tag: "div" }
+          attrs: {
+            to: {
+              path: "/lsp-team-order/" + this.$route.params.id + "/survey"
+            },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19035,7 +19213,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "2", type: "team" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "2", type: "team", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c("MultipleRemark"),
       _vm._v(" "),
@@ -19168,7 +19348,12 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/lsp-team-order/cabling", tag: "div" }
+          attrs: {
+            to: {
+              path: "/lsp-team-order/" + this.$route.params.id + "/cabling"
+            },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19177,7 +19362,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "3", type: "team" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "3", type: "team", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c("MultipleRemark"),
       _vm._v(" "),
@@ -19227,71 +19414,39 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "1", type: "team" } }),
-      _vm._v(" "),
-      _c("SurveyIssue", {
-        scopedSlots: _vm._u([
-          {
-            key: "issue-name",
-            fn: function() {
-              return [_vm._v("\n        Pole Issue\n    ")]
-            },
-            proxy: true
-          }
-        ])
+      _c("ProgressBar", {
+        attrs: { stepNo: "1", type: "team", id: this.$route.params.id }
       }),
       _vm._v(" "),
-      _c("SurveyIssue", {
-        scopedSlots: _vm._u([
-          {
-            key: "issue-name",
-            fn: function() {
-              return [_vm._v("\n        FAT\n    ")]
-            },
-            proxy: true
-          }
-        ])
-      }),
-      _vm._v(" "),
-      _c("SurveyIssue", {
-        scopedSlots: _vm._u([
-          {
-            key: "issue-name",
-            fn: function() {
-              return [_vm._v("\n        Authority\n    ")]
-            },
-            proxy: true
-          }
-        ])
-      }),
-      _vm._v(" "),
-      _c("SurveyIssue", {
-        scopedSlots: _vm._u([
-          {
-            key: "issue-name",
-            fn: function() {
-              return [_vm._v("\n        ODN Issue\n    ")]
-            },
-            proxy: true
-          }
-        ])
-      }),
-      _vm._v(" "),
-      _c("SurveyIssue", {
-        scopedSlots: _vm._u([
-          {
-            key: "issue-name",
-            fn: function() {
-              return [_vm._v("\n        Customer Issue\n    ")]
-            },
-            proxy: true
-          }
-        ])
+      _vm._l(_vm.surveyIssues, function(surveyIssue, index) {
+        return _c("SurveyIssue", {
+          key: index,
+          attrs: {
+            id: _vm.masterId,
+            name: surveyIssue.name,
+            data: surveyIssue
+          },
+          scopedSlots: _vm._u(
+            [
+              {
+                key: "issue-name",
+                fn: function() {
+                  return [
+                    _vm._v("\n\n        " + _vm._s(surveyIssue.name) + "\n    ")
+                  ]
+                },
+                proxy: true
+              }
+            ],
+            null,
+            true
+          )
+        })
       }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Finish" } })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -19363,7 +19518,7 @@ var render = function() {
           _c("div", { staticClass: "order-type" }, [
             _c("p", [
               _vm._v("Order Type : "),
-              _c("span", [_vm._v(_vm._s(_vm.order_type))])
+              _c("span", [_vm._v(_vm._s(_vm.detail.request_type))])
             ])
           ]),
           _vm._v(" "),
@@ -19382,7 +19537,9 @@ var render = function() {
             ? _c("div", { staticClass: "order-type" }, [
                 _c("p", [
                   _vm._v("Due Date : "),
-                  _c("span", [_vm._v(_vm._s(_vm.detail.due_date))])
+                  _c("span", [
+                    _vm._v(_vm._s(_vm._f("format-date")(_vm.detail.due_date)))
+                  ])
                 ])
               ])
             : _vm._e(),
@@ -19506,25 +19663,20 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "team-order-button" },
-      [
-        _c(
-          "router-link",
-          {
-            staticClass: "col s12 m6 l3 complete-btn",
-            attrs: { to: "/lsp-team-order/survey", tag: "div" }
-          },
-          [
-            _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-              _vm._v("Start Installation")
-            ])
-          ]
-        )
-      ],
-      1
-    )
+    _c("div", { staticClass: "team-order-button" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col s12 m6 l3 complete-btn",
+          on: { click: _vm.toSurvey }
+        },
+        [
+          _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
+            _vm._v("Start Installation")
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -20243,7 +20395,7 @@ var render = function() {
               to:
                 _vm.type == "admin"
                   ? "/lsp-order/survey"
-                  : "/lsp-team-order/survey",
+                  : "/lsp-team-order/" + _vm.id + "/survey",
               tag: "li"
             }
           },
@@ -20258,7 +20410,7 @@ var render = function() {
               to:
                 _vm.type == "admin"
                   ? "/lsp-order/cabling"
-                  : "/lsp-team-order/cabling",
+                  : "/lsp-team-order/" + _vm.id + "/cabling",
               tag: "li"
             }
           },
@@ -20273,7 +20425,7 @@ var render = function() {
               to:
                 _vm.type == "admin"
                   ? "/lsp-order/splicing"
-                  : "/lsp-team-order/splicing",
+                  : "/lsp-team-order/" + _vm.id + "/splicing",
               tag: "li"
             }
           },
@@ -20288,7 +20440,7 @@ var render = function() {
               to:
                 _vm.type == "admin"
                   ? "/lsp-order/activate"
-                  : "/lsp-team-order/activate",
+                  : "/lsp-team-order/" + _vm.id + "/activate",
               tag: "li"
             }
           },
@@ -20459,7 +20611,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "right ir-2" },
+        { staticClass: "master-right ir-2" },
         [
           _c("RemarkModal", {
             directives: [
@@ -20473,7 +20625,7 @@ var render = function() {
             on: { "review-remark": _vm.storeRemark }
           }),
           _vm._v(" "),
-          _c("i", {
+          _c("RemarkModal", {
             directives: [
               {
                 name: "show",
@@ -20482,10 +20634,11 @@ var render = function() {
                 expression: "isMark"
               }
             ],
-            staticClass: "far fa-edit remark-setting"
+            attrs: { type: "update", preRemark: _vm.data.remark.name },
+            on: { "review-remark": _vm.updateRemark }
           }),
           _vm._v(" "),
-          _c("i", {
+          _c("ConfirmModal", {
             directives: [
               {
                 name: "show",
@@ -20494,7 +20647,7 @@ var render = function() {
                 expression: "isMark"
               }
             ],
-            staticClass: "far fa-trash-alt remark-setting"
+            on: { "delete-confirm": _vm.deleteRemark }
           })
         ],
         1
@@ -20514,10 +20667,6 @@ var render = function() {
           staticClass: "remark-body ir-3"
         },
         [
-          _c("p", [_vm._v("Lat - 23.222211")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Lng - 21.221122")]),
-          _vm._v(" "),
           _c("p", [
             _vm._v("\n                " + _vm._s(_vm.remark) + "\n            ")
           ])
@@ -20563,6 +20712,89 @@ var render = function() {
     _vm._l(_vm.onuTypes, function(onuType, index) {
       return _c("swiper-slide", { key: index }, [_vm._v(_vm._s(onuType))])
     }),
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=template&id=565d6278&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=template&id=565d6278& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {},
+    [
+      _c("i", {
+        staticClass: "far fa-trash-alt remark-setting",
+        on: {
+          click: function($event) {
+            _vm.showModal = true
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade", appear: "" } }, [
+        _vm.showModal
+          ? _c("div", {
+              staticClass: "modal-box1",
+              on: {
+                click: function($event) {
+                  _vm.showModal = false
+                }
+              }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "slide", appear: "" } }, [
+        _vm.showModal
+          ? _c("div", { staticClass: "modal-box" }, [
+              _c("h3", { staticClass: "text-center" }, [
+                _vm._v("You Cannot Undo This!")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "remark-cancel-btn",
+                  on: {
+                    click: function($event) {
+                      _vm.showModal = false
+                    }
+                  }
+                },
+                [_vm._v("Cancel")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "remark-save-btn",
+                  on: { click: _vm.submitRemark }
+                },
+                [_vm._v("Confirm")]
+              )
+            ])
+          : _vm._e()
+      ])
+    ],
     1
   )
 }
@@ -20907,14 +21139,23 @@ var render = function() {
     "div",
     {},
     [
-      _c("i", {
-        staticClass: "fas fa-plus add-remark",
-        on: {
-          click: function($event) {
-            _vm.showModal = true
-          }
-        }
-      }),
+      _vm.type == "update"
+        ? _c("i", {
+            staticClass: "far fa-edit remark-setting",
+            on: {
+              click: function($event) {
+                _vm.showModal = true
+              }
+            }
+          })
+        : _c("i", {
+            staticClass: "fas fa-plus add-remark",
+            on: {
+              click: function($event) {
+                _vm.showModal = true
+              }
+            }
+          }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
         _vm.showModal
@@ -39569,6 +39810,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/ConfirmModalComponent.vue ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ConfirmModalComponent_vue_vue_type_template_id_565d6278___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ConfirmModalComponent.vue?vue&type=template&id=565d6278& */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=template&id=565d6278&");
+/* harmony import */ var _ConfirmModalComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ConfirmModalComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ConfirmModalComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ConfirmModalComponent_vue_vue_type_template_id_565d6278___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ConfirmModalComponent_vue_vue_type_template_id_565d6278___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/reuseable-component/ConfirmModalComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmModalComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ConfirmModalComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmModalComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=template&id=565d6278&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=template&id=565d6278& ***!
+  \**************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmModalComponent_vue_vue_type_template_id_565d6278___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ConfirmModalComponent.vue?vue&type=template&id=565d6278& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/ConfirmModalComponent.vue?vue&type=template&id=565d6278&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmModalComponent_vue_vue_type_template_id_565d6278___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmModalComponent_vue_vue_type_template_id_565d6278___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/reuseable-component/CustomerDetailChipComponent.vue ***!
@@ -40991,23 +41301,28 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_lsp_home_inventory_InventoryComponent__WEBPACK_IMPORTED_MODULE_21__["default"],
     name: 'inventory'
   }, {
-    path: '/lsp-team-order/',
+    path: '/lsp-team-order/:id',
     component: _components_lsp_order_detail_LSPOrderIndexComponent_vue__WEBPACK_IMPORTED_MODULE_27__["default"],
     children: [{
       path: 'survey',
-      component: _components_lsp_team_order_detail_LSPTeamOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_22__["default"]
+      component: _components_lsp_team_order_detail_LSPTeamOrderSurveyComponent__WEBPACK_IMPORTED_MODULE_22__["default"],
+      name: 'LSPTeamOrderSurvey'
     }, {
       path: 'cabling',
-      component: _components_lsp_team_order_detail_LSPTeamOrderCablingComponent_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
+      component: _components_lsp_team_order_detail_LSPTeamOrderCablingComponent_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
+      name: 'LSPTeamOrderCabling'
     }, {
       path: 'splicing',
-      component: _components_lsp_team_order_detail_LSPTeamOrderSplicingComponent_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+      component: _components_lsp_team_order_detail_LSPTeamOrderSplicingComponent_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
+      name: 'LSPTeamOrderSplicing'
     }, {
       path: 'activate',
-      component: _components_lsp_team_order_detail_LSPTeamOrderActivateComponent_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
+      component: _components_lsp_team_order_detail_LSPTeamOrderActivateComponent_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+      name: 'LSPTeamOrderActivate'
     }, {
       path: 'repair',
-      component: _components_lsp_team_order_detail_LSPTeamOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
+      component: _components_lsp_team_order_detail_LSPTeamOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_26__["default"],
+      name: 'LSPTeamOrderRepair'
     }]
   }, {
     path: '/lsp-order/',

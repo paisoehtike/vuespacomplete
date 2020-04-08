@@ -157,28 +157,33 @@ export default {
             name: 'inventory'
         },
         {
-            path: '/lsp-team-order/',
+            path: '/lsp-team-order/:id',
             component: LSPOrderIndex,
             children: [
                 {
                     path: 'survey',
-                    component: LSPTeamOrderSurvey
+                    component: LSPTeamOrderSurvey,
+                    name: 'LSPTeamOrderSurvey'
                 },
                 {
                     path: 'cabling',
-                    component: LSPTeamOrderCabling
+                    component: LSPTeamOrderCabling,
+                    name: 'LSPTeamOrderCabling'
                 },
                 {
                     path: 'splicing',
-                    component: LSPTeamOrderSplicing
+                    component: LSPTeamOrderSplicing,
+                    name: 'LSPTeamOrderSplicing'
                 },
                 {
                     path: 'activate',
-                    component: LSPTeamOrderActivate
+                    component: LSPTeamOrderActivate,
+                    name: 'LSPTeamOrderActivate'
                 },
                 {
                     path: 'repair',
-                    component: LSPTeamOrderRepair
+                    component: LSPTeamOrderRepair,
+                    name: 'LSPTeamOrderRepair'
                 }
             ]
         },

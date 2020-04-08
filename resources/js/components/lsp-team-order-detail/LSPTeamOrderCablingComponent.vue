@@ -1,11 +1,11 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="/lsp-team-order/survey" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-team-order/' + this.$route.params.id + '/survey'}" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Cabling</h2>
         </router-link>
-        <ProgressBar :stepNo="'2'" :type="'team'"></ProgressBar>
+        <ProgressBar :stepNo="'2'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
         <MultipleRemark></MultipleRemark>
         <FinishButton :type="'Finish'"></FinishButton>
     </div>

@@ -1,6 +1,7 @@
 <template>
     <div class="">
-        <i @click="showModal = true" class="fas fa-plus add-remark"></i>
+        <i v-if="type == 'update'" @click="showModal = true" class="far fa-edit remark-setting"></i>
+        <i v-else @click="showModal = true" class="fas fa-plus add-remark"></i>
 
         <transition name="fade" appear>
             <div class="modal-box1" v-if="showModal" @click="showModal = false">
@@ -21,6 +22,9 @@
 
 <script>
 export default {
+    props: [
+        'type', 'preRemark'
+    ],
     data() {
         return {
             showModal: false,
@@ -35,6 +39,11 @@ export default {
             this.$emit('review-remark', remark);
             this.showModal = false;
             this.remark = null;
+        }
+    },
+    created() {
+        if(this.preRemark !== null) {
+            this.remark = this.preRemark
         }
     }
 }

@@ -142,7 +142,7 @@ export default {
       }
     },
     toTeamOrder(request) {
-      this.$router.push({ name: 'lsp-order', params: { id: request.id, order_type: 'Installation' }});
+      this.$router.push({ name: 'lsp-order', params: { id: request.id, order_type: request.request_type }});
     }
   },
   created() {

@@ -1,11 +1,11 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="/lsp-team-order/splicing" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-team-order/' + this.$route.params.id + '/splicing'}" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Activating For ONU</h2>
         </router-link>
-        <ProgressBar :stepNo="'4'" :type="'team'"></ProgressBar>
+        <ProgressBar :stepNo="'4'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
         <form action="" class="activate-form">
             <label class="activate-label" for="image">Add Image :</label>
             <div class="add-img">

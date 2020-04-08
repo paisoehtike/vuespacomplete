@@ -106,9 +106,9 @@
       </OrderInfo> -->
     </div>
     <div class="team-order-button">
-      <router-link to="/lsp-team-order/survey" tag="div" class="col s12 m6 l3 complete-btn">
+      <div @click="toSurvey" class="col s12 m6 l3 complete-btn">
         <a class="waves-effect waves-light btn orange">Start Installation</a>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -174,6 +174,13 @@ export default {
     bindResponseData(response) {
       this.detail = response.data.data;
       console.log(this.detail);
+    },
+    toSurvey() {
+      if(this.order_type == 'installation') {
+        this.$router.push({ name: 'LSPTeamOrderSurvey', params: { id: this.detail.id } });
+      } else {
+        this.$router.push({ name: 'LSPTeamOrderRepair', params: { id: this.detail.id } });
+      }
     },
   },
   created() {
