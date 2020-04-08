@@ -2818,7 +2818,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   methods: {
     authenticated: function authenticated(response) {
       this.$cookie.set('token', response.data.data.token, '1m');
-      console.log('Token Saved!');
       this.errorMessage = null;
 
       if (response.data.data.is_admin == 1) {
@@ -2834,7 +2833,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     formSubmit: function formSubmit(formData) {
       var _this = this;
 
-      axios.post('http://S-5BB-LSP-Management-Dashboard.test/api/create_token', formData).then(function (response) {
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData).then(function (response) {
         _this.authenticated(response);
       })["catch"](function (error) {
         _this.errorMessage = error.response.data.message;
@@ -4329,7 +4328,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-customer/SquareImageComponent */ "./resources/js/components/reuseable-customer/SquareImageComponent.vue");
 /* harmony import */ var _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../resuable-login-password/SignInAndFirstTimePasswordComponent */ "./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue");
-/* harmony import */ var _mixins_GetToken__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/GetToken */ "./resources/js/components/mixins/GetToken.js");
 //
 //
 //
@@ -4345,14 +4343,16 @@ __webpack_require__.r(__webpack_exports__);
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
-
+ // import GetToken from "./../mixins/GetToken"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     SignInAndFirstTimePassword: _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mixins: [_mixins_GetToken__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  // mixins: [
+  //     GetToken
+  // ],
   data: function data() {
     return {
       errorMessage: null
@@ -4372,7 +4372,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     formSubmit: function formSubmit(formData) {
       var _this = this;
 
-      axios.post('http://S-5BB-LSP-Management-Dashboard.test/api/lsp_team/change_password', {
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/change_password', {
         password: formData.password
       }, this.headerConfig).then(function (response) {
         _this.authenticated(response);
@@ -37335,11 +37335,20 @@ __webpack_require__.r(__webpack_exports__);
 
 var VueCookie = __webpack_require__(/*! vue-cookie */ "./node_modules/vue-cookie/src/vue-cookie.js");
 
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(VueCookie);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_router__WEBPACK_IMPORTED_MODULE_2__["default"])
+  router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_router__WEBPACK_IMPORTED_MODULE_2__["default"]),
+  created: function created() {
+    if (this.$cookie.get('token') !== null) {
+      axios.defaults.headers.common = {
+        'Authorization': 'Bearer ' + this.$cookie.get('token')
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -39761,38 +39770,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LSPTeamRemainingComponent_vue_vue_type_template_id_cb37556c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/mixins/GetToken.js":
-/*!****************************************************!*\
-  !*** ./resources/js/components/mixins/GetToken.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var getToken = {
-  data: function data() {
-    return {
-      headerConfig: {
-        headers: {
-          'Authorization': 'Bearer ' + this.$cookie.get('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      }
-    };
-  },
-  methods: {
-    getCookie: function getCookie(name) {
-      var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-      return v ? v[2] : null;
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (getToken);
 
 /***/ }),
 

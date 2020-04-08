@@ -15,16 +15,16 @@ const axios = require('axios');
 
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import SignInAndFirstTimePassword from "./../resuable-login-password/SignInAndFirstTimePasswordComponent";
-import GetToken from "./../mixins/GetToken"
+// import GetToken from "./../mixins/GetToken"
 
 export default {
     components: {
         SquareImage,
         SignInAndFirstTimePassword,
     },
-    mixins: [
-        GetToken
-    ],
+    // mixins: [
+    //     GetToken
+    // ],
     data() {
         return {
             errorMessage: null
