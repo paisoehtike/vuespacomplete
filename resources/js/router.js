@@ -86,22 +86,17 @@ export default {
             ]
         },
         {
-            path: '/on-call/',
-            component: LSPOrderIndex,
-            children: [
-                {
-                    path: 'new',
-                    component: OnCall,
-                },
-                {
-                    path: 'accept',
-                    component: OnCallAccept,
-                },
-                {
-                    path: 'history',
-                    component: OnCallHistory,
-                }
-            ]
+            path: '/on-call/new',
+            component: OnCall,
+            name: 'on-call-new'
+        },
+        {
+            path: '/on-call/accept',
+            component: OnCallAccept,
+        },
+        {
+            path: '/on-call/history',
+            component: OnCallHistory,
         },
         {
             path: '/team',
@@ -204,12 +199,14 @@ export default {
                 {
                     path: 'activate',
                     component: LSPOrderActivate
-                },
-                {
-                    path: 'repair',
-                    component: LSPOrderRepair
                 }
             ]
         },
+        {
+            path: '/lsp-order/repair/:id',
+            component: LSPOrderRepair,
+            name: 'order-repair',
+            props: true
+        }
     ]
 }
