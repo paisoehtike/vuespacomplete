@@ -60,7 +60,7 @@
           <h4>{{detail.customer}}</h4>
         </div>
         <div class="order-type">
-          <p>Order Type : <span>{{order_type}}</span></p>
+          <p>Order Type : <span>{{detail.request_type}}</span></p>
         </div>
         <div v-if="order_type == 'On Call'" class="order-type">
           <p>Possible Issue : <span class="issue">{{issueType}}</span></p>
