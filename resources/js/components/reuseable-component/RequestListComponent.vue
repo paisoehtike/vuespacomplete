@@ -108,10 +108,22 @@ export default {
       }
     },
     toOrder(request, event) {
-      if(this.type == 'On-call') {
-        this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
+      if(event.target.id == 'accept') {
+        if(this.type == 'On-call') {
+          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/' + request.id)
+            .then( response => { this.getNew() } )
+            .catch( this.errorMessage );
+        } else {
+          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/' + request.id)
+            .then( response => { this.getNew() } )
+            .catch( this.errorMessage );
+        }
       } else {
-        this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
+        if(this.type == 'On-call') {
+          this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
+        } else {
+          this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
+        }
       }
     },
   },

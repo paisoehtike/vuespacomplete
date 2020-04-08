@@ -5163,22 +5163,36 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       }
     },
     toOrder: function toOrder(request, event) {
-      if (this.type == 'On-call') {
-        this.$router.push({
-          name: 'order-repair',
-          params: {
-            id: request.id,
-            order_type: 'On Call'
-          }
-        });
+      var _this2 = this;
+
+      if (event.target.id == 'accept') {
+        if (this.type == 'On-call') {
+          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/' + request.id).then(function (response) {
+            _this2.getNew();
+          })["catch"](this.errorMessage);
+        } else {
+          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/' + request.id).then(function (response) {
+            _this2.getNew();
+          })["catch"](this.errorMessage);
+        }
       } else {
-        this.$router.push({
-          name: 'order',
-          params: {
-            id: request.id,
-            order_type: 'Installation'
-          }
-        });
+        if (this.type == 'On-call') {
+          this.$router.push({
+            name: 'order-repair',
+            params: {
+              id: request.id,
+              order_type: 'On Call'
+            }
+          });
+        } else {
+          this.$router.push({
+            name: 'order',
+            params: {
+              id: request.id,
+              order_type: 'Installation'
+            }
+          });
+        }
       }
     }
   },
@@ -20776,7 +20790,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "customer-home-assigned-button" }, [
-      _c("a", { staticClass: "btn" }, [_vm._v("Accept")])
+      _c("a", { staticClass: "btn", attrs: { id: "accept" } }, [
+        _vm._v("Accept")
+      ])
     ])
   }
 ]
