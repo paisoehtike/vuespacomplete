@@ -6,12 +6,14 @@
             <h2>Cabling</h2>
         </router-link>
         <ProgressBar :stepNo="'2'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
-        <MultipleRemark></MultipleRemark>
+        <MultipleRemark :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getCabling()"></MultipleRemark>
         <FinishButton :type="'Finish'"></FinishButton>
     </div>
 </template>
 
 <script>
+const axios = require('axios');
+
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import ProgressBar from "./../resuable-lsp-detail/ProgressBarComponent";
 import FinishButton from "./../resuable-lsp-detail/FinishButtonComponent";
@@ -24,8 +26,23 @@ export default {
         FinishButton,
         MultipleRemark,
     },
+    data() {
+        return {
+            remarks: null,
+        }
+    },
+    methods: {
+        getRemarks(response) {
+            this.remarks = response.data.data;
+        },
+        getCabling() {
+            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/cabling?installation_id=' + this.$route.params.id)
+                .then( response => { this.getRemarks(response) } )
+                .catch(console.log('Error'));
+        }
+    },
     created() {
-        this.modalBoxMixin;
+        this.getCabling();
     }
 }
 </script>

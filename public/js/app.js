@@ -3587,6 +3587,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3598,8 +3600,25 @@ __webpack_require__.r(__webpack_exports__);
     FinishButton: _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
     MultipleRemark: _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  data: function data() {
+    return {
+      remarks: null
+    };
+  },
+  methods: {
+    getRemarks: function getRemarks(response) {
+      this.remarks = response.data.data;
+    },
+    getCabling: function getCabling() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/cabling?installation_id=' + this.$route.params.id).then(function (response) {
+        _this.getRemarks(response);
+      })["catch"](console.log('Error'));
+    }
+  },
   created: function created() {
-    this.modalBoxMixin;
+    this.getCabling();
   }
 });
 
@@ -4551,6 +4570,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-component/RemarkModalComponent */ "./resources/js/components/reuseable-component/RemarkModalComponent.vue");
+/* harmony import */ var _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/ConfirmModalComponent */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue");
 //
 //
 //
@@ -4592,19 +4612,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  data: function data() {
-    return {
-      remarks: []
-    };
-  },
+  props: ['id', 'multipleRemarks'],
   methods: {
+    deleteRemark: function deleteRemark(id) {
+      var _this = this;
+
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
+        _this.$emit('reload');
+      })["catch"](console.log('Error'));
+    },
+    remarkUpdate: function remarkUpdate(id, remark) {
+      var _this2 = this;
+
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id, {
+        remark: remark.remark
+      }).then(function (response) {
+        _this2.$emit('reload');
+      })["catch"](console.log('Error'));
+    },
     storeRemark: function storeRemark(remark) {
-      this.remarks.push(remark);
+      var _this3 = this;
+
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
+        installation_request_id: this.id,
+        remark: remark.remark
+      }).then(function (response) {
+        _this3.$emit('reload');
+      })["catch"](console.log('Error'));
     }
   }
 });
@@ -19217,7 +19260,14 @@ var render = function() {
         attrs: { stepNo: "2", type: "team", id: this.$route.params.id }
       }),
       _vm._v(" "),
-      _c("MultipleRemark"),
+      _c("MultipleRemark", {
+        attrs: { id: this.$route.params.id, multipleRemarks: _vm.remarks },
+        on: {
+          reload: function($event) {
+            return _vm.getCabling()
+          }
+        }
+      }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Finish" } })
     ],
@@ -20308,7 +20358,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._l(_vm.remarks, function(remark, index) {
+      _vm._l(_vm.multipleRemarks, function(multipleRemark, index) {
         return _c(
           "div",
           { key: index, staticClass: "valign-wrapper multi-remark-body" },
@@ -20317,15 +20367,47 @@ var render = function() {
               _c("p", [
                 _vm._v(
                   "\n                " +
-                    _vm._s(remark.remark) +
+                    _vm._s(multipleRemark.name) +
                     "\n            "
                 )
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1, true),
+            _c("div", { staticClass: "mrb-2" }, [
+              _c("p", [
+                _vm._v(_vm._s(_vm._f("format-date")(multipleRemark.created_at)))
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(2, true)
+            _c(
+              "div",
+              { staticClass: "mrb-3 master-right" },
+              [
+                _c("RemarkModal", {
+                  attrs: { type: "update", preRemark: multipleRemark.name },
+                  on: {
+                    "review-remark": function($event) {
+                      var i = arguments.length,
+                        argsArray = Array(i)
+                      while (i--) argsArray[i] = arguments[i]
+                      return _vm.remarkUpdate.apply(
+                        void 0,
+                        [multipleRemark.id].concat(argsArray)
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("ConfirmModal", {
+                  on: {
+                    "delete-confirm": function($event) {
+                      return _vm.deleteRemark(multipleRemark.id)
+                    }
+                  }
+                })
+              ],
+              1
+            )
           ]
         )
       })
@@ -20340,24 +20422,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", [
       _c("p", { staticClass: "multi-remark-header" }, [_vm._v("Remark")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mrb-2" }, [
-      _c("p", [_vm._v("2020/3/22 | 14:92")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mrb-3 right" }, [
-      _c("i", { staticClass: "far fa-edit remark-setting" }),
-      _vm._v(" "),
-      _c("i", { staticClass: "far fa-trash-alt remark-setting" })
     ])
   }
 ]
