@@ -5124,44 +5124,37 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     bindResponseData: function bindResponseData(response) {
       this.requests = response.data.data;
     },
-    getNew: function getNew() {
+    apiCall: function apiCall(url) {
       var _this = this;
 
+      axios.get(url).then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](this.errorMessage);
+    },
+    getNew: function getNew() {
       switch (this.status) {
         case 'new':
-          axios.get(this.apis["new"]).then(function (response) {
-            _this.bindResponseData(response);
-          })["catch"](this.errorMessage);
+          this.apiCall(this.apis["new"]);
           break;
 
         case 'accepted':
-          axios.get(this.apis.accepted).then(function (response) {
-            _this.bindResponseData(response);
-          })["catch"](this.errorMessage);
+          this.apiCall(this.apis.accepted);
           break;
 
         case 'history':
-          axios.get(this.apis.history).then(function (response) {
-            _this.bindResponseData(response);
-          })["catch"](this.errorMessage);
+          this.apiCall(this.apis.history);
           break;
 
         case 'oncall-new':
-          axios.get(this.apis.oncallNew).then(function (response) {
-            _this.bindResponseData(response);
-          })["catch"](this.errorMessage);
+          this.apiCall(this.apis.oncallNew);
           break;
 
         case 'oncall-accepted':
-          axios.get(this.apis.oncallAccepted).then(function (response) {
-            _this.bindResponseData(response);
-          })["catch"](this.errorMessage);
+          this.apiCall(this.apis.oncallAccepted);
           break;
 
         case 'oncall-history':
-          axios.get(this.apis.oncallHistory).then(function (response) {
-            _this.bindResponseData(response);
-          })["catch"](this.errorMessage);
+          this.apiCall(this.apis.oncallHistory);
           break;
 
         default:
