@@ -2358,8 +2358,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
 
 
 
@@ -2382,25 +2380,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         "new": "/home/new",
         accept: "/home/accept",
         history: "/home/history"
-      },
-      requests: null
+      }
     };
-  },
-  methods: {
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
-      console.log(this.requests);
-    },
-    getNew: function getNew() {
-      var _this = this;
-
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted').then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
-    }
-  },
-  created: function created() {
-    this.getNew();
   }
 });
 
@@ -2590,8 +2571,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
 
 
 
@@ -2614,25 +2593,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         "new": "/home/new",
         accept: "/home/accept",
         history: "/home/history"
-      },
-      requests: null
+      }
     };
-  },
-  methods: {
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
-      console.log(this.requests);
-    },
-    getNew: function getNew() {
-      var _this = this;
-
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history').then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
-    }
-  },
-  created: function created() {
-    this.getNew();
   }
 });
 
@@ -2670,8 +2632,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
 
 
 
@@ -2694,24 +2654,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         "new": "/home/new",
         accept: "/home/accept",
         history: "/home/history"
-      },
-      requests: null
+      }
     };
-  },
-  methods: {
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
-    },
-    getNew: function getNew() {
-      var _this = this;
-
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new').then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
-    }
-  },
-  created: function created() {
-    this.getNew();
   }
 });
 
@@ -2877,8 +2821,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
 
 
 
@@ -2901,28 +2843,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         "new": "/on-call/new",
         accept: "/on-call/accept",
         history: "/on-call/history"
-      },
-      requests: null
+      }
     };
-  },
-  methods: {
-    toRepair: function toRepair() {
-      this.$router.push('/lsp-order/repair');
-    },
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
-      console.log(this.requests);
-    },
-    getNew: function getNew() {
-      var _this = this;
-
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted').then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
-    }
-  },
-  created: function created() {
-    this.getNew();
   }
 });
 
@@ -2960,8 +2882,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
 
 
 
@@ -2984,25 +2904,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         "new": "/on-call/new",
         accept: "/on-call/accept",
         history: "/on-call/history"
-      },
-      requests: null
+      }
     };
-  },
-  methods: {
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
-      console.log(this.requests);
-    },
-    getNew: function getNew() {
-      var _this = this;
-
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new').then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
-    }
-  },
-  created: function created() {
-    this.getNew();
   }
 });
 
@@ -3040,8 +2943,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
 
 
 
@@ -3064,28 +2965,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         "new": "/on-call/new",
         accept: "/on-call/accept",
         history: "/on-call/history"
-      },
-      requests: null
+      }
     };
-  },
-  methods: {
-    toRepair: function toRepair() {
-      this.$router.push('/lsp-order/repair');
-    },
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
-      console.log(this.requests);
-    },
-    getNew: function getNew() {
-      var _this = this;
-
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history').then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
-    }
-  },
-  created: function created() {
-    this.getNew();
   }
 });
 
@@ -5205,6 +5086,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -5213,7 +5096,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['requests', 'type'],
+  props: ['type', 'status'],
+  data: function data() {
+    return {
+      requests: null,
+      errorMessage: 'Something Went Wrong!',
+      apis: {
+        "new": 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new',
+        accepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted',
+        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
+        oncallNew: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new',
+        oncallAccepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted',
+        oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history'
+      }
+    };
+  },
   components: {
     Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5224,29 +5121,76 @@ __webpack_require__.r(__webpack_exports__);
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   methods: {
+    bindResponseData: function bindResponseData(response) {
+      this.requests = response.data.data;
+    },
+    getNew: function getNew() {
+      var _this = this;
+
+      switch (this.status) {
+        case 'new':
+          axios.get(this.apis["new"]).then(function (response) {
+            _this.bindResponseData(response);
+          })["catch"](this.errorMessage);
+          break;
+
+        case 'accepted':
+          axios.get(this.apis.accepted).then(function (response) {
+            _this.bindResponseData(response);
+          })["catch"](this.errorMessage);
+          break;
+
+        case 'history':
+          axios.get(this.apis.history).then(function (response) {
+            _this.bindResponseData(response);
+          })["catch"](this.errorMessage);
+          break;
+
+        case 'oncall-new':
+          axios.get(this.apis.oncallNew).then(function (response) {
+            _this.bindResponseData(response);
+          })["catch"](this.errorMessage);
+          break;
+
+        case 'oncall-accepted':
+          axios.get(this.apis.oncallAccepted).then(function (response) {
+            _this.bindResponseData(response);
+          })["catch"](this.errorMessage);
+          break;
+
+        case 'oncall-history':
+          axios.get(this.apis.oncallHistory).then(function (response) {
+            _this.bindResponseData(response);
+          })["catch"](this.errorMessage);
+          break;
+
+        default:
+          this.errorMessage;
+          break;
+      }
+    },
     toOrder: function toOrder(request, event) {
-      if (event.target.id == 'accept') {
-        alert('Yes Its Accept');
+      if (this.type == 'On-call') {
+        this.$router.push({
+          name: 'order-repair',
+          params: {
+            id: request.id,
+            order_type: 'On Call'
+          }
+        });
       } else {
-        if (this.type == 'On-call') {
-          this.$router.push({
-            name: 'order-repair',
-            params: {
-              id: request.id,
-              order_type: 'On Call'
-            }
-          });
-        } else {
-          this.$router.push({
-            name: 'order',
-            params: {
-              id: request.id,
-              order_type: 'Installation'
-            }
-          });
-        }
+        this.$router.push({
+          name: 'order',
+          params: {
+            id: request.id,
+            order_type: 'Installation'
+          }
+        });
       }
     }
+  },
+  created: function created() {
+    this.getNew();
   }
 });
 
@@ -17336,7 +17280,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("RequestList", { attrs: { requests: _vm.requests } })
+          _c("RequestList", { attrs: { status: "accepted" } })
         ],
         1
       ),
@@ -17722,7 +17666,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("RequestList", { attrs: { requests: _vm.requests } })
+          _c("RequestList", { attrs: { status: "history" } })
         ],
         1
       ),
@@ -17802,7 +17746,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("RequestList", { attrs: { requests: _vm.requests } })
+          _c("RequestList", { attrs: { status: "new" } })
         ],
         1
       ),
@@ -18022,7 +17966,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("RequestList", {
-            attrs: { type: "On-call", requests: _vm.requests }
+            attrs: { type: "On-call", status: "oncall-accepted" }
           })
         ],
         1
@@ -18104,7 +18048,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("RequestList", {
-            attrs: { type: "On-call", requests: _vm.requests }
+            attrs: { type: "On-call", status: "oncall-new" }
           })
         ],
         1
@@ -18186,7 +18130,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("RequestList", {
-            attrs: { type: "On-call", requests: _vm.requests }
+            attrs: { type: "On-call", status: "oncall-history" }
           })
         ],
         1
@@ -20839,9 +20783,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "customer-home-assigned-button" }, [
-      _c("a", { staticClass: "btn", attrs: { id: "accept" } }, [
-        _vm._v("Accept")
-      ])
+      _c("a", { staticClass: "btn" }, [_vm._v("Accept")])
     ])
   }
 ]

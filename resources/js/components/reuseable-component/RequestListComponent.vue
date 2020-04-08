@@ -30,6 +30,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 
 import Customer from "./../reuseable-home/CustomerComponent";
 import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
@@ -40,26 +41,89 @@ import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFoote
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
 
 export default {
-    props: [
-        'requests', 'type',
-    ],
-    components: {
-        Customer,
-        CustomerTypeChip,
-        OrderStepChip,
-        CustomerDetailChip,
-        CustomerIssueDate,
-        CustomerHomeFooterButton,
-        CustomerHeader
-    },
-    methods: {
-      toOrder(request, event) {
-        if(this.type == 'On-call') {
-          this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
-        } else {
-          this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
-        }
-      },
+  props: [
+    'type', 'status'
+  ],
+  data() {
+    return {
+      requests: null,
+      errorMessage: 'Something Went Wrong!',
+      apis: {
+        new: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new',
+        accepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted',
+        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
+        oncallNew: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new',
+        oncallAccepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted',
+        oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history',
+      }
     }
+  },
+  components: {
+    Customer,
+    CustomerTypeChip,
+    OrderStepChip,
+    CustomerDetailChip,
+    CustomerIssueDate,
+    CustomerHomeFooterButton,
+    CustomerHeader
+  },
+  methods: {
+    bindResponseData(response) {
+      this.requests = response.data.data;
+    },
+    getNew() {
+      switch (this.status) {
+        case 'new':
+          axios.get(this.apis.new)
+            .then( response => { this.bindResponseData(response) })
+            .catch(this.errorMessage);
+          break;
+        
+        case 'accepted':
+          axios.get(this.apis.accepted)
+            .then( response => { this.bindResponseData(response) })
+            .catch(this.errorMessage);
+          break;
+        
+        case 'history':
+          axios.get(this.apis.history)
+            .then( response => { this.bindResponseData(response) })
+            .catch(this.errorMessage);
+          break;
+        
+        case 'oncall-new':
+          axios.get(this.apis.oncallNew)
+            .then( response => { this.bindResponseData(response) })
+            .catch(this.errorMessage);
+          break;
+        
+        case 'oncall-accepted':
+          axios.get(this.apis.oncallAccepted)
+            .then( response => { this.bindResponseData(response) })
+            .catch(this.errorMessage);
+          break;
+        
+        case 'oncall-history':
+          axios.get(this.apis.oncallHistory)
+            .then( response => { this.bindResponseData(response) })
+            .catch(this.errorMessage);
+          break;
+      
+        default:
+          this.errorMessage;
+          break;
+      }
+    },
+    toOrder(request, event) {
+      if(this.type == 'On-call') {
+        this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
+      } else {
+        this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
+      }
+    },
+  },
+  created() {
+    this.getNew();
+  }
 }
 </script>
