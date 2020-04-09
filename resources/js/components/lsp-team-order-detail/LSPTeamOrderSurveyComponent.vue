@@ -1,19 +1,40 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="/lsp-order" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-order/' + this.$route.params.id }" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Survey</h2>
         </router-link>
         <ProgressBar :stepNo="'1'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
-        <SurveyIssue v-for="(surveyIssue, index) in surveyIssues" 
-            :key="index" 
-            :id="masterId" 
-            :name="surveyIssue.name"
-            :data="surveyIssue" 
+        <SurveyIssue  
+            :data="surveyIssues.pole_issue" 
             v-slot:issue-name>
 
-            {{ surveyIssue.name }}
+            {{ surveyIssues.pole_issue.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.authority" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.authority.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.fat" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.fat.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.odn_issue" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.odn_issue.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.customer_issue" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.customer_issue.name }}
         </SurveyIssue>
         <!-- <SurveyIssue v-slot:issue-name>
             FAT
@@ -49,13 +70,11 @@ export default {
     data() {
         return {
             surveyIssues: null,
-            masterId: this.$route.params.id,
         }
     },
     methods: {
         addSurvey(response) {
             this.surveyIssues = response.data.data
-            console.log(this.surveyIssues);
         },
         getSurvey() {
             axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id)
