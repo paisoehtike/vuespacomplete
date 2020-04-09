@@ -2112,6 +2112,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -2141,12 +2146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _ref, _ref2, _ref3, _ref4, _ref5, _ref6;
 
     return {
-      teamDetails: {
-        leaderName: "Mg Mg",
-        manPower: "5",
-        assignJob: "6",
-        remainJob: "3"
-      },
+      teamDetail: null,
       isRemain: false,
       isComplete: false,
       isHistory: false,
@@ -2188,10 +2188,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _defineProperty(_ref6, "orderStep", "History"), _defineProperty(_ref6, "customerName", "U Min Thant"), _defineProperty(_ref6, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref6, "assigned", "Not Assigned"), _ref6)]
     };
   },
-  created: function created() {
-    this.remain();
-  },
   methods: {
+    bindTeamDetail: function bindTeamDetail(response) {
+      this.teamDetail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams/' + this.$route.params.id).then(function (response) {
+        _this.bindTeamDetail(response);
+      })["catch"](console.log('Error'));
+    },
     remain: function remain() {
       this.isRemain = true;
       this.isRemainClass = "remain-class";
@@ -2213,6 +2220,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isCompleteClass = "";
       this.isHistoryClass = "history-class";
     }
+  },
+  created: function created() {
+    this.remain();
+    this.getDetail();
   }
 });
 
@@ -2277,6 +2288,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    toDetail: function toDetail(id) {
+      this.$router.push({
+        name: 'team-detail',
+        params: {
+          id: id
+        }
+      });
+    },
     bindTeams: function bindTeams(response) {
       this.teams = response.data.data;
     },
@@ -16995,7 +17014,7 @@ var render = function() {
             attrs: { to: "/team", tag: "i" }
           }),
           _vm._v(" "),
-          _c("h5", [_vm._v("Team A")]),
+          _c("h5", [_vm._v(_vm._s(_vm.teamDetail.name))]),
           _vm._v(" "),
           _c("i", { staticClass: "fas fa-edit" })
         ],
@@ -17006,12 +17025,29 @@ var render = function() {
       _vm._v(" "),
       _c(
         "TeamInfo",
-        _vm._l(_vm.teamDetails, function(value, label) {
-          return _c("TableRow", {
-            key: label,
-            attrs: { label: label, value: value }
+        [
+          _c("TableRow", {
+            attrs: { label: "Leader Name", value: _vm.teamDetail.leader_name }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
+            attrs: { label: "Man Power", value: _vm.teamDetail.man_power }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
+            attrs: {
+              label: "Assigned Jobs",
+              value: _vm.teamDetail.assigned_job
+            }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
+            attrs: {
+              label: "Remaining Jobs",
+              value: _vm.teamDetail.remaining_job
+            }
           })
-        }),
+        ],
         1
       ),
       _vm._v(" "),
@@ -17333,6 +17369,11 @@ var render = function() {
           _vm._l(_vm.teams, function(team, index) {
             return _c("Teams", {
               key: index,
+              on: {
+                click: function($event) {
+                  return _vm.toDetail(team.id)
+                }
+              },
               scopedSlots: _vm._u(
                 [
                   {
