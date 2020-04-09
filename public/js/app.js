@@ -2260,6 +2260,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -2271,56 +2273,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      teams: [{
-        teamName: "Team A",
-        customerName: "Min Min",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team B",
-        customerName: "Aung Aung",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team C",
-        customerName: "Mg Mg",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team C",
-        customerName: "Mg Mg",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team C",
-        customerName: "Mg Mg",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team C",
-        customerName: "Mg Mg",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team C",
-        customerName: "Mg Mg",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }, {
-        teamName: "Team C",
-        customerName: "Mg Mg",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      }]
+      teams: null
     };
+  },
+  methods: {
+    bindTeams: function bindTeams(response) {
+      this.teams = response.data.data;
+    },
+    getTeams: function getTeams() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams').then(function (response) {
+        _this.bindTeams(response);
+      })["catch"](console.log('Error'));
+    }
+  },
+  created: function created() {
+    this.getTeams();
   }
 });
 
@@ -17369,14 +17338,14 @@ var render = function() {
                   {
                     key: "team-name",
                     fn: function() {
-                      return [_vm._v(_vm._s(team.teamName))]
+                      return [_vm._v(_vm._s(team.name))]
                     },
                     proxy: true
                   },
                   {
                     key: "customer-name",
                     fn: function() {
-                      return [_vm._v(_vm._s(team.customerName))]
+                      return [_vm._v(_vm._s(team.leader_name))]
                     },
                     proxy: true
                   },
@@ -17390,7 +17359,7 @@ var render = function() {
                   {
                     key: "total-man-power",
                     fn: function() {
-                      return [_vm._v(_vm._s(team.manPower))]
+                      return [_vm._v(_vm._s(team.man_power))]
                     },
                     proxy: true
                   },
