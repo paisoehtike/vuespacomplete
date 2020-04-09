@@ -1,6 +1,6 @@
 <template>
     <div class="home-customer-row">
-        <Customer @click.native="toOrder(request, $event)" v-for="(request, index) in requests" :key="index">
+        <Customer @click.native="type !== 'team' ? toOrder(request, $event) : toTeamOrder(request)" v-for="(request, index) in requests" :key="index">
           <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
           <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
@@ -21,7 +21,7 @@
             :value="request.name"
             :address="request.address"
           ></CustomerDetailChip>
-          <CustomerHomeFooterButton slot="customer-home-footer">
+          <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
             <template v-if="request.team !== null" v-slot:assign>{{ request.team.name }}</template>
             <template v-else v-slot:assign>Not Assigned</template>
           </CustomerHomeFooterButton>
@@ -55,6 +55,9 @@ export default {
         oncallNew: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new',
         oncallAccepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted',
         oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history',
+        lspTeamRemain: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining',
+        lspTeamHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history',
+        lspTeamComplete: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete',
       }
     }
   },
@@ -101,6 +104,18 @@ export default {
         case 'oncall-history':
           this.apiCall(this.apis.oncallHistory);
           break;
+        
+        case 'lsp-team-remain':
+          this.apiCall(this.apis.lspTeamRemain);
+          break;
+        
+        case 'lsp-team-history':
+          this.apiCall(this.apis.lspTeamHistory);
+          break;
+        
+        case 'lsp-team-complete':
+          this.apiCall(this.apis.lspTeamComplete);
+          break;
       
         default:
           this.errorMessage;
@@ -126,6 +141,9 @@ export default {
         }
       }
     },
+    toTeamOrder(request) {
+      this.$router.push({ name: 'lsp-order', params: { id: request.id, order_type: request.request_type }});
+    }
   },
   created() {
     this.getNew();

@@ -1,15 +1,42 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="/lsp-order" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-order/' + this.$route.params.id }" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Survey</h2>
         </router-link>
-        <ProgressBar :stepNo="'1'" :type="'team'"></ProgressBar>
-        <SurveyIssue v-slot:issue-name>
-            Pole Issue
+        <ProgressBar :stepNo="'1'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
+        <SurveyIssue  
+            :data="surveyIssues.pole_issue" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.pole_issue.name }}
         </SurveyIssue>
-        <SurveyIssue v-slot:issue-name>
+        <SurveyIssue  
+            :data="surveyIssues.authority" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.authority.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.fat" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.fat.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.odn_issue" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.odn_issue.name }}
+        </SurveyIssue>
+        <SurveyIssue  
+            :data="surveyIssues.customer_issue" 
+            v-slot:issue-name>
+
+            {{ surveyIssues.customer_issue.name }}
+        </SurveyIssue>
+        <!-- <SurveyIssue v-slot:issue-name>
             FAT
         </SurveyIssue>
         <SurveyIssue v-slot:issue-name>
@@ -20,12 +47,14 @@
         </SurveyIssue>
         <SurveyIssue v-slot:issue-name>
             Customer Issue
-        </SurveyIssue>
+        </SurveyIssue> -->
         <FinishButton :type="'Finish'"></FinishButton>
     </div>
 </template>
 
 <script>
+const axios = require('axios');
+
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import ProgressBar from "./../resuable-lsp-detail/ProgressBarComponent";
 import SurveyIssue from "./../resuable-lsp-detail/SurveyIssueComponent";
@@ -37,6 +66,24 @@ export default {
         ProgressBar,
         SurveyIssue,
         FinishButton,
+    },
+    data() {
+        return {
+            surveyIssues: null,
+        }
+    },
+    methods: {
+        addSurvey(response) {
+            this.surveyIssues = response.data.data
+        },
+        getSurvey() {
+            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id)
+                .then( response => { this.addSurvey(response) } )
+                .catch( console.log('Hint Hint') );
+        }
+    },
+    created() {
+        this.getSurvey();
     }
 }
 </script>

@@ -2,9 +2,19 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './router';
 var VueCookie = require('vue-cookie');
+const axios = require('axios');
 
 Vue.use(VueCookie);
 Vue.use(VueRouter);
+Vue.mixin({
+    created() {
+        if (this.$cookie.get('token') !== null) {
+            axios.defaults.headers.common = {
+                'Authorization': 'Bearer ' + this.$cookie.get('token')
+            }
+        }
+    }
+})
 
 Vue.filter('format-date', function (value) {
     let cuttedValue = value.slice(0, 10);
