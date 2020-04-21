@@ -4,14 +4,14 @@
       <div class="team-index-header-row">
         <Header></Header>
       </div>
-      <Teams v-for="(team, index) in teams" :key="index">
-        <template v-slot:team-name>{{team.teamName}}</template>
+      <Teams v-for="(team, index) in teams" :key="index" @click="toDetail(team.id)">
+        <template v-slot:team-name>{{team.name}}</template>
 
-        <template v-slot:customer-name>{{team.customerName}}</template>
+        <template v-slot:customer-name>{{team.leader_name}}</template>
 
         <template v-slot:total-remaining>{{team.remaining}}</template>
 
-        <template v-slot:total-man-power>{{team.manPower}}</template>
+        <template v-slot:total-man-power>{{team.man_power}}</template>
 
         <template v-slot:total-complete>{{team.complete}}</template>
       </Teams>
@@ -29,6 +29,8 @@
   </div>
 </template>
 <script>
+const axios = require('axios');
+
 import Header from "./../reuseable-home/HeaderComponent";
 import HomeFooterButton from "./../reuseable-component/HomeFooterButtonComponent";
 import Teams from "./TeamComponent";
@@ -41,65 +43,24 @@ export default {
   },
   data() {
     return {
-      teams: [
-        {
-          teamName: "Team A",
-          customerName: "Min Min",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team B",
-          customerName: "Aung Aung",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team C",
-          customerName: "Mg Mg",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team C",
-          customerName: "Mg Mg",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team C",
-          customerName: "Mg Mg",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team C",
-          customerName: "Mg Mg",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team C",
-          customerName: "Mg Mg",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        },
-        {
-          teamName: "Team C",
-          customerName: "Mg Mg",
-          remaining: "5",
-          manPower: "6",
-          complete: "3"
-        }
-      ]
-    };
+      teams: null,
+    }
+  },
+  methods: {
+    toDetail(id) {
+      this.$router.push({ name: 'team-detail', params: { id: id } });
+    },
+    bindTeams(response) {
+      this.teams = response.data.data
+    },
+    getTeams() {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams')
+        .then( response => { this.bindTeams(response) } )
+        .catch( console.log('Error') );
+    }
+  },
+  created() {
+    this.getTeams();
   }
-};
+}
 </script>

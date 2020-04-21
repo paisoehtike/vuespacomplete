@@ -6,12 +6,14 @@
             <h2>Splicing</h2>
         </router-link>
         <ProgressBar :stepNo="'3'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
-        <MultipleRemark></MultipleRemark>
+        <MultipleRemark :type="'splicing'" :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getSplicing()"></MultipleRemark>
         <FinishButton :type="'Finish'"></FinishButton>
     </div>
 </template>
 
 <script>
+const axios = require('axios');
+
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import ProgressBar from "./../resuable-lsp-detail/ProgressBarComponent";
 import FinishButton from "./../resuable-lsp-detail/FinishButtonComponent";
@@ -23,6 +25,24 @@ export default {
         ProgressBar,
         FinishButton,
         MultipleRemark,
+    },
+    data() {
+        return {
+            remarks: null,
+        }
+    },
+    methods: {
+        getRemarks(response) {
+            this.remarks = response.data.data;
+        },
+        getSplicing() {
+            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/splicing?installation_id=' + this.$route.params.id)
+                .then( response => { this.getRemarks(response) } )
+                .catch(console.log('Error'));
+        }
+    },
+    created() {
+        this.getSplicing();
     }
 }
 </script>
