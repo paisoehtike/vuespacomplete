@@ -7,7 +7,7 @@
         </router-link>
         <ProgressBar :stepNo="'2'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
         <MultipleRemark :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getCabling()"></MultipleRemark>
-        <FinishButton :type="'Finish'"></FinishButton>
+        <FinishButton @click.native="storeStep" :type="'Finish'"></FinishButton>
     </div>
 </template>
 
@@ -39,6 +39,14 @@ export default {
             axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/cabling?installation_id=' + this.$route.params.id)
                 .then( response => { this.getRemarks(response) } )
                 .catch(console.log('Error'));
+        },
+        storeStep() {
+            axios.post(this.base_url + 'lsp_team/installation_step', 
+                {
+                    installation_request_id: this.$route.params.id,
+                    step: 'cabling'
+                }
+            ).then( res => { console.log(res) } ).catch( console.log('Error') );
         }
     },
     created() {

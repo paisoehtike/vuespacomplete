@@ -488,6 +488,10 @@
   overflow: auto;
 }
 
+.teamClick {
+  background: #ec911a;
+}
+
 .create-team-container {
   display: grid;
   grid-template-columns: 5% 70% auto 5%;
