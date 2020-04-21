@@ -22048,7 +22048,10 @@ var render = function() {
         },
         [
           _c("CustomerHeader", {
-            attrs: { id: request.customer, step: request.installation_step }
+            attrs: {
+              id: request.customer,
+              step: request.installation_step.name
+            }
           }),
           _vm._v(" "),
           request.customer_type
@@ -22063,7 +22066,10 @@ var render = function() {
           _vm._v(" "),
           request.installation_step
             ? _c("OrderStepChip", {
-                attrs: { slot: "order-chip", value: request.installation_step },
+                attrs: {
+                  slot: "order-chip",
+                  value: request.installation_step.name
+                },
                 slot: "order-chip"
               })
             : _vm._e(),
@@ -42154,8 +42160,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/william/Desktop/mmds/S-5BB-LSP-Web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/william/Desktop/mmds/S-5BB-LSP-Web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/phoenix/Desktop/5BB/lsp/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/phoenix/Desktop/5BB/lsp/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
