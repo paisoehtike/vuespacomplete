@@ -1,7 +1,7 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link to="" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-order/' + this.$route.params.id }" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Repair</h2>
         </router-link>

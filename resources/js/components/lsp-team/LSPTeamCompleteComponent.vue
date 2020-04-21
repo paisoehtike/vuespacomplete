@@ -11,31 +11,7 @@
           <template v-slot:history>{{label.complete}}</template>
         </HomeHeaderButton>
       </div>
-      <div class="home-customer-row">
-        <router-link to="/lsp-order">
-          <Customer v-for="(customer,index) in customers" :key="index">
-            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
-
-            <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-            <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
-
-            <CustomerIssueDate slot="customer-date">
-              <!-- <span>{{customer.date}}</span> -->
-              {{customer.date}}
-              <template
-                v-slot:priority-date
-                v-if="customer.priority"
-              >| {{customer.priority}} Hrs</template>
-              <template v-slot:issue>{{ customer.issue }}</template>
-            </CustomerIssueDate>
-            <CustomerDetailChip
-              slot="customer-detail-chip"
-              :value="customer.customerName"
-              :address="customer.address"
-            ></CustomerDetailChip>
-          </Customer>
-        </router-link>
-      </div>
+      <RequestList :type="'team'" :status="'lsp-team-complete'"></RequestList>
     </div>
 
     <!-- <HomeFooterButton></HomeFooterButton> -->
@@ -43,28 +19,16 @@
 </template>
 <script>
 import Header from "./../reuseable-home/HeaderComponent";
-import Customer from "./../reuseable-home/CustomerComponent";
-import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
-import OrderStepChip from "./../reuseable-component/OrderStepChipComponent";
-import CustomerDetailChip from "./../reuseable-component/CustomerDetailChipComponent";
 import HomeHeaderButton from "./../reuseable-component/HomeHeaderButtonComponent";
 import HomeFooterButton from "./../reuseable-component/HomeFooterButtonComponent";
-import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateComponent";
-import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
-import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
+import RequestList from "./../reuseable-component/RequestListComponent";
 
 export default {
   components: {
     Header,
-    Customer,
-    CustomerTypeChip,
-    OrderStepChip,
-    CustomerDetailChip,
     HomeHeaderButton,
     HomeFooterButton,
-    CustomerIssueDate,
-    CustomerHomeFooterButton,
-    CustomerHeader
+    RequestList
   },
   data() {
     return {

@@ -17,13 +17,13 @@
           <h4>{{detail.customer}}</h4>
         </div>
         <div class="order-type">
-          <p>Order Type : <span>{{order_type}}</span></p>
+          <p>Order Type : <span>{{detail.request_type}}</span></p>
         </div>
         <div v-if="order_type == 'On Call'" class="order-type">
           <p>Possible Issue : <span class="issue">{{issueType}}</span></p>
         </div>
         <div v-if="detail.due_date" class="order-type">
-          <p>Due Date : <span>{{detail.due_date}}</span></p>
+          <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
         <div v-if="detail.priority_level" class="order-type">
           <p>Priority Level : <span class="priority-level">{{detail.priority_level}} Hrs</span></p>
@@ -152,7 +152,7 @@ export default {
   methods: {
     getDetail() {
       this.request_id = this.$route.params.id;
-      axios.get('http://s-5bb-lsp-management-dashboard.test/api/installation_requests/' + this.request_id)
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests/' + this.request_id)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     },

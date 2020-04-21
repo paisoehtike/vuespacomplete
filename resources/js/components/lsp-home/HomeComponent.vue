@@ -11,14 +11,13 @@
           <template v-slot:history>{{label.history}}</template>
         </HomeHeaderButton>
       </div>
-      <RequestList :requests="requests"></RequestList>
+      <RequestList :status="'new'"></RequestList>
     </div>
 
     <HomeFooterButton></HomeFooterButton>
   </div>
 </template>
 <script>
-const axios = require('axios');
 
 import Header from "./../reuseable-home/HeaderComponent";
 import HomeHeaderButton from "./../reuseable-component/HomeHeaderButtonComponent";
@@ -59,9 +58,6 @@ export default {
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     }
-  },
-  created() {
-    this.getNew();
   }
-};
+}
 </script>

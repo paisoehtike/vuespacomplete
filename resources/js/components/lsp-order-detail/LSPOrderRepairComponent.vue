@@ -19,6 +19,8 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import Remarks from "./../resuable-lsp-detail/RemarksComponent";
 import TeamInfo from "./../lsp-home-team/TeamInfoComponent";
@@ -33,6 +35,7 @@ export default {
     },
     data() {
         return {
+            detail: null,
             remarks: [
                 {
                     remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
@@ -51,6 +54,20 @@ export default {
                 fiberCable: "500m",
             }
         }
+    },
+    methods: {
+        getDetail() {
+            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests/' + this.$route.params.id)
+            .then( response => { this.bindResponseData(response) })
+            .catch(console.log('Something Went Wrong!'));
+        },
+        bindResponseData(response) {
+            this.detail = response.data.data;
+            console.log(this.detail);
+        },
+    },
+    created() {
+        this.getDetail();
     }
 }
 </script>

@@ -13,8 +13,20 @@ Vue.mixin({
                 'Authorization': 'Bearer ' + this.$cookie.get('token')
             }
         }
+    },
+    data: function() {
+        return {
+          get base_url() {
+            return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+          }
+        }
     }
-})
+});
+
+Vue.filter('format-date', function (value) {
+    let cuttedValue = value.slice(0, 10);
+    return cuttedValue.replace(/-/gi, '/');
+});
 
 const app = new Vue({
     el: '#app',

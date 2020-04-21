@@ -11,135 +11,39 @@
           <template v-slot:history>{{label.history}}</template>
         </HomeHeaderButton>
       </div>
-      <div class="home-customer-row">
-        <Customer v-for="(customer,index) in customers" :key="index">
-          <router-link to="/lsp-order/repair" tag="div">
-            <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
-          </router-link>
-          
-          <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
-
-          <CustomerIssueDate slot="customer-date">
-            {{customer.date}}
-            <template
-              v-slot:priority-date
-              v-if="customer.priority"
-            >| {{customer.priority}} Hrs</template>
-            <template v-slot:issue>{{customer.issue}}</template>
-          </CustomerIssueDate>
-
-          <CustomerDetailChip
-            slot="customer-detail-chip"
-            :value="customer.customerName"
-            :address="customer.address"
-          ></CustomerDetailChip>
-
-          <CustomerHomeFooterButton :customer="customer" :type="'Accept'" slot="customer-home-footer">
-            <template v-slot:assign>{{customer.assigned}}</template>
-          </CustomerHomeFooterButton>
-        </Customer>
-      </div>
+      <RequestList :type="'On-call'" :status="'oncall-accepted'"></RequestList>
     </div>
 
     <HomeFooterButton></HomeFooterButton>
   </div>
 </template>
 <script>
+
 import Header from "./../reuseable-home/HeaderComponent";
-import Customer from "./../reuseable-home/CustomerComponent";
-import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
-import OrderStepChip from "./../reuseable-component/OrderStepChipComponent";
-import CustomerDetailChip from "./../reuseable-component/CustomerDetailChipComponent";
 import HomeHeaderButton from "./../reuseable-component/HomeHeaderButtonComponent";
 import HomeFooterButton from "./../reuseable-component/HomeFooterButtonComponent";
-import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateComponent";
-import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
-import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
+import RequestList from "./../reuseable-component/RequestListComponent";
 
 export default {
   components: {
     Header,
-    Customer,
-    CustomerTypeChip,
-    OrderStepChip,
-    CustomerDetailChip,
     HomeHeaderButton,
     HomeFooterButton,
-    CustomerIssueDate,
-    CustomerHomeFooterButton,
-    CustomerHeader
+    RequestList
   },
   data() {
     return {
       label: {
         new: "New",
-        accept: "Accept",
+        accept: "Accepted",
         history: "History"
       },
       url: {
         new: "/on-call/new",
         accept: "/on-call/accept",
         history: "/on-call/history"
-      },
-      customers: [
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "No Internet Connection",
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "No Internet Connection",
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "No Internet Connection",
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "Cable Error"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned",
-          issue: "Something"
-        }
-      ]
-    };
+      }
+    }
   }
-};
+}
 </script>
