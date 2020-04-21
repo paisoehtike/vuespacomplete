@@ -6,11 +6,11 @@
       :key="index"
     >
       <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
-      <CustomerTypeChip
+      <!-- <CustomerTypeChip
         v-if="request.customer_type"
         :value="request.customer_type.name"
         slot="customer-chip"
-      ></CustomerTypeChip>
+      ></CustomerTypeChip> -->
       <OrderStepChip
         v-if="request.installation_step"
         :value="request.installation_step"
