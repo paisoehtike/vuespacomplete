@@ -13,7 +13,15 @@ Vue.mixin({
                 'Authorization': 'Bearer ' + this.$cookie.get('token')
             }
         }
-    }
+    },
+
+    data: function() {
+        return {
+          get base_url() {
+            return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+          }
+        }
+      }
 })
 
 Vue.filter('format-date', function (value) {

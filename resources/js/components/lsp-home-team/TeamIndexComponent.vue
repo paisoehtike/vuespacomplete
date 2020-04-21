@@ -4,7 +4,7 @@
       <div class="team-index-header-row">
         <Header></Header>
       </div>
-      <Teams v-for="(team, index) in teams" :key="index">
+      <Teams v-for="(team, index) in teams" :key="index" @click="toDetail(team.id)">
         <template v-slot:team-name>{{team.name}}</template>
 
         <template v-slot:customer-name>{{team.leader_name}}</template>
@@ -47,6 +47,9 @@ export default {
     }
   },
   methods: {
+    toDetail(id) {
+      this.$router.push({ name: 'team-detail', params: { id: id } });
+    },
     bindTeams(response) {
       this.teams = response.data.data
     },
