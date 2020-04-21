@@ -3549,7 +3549,15 @@ __webpack_require__.r(__webpack_exports__);
     MultipleRemark: _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
     FinishButton: _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  data: function data() {
+    return {
+      remarks: null
+    };
+  },
   methods: {
+    getActivation: function getActivation(response) {
+      this.remarks = response.data.data.remarks;
+    },
     onuType: function onuType() {
       return ['Huawei', 'ZTE', 'Xiaomi', 'Sony', 'Sony', 'Sony', 'Sony'];
     },
@@ -4652,6 +4660,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_splicing/' + id).then(function (response) {
           _this.$emit('reload');
         })["catch"](console.log('Error'));
+      } else if (this.type == 'activation') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_delete/' + id).then(function (response) {
+          _this.$emit('reload');
+        })["catch"](console.log('Error'));
       } else {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
           _this.$emit('reload');
@@ -4663,6 +4675,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (this.type == 'splicing') {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id, {
+          remark: remark.remark
+        }).then(function (response) {
+          _this2.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else if (this.type == 'activation') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_update/' + id, {
           remark: remark.remark
         }).then(function (response) {
           _this2.$emit('reload');
@@ -4684,6 +4702,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           remark: remark.remark
         }).then(function (response) {
           _this3.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else if (this.type == 'activation') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_store', {
+          installation_request_id: this.id,
+          remark: remark.remark
+        }).then(function (response) {
+          _this3.$emit('reload', response);
         })["catch"](console.log('Error'));
       } else {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
@@ -19110,7 +19135,14 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("MultipleRemark"),
+      _c("MultipleRemark", {
+        attrs: {
+          type: "activation",
+          id: this.$route.params.id,
+          multipleRemarks: _vm.remarks
+        },
+        on: { reload: _vm.getActivation }
+      }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Save" } }),
       _vm._v(" "),

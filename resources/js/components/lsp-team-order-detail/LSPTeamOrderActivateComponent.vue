@@ -46,7 +46,7 @@
                 <input class="activate-input" type="text" id="fb-cable" name="fb-cable">
             </div>
         </form>
-        <MultipleRemark></MultipleRemark>
+        <MultipleRemark :type="'activation'" :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getActivation"></MultipleRemark>
         <FinishButton :type="'Save'"></FinishButton>
         <FinishButton :type="'Finish'"></FinishButton>
     </div>
@@ -67,7 +67,15 @@ export default {
         MultipleRemark,
         FinishButton,
     },
+    data() {
+        return {
+            remarks: null,
+        }
+    },
     methods: {
+        getActivation(response) {
+            this.remarks = response.data.data.remarks
+        },
         onuType() {
             return [
                 'Huawei',
