@@ -1,8 +1,8 @@
 <template>
     <swiper class="swiper" :options="swiperOption">
         <swiper-slide
-        @click.native="typeOnClick(typer, index)"
-        :class="{onClick:selected == index}" 
+        @click.native="typeOnClick(typer)"
+        :class="{onClick:selected == typer.id}" 
         v-for="(typer, index) in type" 
         :key="index">
             {{ typer.name }}
@@ -15,30 +15,36 @@ import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
 import 'swiper/css/swiper.css';
 
 export default {
+    props: [
+        'type', 'defaultId'
+    ],
     name: 'swiper-example-free-mode',
     title: 'Free mode / No fixed positions',
-    props: [
-        'type'
-    ],
     components: {
         Swiper,
         SwiperSlide,
     },
     data() {
         return {
+            selected: null,
             swiperOption: {
                 slidesPerView: 3,
                 spaceBetween: 18,
                 freeMode: true,
             },
-            selected: null,
         }
     },
     methods: {
-        typeOnClick(typer, index) {
-            this.selected = index;
+        typeOnClick(typer) {
+            this.selected = typer.id;
             this.$emit('type-id', typer.id);
+        },
+        defaultSelect() {
+            this.selected = this.defaultId;
         }
+    },
+    mounted() {
+        this.defaultSelect();
     }
 }
 </script>

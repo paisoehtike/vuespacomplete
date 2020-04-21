@@ -3608,6 +3608,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3625,6 +3627,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
+      selectedOnuType: null,
+      selectedfpc: null,
       remarks: null,
       images: null,
       image: null,
@@ -3728,6 +3732,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
         _this3.ppoeUserName = res.data.data.ppoe_username;
         _this3.ppoePassword = res.data.data.ppoe_password;
+
+        if (res.data.data.product_usage !== null) {
+          _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this3.selectedfpc = res.data.data.product_usage.fiber_patch_cord.id;
+        }
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
@@ -4259,7 +4268,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id).then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
@@ -5262,28 +5271,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['type', 'defaultId'],
   name: 'swiper-example-free-mode',
   title: 'Free mode / No fixed positions',
-  props: ['type'],
   components: {
     Swiper: vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__["Swiper"],
     SwiperSlide: vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__["SwiperSlide"]
   },
   data: function data() {
     return {
+      selected: null,
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 18,
         freeMode: true
-      },
-      selected: null
+      }
     };
   },
   methods: {
-    typeOnClick: function typeOnClick(typer, index) {
-      this.selected = index;
+    typeOnClick: function typeOnClick(typer) {
+      this.selected = typer.id;
       this.$emit('type-id', typer.id);
+    },
+    defaultSelect: function defaultSelect() {
+      this.selected = this.defaultId;
     }
+  },
+  mounted: function mounted() {
+    this.defaultSelect();
   }
 });
 
@@ -19700,10 +19715,23 @@ var render = function() {
             [_vm._v("ONU S/N :")]
           ),
           _vm._v(" "),
-          _c("TypeSlider", {
-            attrs: { id: "onu-type", type: _vm.onu_type },
-            on: { "type-id": _vm.setOnuId }
-          }),
+          _vm.selectedOnuType
+            ? _c("TypeSlider", {
+                attrs: {
+                  id: "onu-type",
+                  type: _vm.onu_type,
+                  defaultId: _vm.selectedOnuType
+                },
+                on: { "type-id": _vm.setOnuId }
+              })
+            : _c("TypeSlider", {
+                attrs: {
+                  id: "onu-type",
+                  type: _vm.onu_type,
+                  defaultId: _vm.selectedOnuType
+                },
+                on: { "type-id": _vm.setOnuId }
+              }),
           _vm._v(" "),
           _c(
             "label",
@@ -19711,10 +19739,23 @@ var render = function() {
             [_vm._v("Fibre Patch Cord :")]
           ),
           _vm._v(" "),
-          _c("TypeSlider", {
-            attrs: { id: "fpc", type: _vm.fiber_patch_cord },
-            on: { "type-id": _vm.setFpcId }
-          }),
+          _vm.selectedfpc
+            ? _c("TypeSlider", {
+                attrs: {
+                  id: "fpc",
+                  type: _vm.fiber_patch_cord,
+                  defaultId: _vm.selectedfpc
+                },
+                on: { "type-id": _vm.setFpcId }
+              })
+            : _c("TypeSlider", {
+                attrs: {
+                  id: "fpc",
+                  type: _vm.fiber_patch_cord,
+                  defaultId: _vm.selectedfpc
+                },
+                on: { "type-id": _vm.setFpcId }
+              }),
           _vm._v(" "),
           _c("div", [
             _c(
@@ -21480,10 +21521,10 @@ var render = function() {
         "swiper-slide",
         {
           key: index,
-          class: { onClick: _vm.selected == index },
+          class: { onClick: _vm.selected == typer.id },
           nativeOn: {
             click: function($event) {
-              return _vm.typeOnClick(typer, index)
+              return _vm.typeOnClick(typer)
             }
           }
         },
