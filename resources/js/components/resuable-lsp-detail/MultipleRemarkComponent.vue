@@ -61,6 +61,12 @@ export default {
                     this.$emit('reload');
                 })
                 .catch(console.log('Error'));
+            } else if(this.type == 'activation') {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_delete/' + id)
+                .then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
             } else {
                 axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id)
                 .then( response => { 
@@ -72,6 +78,15 @@ export default {
         remarkUpdate(id, remark) {
             if(this.type == 'splicing') {
                 axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id,
+                {
+                    remark: remark.remark
+                }
+                ).then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            } else if(this.type == 'activation') {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_update/' + id,
                 {
                     remark: remark.remark
                 }
@@ -99,6 +114,16 @@ export default {
                 }
                 ).then( response => { 
                     this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            } else if(this.type == 'activation') {
+                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_store',
+                {
+                    installation_request_id: this.id,
+                    remark: remark.remark
+                }
+                ).then( response => { 
+                    this.$emit('reload', response);
                 })
                 .catch(console.log('Error'));
             } else {

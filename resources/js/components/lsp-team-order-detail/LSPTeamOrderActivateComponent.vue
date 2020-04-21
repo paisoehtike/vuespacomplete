@@ -55,7 +55,7 @@
                 <input class="activate-input" type="text" id="fb-cable" name="fb-cable">
             </div>
         </div>
-        <MultipleRemark></MultipleRemark>
+        <MultipleRemark :type="'activation'" :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getActivation"></MultipleRemark>
         <FinishButton :type="'Save'"></FinishButton>
         <FinishButton :type="'Finish'"></FinishButton>
     </div>
@@ -80,12 +80,16 @@ export default {
     },
     data() {
         return {
+            remarks: null,
             images: null,
             image: null,
             imageFile: null,
         }
     },
     methods: {
+        getActivation(response) {
+            this.remarks = response.data.data.remarks
+        },
         onFileSelected(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length)
@@ -124,34 +128,19 @@ export default {
         loadPreImages(images) {
             this.images = images;
         },
+        loadPreRemarks(remarks) {
+            this.remarks = remarks;
+        },
         getActivate() {
             axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/onu_step?installation_id=' + this.$route.params.id)
                 .then( res => { 
-                    this.loadPreImages(res.data.data.images); 
+                    this.loadPreImages(res.data.data.images);
+                    this.loadPreRemarks(res.data.data.remarks); 
                 } )
                 .catch( console.log('Error') );
         },
-        onuType() {
-            return [
-                'Huawei',
-                'ZTE',
-                'Xiaomi',
-                'Sony',
-                'Sony',
-                'Sony',
-                'Sony',
-            ];
-        },
-        fpc() {
-            return [
-                'SC_APC/SC_APC',
-                'SC_APC/SC_APC',
-                'SC_APC/SC_APC',
-                'SC_APC/SC_APC',
-                'SC_APC/SC_APC',
-                'SC_APC/SC_APC',
-                'SC_APC/SC_APC',
-            ];
+        getActivation() {
+            this.getActivate();
         }
     },
     created() {

@@ -3503,6 +3503,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resuable_lsp_detail_TypeSliderComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../resuable-lsp-detail/TypeSliderComponent */ "./resources/js/components/resuable-lsp-detail/TypeSliderComponent.vue");
 /* harmony import */ var _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../resuable-lsp-detail/FinishButtonComponent */ "./resources/js/components/resuable-lsp-detail/FinishButtonComponent.vue");
 /* harmony import */ var _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../resuable-lsp-detail/MultipleRemarkComponent */ "./resources/js/components/resuable-lsp-detail/MultipleRemarkComponent.vue");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3583,12 +3585,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
+      remarks: null,
       images: null,
       image: null,
       imageFile: null
     };
   },
-  methods: {
+  methods: _defineProperty({
+    getActivation: function getActivation(response) {
+      this.remarks = response.data.data.remarks;
+    },
     onFileSelected: function onFileSelected(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
@@ -3629,20 +3635,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     loadPreImages: function loadPreImages(images) {
       this.images = images;
     },
+    loadPreRemarks: function loadPreRemarks(remarks) {
+      this.remarks = remarks;
+    },
     getActivate: function getActivate() {
       var _this3 = this;
 
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
         _this3.loadPreImages(res.data.data.images);
+
+        _this3.loadPreRemarks(res.data.data.remarks);
       })["catch"](console.log('Error'));
-    },
-    onuType: function onuType() {
-      return ['Huawei', 'ZTE', 'Xiaomi', 'Sony', 'Sony', 'Sony', 'Sony'];
-    },
-    fpc: function fpc() {
-      return ['SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC'];
     }
-  },
+  }, "getActivation", function getActivation() {
+    this.getActivate();
+  }),
   created: function created() {
     this.getActivate();
   }
@@ -4818,6 +4825,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_splicing/' + id).then(function (response) {
           _this.$emit('reload');
         })["catch"](console.log('Error'));
+      } else if (this.type == 'activation') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_delete/' + id).then(function (response) {
+          _this.$emit('reload');
+        })["catch"](console.log('Error'));
       } else {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
           _this.$emit('reload');
@@ -4829,6 +4840,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (this.type == 'splicing') {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id, {
+          remark: remark.remark
+        }).then(function (response) {
+          _this2.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else if (this.type == 'activation') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_update/' + id, {
           remark: remark.remark
         }).then(function (response) {
           _this2.$emit('reload');
@@ -4850,6 +4867,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           remark: remark.remark
         }).then(function (response) {
           _this3.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else if (this.type == 'activation') {
+        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_store', {
+          installation_request_id: this.id,
+          remark: remark.remark
+        }).then(function (response) {
+          _this3.$emit('reload', response);
         })["catch"](console.log('Error'));
       } else {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
@@ -19375,7 +19399,14 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("MultipleRemark"),
+      _c("MultipleRemark", {
+        attrs: {
+          type: "activation",
+          id: this.$route.params.id,
+          multipleRemarks: _vm.remarks
+        },
+        on: { reload: _vm.getActivation }
+      }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Save" } }),
       _vm._v(" "),
