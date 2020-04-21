@@ -47,9 +47,11 @@
                 <input class="activate-input" v-model="onu_sn" type="text" id="onu-sn" name="onu-sn">
             </div>
             <label class="activate-label" for="onu-type">ONU S/N :</label>
-            <TypeSlider id="onu-type" :type="onu_type" @type-id="setOnuId"></TypeSlider>
+            <TypeSlider id="onu-type" v-if="selectedOnuType" :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
+            <TypeSlider id="onu-type" v-else :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
             <label class="activate-label" for="fpc">Fibre Patch Cord :</label>
-            <TypeSlider id="fpc" :type="fiber_patch_cord" @type-id="setFpcId"></TypeSlider>
+            <TypeSlider id="fpc" v-if="selectedfpc" :type="fiber_patch_cord" :defaultId="selectedfpc" @type-id="setFpcId"></TypeSlider>
+            <TypeSlider id="fpc" v-else :type="fiber_patch_cord" :defaultId="selectedfpc" @type-id="setFpcId"></TypeSlider>
             <div>
                 <label class="activate-label" for="fb-cable">Fibre Cable Length:</label>
                 <input class="activate-input" v-model="fiber_cable_length" type="text" id="fb-cable" name="fb-cable">
@@ -80,6 +82,8 @@ export default {
     },
     data() {
         return {
+            selectedOnuType: null,
+            selectedfpc: null,
             remarks: null,
             images: null,
             image: null,
@@ -180,6 +184,11 @@ export default {
                     this.loadPreRemarks(res.data.data.remarks);
                     this.ppoeUserName = res.data.data.ppoe_username;
                     this.ppoePassword = res.data.data.ppoe_password;
+
+                    if(res.data.data.product_usage !== null) {
+                        this.selectedOnuType = res.data.data.product_usage.onu_type.id;
+                        this.selectedfpc = res.data.data.product_usage.fiber_patch_cord.id;
+                    }
                 } )
                 .catch( console.log('Error') );
         },
