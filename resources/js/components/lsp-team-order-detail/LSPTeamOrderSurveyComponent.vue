@@ -48,7 +48,7 @@
         <SurveyIssue v-slot:issue-name>
             Customer Issue
         </SurveyIssue> -->
-        <FinishButton :type="'Finish'"></FinishButton>
+        <FinishButton @click.native="storeStep" :type="'Finish'"></FinishButton>
     </div>
 </template>
 
@@ -80,6 +80,14 @@ export default {
             axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id)
                 .then( response => { this.addSurvey(response) } )
                 .catch( console.log('Error') );
+        },
+        storeStep() {
+            axios.post(this.base_url + 'lsp_team/installation_step', 
+                {
+                    installation_request_id: this.$route.params.id,
+                    step: 'survey'
+                }
+            ).then( res => { console.log(res) } ).catch( console.log('Error') );
         }
     },
     created() {

@@ -1,9 +1,9 @@
 <template>
   <div class="order-container">
-    <div @click="$router.go(-1)" class="order-header-row">
+    <router-link to="/home/new" tag="div" class="order-header-row">
       <i class="fas fa-chevron-left"></i>
       <h2>Detail</h2>
-    </div>
+    </router-link>
     <div class="order-image-container">
       <SquareImage></SquareImage>
     </div>
@@ -34,7 +34,10 @@
       <span>Assigned Team :</span>
       <span v-if="!detail.team">Not Assigned</span>
       <span v-else>{{ detail.team.name }}</span>
-      <AssignOrSwitchTeamComponent v-if="!detail.team" :customer="customer" :type="'New'"></AssignOrSwitchTeamComponent>
+      <AssignOrSwitchTeamComponent v-if="!detail.team" 
+      :customer="customer"
+      :teams="teams" 
+      :type="'New'"></AssignOrSwitchTeamComponent>
       <AssignOrSwitchTeamComponent v-else :customer="customer" :type="'Accept'"></AssignOrSwitchTeamComponent>
       <!-- <a class="waves-effect btn">Assign</a> -->
     </div>
@@ -110,6 +113,7 @@ export default {
     return {
       detail: null,
       request_id: null,
+      teams: null,
       customer: {
         name: "5531",
         orderStep: "Installation",
@@ -156,13 +160,21 @@ export default {
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     },
+    getTeams() {
+      axios.get(this.base_url + 'team_lists')
+      .then( res => { this.bindTeams(res) } )
+      .catch( console.log('Something Went Wrong!') );
+    },
     bindResponseData(response) {
       this.detail = response.data.data;
-      console.log(this.detail);
     },
+    bindTeams(res) {
+      this.teams = res.data.data;
+    }
   },
   created() {
     this.getDetail();
+    this.getTeams();
   }
 };
 </script>

@@ -28,10 +28,8 @@
         </Customer>
     </div>
 </template>
-
 <script>
-const axios = require('axios');
-
+const axios = require("axios");
 import Customer from "./../reuseable-home/CustomerComponent";
 import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
 import OrderStepChip from "./../reuseable-component/OrderStepChipComponent";
@@ -39,27 +37,33 @@ import CustomerDetailChip from "./../reuseable-component/CustomerDetailChipCompo
 import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateComponent";
 import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
-
 export default {
-  props: [
-    'type', 'status'
-  ],
+  props: ["type", "status"],
   data() {
     return {
       requests: null,
-      errorMessage: 'Something Went Wrong!',
+      errorMessage: "Something Went Wrong!",
       apis: {
-        new: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new',
-        accepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted',
-        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
-        oncallNew: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new',
-        oncallAccepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted',
-        oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history',
-        lspTeamRemain: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining',
-        lspTeamHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history',
-        lspTeamComplete: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete',
+        new:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
+        accepted:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
+        history:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history",
+        oncallNew:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
+        oncallAccepted:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
+        oncallHistory:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",
+        lspTeamRemain:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
+        lspTeamHistory:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history",
+        lspTeamComplete:
+          "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete"
       }
-    }
+    };
   },
   components: {
     Customer,
@@ -75,66 +79,72 @@ export default {
       this.requests = response.data.data;
     },
     apiCall(url) {
-      axios.get(url)
-        .then( response => { this.bindResponseData(response) })
+      axios
+        .get(url)
+        .then(response => {
+          this.bindResponseData(response);
+        })
         .catch(this.errorMessage);
     },
     getNew() {
       switch (this.status) {
-        case 'new':
+        case "new":
           this.apiCall(this.apis.new);
           break;
-        
-        case 'accepted':
+        case "accepted":
           this.apiCall(this.apis.accepted);
           break;
-        
-        case 'history':
+        case "history":
           this.apiCall(this.apis.history);
           break;
-        
-        case 'oncall-new':
+        case "oncall-new":
           this.apiCall(this.apis.oncallNew);
           break;
-        
-        case 'oncall-accepted':
+        case "oncall-accepted":
           this.apiCall(this.apis.oncallAccepted);
           break;
-        
-        case 'oncall-history':
+        case "oncall-history":
           this.apiCall(this.apis.oncallHistory);
           break;
-        
-        case 'lsp-team-remain':
+        case "lsp-team-remain":
           this.apiCall(this.apis.lspTeamRemain);
           break;
-        
-        case 'lsp-team-history':
+        case "lsp-team-history":
           this.apiCall(this.apis.lspTeamHistory);
           break;
-        
-        case 'lsp-team-complete':
+        case "lsp-team-complete":
           this.apiCall(this.apis.lspTeamComplete);
           break;
-      
         default:
           this.errorMessage;
           break;
       }
     },
     toOrder(request, event) {
-      if(event.target.id == 'accept') {
-        if(this.type == 'On-call') {
-          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/' + request.id)
-            .then( response => { this.getNew() } )
-            .catch( this.errorMessage );
+      if (event.target.id == "accept") {
+        if (this.type == "On-call") {
+          axios
+            .post(
+              "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" +
+                request.id
+            )
+            .then(response => {
+              this.getNew();
+            })
+            .catch(this.errorMessage);
         } else {
-          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/' + request.id)
-            .then( response => { this.getNew() } )
-            .catch( this.errorMessage );
+          axios
+            .post(
+              "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/" +
+                request.id
+            )
+            .then(response => {
+              this.getNew();
+            })
+            .catch(this.errorMessage);
         }
       } else {
-        if(this.type == 'On-call') {
+        if(this.type == 'on_call') {
           this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: 'On Call' } });
         } else {
           this.$router.push({ name: 'order', params: { id: request.id, orderType: 'Installation' }});
@@ -148,5 +158,5 @@ export default {
   created() {
     this.getNew();
   }
-}
+};
 </script>

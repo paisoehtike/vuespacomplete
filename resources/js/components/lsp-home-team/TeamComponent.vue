@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/team/detail/1" tag="div" class="team-container">
+  <div class="team-container">
     <div class="team-body-row">
       <h5>
         <slot name="team-name"></slot>
@@ -30,5 +30,5 @@
         </span>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
