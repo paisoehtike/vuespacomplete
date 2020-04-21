@@ -50,21 +50,25 @@
                 </Teams>
                 <h2>Select Team to Assign :</h2>
                 <div class="assign-team-wrapper">
-                    <Teams v-for="(team, index) in teams" :key="index">
-                        <template v-slot:team-name>{{team.teamName}}</template>
+                    <Teams
+                    @click.native="teamSelect(team, index)"
+                    :class="{teamClick:selected == index}" 
+                    v-for="(team, index) in teams" 
+                    :key="index">
+                        <template v-slot:team-name>{{team.name}}</template>
 
-                        <template v-slot:customer-name>{{team.customerName}}</template>
+                        <template v-slot:customer-name>{{team.leader_name}}</template>
 
-                        <template v-slot:total-remaining>{{team.remaining}}</template>
+                        <template v-slot:total-remaining>{{team.remaining_jobs}}</template>
 
-                        <template v-slot:total-man-power>{{team.manPower}}</template>
+                        <template v-slot:total-man-power>{{team.man_power}}</template>
 
-                        <template v-slot:total-complete>{{team.complete}}</template>
+                        <template v-slot:total-complete>{{team.completed_jobs}}</template>
                     </Teams>
                 </div>
                 <div class="modal-button-box">
                     <button @click="showModal = false" class="cancel-button">Cancel</button>
-                    <button @click="showModal = false" class="remark-save-btn">Save</button>
+                    <button @click="assignTeam" class="remark-save-btn">Save</button>
                 </div>
             </div>
         </transition>
@@ -72,6 +76,8 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 import CustomerTypeChip from "./../reuseable-component/CustomerTypeChipComponent";
 import OrderStepChip from "./../reuseable-component/OrderStepChipComponent";
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
@@ -81,7 +87,7 @@ import Teams from "./../lsp-home-team/TeamComponent";
 
 export default {
     props: [
-        'customer', 'type',
+        'customer', 'type', 'teams'
     ],
     components: {
         CustomerTypeChip,
@@ -95,6 +101,8 @@ export default {
         return {
             showModal: false,
             assignOrSwitch: null,
+            selected: null,
+            teamId: null,
             assignedTeam: {
                 teamName: "Team A",
                 customerName: "Min Min",
@@ -102,29 +110,29 @@ export default {
                 manPower: "6",
                 complete: "3"
             },
-            teams: [
-                {
-                    teamName: "Team A",
-                    customerName: "Min Min",
-                    remaining: "5",
-                    manPower: "6",
-                    complete: "3"
-                },
-                {
-                    teamName: "Team B",
-                    customerName: "Aung Aung",
-                    remaining: "5",
-                    manPower: "6",
-                    complete: "3"
-                },
-                {
-                    teamName: "Team C",
-                    customerName: "Kyaw Aung",
-                    remaining: "5",
-                    manPower: "6",
-                    complete: "3"
-                },
-            ]
+            // teams: [
+            //     {
+            //         teamName: "Team A",
+            //         customerName: "Min Min",
+            //         remaining: "5",
+            //         manPower: "6",
+            //         complete: "3"
+            //     },
+            //     {
+            //         teamName: "Team B",
+            //         customerName: "Aung Aung",
+            //         remaining: "5",
+            //         manPower: "6",
+            //         complete: "3"
+            //     },
+            //     {
+            //         teamName: "Team C",
+            //         customerName: "Kyaw Aung",
+            //         remaining: "5",
+            //         manPower: "6",
+            //         complete: "3"
+            //     },
+            // ]
         }
     },
     methods: {
@@ -134,6 +142,22 @@ export default {
             } else {
                 this.assignOrSwitch = 'Switch';
             }
+        },
+        teamSelect(team, index) {
+            this.selected = index;
+            this.teamId = team.id;
+        },
+        assignTeam() {
+            axios.post(this.base_url + 'assigned_team',
+                {
+                    requested_id: this.$route.params.id,
+                    requested_type: 'installation',
+                    lsp_team_id: this.teamId
+                }
+            ).then( res => { 
+                this.showModal = false;
+                console.log(res) ;
+            }).catch( console.log('Error') );
         }
     },
     mounted() {
