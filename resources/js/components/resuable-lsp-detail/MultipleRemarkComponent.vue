@@ -8,18 +8,18 @@
                 <RemarkModal @review-remark="storeRemark"></RemarkModal>
             </div>
         </div>
-        <div v-for="(remark, index) in remarks" :key="index" class="valign-wrapper multi-remark-body">
+        <div v-for="(multipleRemark, index) in multipleRemarks" :key="index" class="valign-wrapper multi-remark-body">
             <div class="mrb-1">
                 <p>
-                    {{ remark.remark }}
+                    {{ multipleRemark.name }}
                 </p>
             </div>
             <div class="mrb-2">
-                <p>2020/3/22 | 14:92</p>
+                <p>{{ multipleRemark.created_at | format-date}}</p>
             </div>
-            <div class="mrb-3 right">
-                <i class="far fa-edit remark-setting"></i>
-                <i class="far fa-trash-alt remark-setting"></i>
+            <div class="mrb-3 master-right">
+                <RemarkModal @review-remark="remarkUpdate(multipleRemark.id, ...arguments)" :type="'update'" :preRemark="multipleRemark.name"></RemarkModal>
+                <ConfirmModal @delete-confirm="deleteRemark(multipleRemark.id)"></ConfirmModal>
             </div>
         </div>
         <!-- <div class="valign-wrapper multi-remark-body">
@@ -40,20 +40,47 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 import RemarkModal from "./../reuseable-component/RemarkModalComponent";
+import ConfirmModal from './../reuseable-component/ConfirmModalComponent';
 
 export default {
     components: {
         RemarkModal,
+        ConfirmModal
     },
-    data() {
-        return {
-            remarks: [],
-        }
-    },
+    props: [
+        'id', 'multipleRemarks'
+    ],
     methods: {
+        deleteRemark(id) {
+            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id)
+                .then( response => { 
+                    this.$emit('reload');
+                })
+                .catch(console.log('Error'));
+            },
+        remarkUpdate(id, remark) {
+            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id,
+                {
+                    remark: remark.remark
+                }
+            ).then( response => { 
+                this.$emit('reload');
+             })
+            .catch(console.log('Error'));
+        },
         storeRemark(remark) {
-            this.remarks.push(remark);
+            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling',
+                {
+                    installation_request_id: this.id,
+                    remark: remark.remark
+                }
+            ).then( response => { 
+                this.$emit('reload');
+             })
+            .catch(console.log('Error'));
         }
     }
 }
