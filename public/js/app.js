@@ -4138,9 +4138,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4151,7 +4148,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'order_type'],
+  props: ['id'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -4165,36 +4162,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     return {
       detail: null,
       request_id: null,
-      customerDetails: {
-        name: "Mg Mg",
-        accountNo: "YGNFX008",
-        rmn: "93123456",
-        ppoeName: "YGNFX008",
-        ppoePassword: "YGNFX008",
-        phone: "095385377",
-        address: "No(20), 19th Street,Latha Township, Yangon",
-        township: "Latha"
-      },
-      orderDetails: {
-        orderId: "5531",
-        orderType: "Relocation",
-        due: "22-02-2020",
-        status: "Splicing",
-        planName: "Premium",
-        promoName: "-",
-        createdDate: "17-02-2020"
-      },
-      customerType: "VVIP",
-      orderStep: "Splicing",
-      orderDetailID: "5531",
-      orderType: "On Call"
+      order_type: null
     };
   },
   methods: {
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.$route.params.orderType).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
@@ -4222,6 +4197,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   created: function created() {
     this.getDetail();
+    this.order_type = this.$route.params.orderType;
   }
 });
 
@@ -5677,7 +5653,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
             name: 'order-repair',
             params: {
               id: request.id,
-              order_type: 'On Call'
+              orderType: 'On Call'
             }
           });
         } else {
@@ -5685,7 +5661,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
             name: 'order',
             params: {
               id: request.id,
-              order_type: 'Installation'
+              orderType: 'Installation'
             }
           });
         }
@@ -5696,7 +5672,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         name: 'lsp-order',
         params: {
           id: request.id,
-          order_type: request.request_type
+          orderType: request.request_type
         }
       });
     }
@@ -20166,13 +20142,17 @@ var render = function() {
               "div",
               { staticClass: "order-detail-header" },
               [
-                _c("CustomerTypeChip", {
-                  attrs: { value: _vm.detail.customer_type }
-                }),
+                _vm.detail.customer_type != null
+                  ? _c("CustomerTypeChip", {
+                      attrs: { value: _vm.detail.customer_type.name }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("OrderStepChip", {
-                  attrs: { value: _vm.detail.installation_step }
-                })
+                _vm.detail.installation_step != null
+                  ? _c("OrderStepChip", {
+                      attrs: { value: _vm.detail.installation_step.name }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -20184,11 +20164,11 @@ var render = function() {
             _c("div", { staticClass: "order-type" }, [
               _c("p", [
                 _vm._v("Order Type : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.request_type))])
+                _c("span", [_vm._v(_vm._s(_vm.order_type))])
               ])
             ]),
             _vm._v(" "),
-            _vm.order_type == "On Call"
+            _vm.order_type == "on_call"
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
                     _vm._v("Possible Issue : "),
@@ -20299,19 +20279,7 @@ var render = function() {
             "OrderInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Order Id", value: _vm.detail.order_id }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Order Type", value: _vm.detail.order_type }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Due", value: _vm.detail.due_date }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Status", value: _vm.detail.status }
+                attrs: { label: "Order Id", value: _vm.detail.id }
               }),
               _vm._v(" "),
               _c("TableRow", {
@@ -20319,11 +20287,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Promotion", value: _vm.detail.promotion }
+                attrs: { label: "Promo Name", value: _vm.detail.promotion }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Create Date", value: _vm.detail.createdDate }
+                attrs: { label: "Create Date", value: _vm.detail.created_at }
               })
             ],
             1
@@ -21983,10 +21951,10 @@ var render = function() {
         },
         [
           _c("CustomerHeader", {
-            attrs: { id: request.customer, step: request.installation_step }
+            attrs: { id: request.customer, step: request.request_type }
           }),
           _vm._v(" "),
-          request.customer_type
+          request.customer_type != null
             ? _c("CustomerTypeChip", {
                 attrs: {
                   slot: "customer-chip",
@@ -21996,14 +21964,17 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          request.installation_step
+          request.installation_step != null
             ? _c("OrderStepChip", {
-                attrs: { slot: "order-chip", value: request.installation_step },
+                attrs: {
+                  slot: "order-chip",
+                  value: request.installation_step.name
+                },
                 slot: "order-chip"
               })
             : _vm._e(),
           _vm._v(" "),
-          request.due_date
+          request.created_at != null
             ? _c(
                 "CustomerIssueDate",
                 {
@@ -22011,7 +21982,7 @@ var render = function() {
                   slot: "customer-date",
                   scopedSlots: _vm._u(
                     [
-                      request.priority_level
+                      request.priority_level != null
                         ? {
                             key: "priority-date",
                             fn: function() {
@@ -22034,7 +22005,7 @@ var render = function() {
                 [
                   _vm._v(
                     "\n        " +
-                      _vm._s(_vm._f("format-date")(request.due_date)) +
+                      _vm._s(_vm._f("format-date")(request.created_at)) +
                       "\n        "
                   )
                 ]
@@ -22063,7 +22034,7 @@ var render = function() {
             slot: "customer-home-footer",
             scopedSlots: _vm._u(
               [
-                request.team !== null
+                request.team != null
                   ? {
                       key: "assign",
                       fn: function() {

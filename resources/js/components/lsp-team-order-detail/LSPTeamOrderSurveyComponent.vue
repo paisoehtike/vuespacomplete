@@ -79,7 +79,7 @@ export default {
         getSurvey() {
             axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id)
                 .then( response => { this.addSurvey(response) } )
-                .catch( console.log('Hint Hint') );
+                .catch( console.log('Error') );
         }
     },
     created() {

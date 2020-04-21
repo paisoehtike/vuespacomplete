@@ -1,17 +1,17 @@
 <template>
     <div class="home-customer-row">
         <Customer @click.native="type !== 'team' ? toOrder(request, $event) : toTeamOrder(request)" v-for="(request, index) in requests" :key="index">
-          <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
+          <CustomerHeader :id="request.customer" :step="request.request_type"></CustomerHeader>
 
-          <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip v-if="request.installation_step" :value="request.installation_step" slot="order-chip"></OrderStepChip>
+          <CustomerTypeChip v-if="request.customer_type != null" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
+          <OrderStepChip v-if="request.installation_step != null" :value="request.installation_step.name" slot="order-chip"></OrderStepChip>
 
-          <CustomerIssueDate v-if="request.due_date" slot="customer-date">
+          <CustomerIssueDate v-if="request.created_at != null" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
-            {{request.due_date | format-date}}
+            {{request.created_at | format-date}}
             <template
               v-slot:priority-date
-              v-if="request.priority_level"
+              v-if="request.priority_level != null"
             >| {{request.priority_level.name}} Hrs</template>
             <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
@@ -22,7 +22,7 @@
             :address="request.address"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
-            <template v-if="request.team !== null" v-slot:assign>{{ request.team.name }}</template>
+            <template v-if="request.team != null" v-slot:assign>{{ request.team.name }}</template>
             <template v-else v-slot:assign>Not Assigned</template>
           </CustomerHomeFooterButton>
         </Customer>
@@ -135,14 +135,14 @@ export default {
         }
       } else {
         if(this.type == 'On-call') {
-          this.$router.push({ name: 'order-repair', params: { id: request.id, order_type: 'On Call' } });
+          this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: 'On Call' } });
         } else {
-          this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
+          this.$router.push({ name: 'order', params: { id: request.id, orderType: 'Installation' }});
         }
       }
     },
     toTeamOrder(request) {
-      this.$router.push({ name: 'lsp-order', params: { id: request.id, order_type: request.request_type }});
+      this.$router.push({ name: 'lsp-order', params: { id: request.id, orderType: request.request_type }});
     }
   },
   created() {
