@@ -3536,6 +3536,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3549,13 +3560,70 @@ __webpack_require__.r(__webpack_exports__);
     MultipleRemark: _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
     FinishButton: _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  data: function data() {
+    return {
+      images: null,
+      image: null,
+      imageFile: null
+    };
+  },
   methods: {
+    onFileSelected: function onFileSelected(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]); // this.image = files[0];
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var image = new Image();
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.image = e.target.result;
+        _this.imageFile = file;
+      };
+
+      reader.readAsDataURL(file); // this.uploadImage();
+    },
+    uploadImage: function uploadImage() {
+      var _this2 = this;
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('image', this.imageFile);
+      formData.append('installation_request_id', this.$route.params.id);
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/image_store', formData, config).then(function (res) {
+        _this2.appendImage(res.data.data);
+      })["catch"](console.log('Cant Image'));
+    },
+    appendImage: function appendImage(img) {
+      this.images.push(img);
+      this.image = null;
+    },
+    loadPreImages: function loadPreImages(images) {
+      this.images = images;
+    },
+    getActivate: function getActivate() {
+      var _this3 = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
+        _this3.loadPreImages(res.data.data.images);
+      })["catch"](console.log('Error'));
+    },
     onuType: function onuType() {
       return ['Huawei', 'ZTE', 'Xiaomi', 'Sony', 'Sony', 'Sony', 'Sony'];
     },
     fpc: function fpc() {
       return ['SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC'];
     }
+  },
+  created: function created() {
+    this.getActivate();
   }
 });
 
@@ -19091,13 +19159,86 @@ var render = function() {
       }),
       _vm._v(" "),
       _c(
-        "form",
+        "div",
         { staticClass: "activate-form", attrs: { action: "" } },
         [
           _c(
             "label",
             { staticClass: "activate-label", attrs: { for: "image" } },
             [_vm._v("Add Image :")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            ref: "fileInput",
+            staticStyle: { display: "none" },
+            attrs: { type: "file" },
+            on: { change: _vm.onFileSelected }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "add-img" },
+            [
+              _vm._l(_vm.images, function(image, index) {
+                return _c("div", { key: index, staticClass: "pre-img-item" }, [
+                  _c("img", {
+                    staticClass: "center-align",
+                    attrs: { src: image.full_image }
+                  })
+                ])
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "img-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.$refs.fileInput.click()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fas fa-plus center-align" })]
+              )
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.image !== null,
+                  expression: "image !== null"
+                }
+              ],
+              staticClass: "upload-img"
+            },
+            [
+              _c("img", { attrs: { src: _vm.image } }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "cancel",
+                  on: {
+                    click: function($event) {
+                      _vm.image = null
+                    }
+                  }
+                },
+                [_vm._v("Cancel")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "submit", on: { click: _vm.uploadImage } },
+                [_vm._v("Submit")]
+              )
+            ]
           ),
           _vm._v(" "),
           _vm._m(0),
@@ -19111,8 +19252,6 @@ var render = function() {
           _vm._m(4),
           _vm._v(" "),
           _vm._m(5),
-          _vm._v(" "),
-          _vm._m(6),
           _vm._v(" "),
           _c(
             "label",
@@ -19130,7 +19269,7 @@ var render = function() {
           _vm._v(" "),
           _c("TypeSlider", { attrs: { id: "fpc", type: _vm.fpc } }),
           _vm._v(" "),
-          _vm._m(7)
+          _vm._m(6)
         ],
         1
       ),
@@ -19145,16 +19284,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "add-img" }, [
-      _c("div", { staticClass: "img-item" }, [
-        _c("i", { staticClass: "fas fa-plus center-align" })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
