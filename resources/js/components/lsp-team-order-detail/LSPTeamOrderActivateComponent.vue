@@ -57,7 +57,7 @@
         </div>
         <MultipleRemark :type="'activation'" :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getActivation"></MultipleRemark>
         <FinishButton @click.native="storeOnuStep" :type="'Save'"></FinishButton>
-        <FinishButton :type="'Finish'"></FinishButton>
+        <FinishButton @click.native="storeStep" :type="'Finish'"></FinishButton>
     </div>
 </template>
 
@@ -191,6 +191,14 @@ export default {
         },
         getActivation() {
             this.getActivate();
+        },
+        storeStep() {
+            axios.post(this.base_url + 'lsp_team/installation_step', 
+                {
+                    installation_request_id: this.$route.params.id,
+                    step: 'splicing'
+                }
+            ).then( res => { console.log(res) } ).catch( console.log('Error') );
         }
     },
     created() {

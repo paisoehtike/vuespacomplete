@@ -3739,6 +3739,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     getActivation: function getActivation() {
       this.getActivate();
+    },
+    storeStep: function storeStep() {
+      axios.post(this.base_url + 'lsp_team/installation_step', {
+        installation_request_id: this.$route.params.id,
+        step: 'splicing'
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Error'));
     }
   },
   created: function created() {
@@ -3802,6 +3810,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/cabling?installation_id=' + this.$route.params.id).then(function (response) {
         _this.getRemarks(response);
+      })["catch"](console.log('Error'));
+    },
+    storeStep: function storeStep() {
+      axios.post(this.base_url + 'lsp_team/installation_step', {
+        installation_request_id: this.$route.params.id,
+        step: 'cabling'
+      }).then(function (res) {
+        console.log(res);
       })["catch"](console.log('Error'));
     }
   },
@@ -3931,6 +3947,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/splicing?installation_id=' + this.$route.params.id).then(function (response) {
         _this.getRemarks(response);
       })["catch"](console.log('Error'));
+    },
+    storeStep: function storeStep() {
+      axios.post(this.base_url + 'lsp_team/installation_step', {
+        installation_request_id: this.$route.params.id,
+        step: 'splicing'
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Error'));
     }
   },
   created: function created() {
@@ -4035,6 +4059,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
         _this.addSurvey(response);
       })["catch"](console.log('Hint Hint'));
+    },
+    storeStep: function storeStep() {
+      axios.post(this.base_url + 'lsp_team/installation_step', {
+        installation_request_id: this.$route.params.id,
+        step: 'survey'
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Error'));
     }
   },
   created: function created() {
@@ -19735,7 +19767,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Finish" } })
+      _c("FinishButton", {
+        attrs: { type: "Finish" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.storeStep($event)
+          }
+        }
+      })
     ],
     1
   )
@@ -19799,7 +19838,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Finish" } })
+      _c("FinishButton", {
+        attrs: { type: "Finish" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.storeStep($event)
+          }
+        }
+      })
     ],
     1
   )
@@ -19965,7 +20011,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Finish" } })
+      _c("FinishButton", {
+        attrs: { type: "Finish" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.storeStep($event)
+          }
+        }
+      })
     ],
     1
   )
@@ -20111,7 +20164,14 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Finish" } })
+      _c("FinishButton", {
+        attrs: { type: "Finish" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.storeStep($event)
+          }
+        }
+      })
     ],
     1
   )
