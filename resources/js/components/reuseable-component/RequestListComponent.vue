@@ -1,10 +1,10 @@
 <template>
     <div class="home-customer-row">
         <Customer @click.native="type !== 'team' ? toOrder(request, $event) : toTeamOrder(request)" v-for="(request, index) in requests" :key="index">
-          <CustomerHeader :id="request.customer" :step="request.installation_step.name"></CustomerHeader>
+          <CustomerHeader :id="request.customer" :step="request.installation_step"></CustomerHeader>
 
           <CustomerTypeChip v-if="request.customer_type" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip v-if="request.installation_step" :value="request.installation_step.name" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-if="request.installation_step" :value="request.installation_step" slot="order-chip"></OrderStepChip>
 
           <CustomerIssueDate v-if="request.due_date" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
