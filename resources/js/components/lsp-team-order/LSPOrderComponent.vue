@@ -43,10 +43,10 @@
     </div>
   </div> -->
   <div class="order-container">
-    <div @click="$router.go(-1)" class="order-header-row">
+    <router-link to="/lsp-home/remaining" tag="div" class="order-header-row">
       <i class="fas fa-chevron-left"></i>
       <h2>Detail</h2>
-    </div>
+    </router-link>
     <div class="order-image-container">
       <SquareImage></SquareImage>
     </div>

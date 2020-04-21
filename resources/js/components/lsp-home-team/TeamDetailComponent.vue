@@ -2,12 +2,15 @@
   <div class="team-detail-container">
     <div class="detail-header-row">
       <router-link to="/team" tag="i" class="fas fa-chevron-left"></router-link>
-      <h5>Team A</h5>
+      <h5>{{ teamDetail.name }}</h5>
       <i class="fas fa-edit"></i>
     </div>
     <SquareImage></SquareImage>
     <TeamInfo>
-      <TableRow v-for="(value,label) in teamDetails" :key="label" :label="label" :value="value"></TableRow>
+      <TableRow :label="'Leader Name'" :value="teamDetail.leader_name"></TableRow>
+      <TableRow :label="'Man Power'" :value="teamDetail.man_power"></TableRow>
+      <TableRow :label="'Assigned Jobs'" :value="teamDetail.assigned_job"></TableRow>
+      <TableRow :label="'Remaining Jobs'" :value="teamDetail.remaining_job"></TableRow>
     </TeamInfo>
     <div class="detail-button">
       <a class="button remain" @click="remain" :class="isRemainClass">Remaining</a>
@@ -86,6 +89,8 @@
   </div>
 </template>
 <script>
+const axios = require('axios');
+
 import Header from "./../reuseable-home/HeaderComponent";
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import TeamInfo from "./TeamInfoComponent";
@@ -114,12 +119,7 @@ export default {
   },
   data() {
     return {
-      teamDetails: {
-        leaderName: "Mg Mg",
-        manPower: "5",
-        assignJob: "6",
-        remainJob: "3"
-      },
+      teamDetail: null,
       isRemain: false,
       isComplete: false,
       isHistory: false,
@@ -194,10 +194,15 @@ export default {
       ]
     };
   },
-  created() {
-    this.remain();
-  },
   methods: {
+    bindTeamDetail(response) {
+      this.teamDetail = response.data.data
+    },
+    getDetail() {
+      axios.get(this.base_url + 'teams/' + this.$route.params.id)
+        .then( response => { this.bindTeamDetail(response) } )
+        .catch( console.log('Error') );
+    },
     remain() {
       this.isRemain = true;
       this.isRemainClass = "remain-class";
@@ -219,6 +224,10 @@ export default {
       this.isCompleteClass = "";
       this.isHistoryClass = "history-class";
     }
+  },
+  created() {
+    this.remain();
+    this.getDetail();
   }
-};
+}
 </script>
