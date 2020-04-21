@@ -2,6 +2,7 @@
     <div class="activate-form">
         <h5><slot></slot></h5>
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <p v-if="!isMatch" class="error-message">{{ errors.passwordDoesntMatch }}</p>
         <div>
             <p v-show="!isSignIn" class="password-label">Set your new password</p>
             <label v-show="!isSignIn" class="activate-label">Password</label>
@@ -13,7 +14,7 @@
             <label v-show="!isSignIn" class="activate-label">Confirm Password</label>
             <label v-show="isSignIn" class="activate-label" for="onu-sn">Password</label>
             <span v-if="errors.password">{{ errors.password }}</span>
-            <input v-model="password" class="activate-input" type="text" name="password">
+            <input v-model="password" class="activate-input" type="password" name="password">
         </div>
         <div class="right">
             <!-- <router-link v-show="type == 'sign-in'" 
@@ -27,7 +28,7 @@
             Save
             </router-link> -->
             <button @click="formSubmit" v-show="isSignIn">Sign In</button>
-            <button v-show="!isSignIn">Save</button>
+            <button @click="formSubmit" v-show="!isSignIn">Save</button>
         </div>
     </div>
 </template>
@@ -42,9 +43,11 @@ export default {
             isSignIn: true,
             phone: null,
             password: null,
+            isMatch: true,
             errors: {
                 phone: null,
-                password: null
+                password: null,
+                passwordDoesntMatch: null
             }
         }
     },
@@ -56,16 +59,30 @@ export default {
             }
             this.resetErrorMessages();
 
+            if(this.phone !== this.password) {
+                this.errors.passwordDoesntMatch = "Password Doesn't Match!";
+                this.isMatch = false;
+            } else {
+                this.isMatch = true;
+            }
+
             if(!this.phone) {
-                this.errors.phone = "*Phone number field is required*";
+                this.errors.phone = "*This field is required*";
             }
             if(!this.password) {
-                this.errors.password = "*Password field is required*";
+                this.errors.password = "*This field is required*";
             }
             
-            if(this.phone && this.password) {
-                this.$emit('submit', formData);
-                this.resetErrorMessages();
+            if(!this.isSignIn) {
+                if(this.phone && this.password && this.isMatch) {
+                    this.$emit('submit', formData);
+                    this.resetErrorMessages();
+                }
+            } else {
+                if(this.phone && this.password) {
+                    this.$emit('submit', formData);
+                    this.resetErrorMessages();
+                }
             }
         },
         whichType() {
@@ -76,6 +93,7 @@ export default {
         resetErrorMessages() {
             this.errors.phone = null;
             this.errors.password = null;
+            this.errors.passwordDoesntMatch = null;
         }
     },
     mounted() {

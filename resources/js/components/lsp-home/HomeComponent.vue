@@ -42,8 +42,22 @@ export default {
         new: "/home/new",
         accept: "/home/accept",
         history: "/home/history"
-      }
+      },
+      requests: null
+    };
+  },
+  methods: {
+    toOrder(request) {
+      this.$router.push({ name: 'order', params: { id: request.id, order_type: 'Installation' }});
+    },
+    bindResponseData(response) {
+      this.requests = response.data.data;
+    },
+    getNew() {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new')
+      .then( response => { this.bindResponseData(response) })
+      .catch(console.log('Something Went Wrong!'));
     }
   }
-};
+}
 </script>

@@ -14,15 +14,14 @@ Vue.mixin({
             }
         }
     },
-
     data: function() {
         return {
           get base_url() {
             return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
           }
         }
-      }
-})
+    }
+});
 
 Vue.filter('format-date', function (value) {
     let cuttedValue = value.slice(0, 10);

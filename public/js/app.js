@@ -2642,8 +2642,30 @@ __webpack_require__.r(__webpack_exports__);
         "new": "/home/new",
         accept: "/home/accept",
         history: "/home/history"
-      }
+      },
+      requests: null
     };
+  },
+  methods: {
+    toOrder: function toOrder(request) {
+      this.$router.push({
+        name: 'order',
+        params: {
+          id: request.id,
+          order_type: 'Installation'
+        }
+      });
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.requests = response.data.data;
+    },
+    getNew: function getNew() {
+      var _this = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    }
   }
 });
 
@@ -2721,14 +2743,25 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    authenticated: function authenticated(response) {
+      this.$cookie.set('token', response.data.data.token, '1m');
+      this.errorMessage = null;
+
+      if (response.data.data.is_admin == 1) {
+        this.$router.push('/home/new');
+      } else {
+        if (response.data.data.is_password_change == null) {
+          this.$router.push('/lsp-team/first-time-password');
+        } else {
+          this.$router.push('/lsp-home/remaining');
+        }
+      }
+    },
     formSubmit: function formSubmit(formData) {
       var _this = this;
 
       axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData).then(function (response) {
-        _this.$cookie.set('token', response.data.token, 1);
-
-        _this.errorMessage = null;
-        console.log('Token Saved!');
+        _this.authenticated(response);
       })["catch"](function (error) {
         _this.errorMessage = error.response.data.message;
       });
@@ -4244,12 +4277,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
+
+ // import GetToken from "./../mixins/GetToken"
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     SignInAndFirstTimePassword: _resuable_login_password_SignInAndFirstTimePasswordComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  // mixins: [
+  //     GetToken
+  // ],
+  data: function data() {
+    return {
+      errorMessage: null
+    };
+  },
+  methods: {
+    isAuthenticate: function isAuthenticate() {
+      if (!this.$cookie.get('token')) {
+        this.$router.push('/');
+      }
+    },
+    authenticated: function authenticated(response) {
+      if (response.status == 200) {
+        this.$router.push('/lsp-home/remaining');
+      }
+    },
+    formSubmit: function formSubmit(formData) {
+      var _this = this;
+
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/change_password', {
+        password: formData.password
+      }).then(function (response) {
+        _this.authenticated(response);
+      })["catch"](function (error) {
+        _this.errorMessage = error.response.data.message;
+      });
+    }
+  },
+  created: function created() {
+    this.isAuthenticate();
   }
 });
 
@@ -4566,6 +4639,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['type', 'isAdmin', 'errorMessage'],
   data: function data() {
@@ -4573,9 +4647,11 @@ __webpack_require__.r(__webpack_exports__);
       isSignIn: true,
       phone: null,
       password: null,
+      isMatch: true,
       errors: {
         phone: null,
-        password: null
+        password: null,
+        passwordDoesntMatch: null
       }
     };
   },
@@ -4587,17 +4663,31 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.resetErrorMessages();
 
+      if (this.phone !== this.password) {
+        this.errors.passwordDoesntMatch = "Password Doesn't Match!";
+        this.isMatch = false;
+      } else {
+        this.isMatch = true;
+      }
+
       if (!this.phone) {
-        this.errors.phone = "*Phone number field is required*";
+        this.errors.phone = "*This field is required*";
       }
 
       if (!this.password) {
-        this.errors.password = "*Password field is required*";
+        this.errors.password = "*This field is required*";
       }
 
-      if (this.phone && this.password) {
-        this.$emit('submit', formData);
-        this.resetErrorMessages();
+      if (!this.isSignIn) {
+        if (this.phone && this.password && this.isMatch) {
+          this.$emit('submit', formData);
+          this.resetErrorMessages();
+        }
+      } else {
+        if (this.phone && this.password) {
+          this.$emit('submit', formData);
+          this.resetErrorMessages();
+        }
       }
     },
     whichType: function whichType() {
@@ -4608,6 +4698,7 @@ __webpack_require__.r(__webpack_exports__);
     resetErrorMessages: function resetErrorMessages() {
       this.errors.phone = null;
       this.errors.password = null;
+      this.errors.passwordDoesntMatch = null;
     }
   },
   mounted: function mounted() {
@@ -20137,9 +20228,14 @@ var render = function() {
     [
       _c("SquareImage"),
       _vm._v(" "),
-      _c("SignInAndFirstTimePassword", { attrs: { type: "password" } }, [
-        _vm._v("\n        LSP Team\n    ")
-      ])
+      _c(
+        "SignInAndFirstTimePassword",
+        {
+          attrs: { type: "password", errorMessage: _vm.errorMessage },
+          on: { submit: _vm.formSubmit }
+        },
+        [_vm._v("\n        LSP Team\n    ")]
+      )
     ],
     1
   )
@@ -20425,6 +20521,12 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
+    !_vm.isMatch
+      ? _c("p", { staticClass: "error-message" }, [
+          _vm._v(_vm._s(_vm.errors.passwordDoesntMatch))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", [
       _c(
         "p",
@@ -20549,7 +20651,7 @@ var render = function() {
           }
         ],
         staticClass: "activate-input",
-        attrs: { type: "text", name: "password" },
+        attrs: { type: "password", name: "password" },
         domProps: { value: _vm.password },
         on: {
           input: function($event) {
@@ -20589,7 +20691,8 @@ var render = function() {
               value: !_vm.isSignIn,
               expression: "!isSignIn"
             }
-          ]
+          ],
+          on: { click: _vm.formSubmit }
         },
         [_vm._v("Save")]
       )
