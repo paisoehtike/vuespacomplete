@@ -1,6 +1,12 @@
 <template>
     <swiper class="swiper" :options="swiperOption">
-        <swiper-slide v-for="(onuType, index) in onuTypes" :key="index">{{ onuType }}</swiper-slide>
+        <swiper-slide
+        @click.native="typeOnClick(typer, index)"
+        :class="{onClick:selected == index}" 
+        v-for="(typer, index) in type" 
+        :key="index">
+            {{ typer.name }}
+        </swiper-slide>
     </swiper>
 </template>
 
@@ -12,7 +18,7 @@ export default {
     name: 'swiper-example-free-mode',
     title: 'Free mode / No fixed positions',
     props: [
-        'type',
+        'type'
     ],
     components: {
         Swiper,
@@ -25,16 +31,14 @@ export default {
                 spaceBetween: 18,
                 freeMode: true,
             },
-            onuTypes: [],
+            selected: null,
         }
     },
     methods: {
-        addType() {
-            this.onuTypes = this.type();
+        typeOnClick(typer, index) {
+            this.selected = index;
+            this.$emit('type-id', typer.id);
         }
-    },
-    mounted() {
-        this.addType();
     }
 }
 </script>

@@ -3503,8 +3503,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resuable_lsp_detail_TypeSliderComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../resuable-lsp-detail/TypeSliderComponent */ "./resources/js/components/resuable-lsp-detail/TypeSliderComponent.vue");
 /* harmony import */ var _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../resuable-lsp-detail/FinishButtonComponent */ "./resources/js/components/resuable-lsp-detail/FinishButtonComponent.vue");
 /* harmony import */ var _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../resuable-lsp-detail/MultipleRemarkComponent */ "./resources/js/components/resuable-lsp-detail/MultipleRemarkComponent.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -3588,12 +3586,41 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       remarks: null,
       images: null,
       image: null,
-      imageFile: null
+      imageFile: null,
+      ppoeUserName: null,
+      ppoePassword: null,
+      olt: null,
+      fdt: null,
+      fat_port: null,
+      onu_sn: null,
+      fiber_cable_length: null,
+      fiber_cable: null,
+      fiber_patch_cord: null,
+      fpcId: null,
+      onu_adapter: null,
+      onu_type: null,
+      onuId: null,
+      termination_box: null
     };
   },
-  methods: _defineProperty({
-    getActivation: function getActivation(response) {
-      this.remarks = response.data.data.remarks;
+  methods: {
+    storeOnuStep: function storeOnuStep() {
+      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_store', {
+        olt: this.olt,
+        fdt: this.fdt,
+        fat_port: this.fat_port,
+        onu_sn: this.onu_sn,
+        installation_request_id: this.$route.params.id,
+        onu_type_id: this.onuId,
+        onu_type_quantity: 1,
+        fiber_patch_cord_id: this.fpcId,
+        fiber_patch_cord_quantity: 1,
+        fiber_cable_id: this.fiber_cable[0].id,
+        fiber_cable_length: this.fiber_cable_length,
+        type: 'installation'
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Sry Pl!'));
     },
     onFileSelected: function onFileSelected(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -3635,6 +3662,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     loadPreImages: function loadPreImages(images) {
       this.images = images;
     },
+    preconfig: function preconfig(data) {
+      this.onu_type = data.onu_type;
+      this.fiber_patch_cord = data.fiber_patch_cord;
+      this.fiber_cable = data.fiber_cable;
+    },
+    setOnuId: function setOnuId(id) {
+      this.onuId = id;
+    },
+    setFpcId: function setFpcId(id) {
+      this.fpcId = id;
+    },
     loadPreRemarks: function loadPreRemarks(remarks) {
       this.remarks = remarks;
     },
@@ -3645,13 +3683,25 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         _this3.loadPreImages(res.data.data.images);
 
         _this3.loadPreRemarks(res.data.data.remarks);
+
+        _this3.ppoeUserName = res.data.data.ppoe_username;
+        _this3.ppoePassword = res.data.data.ppoe_password;
       })["catch"](console.log('Error'));
+    },
+    getInventory: function getInventory() {
+      var _this4 = this;
+
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_inventory').then(function (res) {
+        _this4.preconfig(res.data.data);
+      })["catch"](console.log('Error'));
+    },
+    getActivation: function getActivation() {
+      this.getActivate();
     }
-  }, "getActivation", function getActivation() {
-    this.getActivate();
-  }),
+  },
   created: function created() {
     this.getActivate();
+    this.getInventory();
   }
 });
 
@@ -5129,6 +5179,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5146,16 +5202,14 @@ __webpack_require__.r(__webpack_exports__);
         spaceBetween: 18,
         freeMode: true
       },
-      onuTypes: []
+      selected: null
     };
   },
   methods: {
-    addType: function addType() {
-      this.onuTypes = this.type();
+    typeOnClick: function typeOnClick(typer, index) {
+      this.selected = index;
+      this.$emit('type-id', typer.id);
     }
-  },
-  mounted: function mounted() {
-    this.addType();
   }
 });
 
@@ -19366,17 +19420,201 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", [
+            _c(
+              "label",
+              {
+                staticClass: "activate-label",
+                attrs: { for: "ppoe-username" }
+              },
+              [_vm._v("PPOE Username :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ppoeUserName,
+                  expression: "ppoeUserName"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: {
+                type: "text",
+                id: "ppoe-username",
+                name: "ppoe-username",
+                readonly: ""
+              },
+              domProps: { value: _vm.ppoeUserName },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.ppoeUserName = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", [
+            _c(
+              "label",
+              {
+                staticClass: "activate-label",
+                attrs: { for: "ppoe-password" }
+              },
+              [_vm._v("PPOE Password :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.ppoePassword,
+                  expression: "ppoePassword"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: {
+                type: "text",
+                id: "ppoe-password",
+                name: "ppoe-password",
+                readonly: ""
+              },
+              domProps: { value: _vm.ppoePassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.ppoePassword = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(2),
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "olt" } },
+              [_vm._v("OLT :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.olt,
+                  expression: "olt"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { type: "text", id: "olt", name: "olt" },
+              domProps: { value: _vm.olt },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.olt = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(3),
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "fdt" } },
+              [_vm._v("FDT :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fdt,
+                  expression: "fdt"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { type: "text", id: "fdt", name: "fdt" },
+              domProps: { value: _vm.fdt },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fdt = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(4),
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "fat-port" } },
+              [_vm._v("FAT Port :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fat_port,
+                  expression: "fat_port"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { type: "text", id: "fat-port", name: "fat-port" },
+              domProps: { value: _vm.fat_port },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fat_port = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(5),
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "onu-sn" } },
+              [_vm._v("ONU S/N :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.onu_sn,
+                  expression: "onu_sn"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { type: "text", id: "onu-sn", name: "onu-sn" },
+              domProps: { value: _vm.onu_sn },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.onu_sn = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "label",
@@ -19384,7 +19622,10 @@ var render = function() {
             [_vm._v("ONU S/N :")]
           ),
           _vm._v(" "),
-          _c("TypeSlider", { attrs: { id: "onu-type", type: _vm.onuType } }),
+          _c("TypeSlider", {
+            attrs: { id: "onu-type", type: _vm.onu_type },
+            on: { "type-id": _vm.setOnuId }
+          }),
           _vm._v(" "),
           _c(
             "label",
@@ -19392,9 +19633,40 @@ var render = function() {
             [_vm._v("Fibre Patch Cord :")]
           ),
           _vm._v(" "),
-          _c("TypeSlider", { attrs: { id: "fpc", type: _vm.fpc } }),
+          _c("TypeSlider", {
+            attrs: { id: "fpc", type: _vm.fiber_patch_cord },
+            on: { "type-id": _vm.setFpcId }
+          }),
           _vm._v(" "),
-          _vm._m(6)
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "fb-cable" } },
+              [_vm._v("Fibre Cable Length:")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fiber_cable_length,
+                  expression: "fiber_cable_length"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { type: "text", id: "fb-cable", name: "fb-cable" },
+              domProps: { value: _vm.fiber_cable_length },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fiber_cable_length = $event.target.value
+                }
+              }
+            })
+          ])
         ],
         1
       ),
@@ -19408,140 +19680,21 @@ var render = function() {
         on: { reload: _vm.getActivation }
       }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Save" } }),
+      _c("FinishButton", {
+        attrs: { type: "Save" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.storeOnuStep($event)
+          }
+        }
+      }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Finish" } })
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "label",
-        { staticClass: "activate-label", attrs: { for: "ppoe-username" } },
-        [_vm._v("PPOE Username :")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: {
-          type: "text",
-          value: "YGN233HTt",
-          id: "ppoe-username",
-          name: "ppoe-username",
-          readonly: ""
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "label",
-        { staticClass: "activate-label", attrs: { for: "ppoe-password" } },
-        [_vm._v("PPOE Password :")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: {
-          type: "text",
-          value: "YGN233HTt",
-          id: "ppoe-password",
-          name: "ppoe-password",
-          readonly: ""
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { staticClass: "activate-label", attrs: { for: "olt" } }, [
-        _vm._v("OLT :")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: { type: "text", id: "olt", name: "olt" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { staticClass: "activate-label", attrs: { for: "fdt" } }, [
-        _vm._v("FDT :")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: { type: "text", id: "fdt", name: "fdt" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "label",
-        { staticClass: "activate-label", attrs: { for: "fat-port" } },
-        [_vm._v("FAT Port :")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: { type: "text", id: "fat-port", name: "fat-port" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { staticClass: "activate-label", attrs: { for: "onu-sn" } }, [
-        _vm._v("ONU S/N :")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: { type: "text", id: "onu-sn", name: "onu-sn" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "label",
-        { staticClass: "activate-label", attrs: { for: "fb-cable" } },
-        [_vm._v("Fibre Cable :")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: { type: "text", id: "fb-cable", name: "fb-cable" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21216,8 +21369,20 @@ var render = function() {
   return _c(
     "swiper",
     { staticClass: "swiper", attrs: { options: _vm.swiperOption } },
-    _vm._l(_vm.onuTypes, function(onuType, index) {
-      return _c("swiper-slide", { key: index }, [_vm._v(_vm._s(onuType))])
+    _vm._l(_vm.type, function(typer, index) {
+      return _c(
+        "swiper-slide",
+        {
+          key: index,
+          class: { onClick: _vm.selected == index },
+          nativeOn: {
+            click: function($event) {
+              return _vm.typeOnClick(typer, index)
+            }
+          }
+        },
+        [_vm._v("\n        " + _vm._s(typer.name) + "\n    ")]
+      )
     }),
     1
   )

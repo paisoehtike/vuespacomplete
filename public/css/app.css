@@ -1065,6 +1065,13 @@
   border: 1px solid #ddd;
   border-radius: 30px;
   font-size: 11px;
+  cursor: pointer;
+}
+
+.onClick {
+  border: 1px solid #ec911a;
+  background: #ec911a;
+  color: #fff;
 }
 
 .modal-overlay {
