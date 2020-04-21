@@ -4067,7 +4067,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
         _this.addSurvey(response);
-      })["catch"](console.log('Hint Hint'));
+      })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
       axios.post(this.base_url + 'lsp_team/installation_step', {
@@ -4212,9 +4212,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4225,7 +4222,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'order_type'],
+  props: ['id'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -4239,42 +4236,19 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     return {
       detail: null,
       request_id: null,
-      customerDetails: {
-        name: "Mg Mg",
-        accountNo: "YGNFX008",
-        rmn: "93123456",
-        ppoeName: "YGNFX008",
-        ppoePassword: "YGNFX008",
-        phone: "095385377",
-        address: "No(20), 19th Street,Latha Township, Yangon",
-        township: "Latha"
-      },
-      orderDetails: {
-        orderId: "5531",
-        orderType: "Relocation",
-        due: "22-02-2020",
-        status: "Splicing",
-        planName: "Premium",
-        promoName: "-",
-        createdDate: "17-02-2020"
-      },
-      customerType: "VVIP",
-      orderStep: "Splicing",
-      orderDetailID: "5531",
-      orderType: "On Call"
+      order_type: null
     };
   },
   methods: {
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.$route.params.orderType).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
     bindResponseData: function bindResponseData(response) {
       this.detail = response.data.data;
-      console.log(this.detail);
     },
     toSurvey: function toSurvey() {
       if (this.order_type == 'installation') {
@@ -4296,6 +4270,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   created: function created() {
     this.getDetail();
+    this.order_type = this.$route.params.orderType;
   }
 });
 
@@ -5640,7 +5615,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -5651,21 +5625,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'status'],
+  props: ["type", "status"],
   data: function data() {
     return {
       requests: null,
-      errorMessage: 'Something Went Wrong!',
+      errorMessage: "Something Went Wrong!",
       apis: {
-        "new": 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new',
-        accepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted',
-        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
-        oncallNew: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new',
-        oncallAccepted: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted',
-        oncallHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history',
-        lspTeamRemain: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining',
-        lspTeamHistory: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history',
-        lspTeamComplete: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete'
+        "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
+        accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
+        history: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history",
+        oncallNew: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
+        oncallAccepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
+        oncallHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",
+        lspTeamRemain: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
+        lspTeamHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history",
+        lspTeamComplete: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete"
       }
     };
   },
@@ -5691,39 +5665,39 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     getNew: function getNew() {
       switch (this.status) {
-        case 'new':
+        case "new":
           this.apiCall(this.apis["new"]);
           break;
 
-        case 'accepted':
+        case "accepted":
           this.apiCall(this.apis.accepted);
           break;
 
-        case 'history':
+        case "history":
           this.apiCall(this.apis.history);
           break;
 
-        case 'oncall-new':
+        case "oncall-new":
           this.apiCall(this.apis.oncallNew);
           break;
 
-        case 'oncall-accepted':
+        case "oncall-accepted":
           this.apiCall(this.apis.oncallAccepted);
           break;
 
-        case 'oncall-history':
+        case "oncall-history":
           this.apiCall(this.apis.oncallHistory);
           break;
 
-        case 'lsp-team-remain':
+        case "lsp-team-remain":
           this.apiCall(this.apis.lspTeamRemain);
           break;
 
-        case 'lsp-team-history':
+        case "lsp-team-history":
           this.apiCall(this.apis.lspTeamHistory);
           break;
 
-        case 'lsp-team-complete':
+        case "lsp-team-complete":
           this.apiCall(this.apis.lspTeamComplete);
           break;
 
@@ -5735,23 +5709,23 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     toOrder: function toOrder(request, event) {
       var _this2 = this;
 
-      if (event.target.id == 'accept') {
-        if (this.type == 'On-call') {
-          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/' + request.id).then(function (response) {
+      if (event.target.id == "accept") {
+        if (this.type == "On-call") {
+          axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" + request.id).then(function (response) {
             _this2.getNew();
           })["catch"](this.errorMessage);
         } else {
-          axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/' + request.id).then(function (response) {
+          axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/" + request.id).then(function (response) {
             _this2.getNew();
           })["catch"](this.errorMessage);
         }
       } else {
-        if (this.type == 'On-call') {
+        if (this.type == 'on_call') {
           this.$router.push({
             name: 'order-repair',
             params: {
               id: request.id,
-              order_type: 'On Call'
+              orderType: 'On Call'
             }
           });
         } else {
@@ -5759,7 +5733,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
             name: 'order',
             params: {
               id: request.id,
-              order_type: 'Installation'
+              orderType: 'Installation'
             }
           });
         }
@@ -5770,7 +5744,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         name: 'lsp-order',
         params: {
           id: request.id,
-          order_type: request.request_type
+          orderType: request.request_type
         }
       });
     }
@@ -20272,13 +20246,17 @@ var render = function() {
               "div",
               { staticClass: "order-detail-header" },
               [
-                _c("CustomerTypeChip", {
-                  attrs: { value: _vm.detail.customer_type }
-                }),
+                _vm.detail.customer_type != null
+                  ? _c("CustomerTypeChip", {
+                      attrs: { value: _vm.detail.customer_type.name }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("OrderStepChip", {
-                  attrs: { value: _vm.detail.installation_step }
-                })
+                _vm.detail.installation_step != null
+                  ? _c("OrderStepChip", {
+                      attrs: { value: _vm.detail.installation_step.name }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -20290,11 +20268,11 @@ var render = function() {
             _c("div", { staticClass: "order-type" }, [
               _c("p", [
                 _vm._v("Order Type : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.request_type))])
+                _c("span", [_vm._v(_vm._s(_vm.order_type))])
               ])
             ]),
             _vm._v(" "),
-            _vm.order_type == "On Call"
+            _vm.order_type == "on_call"
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
                     _vm._v("Possible Issue : "),
@@ -20405,19 +20383,7 @@ var render = function() {
             "OrderInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Order Id", value: _vm.detail.order_id }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Order Type", value: _vm.detail.order_type }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Due", value: _vm.detail.due_date }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Status", value: _vm.detail.status }
+                attrs: { label: "Order Id", value: _vm.detail.id }
               }),
               _vm._v(" "),
               _c("TableRow", {
@@ -20425,11 +20391,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Promotion", value: _vm.detail.promotion }
+                attrs: { label: "Promo Name", value: _vm.detail.promotion }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Create Date", value: _vm.detail.createdDate }
+                attrs: { label: "Create Date", value: _vm.detail.created_at }
               })
             ],
             1
@@ -22089,13 +22055,10 @@ var render = function() {
         },
         [
           _c("CustomerHeader", {
-            attrs: {
-              id: request.customer,
-              step: request.installation_step.name
-            }
+            attrs: { id: request.customer, step: request.request_type }
           }),
           _vm._v(" "),
-          request.customer_type
+          request.customer_type != null
             ? _c("CustomerTypeChip", {
                 attrs: {
                   slot: "customer-chip",
@@ -22105,7 +22068,7 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          request.installation_step
+          request.installation_step != null
             ? _c("OrderStepChip", {
                 attrs: {
                   slot: "order-chip",
@@ -22115,7 +22078,7 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          request.due_date
+          request.created_at != null
             ? _c(
                 "CustomerIssueDate",
                 {
@@ -22123,7 +22086,7 @@ var render = function() {
                   slot: "customer-date",
                   scopedSlots: _vm._u(
                     [
-                      request.priority_level
+                      request.priority_level != null
                         ? {
                             key: "priority-date",
                             fn: function() {
@@ -22146,7 +22109,7 @@ var render = function() {
                 [
                   _vm._v(
                     "\n        " +
-                      _vm._s(_vm._f("format-date")(request.due_date)) +
+                      _vm._s(_vm._f("format-date")(request.created_at)) +
                       "\n        "
                   )
                 ]
@@ -22175,7 +22138,7 @@ var render = function() {
             slot: "customer-home-footer",
             scopedSlots: _vm._u(
               [
-                request.team !== null
+                request.team != null
                   ? {
                       key: "assign",
                       fn: function() {
@@ -42201,8 +42164,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/phoenix/Desktop/5BB/lsp/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/phoenix/Desktop/5BB/lsp/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/william/Desktop/mmds/S-5BB-LSP-Web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/william/Desktop/mmds/S-5BB-LSP-Web/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
