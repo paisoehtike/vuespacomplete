@@ -207,7 +207,11 @@ export default {
                     installation_request_id: this.$route.params.id,
                     step: 'splicing'
                 }
-            ).then( res => { console.log(res) } ).catch( console.log('Error') );
+            ).then( res => { 
+                if(res.status == 200) {
+                    this.$router.push('/lsp-home/remaining');
+                }
+            } ).catch( console.log('Error') );
         }
     },
     created() {

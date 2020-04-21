@@ -1,7 +1,7 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link :to="{ path: '/lsp-order/' + this.$route.params.id }" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-home/remaining' }" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Survey</h2>
         </router-link>
@@ -87,7 +87,11 @@ export default {
                     installation_request_id: this.$route.params.id,
                     step: 'survey'
                 }
-            ).then( res => { console.log(res) } ).catch( console.log('Error') );
+            ).then( res => { 
+                if(res.status == 200) {
+                    this.$router.push('/lsp-team-order/' + this.$route.params.id + '/cabling');
+                }
+            } ).catch( console.log('Error') );
         }
     },
     created() {

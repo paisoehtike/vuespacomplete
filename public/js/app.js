@@ -3434,9 +3434,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3750,11 +3747,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getActivate();
     },
     storeStep: function storeStep() {
+      var _this5 = this;
+
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
         step: 'splicing'
       }).then(function (res) {
-        console.log(res);
+        if (res.status == 200) {
+          _this5.$router.push('/lsp-home/remaining');
+        }
       })["catch"](console.log('Error'));
     }
   },
@@ -3822,11 +3823,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
+      var _this2 = this;
+
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
         step: 'cabling'
       }).then(function (res) {
-        console.log(res);
+        if (res.status == 200) {
+          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/splicing');
+        }
       })["catch"](console.log('Error'));
     }
   },
@@ -3958,11 +3963,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
+      var _this2 = this;
+
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
         step: 'splicing'
       }).then(function (res) {
-        console.log(res);
+        if (res.status == 200) {
+          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/activate');
+        }
       })["catch"](console.log('Error'));
     }
   },
@@ -4070,11 +4079,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
+      var _this2 = this;
+
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
         step: 'survey'
       }).then(function (res) {
-        console.log(res);
+        if (res.status == 200) {
+          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/cabling');
+        }
       })["catch"](console.log('Error'));
     }
   },
@@ -19135,9 +19148,11 @@ var render = function() {
               "div",
               { staticClass: "order-detail-header" },
               [
-                _c("CustomerTypeChip", {
-                  attrs: { value: _vm.detail.customer_type }
-                }),
+                _vm.detail.customer_type != null
+                  ? _c("CustomerTypeChip", {
+                      attrs: { value: _vm.detail.customer_type.name }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("OrderStepChip", {
                   attrs: { value: _vm.detail.installation_step }
@@ -19289,19 +19304,7 @@ var render = function() {
             "OrderInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Order Id", value: _vm.detail.order_id }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Order Type", value: _vm.detail.order_type }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Due", value: _vm.detail.due_date }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: { label: "Status", value: _vm.detail.status }
+                attrs: { label: "Order Id", value: _vm.detail.id }
               }),
               _vm._v(" "),
               _c("TableRow", {
@@ -19309,11 +19312,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Promotion", value: _vm.detail.promotion }
+                attrs: { label: "Promo Name", value: _vm.detail.promotion }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Create Date", value: _vm.detail.createdDate }
+                attrs: { label: "Create Date", value: _vm.detail.created_at }
               })
             ],
             1
@@ -19330,7 +19333,7 @@ var render = function() {
             "router-link",
             {
               staticClass: "col s12 m6 l3 view-detail",
-              attrs: { tag: "div", to: "/lsp-order/survey" }
+              attrs: { tag: "div", to: "" }
             },
             [_c("a", [_vm._v("View Installation Detail")])]
           ),
@@ -20070,10 +20073,7 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: {
-            to: { path: "/lsp-order/" + this.$route.params.id },
-            tag: "div"
-          }
+          attrs: { to: { path: "/lsp-home/remaining" }, tag: "div" }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),

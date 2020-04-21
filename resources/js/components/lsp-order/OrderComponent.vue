@@ -10,7 +10,7 @@
     <div class="order-detail-row">
       <OrderDetail>
         <div class="order-detail-header">
-          <CustomerTypeChip :value="detail.customer_type"></CustomerTypeChip>
+          <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
           <OrderStepChip :value="detail.installation_step"></OrderStepChip>
         </div>
         <div class="order-detail-id">
@@ -61,20 +61,17 @@
     </div>
     <div class="order-info-row">
       <OrderInfo>
-        <TableRow :label="'Order Id'" :value="detail.order_id"></TableRow>
-        <TableRow :label="'Order Type'" :value="detail.order_type"></TableRow>
-        <TableRow :label="'Due'" :value="detail.due_date"></TableRow>
-        <TableRow :label="'Status'" :value="detail.status"></TableRow>
+        <TableRow :label="'Order Id'" :value="detail.id"></TableRow>
         <TableRow :label="'Plan Name'" :value="detail.plan"></TableRow>
-        <TableRow :label="'Promotion'" :value="detail.promotion"></TableRow>
-        <TableRow :label="'Create Date'" :value="detail.createdDate"></TableRow>
+        <TableRow :label="'Promo Name'" :value="detail.promotion"></TableRow>
+        <TableRow :label="'Create Date'" :value="detail.created_at"></TableRow>
       </OrderInfo>
       <!-- <OrderInfo>
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>
       </OrderInfo> -->
     </div>
     <div class="order-button">
-      <router-link tag="div" to="/lsp-order/survey" class="col s12 m6 l3 view-detail">
+      <router-link tag="div" to="" class="col s12 m6 l3 view-detail">
         <a>View Installation Detail</a>
       </router-link>
       <div class="col s12 m6 l3 complete-btn">
