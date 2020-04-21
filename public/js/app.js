@@ -2195,7 +2195,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams/' + this.$route.params.id).then(function (response) {
+      axios.get(this.base_url + 'teams/' + this.$route.params.id).then(function (response) {
         _this.bindTeamDetail(response);
       })["catch"](console.log('Error'));
     },
@@ -37024,6 +37024,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
         'Authorization': 'Bearer ' + this.$cookie.get('token')
       };
     }
+  },
+  data: function data() {
+    return {
+      get base_url() {
+        return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+      }
+
+    };
   }
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date', function (value) {

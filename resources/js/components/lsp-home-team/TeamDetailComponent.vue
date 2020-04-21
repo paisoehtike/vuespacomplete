@@ -199,7 +199,7 @@ export default {
       this.teamDetail = response.data.data
     },
     getDetail() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams/' + this.$route.params.id)
+      axios.get(this.base_url + 'teams/' + this.$route.params.id)
         .then( response => { this.bindTeamDetail(response) } )
         .catch( console.log('Error') );
     },
