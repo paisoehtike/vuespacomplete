@@ -11,7 +11,7 @@
       <OrderDetail>
         <div class="order-detail-header">
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
-          <OrderStepChip :value="detail.installation_step"></OrderStepChip>
+          <OrderStepChip v-if="detail.installation_step != null" :value="detail.installation_step"></OrderStepChip>
         </div>
         <div class="order-detail-id">
           <h4>{{detail.customer}}</h4>
@@ -25,20 +25,27 @@
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
-        <div v-if="detail.priority_level" class="order-type">
-          <p>Priority Level : <span class="priority-level">{{detail.priority_level}} Hrs</span></p>
+        <div v-if="detail.priority_level != null" class="order-type">
+          <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
         </div>
       </OrderDetail>
     </div>
     <div class="order-assigned-row">
       <span>Assigned Team :</span>
-      <span v-if="!detail.team">Not Assigned</span>
-      <span v-else>{{ detail.team.name }}</span>
-      <AssignOrSwitchTeamComponent v-if="!detail.team" 
-      :customer="customer"
+      <span v-if="!detail.lsp_team">Not Assigned</span>
+      <span v-else>{{ detail.lsp_team.name }}</span>
+
+      <AssignOrSwitchTeamComponent v-if="!detail.lsp_team" 
+      :customer="detail"
       :teams="teams" 
-      :type="'New'"></AssignOrSwitchTeamComponent>
-      <AssignOrSwitchTeamComponent v-else :customer="customer" :type="'Accept'"></AssignOrSwitchTeamComponent>
+      :type="'New'"
+      :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
+
+      <AssignOrSwitchTeamComponent v-else 
+      :customer="detail"
+      :type="'Accept'"
+      :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
+
       <!-- <a class="waves-effect btn">Assign</a> -->
     </div>
     <div class="customer-info-row">

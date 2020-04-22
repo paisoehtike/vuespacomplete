@@ -1,6 +1,6 @@
 <template>
   <div class="inventory-container">
-    <Header></Header>
+    <Header :type="'admin'"></Header>
 
     <table>
       <thead>

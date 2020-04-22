@@ -2,7 +2,7 @@
   <div class="home-container">
     <div class="home-container-row">
       <div class="home-header-row">
-        <Header></Header>
+        <Header :type="'admin'"></Header>
       </div>
       <div class="home-customer-header-button">
         <HomeHeaderButton :firstUrl="url.new" :secondUrl="url.accept" :thirdUrl="url.history">

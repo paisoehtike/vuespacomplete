@@ -8,11 +8,14 @@
 
           <CustomerIssueDate v-if="request.created_at != null" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
-            {{request.created_at | format-date}}
+            <template
+              v-slot:lsp-accept-date
+              v-if="request.lsp_accepted_at != null"
+              >{{request.lsp_accepted_at | format-date}}</template>
             <template
               v-slot:priority-date
               v-if="request.priority_level != null"
-            >| {{request.priority_level.name}} Hrs</template>
+            >| {{request.priority_level.name}} </template>
             <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
 
@@ -22,8 +25,12 @@
             :address="request.address"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
-            <template v-if="request.team != null" v-slot:assign>{{ request.team.name }}</template>
+            <template v-if="request.lsp_team != null" v-slot:assign>{{ request.lsp_team.name }}</template>
             <template v-else v-slot:assign>Not Assigned</template>
+
+            <template v-if="request.lsp_accepted_at != null" v-slot:isAccept>Assign Team</template>
+            <template v-else-if="request.start_assign_at != null" v-slot:isAccept>Switch Team</template>
+            <template v-else v-slot:isAccept>Accept</template>
           </CustomerHomeFooterButton>
         </Customer>
     </div>
@@ -122,7 +129,7 @@ export default {
     },
     toOrder(request, event) {
       if (event.target.id == "accept") {
-        if (this.type == "On-call") {
+        if (this.type == "on_call") {
           axios
             .post(
               "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" +

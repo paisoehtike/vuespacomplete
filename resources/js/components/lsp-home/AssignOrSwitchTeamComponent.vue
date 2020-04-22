@@ -10,30 +10,33 @@
         <transition name="slide" appear>
             <div class="modal-box" v-if="showModal">
                 <div class="assign-team-modal-header">
-                    <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-                    <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+                    <CustomerTypeChip v-if="customer.customer_type != null" :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
+                    <OrderStepChip v-if="customer.installation_step != null" :value="customer.installation_step" slot="order-chip"></OrderStepChip>
                 </div>
                 <div class="customer-request-detail">
                     <div>
-                        <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+                        <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
                     </div>
                     <div class="customer-request-date">
                         <CustomerIssueDate slot="customer-date">
-                            {{customer.date}}
+                            <template 
+                                v-slot:lsp-accept-date
+                                v-if="customer.lsp_accepted_at != null"
+                                >{{customer.lsp_accepted_at | format-date}}</template>
                             <template
                                 v-slot:priority-date
-                                v-if="customer.priority"
-                                >| {{customer.priority}} Hrs</template>
+                                v-if="customer.priority_level != null"
+                                >| {{customer.priority_level.name}} </template>
                             <template
                                 v-slot:issue
-                                v-if="customer.issue"
-                                >| {{ customer.issue }}</template>
+                                v-if="customer.issue != null"
+                                >| {{ customer.issue.name }}</template>
                         </CustomerIssueDate>
                     </div>
                 </div>
                 <CustomerDetailChip
                     slot="customer-detail-chip"
-                    :value="customer.customerName"
+                    :value="customer.name"
                     :address="customer.address"
                 ></CustomerDetailChip>
                 <h2 v-if="type == 'Accept'">Assigned Team :</h2>
@@ -87,7 +90,7 @@ import Teams from "./../lsp-home-team/TeamComponent";
 
 export default {
     props: [
-        'customer', 'type', 'teams'
+        'customer', 'type', 'teams', 'assignedTeam'
     ],
     components: {
         CustomerTypeChip,
@@ -103,13 +106,13 @@ export default {
             assignOrSwitch: null,
             selected: null,
             teamId: null,
-            assignedTeam: {
-                teamName: "Team A",
-                customerName: "Min Min",
-                remaining: "5",
-                manPower: "6",
-                complete: "3"
-            },
+            // assignedTeam: {
+            //     teamName: "Team A",
+            //     customerName: "Min Min",
+            //     remaining: "5",
+            //     manPower: "6",
+            //     complete: "3"
+            // },
             // teams: [
             //     {
             //         teamName: "Team A",
