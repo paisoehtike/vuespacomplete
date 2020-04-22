@@ -1992,12 +1992,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     InputGroup: _reuseable_component_InputGroupComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      teamName: null,
+      leaderName: null,
+      phone: null,
+      ftPassword: null,
+      manPower: null
+    };
+  },
+  methods: {
+    storeTeam: function storeTeam() {
+      axios.post(this.base_url + 'teams', {
+        team_name: this.teamName,
+        leader_name: this.leaderName,
+        phone: this.phone,
+        first_time_password: this.ftPassword,
+        man_power: this.manPower
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Error'));
+    }
   }
 });
 
@@ -17168,95 +17212,166 @@ var render = function() {
       _vm._v(" "),
       _c("SquareImage"),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "create-value-name" },
-        [
-          _c("InputGroup", {
-            attrs: { name: "team_name", label: "Team Name :", typeName: "text" }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "create-value-name" },
-        [
-          _c("InputGroup", {
-            attrs: {
-              name: "leader_name",
-              label: "Leader Name :",
-              typeName: "text"
+      _c("div", { staticClass: "create-value-name" }, [
+        _c("div", { staticClass: "input-group" }, [
+          _c("label", [_vm._v("Team Name")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.teamName,
+                expression: "teamName"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.teamName },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.teamName = $event.target.value
+              }
             }
           })
-        ],
-        1
-      ),
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "create-value-name" },
-        [
-          _c("InputGroup", {
-            attrs: {
-              name: "phone_number",
-              label: "Phone Number :",
-              typeName: "text"
+      _c("div", { staticClass: "create-value-name" }, [
+        _c("div", { staticClass: "input-group" }, [
+          _c("label", [_vm._v("Leader Name")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.leaderName,
+                expression: "leaderName"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.leaderName },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.leaderName = $event.target.value
+              }
             }
           })
-        ],
-        1
-      ),
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "create-value-name" },
-        [
-          _c("InputGroup", {
-            attrs: {
-              name: "first_password",
-              label: "First Time Password :",
-              typeName: "password"
+      _c("div", { staticClass: "create-value-name" }, [
+        _c("div", { staticClass: "input-group" }, [
+          _c("label", [_vm._v("Phone Number")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.phone,
+                expression: "phone"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.phone },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.phone = $event.target.value
+              }
             }
           })
-        ],
-        1
-      ),
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "create-value-name" },
-        [
-          _c("InputGroup", {
-            attrs: {
-              name: "man_power",
-              label: "Man Power :",
-              typeName: "text",
-              className: "create-man-power"
+      _c("div", { staticClass: "create-value-name" }, [
+        _c("div", { staticClass: "input-group" }, [
+          _c("label", [_vm._v("First Time Password")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.ftPassword,
+                expression: "ftPassword"
+              }
+            ],
+            attrs: { type: "password" },
+            domProps: { value: _vm.ftPassword },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.ftPassword = $event.target.value
+              }
             }
           })
-        ],
-        1
-      ),
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "create-value-name" }, [
+        _c("div", { staticClass: "input-group" }, [
+          _c("label", [_vm._v("Man Power")]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.manPower,
+                expression: "manPower"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.manPower },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.manPower = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "create-button" }, [
+        _c(
+          "a",
+          {
+            staticClass: "waves-effect waves-light btn orange",
+            on: { click: _vm.storeTeam }
+          },
+          [_vm._v("Create")]
+        )
+      ])
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "create-button" }, [
-      _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-        _vm._v("Create")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
