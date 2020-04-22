@@ -8,32 +8,76 @@
     </div>
     <SquareImage></SquareImage>
     <div class="create-value-name">
-      <InputGroup name="team_name" :label="'Team Name :'" :typeName="'text'"/>
+      <div class="input-group">
+        <label>Team Name</label>
+        <br>
+        <input v-model="teamName" type="text"/>
+      </div>
     </div>
     <div class="create-value-name">
-      <InputGroup name="leader_name" :label="'Leader Name :'" :typeName="'text'"/>
+      <div class="input-group">
+        <label>Leader Name</label>
+        <br>
+        <input v-model="leaderName" type="text"/>
+      </div>
     </div>
     <div class="create-value-name">
-      <InputGroup name="phone_number" :label="'Phone Number :'" :typeName="'text'"/>
+      <div class="input-group">
+        <label>Phone Number</label>
+        <br>
+        <input v-model="phone" type="text"/>
+      </div>
     </div>
     <div class="create-value-name">
-      <InputGroup name="first_password" :label="'First Time Password :'" :typeName="'password'"/>
+      <div class="input-group">
+        <label>First Time Password</label>
+        <br>
+        <input v-model="ftPassword" type="password"/>
+      </div>
     </div>
     <div class="create-value-name">
-      <InputGroup name="man_power" :label="'Man Power :'" :typeName="'text'" :className="'create-man-power'"/>
+      <div class="input-group">
+        <label>Man Power</label>
+        <br>
+        <input v-model="manPower" type="text"/>
+      </div>
     </div>
     <div class="create-button">
-      <a class="waves-effect waves-light btn orange">Create</a>
+      <a @click="storeTeam" class="waves-effect waves-light btn orange">Create</a>
     </div>
   </div>
 </template>
 <script>
+const axios = require('axios');
+
 import SquareImage from "./../reuseable-customer/SquareImageComponent";
 import InputGroup from './../reuseable-component/InputGroupComponent';
 export default {
   components: {
     SquareImage,
     InputGroup
+  },
+  data() {
+    return {
+      teamName: null,
+      leaderName: null,
+      phone: null,
+      ftPassword: null,
+      manPower: null,
+    }
+  },
+  methods: {
+    storeTeam() {
+      axios.post(this.base_url + 'teams', 
+        {
+          team_name: this.teamName,
+          leader_name: this.leaderName,
+          phone: this.phone,
+          first_time_password: this.ftPassword,
+          man_power: this.manPower
+        }
+      ).then( res => { console.log(res) } ).catch( console.log('Error') );
+    }
   }
 };
 </script>
