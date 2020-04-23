@@ -68,8 +68,8 @@
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
-        <div v-if="detail.priority_level" class="order-type">
-          <p>Priority Level : <span class="priority-level">{{detail.priority_level}} Hrs</span></p>
+        <div v-if="detail.priority_level != null" class="order-type">
+          <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}} Hrs</span></p>
         </div>
       </OrderDetail>
     </div>
@@ -122,7 +122,7 @@ import OrderStepChip from "./../reuseable-component/OrderStepChipComponent";
 
 export default {
   props: [
-    'id',
+    'id', 'orderType'
   ],
   components: {
     CustomerInfo,

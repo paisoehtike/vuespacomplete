@@ -1,7 +1,7 @@
 <template>
   <div class="customer-date">
     <span>
-      <slot></slot>
+      <slot name="lsp-accept-date"></slot>
     </span>
     <span class="priority">
       <slot name="priority-date"></slot>

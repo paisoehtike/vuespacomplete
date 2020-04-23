@@ -2032,6 +2032,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   methods: {
     storeTeam: function storeTeam() {
+      var _this = this;
+
       axios.post(this.base_url + 'teams', {
         team_name: this.teamName,
         leader_name: this.leaderName,
@@ -2039,8 +2041,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         first_time_password: this.ftPassword,
         man_power: this.manPower
       }).then(function (res) {
-        console.log(res);
+        _this.redirect(res);
       })["catch"](console.log('Error'));
+    },
+    redirect: function redirect(res) {
+      if (res.status == 201) {
+        this.$router.push('/home/team');
+      }
     }
   }
 });
@@ -2511,6 +2518,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -2520,7 +2530,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['customer', 'type', 'teams'],
+  props: ['customer', 'type', 'teams', 'assignedTeam'],
   components: {
     CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2534,14 +2544,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       showModal: false,
       assignOrSwitch: null,
       selected: null,
-      teamId: null,
-      assignedTeam: {
-        teamName: "Team A",
-        customerName: "Min Min",
-        remaining: "5",
-        manPower: "6",
-        complete: "3"
-      } // teams: [
+      teamId: null // assignedTeam: {
+      //     teamName: "Team A",
+      //     customerName: "Min Min",
+      //     remaining: "5",
+      //     manPower: "6",
+      //     complete: "3"
+      // },
+      // teams: [
       //     {
       //         teamName: "Team A",
       //         customerName: "Min Min",
@@ -3500,6 +3510,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4301,7 +4318,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
+  props: ['id', 'orderType'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5710,6 +5727,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -5805,7 +5829,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this2 = this;
 
       if (event.target.id == "accept") {
-        if (this.type == "On-call") {
+        if (this.type == "on_call") {
           axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" + request.id).then(function (response) {
             _this2.getNew();
           })["catch"](this.errorMessage);
@@ -17195,7 +17219,13 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "inventory-container" },
-    [_c("Header"), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("HomeFooterButton")],
+    [
+      _c("Header", { attrs: { type: "admin" } }),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("HomeFooterButton")
+    ],
     1
   )
 }
@@ -17871,7 +17901,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "team-index-header-row" },
-            [_c("Header")],
+            [_c("Header", { attrs: { type: "admin" } })],
             1
           ),
           _vm._v(" "),
@@ -18006,7 +18036,12 @@ var render = function() {
         "div",
         { staticClass: "home-container-row" },
         [
-          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _c(
+            "div",
+            { staticClass: "home-header-row" },
+            [_c("Header", { attrs: { type: "admin" } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -18118,21 +18153,25 @@ var render = function() {
                   "div",
                   { staticClass: "assign-team-modal-header" },
                   [
-                    _c("CustomerTypeChip", {
-                      attrs: {
-                        slot: "customer-chip",
-                        value: _vm.customer.customerType
-                      },
-                      slot: "customer-chip"
-                    }),
+                    _vm.customer.customer_type != null
+                      ? _c("CustomerTypeChip", {
+                          attrs: {
+                            slot: "customer-chip",
+                            value: _vm.customer.customer_type.name
+                          },
+                          slot: "customer-chip"
+                        })
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("OrderStepChip", {
-                      attrs: {
-                        slot: "order-chip",
-                        value: _vm.customer.orderStep
-                      },
-                      slot: "order-chip"
-                    })
+                    _vm.customer.installation_step != null
+                      ? _c("OrderStepChip", {
+                          attrs: {
+                            slot: "order-chip",
+                            value: _vm.customer.installation_step
+                          },
+                          slot: "order-chip"
+                        })
+                      : _vm._e()
                   ],
                   1
                 ),
@@ -18143,8 +18182,8 @@ var render = function() {
                     [
                       _c("CustomerHeader", {
                         attrs: {
-                          id: _vm.customer.name,
-                          step: _vm.customer.orderStep
+                          id: _vm.customer.customer,
+                          step: _vm.customer.request_type
                         }
                       })
                     ],
@@ -18155,54 +18194,63 @@ var render = function() {
                     "div",
                     { staticClass: "customer-request-date" },
                     [
-                      _c(
-                        "CustomerIssueDate",
-                        {
-                          attrs: { slot: "customer-date" },
-                          slot: "customer-date",
-                          scopedSlots: _vm._u(
-                            [
-                              _vm.customer.priority
-                                ? {
-                                    key: "priority-date",
-                                    fn: function() {
-                                      return [
-                                        _vm._v(
-                                          "| " +
-                                            _vm._s(_vm.customer.priority) +
-                                            " Hrs"
+                      _c("CustomerIssueDate", {
+                        attrs: { slot: "customer-date" },
+                        slot: "customer-date",
+                        scopedSlots: _vm._u(
+                          [
+                            _vm.customer.lsp_accepted_at != null
+                              ? {
+                                  key: "lsp-accept-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("format-date")(
+                                            _vm.customer.lsp_accepted_at
+                                          )
                                         )
-                                      ]
-                                    },
-                                    proxy: true
-                                  }
-                                : null,
-                              _vm.customer.issue
-                                ? {
-                                    key: "issue",
-                                    fn: function() {
-                                      return [
-                                        _vm._v(
-                                          "| " + _vm._s(_vm.customer.issue)
-                                        )
-                                      ]
-                                    },
-                                    proxy: true
-                                  }
-                                : null
-                            ],
-                            null,
-                            true
-                          )
-                        },
-                        [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.customer.date) +
-                              "\n                        "
-                          )
-                        ]
-                      )
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null,
+                            _vm.customer.priority_level != null
+                              ? {
+                                  key: "priority-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        "| " +
+                                          _vm._s(
+                                            _vm.customer.priority_level.name
+                                          ) +
+                                          " "
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null,
+                            _vm.customer.issue != null
+                              ? {
+                                  key: "issue",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        "| " + _vm._s(_vm.customer.issue.name)
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null
+                          ],
+                          null,
+                          true
+                        )
+                      })
                     ],
                     1
                   )
@@ -18211,7 +18259,7 @@ var render = function() {
                 _c("CustomerDetailChip", {
                   attrs: {
                     slot: "customer-detail-chip",
-                    value: _vm.customer.customerName,
+                    value: _vm.customer.name,
                     address: _vm.customer.address
                   },
                   slot: "customer-detail-chip"
@@ -18394,7 +18442,12 @@ var render = function() {
         "div",
         { staticClass: "home-container-row" },
         [
-          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _c(
+            "div",
+            { staticClass: "home-header-row" },
+            [_c("Header", { attrs: { type: "admin" } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -18710,7 +18763,12 @@ var render = function() {
         "div",
         { staticClass: "home-container-row" },
         [
-          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _c(
+            "div",
+            { staticClass: "home-header-row" },
+            [_c("Header", { attrs: { type: "admin" } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -18792,7 +18850,12 @@ var render = function() {
         "div",
         { staticClass: "home-container-row" },
         [
-          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _c(
+            "div",
+            { staticClass: "home-header-row" },
+            [_c("Header", { attrs: { type: "admin" } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -18874,7 +18937,12 @@ var render = function() {
         "div",
         { staticClass: "home-container-row" },
         [
-          _c("div", { staticClass: "home-header-row" }, [_c("Header")], 1),
+          _c(
+            "div",
+            { staticClass: "home-header-row" },
+            [_c("Header", { attrs: { type: "admin" } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -19349,9 +19417,11 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _c("OrderStepChip", {
-                  attrs: { value: _vm.detail.installation_step }
-                })
+                _vm.detail.installation_step != null
+                  ? _c("OrderStepChip", {
+                      attrs: { value: _vm.detail.installation_step }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -19389,12 +19459,12 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.detail.priority_level
+            _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
                     _vm._v("Priority Level : "),
                     _c("span", { staticClass: "priority-level" }, [
-                      _vm._v(_vm._s(_vm.detail.priority_level) + " Hrs")
+                      _vm._v(_vm._s(_vm.detail.priority_level.name))
                     ])
                   ])
                 ])
@@ -19410,16 +19480,25 @@ var render = function() {
         [
           _c("span", [_vm._v("Assigned Team :")]),
           _vm._v(" "),
-          !_vm.detail.team
+          !_vm.detail.lsp_team
             ? _c("span", [_vm._v("Not Assigned")])
-            : _c("span", [_vm._v(_vm._s(_vm.detail.team.name))]),
+            : _c("span", [_vm._v(_vm._s(_vm.detail.lsp_team.name))]),
           _vm._v(" "),
-          !_vm.detail.team
+          !_vm.detail.lsp_team
             ? _c("AssignOrSwitchTeamComponent", {
-                attrs: { customer: _vm.customer, teams: _vm.teams, type: "New" }
+                attrs: {
+                  customer: _vm.detail,
+                  teams: _vm.teams,
+                  type: "New",
+                  assignedTeam: _vm.detail.lsp_team
+                }
               })
             : _c("AssignOrSwitchTeamComponent", {
-                attrs: { customer: _vm.customer, type: "Accept" }
+                attrs: {
+                  customer: _vm.detail,
+                  type: "Accept",
+                  assignedTeam: _vm.detail.lsp_team
+                }
               })
         ],
         1
@@ -20489,12 +20568,12 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.detail.priority_level
+            _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
                     _vm._v("Priority Level : "),
                     _c("span", { staticClass: "priority-level" }, [
-                      _vm._v(_vm._s(_vm.detail.priority_level) + " Hrs")
+                      _vm._v(_vm._s(_vm.detail.priority_level.name) + " Hrs")
                     ])
                   ])
                 ])
@@ -21855,22 +21934,18 @@ var render = function() {
         _c("span", [_vm._t("assign")], 2)
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "customer-home-assigned-button" }, [
+        _c(
+          "a",
+          { staticClass: "btn", attrs: { id: "accept" } },
+          [_vm._t("isAccept")],
+          2
+        )
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "customer-home-assigned-button" }, [
-      _c("a", { staticClass: "btn", attrs: { id: "accept" } }, [
-        _vm._v("Accept")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21893,7 +21968,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "customer-date" }, [
-    _c("span", [_vm._t("default")], 2),
+    _c("span", [_vm._t("lsp-accept-date")], 2),
     _vm._v(" "),
     _c("span", { staticClass: "priority" }, [_vm._t("priority-date")], 2),
     _vm._v(" "),
@@ -22279,41 +22354,44 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           request.created_at != null
-            ? _c(
-                "CustomerIssueDate",
-                {
-                  attrs: { slot: "customer-date" },
-                  slot: "customer-date",
-                  scopedSlots: _vm._u(
-                    [
-                      request.priority_level != null
-                        ? {
-                            key: "priority-date",
-                            fn: function() {
-                              return [
-                                _vm._v(
-                                  "| " +
-                                    _vm._s(request.priority_level.name) +
-                                    " Hrs"
+            ? _c("CustomerIssueDate", {
+                attrs: { slot: "customer-date" },
+                slot: "customer-date",
+                scopedSlots: _vm._u(
+                  [
+                    request.lsp_accepted_at != null
+                      ? {
+                          key: "lsp-accept-date",
+                          fn: function() {
+                            return [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("format-date")(request.lsp_accepted_at)
                                 )
-                              ]
-                            },
-                            proxy: true
-                          }
-                        : null
-                    ],
-                    null,
-                    true
-                  )
-                },
-                [
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(_vm._f("format-date")(request.created_at)) +
-                      "\n        "
-                  )
-                ]
-              )
+                              )
+                            ]
+                          },
+                          proxy: true
+                        }
+                      : null,
+                    request.priority_level != null
+                      ? {
+                          key: "priority-date",
+                          fn: function() {
+                            return [
+                              _vm._v(
+                                "| " + _vm._s(request.priority_level.name) + " "
+                              )
+                            ]
+                          },
+                          proxy: true
+                        }
+                      : null
+                  ],
+                  null,
+                  true
+                )
+              })
             : _vm._e(),
           _vm._v(" "),
           _c("CustomerDetailChip", {
@@ -22338,11 +22416,11 @@ var render = function() {
             slot: "customer-home-footer",
             scopedSlots: _vm._u(
               [
-                request.team != null
+                request.lsp_team != null
                   ? {
                       key: "assign",
                       fn: function() {
-                        return [_vm._v(_vm._s(request.team.name))]
+                        return [_vm._v(_vm._s(request.lsp_team.name))]
                       },
                       proxy: true
                     }
@@ -22350,6 +22428,29 @@ var render = function() {
                       key: "assign",
                       fn: function() {
                         return [_vm._v("Not Assigned")]
+                      },
+                      proxy: true
+                    },
+                request.lsp_accepted_at != null
+                  ? {
+                      key: "isAccept",
+                      fn: function() {
+                        return [_vm._v("Assign Team")]
+                      },
+                      proxy: true
+                    }
+                  : request.start_assign_at != null
+                  ? {
+                      key: "isAccept",
+                      fn: function() {
+                        return [_vm._v("Switch Team")]
+                      },
+                      proxy: true
+                    }
+                  : {
+                      key: "isAccept",
+                      fn: function() {
+                        return [_vm._v("Accept")]
                       },
                       proxy: true
                     }
@@ -42242,7 +42343,7 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
   }, {
-    path: '/lsp-order/:id',
+    path: '/lsp-order/:id/:orderType',
     name: 'lsp-order',
     component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__["default"],
     props: true

@@ -76,7 +76,14 @@ export default {
           first_time_password: this.ftPassword,
           man_power: this.manPower
         }
-      ).then( res => { console.log(res) } ).catch( console.log('Error') );
+      ).then( res => { 
+        this.redirect(res); 
+      } ).catch( console.log('Error') );
+    },
+    redirect(res) {
+      if(res.status == 201) {
+        this.$router.push('/home/team');
+      }
     }
   }
 };

@@ -7,7 +7,7 @@
         <span><slot name="assign"></slot></span>
       </div>
       <div class="customer-home-assigned-button">
-        <a class="btn" id="accept">Accept</a>
+        <a class="btn" id="accept"><slot name="isAccept"></slot></a>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@
   <div class="team-index-container">
     <div class="team-index-container-row">
       <div class="team-index-header-row">
-        <Header></Header>
+        <Header :type="'admin'"></Header>
       </div>
       <Teams v-for="(team, index) in teams" :key="index" @click="toDetail(team.id)">
         <template v-slot:team-name>{{team.name}}</template>
