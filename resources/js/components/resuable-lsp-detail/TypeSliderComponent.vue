@@ -38,13 +38,12 @@ export default {
         typeOnClick(typer) {
             this.selected = typer.id;
             this.$emit('type-id', typer.id);
-        },
-        defaultSelect() {
-            this.selected = this.defaultId;
         }
     },
-    mounted() {
-        this.defaultSelect();
+    watch: {
+        defaultId: function(val) {
+            this.selected = val;
+        }
     }
 }
 </script>
