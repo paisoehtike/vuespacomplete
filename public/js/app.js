@@ -3708,7 +3708,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   data: function data() {
     return {
       selectedOnuType: null,
-      selectedfpc: null,
+      selectedFpc: null,
       remarks: null,
       images: null,
       image: null,
@@ -3815,7 +3815,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
         if (res.data.data.product_usage !== null) {
           _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
-          _this3.selectedfpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this3.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
         }
       })["catch"](console.log('Error'));
     },
@@ -3964,6 +3964,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3975,16 +3988,99 @@ __webpack_require__.r(__webpack_exports__);
     FinishButton: _resuable_lsp_detail_FinishButtonComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     MultipleRemark: _resuable_lsp_detail_MultipleRemarkComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  data: function data() {
+    return {
+      remarks: null,
+      fiber_cable_length: null,
+      selectedOnuType: null,
+      selectedFpc: null,
+      selectedTb: null,
+      selectedOnuAdapter: null,
+      fiber_cable: null,
+      fiber_patch_cord: null,
+      fpcId: null,
+      onu_adapter: null,
+      onuAdapterId: null,
+      onu_type: null,
+      onuId: null,
+      termination_box: null,
+      tbId: null
+    };
+  },
   methods: {
-    onuType: function onuType() {
-      return ['Huawei', 'ZTE', 'Xiaomi', 'Sony', 'Sony', 'Sony', 'Sony'];
+    setOnuId: function setOnuId(id) {
+      this.onuId = id;
     },
-    fpc: function fpc() {
-      return ['SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC', 'SC_APC/SC_APC'];
+    setFpcId: function setFpcId(id) {
+      this.fpcId = id;
     },
-    tBox: function tBox() {
-      return ['1 Cores OTB', '1 Cores OTB', '1 Cores OTB', '1 Cores OTB', '1 Cores OTB', '1 Cores OTB'];
+    setTbId: function setTbId(id) {
+      this.tbId = id;
+    },
+    setOnuAdapterId: function setOnuAdapterId(id) {
+      this.onuAdapterId = id;
+    },
+    loadPreRemarks: function loadPreRemarks(remarks) {
+      this.remarks = remarks;
+    },
+    preconfigInventory: function preconfigInventory(data) {
+      this.onu_type = data.onu_type;
+      this.termination_box = data.termination_box;
+      this.onu_adapter = data.onu_adapter;
+      this.fiber_patch_cord = data.fiber_patch_cord;
+      this.fiber_cable = data.fiber_cable;
+    },
+    preconfigRepair: function preconfigRepair(res) {
+      if (res.data.data.remarks !== null) {
+        this.remarks = res.data.data.remarks;
+      }
+
+      if (res.data.data.product_usage !== null) {
+        this.selectedOnuType = res.data.data.product_usage.onu_type.id;
+        this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+        this.selectedTb = res.data.data.product_usage.termination_box.id;
+        this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+      }
+    },
+    refresh: function refresh() {
+      this.getRepair();
+    },
+    getRepair: function getRepair() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/repair?on_call_request_id=' + this.$route.params.id).then(function (res) {
+        _this.preconfigRepair(res);
+      })["catch"](console.log('Error'));
+    },
+    getInventory: function getInventory() {
+      var _this2 = this;
+
+      axios.get(this.base_url + 'lsp_team/activation_inventory').then(function (res) {
+        _this2.preconfigInventory(res.data.data);
+      })["catch"](console.log('Error'));
+    },
+    storeRepair: function storeRepair() {
+      axios.post(this.base_url + 'lsp_team/repair_store', {
+        on_call_request_id: this.$route.params.id,
+        onu_type_id: this.onuId,
+        onu_type_quantity: 1,
+        fiber_patch_cord_id: this.fpcId,
+        fiber_patch_cord_quantity: 1,
+        termination_box_id: this.tbId,
+        termination_box_quantity: 1,
+        onu_adapter_id: this.onuAdapterId,
+        onu_adapter_quantity: 1,
+        fiber_cable_id: this.fiber_cable[0].id,
+        fiber_cable_length: this.fiber_cable_length,
+        type: 'on_call'
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Sry Pl!'));
     }
+  },
+  created: function created() {
+    this.getRepair();
+    this.getInventory();
   }
 });
 
@@ -5049,6 +5145,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_delete/' + id).then(function (response) {
           _this.$emit('reload');
         })["catch"](console.log('Error'));
+      } else if (this.type == 'repair') {
+        axios.post(this.base_url + 'lsp_team/repair_remark_delete/' + id).then(function (response) {
+          _this.$emit('reload');
+        })["catch"](console.log('Error'));
       } else {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
           _this.$emit('reload');
@@ -5066,6 +5166,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         })["catch"](console.log('Error'));
       } else if (this.type == 'activation') {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_update/' + id, {
+          remark: remark.remark
+        }).then(function (response) {
+          _this2.$emit('reload');
+        })["catch"](console.log('Error'));
+      } else if (this.type == 'repair') {
+        axios.post(this.base_url + 'lsp_team/repair_remark_update/' + id, {
           remark: remark.remark
         }).then(function (response) {
           _this2.$emit('reload');
@@ -5094,6 +5200,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           remark: remark.remark
         }).then(function (response) {
           _this3.$emit('reload', response);
+        })["catch"](console.log('Error'));
+      } else if (this.type == 'repair') {
+        axios.post(this.base_url + 'lsp_team/repair_remark_store', {
+          on_call_request_id: this.id,
+          remark: remark.remark
+        }).then(function (response) {
+          _this3.$emit('reload');
         })["catch"](console.log('Error'));
       } else {
         axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
@@ -5379,13 +5492,12 @@ __webpack_require__.r(__webpack_exports__);
     typeOnClick: function typeOnClick(typer) {
       this.selected = typer.id;
       this.$emit('type-id', typer.id);
-    },
-    defaultSelect: function defaultSelect() {
-      this.selected = this.defaultId;
     }
   },
-  mounted: function mounted() {
-    this.defaultSelect();
+  watch: {
+    defaultId: function defaultId(val) {
+      this.selected = val;
+    }
   }
 });
 
@@ -19990,12 +20102,12 @@ var render = function() {
             [_vm._v("Fibre Patch Cord :")]
           ),
           _vm._v(" "),
-          _vm.selectedfpc
+          _vm.selectedFpc
             ? _c("TypeSlider", {
                 attrs: {
                   id: "fpc",
                   type: _vm.fiber_patch_cord,
-                  defaultId: _vm.selectedfpc
+                  defaultId: _vm.selectedFpc
                 },
                 on: { "type-id": _vm.setFpcId }
               })
@@ -20003,7 +20115,7 @@ var render = function() {
                 attrs: {
                   id: "fpc",
                   type: _vm.fiber_patch_cord,
-                  defaultId: _vm.selectedfpc
+                  defaultId: _vm.selectedFpc
                 },
                 on: { "type-id": _vm.setFpcId }
               }),
@@ -20175,7 +20287,7 @@ var render = function() {
         {
           staticClass: "order-header-row",
           attrs: {
-            to: { path: "/lsp-order/" + this.$route.params.id },
+            to: { path: "/lsp-order/" + this.$route.params.id + "/on_call" },
             tag: "div"
           }
         },
@@ -20194,53 +20306,127 @@ var render = function() {
           _vm._v(" "),
           _c("label", { staticClass: "activate-label" }, [_vm._v("ONU S/N :")]),
           _vm._v(" "),
-          _c("TypeSlider", { attrs: { type: _vm.onuType } }),
+          _vm.selectedOnuType
+            ? _c("TypeSlider", {
+                attrs: { type: _vm.onu_type, defaultId: _vm.selectedOnuType },
+                on: { "type-id": _vm.setOnuId }
+              })
+            : _c("TypeSlider", {
+                attrs: { type: _vm.onu_type, defaultId: _vm.selectedOnuType },
+                on: { "type-id": _vm.setOnuId }
+              }),
           _vm._v(" "),
           _c("label", { staticClass: "activate-label" }, [
             _vm._v("Fibre Patch Cord :")
           ]),
           _vm._v(" "),
-          _c("TypeSlider", { attrs: { type: _vm.fpc } }),
+          _vm.selectedFpc
+            ? _c("TypeSlider", {
+                attrs: {
+                  type: _vm.fiber_patch_cord,
+                  defaultId: _vm.selectedFpc
+                },
+                on: { "type-id": _vm.setFpcId }
+              })
+            : _c("TypeSlider", {
+                attrs: {
+                  type: _vm.fiber_patch_cord,
+                  defaultId: _vm.selectedFpc
+                },
+                on: { "type-id": _vm.setFpcId }
+              }),
           _vm._v(" "),
           _c("label", { staticClass: "activate-label" }, [
             _vm._v("Termination Box :")
           ]),
           _vm._v(" "),
-          _c("TypeSlider", { attrs: { type: _vm.tBox } }),
+          _vm.selectedTb
+            ? _c("TypeSlider", {
+                attrs: { type: _vm.termination_box, defaultId: _vm.selectedTb },
+                on: { "type-id": _vm.setTbId }
+              })
+            : _c("TypeSlider", {
+                attrs: { type: _vm.termination_box, defaultId: _vm.selectedTb },
+                on: { "type-id": _vm.setTbId }
+              }),
           _vm._v(" "),
-          _vm._m(0)
+          _c("label", { staticClass: "activate-label" }, [
+            _vm._v("ONU Adapter :")
+          ]),
+          _vm._v(" "),
+          _vm.selectedOnuAdapter
+            ? _c("TypeSlider", {
+                attrs: {
+                  type: _vm.onu_adapter,
+                  defaultId: _vm.selectedOnuAdapter
+                },
+                on: { "type-id": _vm.setOnuAdapterId }
+              })
+            : _c("TypeSlider", {
+                attrs: {
+                  type: _vm.onu_adapter,
+                  defaultId: _vm.selectedOnuAdapter
+                },
+                on: { "type-id": _vm.setOnuAdapterId }
+              }),
+          _vm._v(" "),
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "fb-cable" } },
+              [_vm._v("Fibre Cable Length :")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fiber_cable_length,
+                  expression: "fiber_cable_length"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { type: "text", name: "fb-cable" },
+              domProps: { value: _vm.fiber_cable_length },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fiber_cable_length = $event.target.value
+                }
+              }
+            })
+          ])
         ],
         1
       ),
       _vm._v(" "),
-      _c("MultipleRemark"),
+      _c("MultipleRemark", {
+        attrs: {
+          type: "repair",
+          id: this.$route.params.id,
+          multipleRemarks: _vm.remarks
+        },
+        on: { reload: _vm.refresh }
+      }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Save" } }),
+      _c("FinishButton", {
+        attrs: { type: "Save" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.storeRepair($event)
+          }
+        }
+      }),
       _vm._v(" "),
       _c("FinishButton", { attrs: { type: "Finish" } })
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "label",
-        { staticClass: "activate-label", attrs: { for: "fb-cable" } },
-        [_vm._v("Fibre Cable :")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "activate-input",
-        attrs: { type: "text", name: "fb-cable" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42338,7 +42524,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/lsp/first-time-password',
     component: _components_lsp_home_LSPFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
-    path: '/order/:id',
+    path: '/order/:id/:orderType',
     name: 'order',
     component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
