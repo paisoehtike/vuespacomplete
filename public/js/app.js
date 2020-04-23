@@ -4318,7 +4318,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
+  props: ['id', 'orderType'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -20568,12 +20568,12 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.detail.priority_level
+            _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
                     _vm._v("Priority Level : "),
                     _c("span", { staticClass: "priority-level" }, [
-                      _vm._v(_vm._s(_vm.detail.priority_level) + " Hrs")
+                      _vm._v(_vm._s(_vm.detail.priority_level.name) + " Hrs")
                     ])
                   ])
                 ])
@@ -42343,7 +42343,7 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_lsp_order_OrderComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
   }, {
-    path: '/lsp-order/:id',
+    path: '/lsp-order/:id/:orderType',
     name: 'lsp-order',
     component: _components_lsp_team_order_LSPOrderComponent__WEBPACK_IMPORTED_MODULE_8__["default"],
     props: true
