@@ -69,7 +69,7 @@
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
         <div v-if="detail.priority_level != null" class="order-type">
-          <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}} Hrs</span></p>
+          <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
         </div>
       </OrderDetail>
     </div>

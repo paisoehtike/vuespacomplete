@@ -138,7 +138,7 @@ export default {
                     remark: remark.remark
                 }
                 ).then( response => { 
-                    this.$emit('reload', response);
+                    this.$emit('reload');
                 })
                 .catch(console.log('Error'));
             } else if(this.type == 'repair') {
