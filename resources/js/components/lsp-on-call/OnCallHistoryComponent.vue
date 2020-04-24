@@ -11,7 +11,7 @@
           <template v-slot:history>{{label.history}}</template>
         </HomeHeaderButton>
       </div>
-      <RequestList :type="'On-call'" :status="'oncall-history'"></RequestList>
+      <RequestList :request_type="'on_call'" :type="'admin'" :status="'oncall-history'"></RequestList>
     </div>
 
     <HomeFooterButton></HomeFooterButton>
