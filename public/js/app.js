@@ -2076,8 +2076,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2196,8 +2194,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__["default"]
   },
   data: function data() {
-    var _ref, _ref2, _ref3, _ref4, _ref5, _ref6;
-
     return {
       teamDetail: null,
       isRemain: false,
@@ -2206,39 +2202,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       isRemainClass: "",
       isCompleteClass: "",
       isHistoryClass: "",
-      customers: [(_ref = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref, "orderStep", "Installation"), _defineProperty(_ref, "customerName", "U Min Thant"), _defineProperty(_ref, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref, "assigned", "Not Assigned"), _ref), (_ref2 = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref2, "orderStep", "Installation"), _defineProperty(_ref2, "customerName", "U Min Thant"), _defineProperty(_ref2, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref2, "assigned", "Not Assigned"), _ref2)],
-      completeCustomers: [(_ref3 = {
-        name: "5501",
-        orderStep: "Complete",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref3, "orderStep", "Complete"), _defineProperty(_ref3, "customerName", "U Min Thant"), _defineProperty(_ref3, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref3, "assigned", "Not Assigned"), _ref3), (_ref4 = {
-        name: "5501",
-        orderStep: "Complete",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref4, "orderStep", "Complete"), _defineProperty(_ref4, "customerName", "U Min Thant"), _defineProperty(_ref4, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref4, "assigned", "Not Assigned"), _ref4)],
-      historyCustomers: [(_ref5 = {
-        name: "6601",
-        orderStep: "History",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref5, "orderStep", "History"), _defineProperty(_ref5, "customerName", "U Min Thant"), _defineProperty(_ref5, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref5, "assigned", "Not Assigned"), _ref5), (_ref6 = {
-        name: "6601",
-        orderStep: "History",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_ref6, "orderStep", "History"), _defineProperty(_ref6, "customerName", "U Min Thant"), _defineProperty(_ref6, "address", "Mingalar Taung Nyunt"), _defineProperty(_ref6, "assigned", "Not Assigned"), _ref6)]
+      customers: null,
+      completeCustomers: null,
+      historyCustomers: null
     };
   },
   methods: {
@@ -2252,20 +2218,46 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         _this.bindTeamDetail(response);
       })["catch"](console.log('Error'));
     },
+    getRemain: function getRemain() {
+      var _this2 = this;
+
+      axios.get(this.base_url + 'teams_home?type=remaining&lsp_team_id=' + this.$route.params.id).then(function (res) {
+        _this2.bindRemain(res);
+      })["catch"](console.log('Error'));
+    },
+    bindRemain: function bindRemain(res) {
+      this.customers = res.data.data;
+    },
     remain: function remain() {
       this.isRemain = true;
       this.isRemainClass = "remain-class";
       this.isCompleteClass = "";
       this.isHistoryClass = "";
     },
+    bindComplete: function bindComplete(res) {
+      this.completeCustomers = res.data.data;
+    },
     complete: function complete() {
+      var _this3 = this;
+
+      axios.get(this.base_url + 'teams_home?type=complete&lsp_team_id=' + this.$route.params.id).then(function (res) {
+        _this3.bindComplete(res);
+      })["catch"](console.log('Error'));
       this.isRemain = false;
       this.isComplete = true;
       this.isRemainClass = "";
       this.isCompleteClass = "complete-class";
       this.isHistoryClass = "";
     },
+    bindHistory: function bindHistory(res) {
+      this.historyCustomers = res.data.data;
+    },
     history: function history() {
+      var _this4 = this;
+
+      axios.get(this.base_url + 'teams_home?type=history&lsp_team_id=' + this.$route.params.id).then(function (res) {
+        _this4.bindHistory(res);
+      })["catch"](console.log('Error'));
       this.isRemain = false;
       this.isComplete = false;
       this.isHistory = true;
@@ -2277,6 +2269,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   created: function created() {
     this.remain();
     this.getDetail();
+    this.getRemain();
   }
 });
 
@@ -17751,32 +17744,48 @@ var render = function() {
                 { key: index },
                 [
                   _c("CustomerHeader", {
-                    attrs: { id: customer.name, step: customer.orderStep }
+                    attrs: {
+                      id: customer.customer,
+                      step: customer.request_type
+                    }
                   }),
                   _vm._v(" "),
                   _c("CustomerTypeChip", {
                     attrs: {
                       slot: "customer-chip",
-                      value: customer.customerType
+                      value: customer.customer_type.name
                     },
                     slot: "customer-chip"
                   }),
                   _vm._v(" "),
-                  _c("OrderStepChip", {
-                    attrs: { slot: "order-chip", value: customer.orderStep },
-                    slot: "order-chip"
-                  }),
+                  customer.installation_step != null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          value: customer.installation_step.name
+                        },
+                        slot: "order-chip"
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "CustomerIssueDate",
                     { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                    [_vm._v("\n        " + _vm._s(customer.date) + "\n      ")]
+                    [
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(
+                            _vm._f("format-date")(customer.start_assign_at)
+                          ) +
+                          "\n      "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("CustomerDetailChip", {
                     attrs: {
                       slot: "customer-detail-chip",
-                      value: customer.customerName,
+                      value: customer.name,
                       address: customer.address
                     },
                     slot: "customer-detail-chip"
@@ -17789,13 +17798,17 @@ var render = function() {
                       slot: "customer-home-footer",
                       scopedSlots: _vm._u(
                         [
-                          {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(customer.assigned))]
-                            },
-                            proxy: true
-                          }
+                          customer.lsp_team != null
+                            ? {
+                                key: "assign",
+                                fn: function() {
+                                  return [
+                                    _vm._v(_vm._s(customer.lsp_team.name))
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            : null
                         ],
                         null,
                         true
@@ -17832,32 +17845,48 @@ var render = function() {
                 { key: index },
                 [
                   _c("CustomerHeader", {
-                    attrs: { id: customer.name, step: customer.orderStep }
+                    attrs: {
+                      id: customer.customer,
+                      step: customer.request_type
+                    }
                   }),
                   _vm._v(" "),
                   _c("CustomerTypeChip", {
                     attrs: {
                       slot: "customer-chip",
-                      value: customer.customerType
+                      value: customer.customer_type.name
                     },
                     slot: "customer-chip"
                   }),
                   _vm._v(" "),
-                  _c("OrderStepChip", {
-                    attrs: { slot: "order-chip", value: customer.orderStep },
-                    slot: "order-chip"
-                  }),
+                  customer.installation_step != null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          value: customer.installation_step.name
+                        },
+                        slot: "order-chip"
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "CustomerIssueDate",
                     { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                    [_vm._v("\n        " + _vm._s(customer.date) + "\n      ")]
+                    [
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(
+                            _vm._f("format-date")(customer.start_assign_at)
+                          ) +
+                          "\n      "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("CustomerDetailChip", {
                     attrs: {
                       slot: "customer-detail-chip",
-                      value: customer.customerName,
+                      value: customer.name,
                       address: customer.address
                     },
                     slot: "customer-detail-chip"
@@ -17870,13 +17899,17 @@ var render = function() {
                       slot: "customer-home-footer",
                       scopedSlots: _vm._u(
                         [
-                          {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(customer.assigned))]
-                            },
-                            proxy: true
-                          }
+                          customer.lsp_team != null
+                            ? {
+                                key: "assign",
+                                fn: function() {
+                                  return [
+                                    _vm._v(_vm._s(customer.lsp_team.name))
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            : null
                         ],
                         null,
                         true
@@ -17913,32 +17946,48 @@ var render = function() {
                 { key: index },
                 [
                   _c("CustomerHeader", {
-                    attrs: { id: customer.name, step: customer.orderStep }
+                    attrs: {
+                      id: customer.customer,
+                      step: customer.request_type
+                    }
                   }),
                   _vm._v(" "),
                   _c("CustomerTypeChip", {
                     attrs: {
                       slot: "customer-chip",
-                      value: customer.customerType
+                      value: customer.customer_type.name
                     },
                     slot: "customer-chip"
                   }),
                   _vm._v(" "),
-                  _c("OrderStepChip", {
-                    attrs: { slot: "order-chip", value: customer.orderStep },
-                    slot: "order-chip"
-                  }),
+                  customer.installation_step != null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          value: customer.installation_step.name
+                        },
+                        slot: "order-chip"
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "CustomerIssueDate",
                     { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                    [_vm._v("\n        " + _vm._s(customer.date) + "\n      ")]
+                    [
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(
+                            _vm._f("format-date")(customer.start_assign_at)
+                          ) +
+                          "\n      "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("CustomerDetailChip", {
                     attrs: {
                       slot: "customer-detail-chip",
-                      value: customer.customerName,
+                      value: customer.name,
                       address: customer.address
                     },
                     slot: "customer-detail-chip"
@@ -17951,13 +18000,17 @@ var render = function() {
                       slot: "customer-home-footer",
                       scopedSlots: _vm._u(
                         [
-                          {
-                            key: "assign",
-                            fn: function() {
-                              return [_vm._v(_vm._s(customer.assigned))]
-                            },
-                            proxy: true
-                          }
+                          customer.lsp_team != null
+                            ? {
+                                key: "assign",
+                                fn: function() {
+                                  return [
+                                    _vm._v(_vm._s(customer.lsp_team.name))
+                                  ]
+                                },
+                                proxy: true
+                              }
+                            : null
                         ],
                         null,
                         true
