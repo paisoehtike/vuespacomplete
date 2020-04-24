@@ -90,7 +90,7 @@ import Teams from "./../lsp-home-team/TeamComponent";
 
 export default {
     props: [
-        'customer', 'type', 'teams', 'assignedTeam'
+        'customer', 'type', 'teams', 'assignedTeam', 'requestType'
     ],
     components: {
         CustomerTypeChip,
@@ -106,36 +106,6 @@ export default {
             assignOrSwitch: null,
             selected: null,
             teamId: null,
-            // assignedTeam: {
-            //     teamName: "Team A",
-            //     customerName: "Min Min",
-            //     remaining: "5",
-            //     manPower: "6",
-            //     complete: "3"
-            // },
-            // teams: [
-            //     {
-            //         teamName: "Team A",
-            //         customerName: "Min Min",
-            //         remaining: "5",
-            //         manPower: "6",
-            //         complete: "3"
-            //     },
-            //     {
-            //         teamName: "Team B",
-            //         customerName: "Aung Aung",
-            //         remaining: "5",
-            //         manPower: "6",
-            //         complete: "3"
-            //     },
-            //     {
-            //         teamName: "Team C",
-            //         customerName: "Kyaw Aung",
-            //         remaining: "5",
-            //         manPower: "6",
-            //         complete: "3"
-            //     },
-            // ]
         }
     },
     methods: {
@@ -154,12 +124,16 @@ export default {
             axios.post(this.base_url + 'assigned_team',
                 {
                     requested_id: this.$route.params.id,
-                    requested_type: 'installation',
+                    requested_type: this.requestType,
                     lsp_team_id: this.teamId
                 }
             ).then( res => { 
-                this.showModal = false;
-                console.log(res) ;
+                if(res.status == 201) {
+                    this.showModal = false;
+                    this.$emit('reload');
+                    this.assignOrSwitch = 'Switch';
+                    this.type = 'Accept';
+                }
             }).catch( console.log('Error') );
         }
     },

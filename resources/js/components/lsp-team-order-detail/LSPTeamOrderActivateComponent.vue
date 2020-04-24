@@ -184,10 +184,15 @@ export default {
                     this.loadPreRemarks(res.data.data.remarks);
                     this.ppoeUserName = res.data.data.ppoe_username;
                     this.ppoePassword = res.data.data.ppoe_password;
+                    this.olt = res.data.data.olt;
+                    this.fdt = res.data.data.fdt;
+                    this.fat_port = res.data.data.fat_port;
+                    this.onu_sn = res.data.data.onu_sn;
 
                     if(res.data.data.product_usage !== null) {
                         this.selectedOnuType = res.data.data.product_usage.onu_type.id;
                         this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+                        this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
                     }
                 } )
                 .catch( console.log('Error') );

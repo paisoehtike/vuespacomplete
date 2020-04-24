@@ -1,6 +1,6 @@
 <template>
   <div class="order-container">
-    <router-link to="/home/new" tag="div" class="order-header-row">
+    <router-link :to="orderType == 'installation' ? '/home/new': '/on-call/new'" tag="div" class="order-header-row">
       <i class="fas fa-chevron-left"></i>
       <h2>Detail</h2>
     </router-link>
@@ -36,14 +36,17 @@
       <span v-else>{{ detail.lsp_team.name }}</span>
 
       <AssignOrSwitchTeamComponent v-if="!detail.lsp_team" 
+      @reload="refresh"
       :customer="detail"
       :teams="teams" 
       :type="'New'"
+      :requestType="orderType"
       :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
 
       <AssignOrSwitchTeamComponent v-else 
       :customer="detail"
       :type="'Accept'"
+      :requestType="orderType"
       :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
 
       <!-- <a class="waves-effect btn">Assign</a> -->
@@ -158,15 +161,24 @@ export default {
     };
   },
   methods: {
+    refresh() {
+      this.getDetail();
+      this.getTeams();
+    },
     acceptByLsp() {
       axios.post(this.base_url + 'installation_step_completed/' + this.request_id)
       .then( res => { console.log(res) } ).catch(console.log('Error'));
     },
     getDetail() {
-      this.request_id = this.$route.params.id;
-      axios.get(this.base_url + 'installation_requests/' + this.request_id)
-      .then( response => { this.bindResponseData(response) })
-      .catch(console.log('Something Went Wrong!'));
+      if(this.orderType == 'installation') {
+        axios.get(this.base_url + 'installation_requests/' + this.$route.params.id)
+        .then( response => { this.bindResponseData(response) })
+        .catch(console.log('Something Went Wrong!'));
+      } else {
+        axios.get(this.base_url + 'on_call_requests/' + this.$route.params.id)
+        .then( response => { this.bindResponseData(response) })
+        .catch(console.log('Something Went Wrong!'));
+      }
     },
     getTeams() {
       axios.get(this.base_url + 'team_lists')

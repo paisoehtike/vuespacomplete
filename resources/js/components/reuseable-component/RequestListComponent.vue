@@ -45,7 +45,7 @@ import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateCompone
 import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
 export default {
-  props: ["type", "status"],
+  props: ["request_type", "type", "status"],
   data() {
     return {
       requests: null,
@@ -129,7 +129,7 @@ export default {
     },
     toOrder(request, event) {
       if (event.target.id == "accept") {
-        if (this.type == "on_call") {
+        if (this.request_type == "on_call") {
           axios
             .post(
               "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" +
@@ -151,11 +151,12 @@ export default {
             .catch(this.errorMessage);
         }
       } else {
-        if(this.type == 'on_call') {
-          this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: 'On Call' } });
-        } else {
-          this.$router.push({ name: 'order', params: { id: request.id, orderType: 'Installation' }});
-        }
+        this.$router.push({ name: 'order', params: { id: request.id, orderType: this.request_type }});
+        // if(this.request_type == 'on_call') {
+        //   this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: this.request_type } });
+        // } else {
+        //   this.$router.push({ name: 'order', params: { id: request.id, orderType: this.request_type }});
+        // }
       }
     },
     toTeamOrder(request) {

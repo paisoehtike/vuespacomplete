@@ -2525,7 +2525,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['customer', 'type', 'teams', 'assignedTeam'],
+  props: ['customer', 'type', 'teams', 'assignedTeam', 'requestType'],
   components: {
     CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2539,37 +2539,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       showModal: false,
       assignOrSwitch: null,
       selected: null,
-      teamId: null // assignedTeam: {
-      //     teamName: "Team A",
-      //     customerName: "Min Min",
-      //     remaining: "5",
-      //     manPower: "6",
-      //     complete: "3"
-      // },
-      // teams: [
-      //     {
-      //         teamName: "Team A",
-      //         customerName: "Min Min",
-      //         remaining: "5",
-      //         manPower: "6",
-      //         complete: "3"
-      //     },
-      //     {
-      //         teamName: "Team B",
-      //         customerName: "Aung Aung",
-      //         remaining: "5",
-      //         manPower: "6",
-      //         complete: "3"
-      //     },
-      //     {
-      //         teamName: "Team C",
-      //         customerName: "Kyaw Aung",
-      //         remaining: "5",
-      //         manPower: "6",
-      //         complete: "3"
-      //     },
-      // ]
-
+      teamId: null
     };
   },
   methods: {
@@ -2589,11 +2559,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       axios.post(this.base_url + 'assigned_team', {
         requested_id: this.$route.params.id,
-        requested_type: 'installation',
+        requested_type: this.requestType,
         lsp_team_id: this.teamId
       }).then(function (res) {
-        _this.showModal = false;
-        console.log(res);
+        if (res.status == 201) {
+          _this.showModal = false;
+
+          _this.$emit('reload');
+
+          _this.assignOrSwitch = 'Switch';
+          _this.type = 'Accept';
+        }
       })["catch"](console.log('Error'));
     }
   },
@@ -3512,6 +3488,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3576,6 +3555,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    refresh: function refresh() {
+      this.getDetail();
+      this.getTeams();
+    },
     acceptByLsp: function acceptByLsp() {
       axios.post(this.base_url + 'installation_step_completed/' + this.request_id).then(function (res) {
         console.log(res);
@@ -3584,10 +3567,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      this.request_id = this.$route.params.id;
-      axios.get(this.base_url + 'installation_requests/' + this.request_id).then(function (response) {
-        _this.bindResponseData(response);
-      })["catch"](console.log('Something Went Wrong!'));
+      if (this.orderType == 'installation') {
+        axios.get(this.base_url + 'installation_requests/' + this.$route.params.id).then(function (response) {
+          _this.bindResponseData(response);
+        })["catch"](console.log('Something Went Wrong!'));
+      } else {
+        axios.get(this.base_url + 'on_call_requests/' + this.$route.params.id).then(function (response) {
+          _this.bindResponseData(response);
+        })["catch"](console.log('Something Went Wrong!'));
+      }
     },
     getTeams: function getTeams() {
       var _this2 = this;
@@ -3812,10 +3800,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
         _this3.ppoeUserName = res.data.data.ppoe_username;
         _this3.ppoePassword = res.data.data.ppoe_password;
+        _this3.olt = res.data.data.olt;
+        _this3.fdt = res.data.data.fdt;
+        _this3.fat_port = res.data.data.fat_port;
+        _this3.onu_sn = res.data.data.onu_sn;
 
         if (res.data.data.product_usage !== null) {
           _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
           _this3.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this3.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
         }
       })["catch"](console.log('Error'));
     },
@@ -5856,7 +5849,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["type", "status"],
+  props: ["request_type", "type", "status"],
   data: function data() {
     return {
       requests: null,
@@ -5941,7 +5934,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this2 = this;
 
       if (event.target.id == "accept") {
-        if (this.type == "on_call") {
+        if (this.request_type == "on_call") {
           axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" + request.id).then(function (response) {
             _this2.getNew();
           })["catch"](this.errorMessage);
@@ -5951,23 +5944,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           })["catch"](this.errorMessage);
         }
       } else {
-        if (this.type == 'on_call') {
-          this.$router.push({
-            name: 'order-repair',
-            params: {
-              id: request.id,
-              orderType: 'On Call'
-            }
-          });
-        } else {
-          this.$router.push({
-            name: 'order',
-            params: {
-              id: request.id,
-              orderType: 'Installation'
-            }
-          });
-        }
+        this.$router.push({
+          name: 'order',
+          params: {
+            id: request.id,
+            orderType: this.request_type
+          }
+        }); // if(this.request_type == 'on_call') {
+        //   this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: this.request_type } });
+        // } else {
+        //   this.$router.push({ name: 'order', params: { id: request.id, orderType: this.request_type }});
+        // }
       }
     },
     toTeamOrder: function toTeamOrder(request) {
@@ -18253,7 +18240,13 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("RequestList", { attrs: { status: "accepted" } })
+          _c("RequestList", {
+            attrs: {
+              request_type: "installation",
+              type: "admin",
+              status: "accepted"
+            }
+          })
         ],
         1
       ),
@@ -18659,7 +18652,13 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("RequestList", { attrs: { status: "history" } })
+          _c("RequestList", {
+            attrs: {
+              request_type: "installation",
+              type: "admin",
+              status: "history"
+            }
+          })
         ],
         1
       ),
@@ -18744,7 +18743,13 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("RequestList", { attrs: { status: "new" } })
+          _c("RequestList", {
+            attrs: {
+              request_type: "installation",
+              type: "admin",
+              status: "new"
+            }
+          })
         ],
         1
       ),
@@ -18981,7 +18986,11 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("RequestList", {
-            attrs: { type: "On-call", status: "oncall-accepted" }
+            attrs: {
+              request_type: "on_call",
+              type: "admin",
+              status: "oncall-accepted"
+            }
           })
         ],
         1
@@ -19068,7 +19077,11 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("RequestList", {
-            attrs: { type: "On-call", status: "oncall-new" }
+            attrs: {
+              request_type: "on_call",
+              type: "admin",
+              status: "oncall-new"
+            }
           })
         ],
         1
@@ -19155,7 +19168,11 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("RequestList", {
-            attrs: { type: "On-call", status: "oncall-history" }
+            attrs: {
+              request_type: "on_call",
+              type: "admin",
+              status: "oncall-history"
+            }
           })
         ],
         1
@@ -19558,7 +19575,10 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/home/new", tag: "div" }
+          attrs: {
+            to: _vm.orderType == "installation" ? "/home/new" : "/on-call/new",
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19662,13 +19682,16 @@ var render = function() {
                   customer: _vm.detail,
                   teams: _vm.teams,
                   type: "New",
+                  requestType: _vm.orderType,
                   assignedTeam: _vm.detail.lsp_team
-                }
+                },
+                on: { reload: _vm.refresh }
               })
             : _c("AssignOrSwitchTeamComponent", {
                 attrs: {
                   customer: _vm.detail,
                   type: "Accept",
+                  requestType: _vm.orderType,
                   assignedTeam: _vm.detail.lsp_team
                 }
               })
