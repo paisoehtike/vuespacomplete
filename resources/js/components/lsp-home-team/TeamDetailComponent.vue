@@ -20,22 +20,22 @@
 
     <div class="team-customer-detail" v-if="isRemain">
       <Customer v-for="(customer,index) in customers" :key="index">
-        <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+        <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
 
-        <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-        <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+        <CustomerTypeChip :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
+        <OrderStepChip v-if="customer.installation_step != null" :value="customer.installation_step.name" slot="order-chip"></OrderStepChip>
 
         <CustomerIssueDate slot="customer-date">
           <!-- <span>{{customer.date}}</span> -->
-          {{customer.date}}
+          {{customer.start_assign_at | format-date}}
         </CustomerIssueDate>
         <CustomerDetailChip
           slot="customer-detail-chip"
-          :value="customer.customerName"
+          :value="customer.name"
           :address="customer.address"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
-          <template v-slot:assign>{{customer.assigned}}</template>
+          <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
           <a class="btn" slot="button">Accept</a>
         </CustomerHomeFooterButton>
       </Customer>
@@ -43,22 +43,22 @@
 
     <div class="team-customer-detail" v-if="isRemain == false && isComplete">
       <Customer v-for="(customer,index) in completeCustomers" :key="index">
-        <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+        <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
 
-        <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-        <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+        <CustomerTypeChip :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
+        <OrderStepChip v-if="customer.installation_step != null" :value="customer.installation_step.name" slot="order-chip"></OrderStepChip>
 
         <CustomerIssueDate slot="customer-date">
           <!-- <span>{{customer.date}}</span> -->
-          {{customer.date}}
+          {{customer.start_assign_at | format-date}}
         </CustomerIssueDate>
         <CustomerDetailChip
           slot="customer-detail-chip"
-          :value="customer.customerName"
+          :value="customer.name"
           :address="customer.address"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
-          <template v-slot:assign>{{customer.assigned}}</template>
+          <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
           <a class="btn" slot="button">Accept</a>
         </CustomerHomeFooterButton>
       </Customer>
@@ -66,22 +66,22 @@
 
     <div class="team-customer-detail" v-if="isRemain == false && isComplete == false && isHistory">
       <Customer v-for="(customer,index) in historyCustomers" :key="index">
-        <CustomerHeader :id="customer.name" :step="customer.orderStep"></CustomerHeader>
+        <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
 
-        <CustomerTypeChip :value="customer.customerType" slot="customer-chip"></CustomerTypeChip>
-        <OrderStepChip :value="customer.orderStep" slot="order-chip"></OrderStepChip>
+        <CustomerTypeChip :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
+        <OrderStepChip v-if="customer.installation_step != null" :value="customer.installation_step.name" slot="order-chip"></OrderStepChip>
 
         <CustomerIssueDate slot="customer-date">
           <!-- <span>{{customer.date}}</span> -->
-          {{customer.date}}
+          {{customer.start_assign_at | format-date}}
         </CustomerIssueDate>
         <CustomerDetailChip
           slot="customer-detail-chip"
-          :value="customer.customerName"
+          :value="customer.name"
           :address="customer.address"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
-          <template v-slot:assign>{{customer.assigned}}</template>
+          <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
           <a class="btn" slot="button">Accept</a>
         </CustomerHomeFooterButton>
       </Customer>
@@ -126,72 +126,9 @@ export default {
       isRemainClass: "",
       isCompleteClass: "",
       isHistoryClass: "",
-      customers: [
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
-        },
-        {
-          name: "5531",
-          orderStep: "Installation",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Installation",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
-        }
-      ],
-      completeCustomers: [
-        {
-          name: "5501",
-          orderStep: "Complete",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Complete",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
-        },
-        {
-          name: "5501",
-          orderStep: "Complete",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "Complete",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
-        }
-      ],
-      historyCustomers: [
-        {
-          name: "6601",
-          orderStep: "History",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "History",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
-        },
-        {
-          name: "6601",
-          orderStep: "History",
-          date: "2020/3/19",
-          customerType: "VIP",
-          orderStep: "History",
-          customerName: "U Min Thant",
-          address: "Mingalar Taung Nyunt",
-          assigned: "Not Assigned"
-        }
-      ]
+      customers: null,
+      completeCustomers: null,
+      historyCustomers: null,
     };
   },
   methods: {
@@ -203,20 +140,40 @@ export default {
         .then( response => { this.bindTeamDetail(response) } )
         .catch( console.log('Error') );
     },
+
+    getRemain() {
+      axios.get(this.base_url + 'teams_home?type=remaining&lsp_team_id=' + this.$route.params.id)
+      .then( res => { this.bindRemain(res) }).catch(console.log('Error'));
+    },
+    bindRemain(res) {
+      this.customers = res.data.data;
+    },
     remain() {
       this.isRemain = true;
       this.isRemainClass = "remain-class";
       this.isCompleteClass = "";
       this.isHistoryClass = "";
     },
+
+    bindComplete(res) {
+      this.completeCustomers = res.data.data;
+    },
     complete() {
+      axios.get(this.base_url + 'teams_home?type=complete&lsp_team_id=' + this.$route.params.id)
+      .then( res => { this.bindComplete(res) }).catch(console.log('Error'));
       this.isRemain = false;
       this.isComplete = true;
       this.isRemainClass = "";
       this.isCompleteClass = "complete-class";
       this.isHistoryClass = "";
     },
+
+    bindHistory(res) {
+      this.historyCustomers = res.data.data;
+    },
     history() {
+      axios.get(this.base_url + 'teams_home?type=history&lsp_team_id=' + this.$route.params.id)
+      .then( res => { this.bindHistory(res) }).catch(console.log('Error'));
       this.isRemain = false;
       this.isComplete = false;
       this.isHistory = true;
@@ -228,6 +185,7 @@ export default {
   created() {
     this.remain();
     this.getDetail();
+    this.getRemain();
   }
 }
 </script>
