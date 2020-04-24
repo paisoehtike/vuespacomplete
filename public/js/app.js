@@ -5199,7 +5199,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           installation_request_id: this.id,
           remark: remark.remark
         }).then(function (response) {
-          _this3.$emit('reload', response);
+          _this3.$emit('reload');
         })["catch"](console.log('Error'));
       } else if (this.type == 'repair') {
         axios.post(this.base_url + 'lsp_team/repair_remark_store', {
@@ -20759,7 +20759,7 @@ var render = function() {
                   _c("p", [
                     _vm._v("Priority Level : "),
                     _c("span", { staticClass: "priority-level" }, [
-                      _vm._v(_vm._s(_vm.detail.priority_level.name) + " Hrs")
+                      _vm._v(_vm._s(_vm.detail.priority_level.name))
                     ])
                   ])
                 ])
