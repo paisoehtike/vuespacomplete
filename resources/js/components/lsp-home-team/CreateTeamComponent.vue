@@ -82,7 +82,7 @@ export default {
     },
     redirect(res) {
       if(res.status == 201) {
-        this.$router.push('/home/team');
+        this.$router.push({ name: 'team' });
       }
     }
   }

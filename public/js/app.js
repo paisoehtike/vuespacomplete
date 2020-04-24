@@ -2046,7 +2046,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     redirect: function redirect(res) {
       if (res.status == 201) {
-        this.$router.push('/home/team');
+        this.$router.push({
+          name: 'team'
+        });
       }
     }
   }
@@ -3528,7 +3530,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'order_type'],
+  props: ['id', 'orderType'],
   components: {
     CustomerInfo: _reuseable_customer_CustomerInfoComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderInfo: _reuseable_customer_OrderInfoComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3581,11 +3583,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    acceptByLsp: function acceptByLsp() {
+      axios.post(this.base_url + 'installation_step_completed/' + this.request_id).then(function (res) {
+        console.log(res);
+      })["catch"](console.log('Error'));
+    },
     getDetail: function getDetail() {
       var _this = this;
 
       this.request_id = this.$route.params.id;
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests/' + this.request_id).then(function (response) {
+      axios.get(this.base_url + 'installation_requests/' + this.request_id).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
@@ -18020,7 +18027,7 @@ var render = function() {
           _vm._l(_vm.teams, function(team, index) {
             return _c("Teams", {
               key: index,
-              on: {
+              nativeOn: {
                 click: function($event) {
                   return _vm.toDetail(team.id)
                 }
@@ -19531,7 +19538,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.detail.installation_step != null
                   ? _c("OrderStepChip", {
-                      attrs: { value: _vm.detail.installation_step }
+                      attrs: { value: _vm.detail.installation_step.name }
                     })
                   : _vm._e()
               ],
@@ -19545,7 +19552,7 @@ var render = function() {
             _c("div", { staticClass: "order-type" }, [
               _c("p", [
                 _vm._v("Order Type : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.request_type))])
+                _c("span", [_vm._v(_vm._s(_vm.orderType))])
               ])
             ]),
             _vm._v(" "),
@@ -19724,7 +19731,16 @@ var render = function() {
             [_c("a", [_vm._v("View Installation Detail")])]
           ),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "col s12 m6 l3 complete-btn" }, [
+            _c(
+              "a",
+              {
+                staticClass: "waves-effect waves-light btn orange",
+                on: { click: _vm.acceptByLsp }
+              },
+              [_vm._v("Complete")]
+            )
+          ])
         ],
         1
       )
@@ -19732,18 +19748,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col s12 m6 l3 complete-btn" }, [
-      _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-        _vm._v("Complete")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -22617,15 +22622,15 @@ var render = function() {
                       },
                       proxy: true
                     },
-                request.lsp_accepted_at != null
+                request.lsp_accepted_at == null
                   ? {
                       key: "isAccept",
                       fn: function() {
-                        return [_vm._v("Assign Team")]
+                        return [_vm._v("Accept")]
                       },
                       proxy: true
                     }
-                  : request.start_assign_at != null
+                  : request.lsp_team
                   ? {
                       key: "isAccept",
                       fn: function() {
@@ -22636,7 +22641,7 @@ var render = function() {
                   : {
                       key: "isAccept",
                       fn: function() {
-                        return [_vm._v("Accept")]
+                        return [_vm._v("Assign Team")]
                       },
                       proxy: true
                     }

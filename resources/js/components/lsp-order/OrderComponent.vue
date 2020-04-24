@@ -11,13 +11,13 @@
       <OrderDetail>
         <div class="order-detail-header">
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
-          <OrderStepChip v-if="detail.installation_step != null" :value="detail.installation_step"></OrderStepChip>
+          <OrderStepChip v-if="detail.installation_step != null" :value="detail.installation_step.name"></OrderStepChip>
         </div>
         <div class="order-detail-id">
           <h4>{{detail.customer}}</h4>
         </div>
         <div class="order-type">
-          <p>Order Type : <span>{{detail.request_type}}</span></p>
+          <p>Order Type : <span>{{orderType}}</span></p>
         </div>
         <div v-if="order_type == 'On Call'" class="order-type">
           <p>Possible Issue : <span class="issue">{{issueType}}</span></p>
@@ -82,7 +82,7 @@
         <a>View Installation Detail</a>
       </router-link>
       <div class="col s12 m6 l3 complete-btn">
-        <a class="waves-effect waves-light btn orange">Complete</a>
+        <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Complete</a>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@ import AssignOrSwitchTeamComponent from "./../lsp-home/AssignOrSwitchTeamCompone
 
 export default {
   props: [
-    'id', 'order_type'
+    'id', 'orderType'
   ],
   components: {
     CustomerInfo,
@@ -158,9 +158,13 @@ export default {
     };
   },
   methods: {
+    acceptByLsp() {
+      axios.post(this.base_url + 'installation_step_completed/' + this.request_id)
+      .then( res => { console.log(res) } ).catch(console.log('Error'));
+    },
     getDetail() {
       this.request_id = this.$route.params.id;
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests/' + this.request_id)
+      axios.get(this.base_url + 'installation_requests/' + this.request_id)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     },
