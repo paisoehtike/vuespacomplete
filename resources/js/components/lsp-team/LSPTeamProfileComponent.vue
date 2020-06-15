@@ -7,8 +7,8 @@
                 <h2>Profile</h2>
             </router-link>
         </div>
-        <LSPProfileHeader></LSPProfileHeader>
-        <LSPProfileBody></LSPProfileBody>
+        <LSPProfileHeader :response="response"></LSPProfileHeader>
+        <!-- <LSPProfileBody></LSPProfileBody> -->
         <div class="logout-button">
             <FinishButton @click.native="logout" :type="'Logout'"></FinishButton>
         </div>
@@ -30,11 +30,25 @@ export default {
         LSPProfileBody,
         FinishButton,
     },
+    data() {
+        return {
+            response: null,
+        }
+    },
     methods: {
         redirect(res) {
             if(res.status == 200) {
                 this.$router.push('/');
             } 
+        },
+        bindData(res) {
+            this.response = res.data;
+        },
+        get() {
+            axios.get(`${this.base_url}lsp_team/team_profile`)
+            .then( res => {
+                this.bindData(res);
+            }).catch(console.log('Error'));
         },
         logout() {
             axios.post(`${this.base_url}logout`)
@@ -43,6 +57,9 @@ export default {
             } )
             .catch( console.log('Error') );
         }
+    },
+    mounted() {
+        this.get();
     }
 }
 </script>

@@ -28,9 +28,11 @@
             <template v-if="request.lsp_team != null" v-slot:assign>{{ request.lsp_team.name }}</template>
             <template v-else v-slot:assign>Not Assigned</template>
 
-            <template v-if="request.lsp_accepted_at == null" v-slot:isAccept>Accept</template>
-            <template v-else-if="request.lsp_team" v-slot:isAccept>Switch Team</template>
-            <template v-else v-slot:isAccept>Assign Team</template>
+            <template v-if="request.lsp_accepted_at == null" v-slot:isAccept>
+              <a class="btn" id="accept">Accept</a>
+            </template>
+            <!-- <template v-else-if="request.lsp_team" v-slot:isAccept>Switch Team</template>
+            <template v-else v-slot:isAccept>Assign Team</template> -->
           </CustomerHomeFooterButton>
         </Customer>
     </div>

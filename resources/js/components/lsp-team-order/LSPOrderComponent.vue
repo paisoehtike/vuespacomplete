@@ -142,9 +142,16 @@ export default {
   },
   methods: {
     getDetail() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.$route.params.orderType)
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
+    },
+    whichType() {
+      if (this.$route.params.orderType == 'installation' || this.$route.params.orderType == 'relocation') {
+        this.order_type = 'installation';
+      } else {
+        this.order_type = 'on_call';
+      }
     },
     bindResponseData(response) {
       this.detail = response.data.data;
@@ -158,8 +165,9 @@ export default {
     },
   },
   created() {
+    // this.order_type = this.$route.params.orderType;
+    this.whichType();
     this.getDetail();
-    this.order_type = this.$route.params.orderType;
   }
 }
 </script>

@@ -30,12 +30,12 @@ export default {
     },
     methods: {
         authenticated(response) {
-            this.$cookie.set('token', response.data.data.token, '1m');
             this.errorMessage = null;
+            this.$cookie.set('token', response.data.data.token, '1m');
             if(response.data.data.is_admin == 1) {
                 this.$router.push('/home/new');
             } else {
-                if(response.data.data.is_password_change == null) {
+                if(response.data.data.is_admin == 0 && response.data.data.is_password_change == 0) {
                     this.$router.push('/lsp-team/first-time-password');
                 } else {
                     this.$router.push('/lsp-home/remaining');

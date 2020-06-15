@@ -25,7 +25,7 @@
                 <RemarkModal v-show="isMark" 
                     @review-remark="updateRemark" 
                     :type="'update'" 
-                    :preRemark="data.remark !==null ? data.remark.name : remark">
+                    :preRemark="data.remark != null ? data.remark.name : remark">
                 </RemarkModal>
 
                 <ConfirmModal v-show="isMark" @delete-confirm="deleteRemark"></ConfirmModal>
@@ -60,6 +60,7 @@ export default {
             isPass: false,
             isMark: false,
             remark: null,
+            remarkId: null,
         }
     },
     methods: {
@@ -110,7 +111,10 @@ export default {
                     remark: remark.remark,
                     survey_step_id: this.data.id
                 }
-            ).then( response => { console.log(response, 'Response of Remark') } ).catch(console.log('Something Went Wrong'));
+            ).then( response => { 
+                this.remarkId = response.data.data.remark.id
+                this.remark = response.data.data.remark.name
+             } ).catch(console.log('Something Went Wrong'));
         },
         storeRemark(remark) {
             this.remark = remark.remark;
@@ -118,7 +122,7 @@ export default {
             this.storeRemarkApiCall(remark);
         },
         updateRemark(remark) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_survey/' + this.data.remark.id,
+            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_survey/' + this.remarkId,
                 {
                     remark: remark.remark
                 }
@@ -128,7 +132,7 @@ export default {
              } ).catch(console.log('Something Went Wrong'));
         },
         deleteRemark() {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_survey/' + this.data.remark.id)
+            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_survey/' + this.remarkId)
                 .then( response => { 
                     console.log(response)
                     this.isMark = false; 
@@ -142,6 +146,7 @@ export default {
 
         if(this.data.remark !== null) {
             this.remark = this.data.remark.name
+            this.remarkId = this.data.remark.id
             this.isMark = true
         }
     }

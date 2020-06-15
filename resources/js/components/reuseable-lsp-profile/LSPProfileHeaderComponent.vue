@@ -1,25 +1,41 @@
 <template>
     <div class="lsp-name">
         <div class="profile-header">
-            <h2>Team A</h2>
-            <p>Min Min</p>
-            <p>09799378561</p>
+            <h2>{{ response.data.name }}</h2>
+            <p v-if="response.data.leader_name">{{ response.data.leader_name }}</p>
+            <p>{{ response.data.phone }}</p>
         </div>
-        <div class="profile-body pb-1">
-            <h5>3</h5>
+        <div class="profile-body pb-1" v-if="response.data.teams_count">
+            <h5>{{ response.data.teams_count }}</h5>
+            <p>Team</p>
+        </div>
+        <div class="profile-body pb-1" v-else>
+            <h5>{{ response.data.man_power }}</h5>
             <p>Man Power</p>
         </div>
-        <div class="profile-body pb-2">
-            <h5>15</h5>
+        <div class="profile-body pb-2" v-if="response.data.assigned_order">
+            <h5>{{ response.data.assigned_order ? response.data.assigned_order : '0' }}</h5>
+            <p>Assigned Order</p>
+        </div>
+        <div class="profile-body pb-2" v-else>
+            <h5>{{ response.data.remaining_job ? response.data.remaining_job:'0' }}</h5>
             <p>Remaining</p>
         </div>
-        <div class="profile-body pb-3">
-            <h5>15</h5>
+        <div class="profile-body pb-3" v-show="response.data.complete_job">
+            <h5>{{ response.data.complete_job ? response.data.complete_job:'0' }}</h5>
             <p>Complete</p>
         </div>
-        <div class="profile-body pb-4">
-            <h5>15</h5>
+        <div class="profile-body pb-4" v-show="response.data.assign_job">
+            <h5>{{ response.data.assign_job ? response.data.assign_job:'0' }}</h5>
             <p>History</p>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: [
+        'response',
+    ]
+}
+</script>

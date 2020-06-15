@@ -36,14 +36,22 @@ export default {
                 this.$router.push('/');
             }
         },
+        redirect(res) {
+            if(res.status == 200) {
+                this.$router.push('/');
+            } 
+        },
         authenticated(response) {
             if(response.status == 200) {
-                this.$router.push('/lsp-home/remaining');
+                axios.post(`${this.base_url}logout`)
+                .then( res => { 
+                    this.redirect(res);
+                } )
+                .catch( console.log('Error') );
             }
         },
         formSubmit(formData) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/change_password',
-                 { password: formData.password })
+            axios.post(this.base_url + 'lsp_team/change_password', formData)
             .then( response => {
                 this.authenticated(response);
             })
