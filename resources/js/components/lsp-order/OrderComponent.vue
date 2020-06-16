@@ -17,10 +17,11 @@
           <h4>{{detail.customer}}</h4>
         </div>
         <div class="order-type">
-          <p>Order Type : <span>{{orderType}}</span></p>
+          <p v-if="detail.type">Order Type : <span>{{detail.type | capitalize}}</span></p>
+          <p v-else>Order Type : <span>{{orderType | capitalize}}</span></p>
         </div>
-        <div v-if="order_type == 'On Call'" class="order-type">
-          <p>Possible Issue : <span class="issue">{{issueType}}</span></p>
+        <div v-if="orderType == 'on_call'" class="order-type">
+          <p>Possible Issue : <span class="issue">{{detail.estimated_issue.name}}</span></p>
         </div>
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
@@ -32,8 +33,8 @@
     </div>
     <div class="order-assigned-row">
       <span>Assigned Team :</span>
-      <span v-if="!detail.lsp_team">Not Assigned</span>
-      <span v-else>{{ detail.lsp_team.name }}</span>
+      <span v-if="!detail.lsp_team" class="dummy">N/A</span>
+      <span v-else class="dummy">{{ detail.lsp_team.name }}</span>
 
       <AssignOrSwitchTeamComponent v-if="!detail.lsp_team" 
       @reload="refresh"
@@ -46,6 +47,7 @@
       <AssignOrSwitchTeamComponent v-else 
       :customer="detail"
       :type="'Accept'"
+      :teams="teams" 
       :requestType="orderType"
       :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
 
@@ -53,14 +55,14 @@
     </div>
     <div class="customer-info-row">
       <CustomerInfo>
-        <TableRow :label="'Customer Name'" :value="detail.name"></TableRow>
-        <TableRow :label="'Customer Account No'" :value="detail.customer"></TableRow>
-        <TableRow :label="'Customer RMN'" :value="detail.customer_detail.rmn"></TableRow>
-        <TableRow :label="'PPOE Username'" :value="detail.customer_detail.ppoe_user_name"></TableRow>
-        <TableRow :label="'PPOE Password'" :value="detail.customer_detail.ppoe_password"></TableRow>
-        <TableRow :label="'Phone'" :value="detail.customer_detail.phone"></TableRow>
-        <TableRow :label="'Address'" :value="detail.customer_detail.address"></TableRow>
-        <TableRow :label="'Township'" :value="detail.customer_detail.township.name"></TableRow>
+        <TableRow :label="'Customer Name'" :value="detail.name" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Customer Account No'" :value="detail.customer" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Customer RMN'" :value="detail.customer_detail.rmn" :type="'request-detail'"></TableRow>
+        <TableRow :label="'PPOE Username'" :value="detail.customer_detail.ppoe_user_name" :type="'request-detail'"></TableRow>
+        <TableRow :label="'PPOE Password'" :value="detail.customer_detail.ppoe_password" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Phone'" :value="detail.customer_detail.phone" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Address'" :value="detail.customer_detail.address" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Township'" :value="detail.customer_detail.township.name" :type="'request-detail'"></TableRow>
         <!-- <TableRow
           v-for="(value,label) in customerDetails"
           :key="label"
@@ -71,18 +73,21 @@
     </div>
     <div class="order-info-row">
       <OrderInfo>
-        <TableRow :label="'Order Id'" :value="detail.id"></TableRow>
-        <TableRow :label="'Plan Name'" :value="detail.plan"></TableRow>
-        <TableRow :label="'Promo Name'" :value="detail.promotion"></TableRow>
-        <TableRow :label="'Create Date'" :value="detail.created_at"></TableRow>
+        <TableRow :label="'Order Id'" :value="detail.id" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Plan Name'" :value="detail.plan" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail'"></TableRow>
       </OrderInfo>
       <!-- <OrderInfo>
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>
       </OrderInfo> -->
     </div>
     <div class="order-button">
-      <router-link tag="div" to="" class="col s12 m6 l3 view-detail">
+      <router-link tag="div" :to="{ path: '/lsp-order/review/' + detail.id + '/survey'}" class="col s12 m6 l3 view-detail" v-if="orderType == 'installation'">
         <a>View Installation Detail</a>
+      </router-link>
+      <router-link tag="div" :to="{ path: '/lsp-order/review/repair/' + detail.id }" class="col s12 m6 l3 view-detail" v-else>
+        <a>View Repair Detail</a>
       </router-link>
       <div class="col s12 m6 l3 complete-btn">
         <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Complete</a>
@@ -166,8 +171,13 @@ export default {
       this.getTeams();
     },
     acceptByLsp() {
-      axios.post(this.base_url + 'installation_step_completed/' + this.request_id)
-      .then( res => { console.log(res) } ).catch(console.log('Error'));
+      if (this.orderType == 'installation') {
+        axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id)
+        .then( res => { console.log(res) } ).catch(console.log('Error'));
+      } else {
+        axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id)
+        .then( res => { console.log(res) } ).catch(console.log('Error'));
+      }
     },
     getDetail() {
       if(this.orderType == 'installation') {

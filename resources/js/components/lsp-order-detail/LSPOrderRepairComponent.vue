@@ -8,12 +8,12 @@
         <div class="replace-item">
             <h3>Replace Items</h3>
             <TeamInfo>
-                <TableRow v-for="(value,label) in issueLists" :key="label" :label="label" :value="value"></TableRow>
+                <TableRow v-for="(value,label) in detail.product_usage" :key="label" :label="label" :value="value" :type="'repair-detail'"></TableRow>
             </TeamInfo>
         </div>
         <div class="remarks">
             <h3>Remarks</h3>
-            <Remarks v-for="(value, key) in remarks" :key="key" :value="value.remark" :created_at="value.created_at"></Remarks>
+            <Remarks v-for="(value, key) in detail.remarks" :key="key" :value="value"></Remarks>
         </div>
     </div>
 </template>
@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         getDetail() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests/' + this.$route.params.id)
+            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/repair?on_call_request_id=' + this.$route.params.id)
             .then( response => { this.bindResponseData(response) })
             .catch(console.log('Something Went Wrong!'));
         },

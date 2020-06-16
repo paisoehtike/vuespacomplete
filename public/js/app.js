@@ -3175,6 +3175,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3190,26 +3193,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      remarks: [{
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }, {
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }],
-      issueLists: {
-        image: "-",
-        ppoeUserName: "YGN233eZWe",
-        ppoePassword: "YGN233eZWe",
-        olt: "-",
-        fdt: "-",
-        fatPort: "-",
-        onuSn: "-",
-        onuType: "ZTE",
-        fiberPatchCord: "-",
-        fiberCable: "-"
-      }
+      data: null
     };
+  },
+  methods: {
+    bindData: function bindData(res) {
+      this.data = res.data.data;
+    },
+    get: function get() {
+      var _this = this;
+
+      axios.get("".concat(this.base_url, "onu_step?installation_id=").concat(this.$route.params.id)).then(function (res) {
+        _this.bindData(res);
+      })["catch"](console.log('Error'));
+    }
+  },
+  mounted: function mounted() {
+    this.get();
   }
 });
 
@@ -3242,6 +3242,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3253,14 +3255,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      remarks: [{
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }, {
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }]
+      remarks: null
     };
+  },
+  methods: {
+    bindData: function bindData(res) {
+      this.remarks = res.data.data;
+    },
+    get: function get() {
+      var _this = this;
+
+      axios.get("".concat(this.base_url, "cabling?installation_id=").concat(this.$route.params.id)).then(function (res) {
+        _this.bindData(res);
+      })["catch"](console.log('Error'));
+    }
+  },
+  mounted: function mounted() {
+    this.get();
   }
 });
 
@@ -3335,7 +3346,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests/' + this.$route.params.id).then(function (response) {
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/repair?on_call_request_id=' + this.$route.params.id).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
@@ -3378,6 +3389,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3389,14 +3402,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      remarks: [{
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }, {
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }]
+      remarks: null
     };
+  },
+  methods: {
+    bindData: function bindData(res) {
+      this.remarks = res.data.data;
+    },
+    get: function get() {
+      var _this = this;
+
+      axios.get("".concat(this.base_url, "splicing?installation_id=").concat(this.$route.params.id)).then(function (res) {
+        _this.bindData(res);
+      })["catch"](console.log('Error'));
+    }
+  },
+  mounted: function mounted() {
+    this.get();
   }
 });
 
@@ -3429,6 +3451,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 
 
 
@@ -3442,14 +3466,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      issueLists: {
-        poleIssue: "Pass",
-        fat: "Fail",
-        authority: "Pass",
-        odnIssue: "No Issue",
-        customerIssue: "Issue 1"
-      }
+      issueLists: null
     };
+  },
+  methods: {
+    bindData: function bindData(res) {
+      this.issueLists = res.data.data;
+    },
+    get: function get() {
+      var _this = this;
+
+      axios.get("".concat(this.base_url, "survey?installation_id=").concat(this.$route.params.id)).then(function (res) {
+        _this.bindData(res);
+      })["catch"](console.log('Error'));
+    }
+  },
+  mounted: function mounted() {
+    this.get();
   }
 });
 
@@ -3474,6 +3507,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../lsp-home/AssignOrSwitchTeamComponent */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3635,9 +3673,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getTeams();
     },
     acceptByLsp: function acceptByLsp() {
-      axios.post(this.base_url + 'installation_step_completed/' + this.request_id).then(function (res) {
-        console.log(res);
-      })["catch"](console.log('Error'));
+      if (this.orderType == 'installation') {
+        axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id).then(function (res) {
+          console.log(res);
+        })["catch"](console.log('Error'));
+      } else {
+        axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id).then(function (res) {
+          console.log(res);
+        })["catch"](console.log('Error'));
+      }
     },
     getDetail: function getDetail() {
       var _this = this;
@@ -4099,19 +4143,39 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.fiber_cable = data.fiber_cable;
     },
     preconfigRepair: function preconfigRepair(res) {
-      if (res.data.data.remarks !== null) {
+      if (res.data.data.remarks != null) {
         this.remarks = res.data.data.remarks;
       }
 
-      if (res.data.data.product_usage !== null) {
-        this.selectedOnuType = res.data.data.product_usage.onu_type.id;
-        this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
-        this.selectedTb = res.data.data.product_usage.termination_box.id;
-        this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+      if (res.data.data.product_usage != null) {
+        if (res.data.data.product_usage.onu_type != null) {
+          this.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          this.onuId = res.data.data.product_usage.onu_type.id;
+        }
+
+        if (res.data.data.product_usage.fiber_patch_cord != null) {
+          this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          this.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+        }
+
+        if (res.data.data.product_usage.termination_box != null) {
+          this.selectedTb = res.data.data.product_usage.termination_box.id;
+          this.tbId = res.data.data.product_usage.termination_box.id;
+        }
+
+        if (res.data.data.product_usage.onu_adapter != null) {
+          this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          this.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+        }
+
+        if (res.data.data.product_usage.fiber_cable != null) {
+          this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+        }
       }
     },
     refresh: function refresh() {
       this.getRepair();
+      this.getInventory();
     },
     getRepair: function getRepair() {
       var _this = this;
@@ -4127,7 +4191,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         _this2.preconfigInventory(res.data.data);
       })["catch"](console.log('Error'));
     },
+    redirectTo: function redirectTo(res) {
+      if (res.data.code == 200) {
+        this.$router.push('/lsp-order/' + this.$route.params.id + '/on_call');
+      }
+    },
     storeRepair: function storeRepair() {
+      var _this3 = this;
+
       axios.post(this.base_url + 'lsp_team/repair_store', {
         on_call_request_id: this.$route.params.id,
         onu_type_id: this.onuId,
@@ -4142,13 +4213,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fiber_cable_length: this.fiber_cable_length,
         type: 'on_call'
       }).then(function (res) {
-        console.log(res);
+        _this3.refresh();
       })["catch"](console.log('Sry Pl!'));
+    },
+    finishRepair: function finishRepair() {
+      var _this4 = this;
+
+      axios.post("".concat(this.base_url, "lsp_team/on_call_step"), {
+        on_call_request_id: this.$route.params.id
+      }).then(function (res) {
+        _this4.redirectTo(res);
+      })["catch"](console.log('Error'));
     }
   },
-  created: function created() {
-    this.getRepair();
-    this.getInventory();
+  mounted: function mounted() {
+    this.refresh();
   }
 });
 
@@ -4361,6 +4440,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+//
 //
 //
 //
@@ -5614,13 +5694,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     typeOnClick: function typeOnClick(typer) {
-      this.selected = typer.id;
-      this.$emit('type-id', typer.id);
+      if (this.selected == typer.id) {
+        this.selected = null;
+        this.$emit('type-id', null);
+      } else {
+        this.selected = typer.id;
+        this.$emit('type-id', typer.id);
+      }
     }
   },
   watch: {
     defaultId: function defaultId(val) {
       this.selected = val;
+    }
+  },
+  mounted: function mounted() {
+    if (defaultId) {
+      this.selected = defaultId;
     }
   }
 });
@@ -6129,8 +6219,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['value', 'label'],
+  props: ['value', 'label', 'type'],
   data: function data() {
     var _data;
 
@@ -6243,6 +6341,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -18305,27 +18404,21 @@ var render = function() {
                   {
                     key: "total-remaining",
                     fn: function() {
-                      return [
-                        _vm._v(_vm._s(team.remaining ? team.remaining : "0"))
-                      ]
+                      return [_vm._v(_vm._s(team.remaining_jobs))]
                     },
                     proxy: true
                   },
                   {
                     key: "total-man-power",
                     fn: function() {
-                      return [
-                        _vm._v(_vm._s(team.man_power ? team.man_power : "0"))
-                      ]
+                      return [_vm._v(_vm._s(team.man_power))]
                     },
                     proxy: true
                   },
                   {
                     key: "total-complete",
                     fn: function() {
-                      return [
-                        _vm._v(_vm._s(team.complete ? team.complete : "0"))
-                      ]
+                      return [_vm._v(_vm._s(team.completed_jobs))]
                     },
                     proxy: true
                   }
@@ -18552,7 +18645,7 @@ var render = function() {
                       ? _c("OrderStepChip", {
                           attrs: {
                             slot: "order-chip",
-                            value: _vm.customer.installation_step
+                            value: _vm.customer.installation_step.name
                           },
                           slot: "order-chip"
                         })
@@ -18568,7 +18661,7 @@ var render = function() {
                       _c("CustomerHeader", {
                         attrs: {
                           id: _vm.customer.customer,
-                          step: _vm.customer.request_type
+                          step: _vm.customer.type
                         }
                       })
                     ],
@@ -18584,7 +18677,7 @@ var render = function() {
                         slot: "customer-date",
                         scopedSlots: _vm._u(
                           [
-                            _vm.customer.lsp_accepted_at != null
+                            _vm.customer.due_date != null
                               ? {
                                   key: "lsp-accept-date",
                                   fn: function() {
@@ -18592,7 +18685,7 @@ var render = function() {
                                       _vm._v(
                                         _vm._s(
                                           _vm._f("format-date")(
-                                            _vm.customer.lsp_accepted_at
+                                            _vm.customer.due_date
                                           )
                                         )
                                       )
@@ -18607,7 +18700,7 @@ var render = function() {
                                   fn: function() {
                                     return [
                                       _vm._v(
-                                        "| " +
+                                        " " +
                                           _vm._s(
                                             _vm.customer.priority_level.name
                                           ) +
@@ -18624,7 +18717,7 @@ var render = function() {
                                   fn: function() {
                                     return [
                                       _vm._v(
-                                        "| " + _vm._s(_vm.customer.issue.name)
+                                        " " + _vm._s(_vm.customer.issue.name)
                                       )
                                     ]
                                   },
@@ -18645,7 +18738,7 @@ var render = function() {
                   attrs: {
                     slot: "customer-detail-chip",
                     value: _vm.customer.name,
-                    address: _vm.customer.address
+                    address: _vm.customer.customer_detail.township.name
                   },
                   slot: "customer-detail-chip"
                 }),
@@ -18661,7 +18754,7 @@ var render = function() {
                           {
                             key: "team-name",
                             fn: function() {
-                              return [_vm._v(_vm._s(_vm.assignedTeam.teamName))]
+                              return [_vm._v(_vm._s(_vm.assignedTeam.name))]
                             },
                             proxy: true
                           },
@@ -18669,7 +18762,7 @@ var render = function() {
                             key: "customer-name",
                             fn: function() {
                               return [
-                                _vm._v(_vm._s(_vm.assignedTeam.customerName))
+                                _vm._v(_vm._s(_vm.assignedTeam.leader_name))
                               ]
                             },
                             proxy: true
@@ -18678,7 +18771,7 @@ var render = function() {
                             key: "total-remaining",
                             fn: function() {
                               return [
-                                _vm._v(_vm._s(_vm.assignedTeam.remaining))
+                                _vm._v(_vm._s(_vm.assignedTeam.remaining_jobs))
                               ]
                             },
                             proxy: true
@@ -18686,21 +18779,25 @@ var render = function() {
                           {
                             key: "total-man-power",
                             fn: function() {
-                              return [_vm._v(_vm._s(_vm.assignedTeam.manPower))]
+                              return [
+                                _vm._v(_vm._s(_vm.assignedTeam.man_power))
+                              ]
                             },
                             proxy: true
                           },
                           {
                             key: "total-complete",
                             fn: function() {
-                              return [_vm._v(_vm._s(_vm.assignedTeam.complete))]
+                              return [
+                                _vm._v(_vm._s(_vm.assignedTeam.completed_jobs))
+                              ]
                             },
                             proxy: true
                           }
                         ],
                         null,
                         false,
-                        1547696449
+                        2015420551
                       )
                     })
                   : _vm._e(),
@@ -19442,7 +19539,10 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/lsp-order/splicing", tag: "div" }
+          attrs: {
+            to: { path: "/order/" + this.$route.params.id + "/installation" },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19451,16 +19551,29 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "4", type: "admin" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "4", type: "admin", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c(
         "TeamInfo",
-        _vm._l(_vm.issueLists, function(value, label) {
-          return _c("TableRow", {
-            key: label,
-            attrs: { label: label, value: value }
+        [
+          _c("TableRow", {
+            attrs: {
+              label: "PPOE Username",
+              value: _vm.data.ppoe_username,
+              type: "request-detail"
+            }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
+            attrs: {
+              label: "PPOE Password",
+              value: _vm.data.ppoe_password,
+              type: "request-detail"
+            }
           })
-        }),
+        ],
         1
       ),
       _vm._v(" "),
@@ -19470,11 +19583,8 @@ var render = function() {
         [
           _c("h3", [_vm._v("Remarks")]),
           _vm._v(" "),
-          _vm._l(_vm.remarks, function(value, key) {
-            return _c("Remarks", {
-              key: key,
-              attrs: { value: value.remark, created_at: value.created_at }
-            })
+          _vm._l(_vm.data.remarks, function(value, key) {
+            return _c("Remarks", { key: key, attrs: { value: value } })
           })
         ],
         2
@@ -19515,7 +19625,10 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/lsp-order/survey", tag: "div" }
+          attrs: {
+            to: { path: "/order/" + this.$route.params.id + "/installation" },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19524,7 +19637,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "2", type: "admin" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "2", type: "admin", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -19533,10 +19648,7 @@ var render = function() {
           _c("h3", [_vm._v("Remarks")]),
           _vm._v(" "),
           _vm._l(_vm.remarks, function(value, key) {
-            return _c("Remarks", {
-              key: key,
-              attrs: { value: value.remark, created_at: value.created_at }
-            })
+            return _c("Remarks", { key: key, attrs: { value: value } })
           })
         ],
         2
@@ -19622,10 +19734,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "TeamInfo",
-            _vm._l(_vm.issueLists, function(value, label) {
+            _vm._l(_vm.detail.product_usage, function(value, label) {
               return _c("TableRow", {
                 key: label,
-                attrs: { label: label, value: value }
+                attrs: { label: label, value: value, type: "repair-detail" }
               })
             }),
             1
@@ -19640,11 +19752,8 @@ var render = function() {
         [
           _c("h3", [_vm._v("Remarks")]),
           _vm._v(" "),
-          _vm._l(_vm.remarks, function(value, key) {
-            return _c("Remarks", {
-              key: key,
-              attrs: { value: value.remark, created_at: value.created_at }
-            })
+          _vm._l(_vm.detail.remarks, function(value, key) {
+            return _c("Remarks", { key: key, attrs: { value: value } })
           })
         ],
         2
@@ -19685,7 +19794,10 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: "/lsp-order/cabling", tag: "div" }
+          attrs: {
+            to: { path: "/order/" + this.$route.params.id + "/installation" },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19694,7 +19806,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "3", type: "admin" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "3", type: "admin", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -19703,10 +19817,7 @@ var render = function() {
           _c("h3", [_vm._v("Remarks")]),
           _vm._v(" "),
           _vm._l(_vm.remarks, function(value, key) {
-            return _c("Remarks", {
-              key: key,
-              attrs: { value: value.remark, created_at: value.created_at }
-            })
+            return _c("Remarks", { key: key, attrs: { value: value } })
           })
         ],
         2
@@ -19747,7 +19858,10 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { tag: "div", to: "/order" }
+          attrs: {
+            tag: "div",
+            to: { path: "/order/" + this.$route.params.id + "/installation" }
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -19756,15 +19870,14 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("ProgressBar", { attrs: { stepNo: "1", type: "admin" } }),
+      _c("ProgressBar", {
+        attrs: { stepNo: "1", type: "admin", id: this.$route.params.id }
+      }),
       _vm._v(" "),
       _c(
         "TeamInfo",
         _vm._l(_vm.issueLists, function(value, label) {
-          return _c("TableRow", {
-            key: label,
-            attrs: { label: label, value: value }
-          })
+          return _c("TableRow", { key: label, attrs: { value: value } })
         }),
         1
       )
@@ -19850,18 +19963,27 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Order Type : "),
-                _c("span", [_vm._v(_vm._s(_vm.orderType))])
-              ])
+              _vm.detail.type
+                ? _c("p", [
+                    _vm._v("Order Type : "),
+                    _c("span", [
+                      _vm._v(_vm._s(_vm._f("capitalize")(_vm.detail.type)))
+                    ])
+                  ])
+                : _c("p", [
+                    _vm._v("Order Type : "),
+                    _c("span", [
+                      _vm._v(_vm._s(_vm._f("capitalize")(_vm.orderType)))
+                    ])
+                  ])
             ]),
             _vm._v(" "),
-            _vm.order_type == "On Call"
+            _vm.orderType == "on_call"
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
                     _vm._v("Possible Issue : "),
                     _c("span", { staticClass: "issue" }, [
-                      _vm._v(_vm._s(_vm.issueType))
+                      _vm._v(_vm._s(_vm.detail.estimated_issue.name))
                     ])
                   ])
                 ])
@@ -19900,8 +20022,10 @@ var render = function() {
           _c("span", [_vm._v("Assigned Team :")]),
           _vm._v(" "),
           !_vm.detail.lsp_team
-            ? _c("span", [_vm._v("Not Assigned")])
-            : _c("span", [_vm._v(_vm._s(_vm.detail.lsp_team.name))]),
+            ? _c("span", { staticClass: "dummy" }, [_vm._v("N/A")])
+            : _c("span", { staticClass: "dummy" }, [
+                _vm._v(_vm._s(_vm.detail.lsp_team.name))
+              ]),
           _vm._v(" "),
           !_vm.detail.lsp_team
             ? _c("AssignOrSwitchTeamComponent", {
@@ -19918,6 +20042,7 @@ var render = function() {
                 attrs: {
                   customer: _vm.detail,
                   type: "Accept",
+                  teams: _vm.teams,
                   requestType: _vm.orderType,
                   assignedTeam: _vm.detail.lsp_team
                 }
@@ -19934,55 +20059,66 @@ var render = function() {
             "CustomerInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Customer Name", value: _vm.detail.name }
+                attrs: {
+                  label: "Customer Name",
+                  value: _vm.detail.name,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Customer Account No",
-                  value: _vm.detail.customer
+                  value: _vm.detail.customer,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Customer RMN",
-                  value: _vm.detail.customer_detail.rmn
+                  value: _vm.detail.customer_detail.rmn,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "PPOE Username",
-                  value: _vm.detail.customer_detail.ppoe_user_name
+                  value: _vm.detail.customer_detail.ppoe_user_name,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "PPOE Password",
-                  value: _vm.detail.customer_detail.ppoe_password
+                  value: _vm.detail.customer_detail.ppoe_password,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Phone",
-                  value: _vm.detail.customer_detail.phone
+                  value: _vm.detail.customer_detail.phone,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Address",
-                  value: _vm.detail.customer_detail.address
+                  value: _vm.detail.customer_detail.address,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Township",
-                  value: _vm.detail.customer_detail.township.name
+                  value: _vm.detail.customer_detail.township.name,
+                  type: "request-detail"
                 }
               })
             ],
@@ -20000,19 +20136,35 @@ var render = function() {
             "OrderInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Order Id", value: _vm.detail.id }
+                attrs: {
+                  label: "Order Id",
+                  value: _vm.detail.id,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Plan Name", value: _vm.detail.plan }
+                attrs: {
+                  label: "Plan Name",
+                  value: _vm.detail.plan,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Promo Name", value: _vm.detail.promotion }
+                attrs: {
+                  label: "Promo Name",
+                  value: _vm.detail.promotion,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Create Date", value: _vm.detail.created_at }
+                attrs: {
+                  label: "Create Date",
+                  value: _vm.detail.created_at,
+                  type: "request-detail"
+                }
               })
             ],
             1
@@ -20025,14 +20177,31 @@ var render = function() {
         "div",
         { staticClass: "order-button" },
         [
-          _c(
-            "router-link",
-            {
-              staticClass: "col s12 m6 l3 view-detail",
-              attrs: { tag: "div", to: "" }
-            },
-            [_c("a", [_vm._v("View Installation Detail")])]
-          ),
+          _vm.orderType == "installation"
+            ? _c(
+                "router-link",
+                {
+                  staticClass: "col s12 m6 l3 view-detail",
+                  attrs: {
+                    tag: "div",
+                    to: {
+                      path: "/lsp-order/review/" + _vm.detail.id + "/survey"
+                    }
+                  }
+                },
+                [_c("a", [_vm._v("View Installation Detail")])]
+              )
+            : _c(
+                "router-link",
+                {
+                  staticClass: "col s12 m6 l3 view-detail",
+                  attrs: {
+                    tag: "div",
+                    to: { path: "/lsp-order/review/repair/" + _vm.detail.id }
+                  }
+                },
+                [_c("a", [_vm._v("View Repair Detail")])]
+              ),
           _vm._v(" "),
           _c("div", { staticClass: "col s12 m6 l3 complete-btn" }, [
             _c(
@@ -20729,7 +20898,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("FinishButton", { attrs: { type: "Finish" } })
+      _c("FinishButton", {
+        attrs: { type: "Finish" },
+        nativeOn: {
+          click: function($event) {
+            return _vm.finishRepair($event)
+          }
+        }
+      })
     ],
     1
   )
@@ -21036,7 +21212,9 @@ var render = function() {
             _c("div", { staticClass: "order-type" }, [
               _c("p", [
                 _vm._v("Order Type : "),
-                _c("span", [_vm._v(_vm._s(_vm.order_type))])
+                _c("span", [
+                  _vm._v(_vm._s(_vm._f("capitalize")(_vm.order_type)))
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -21045,7 +21223,7 @@ var render = function() {
                   _c("p", [
                     _vm._v("Possible Issue : "),
                     _c("span", { staticClass: "issue" }, [
-                      _vm._v(_vm._s(_vm.issueType))
+                      _vm._v(_vm._s(_vm.detail.estimated_issue.name))
                     ])
                   ])
                 ])
@@ -21085,55 +21263,66 @@ var render = function() {
             "CustomerInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Customer Name", value: _vm.detail.name }
+                attrs: {
+                  label: "Customer Name",
+                  value: _vm.detail.name,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Customer Account No",
-                  value: _vm.detail.customer
+                  value: _vm.detail.customer,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Customer RMN",
-                  value: _vm.detail.customer_detail.rmn
+                  value: _vm.detail.customer_detail.rmn,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "PPOE Username",
-                  value: _vm.detail.customer_detail.ppoe_user_name
+                  value: _vm.detail.customer_detail.ppoe_user_name,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "PPOE Password",
-                  value: _vm.detail.customer_detail.ppoe_password
+                  value: _vm.detail.customer_detail.ppoe_password,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Phone",
-                  value: _vm.detail.customer_detail.phone
+                  value: _vm.detail.customer_detail.phone,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Address",
-                  value: _vm.detail.customer_detail.address
+                  value: _vm.detail.customer_detail.address,
+                  type: "request-detail"
                 }
               }),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
                   label: "Township",
-                  value: _vm.detail.customer_detail.township.name
+                  value: _vm.detail.customer_detail.township.name,
+                  type: "request-detail"
                 }
               })
             ],
@@ -21151,19 +21340,35 @@ var render = function() {
             "OrderInfo",
             [
               _c("TableRow", {
-                attrs: { label: "Order Id", value: _vm.detail.id }
+                attrs: {
+                  label: "Order Id",
+                  value: _vm.detail.id,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Plan Name", value: _vm.detail.plan }
+                attrs: {
+                  label: "Plan Name",
+                  value: _vm.detail.plan,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Promo Name", value: _vm.detail.promotion }
+                attrs: {
+                  label: "Promo Name",
+                  value: _vm.detail.promotion,
+                  type: "request-detail"
+                }
               }),
               _vm._v(" "),
               _c("TableRow", {
-                attrs: { label: "Create Date", value: _vm.detail.created_at }
+                attrs: {
+                  label: "Create Date",
+                  value: _vm.detail.created_at,
+                  type: "request-detail"
+                }
               })
             ],
             1
@@ -21180,9 +21385,23 @@ var render = function() {
             on: { click: _vm.toSurvey }
           },
           [
-            _c("a", { staticClass: "waves-effect waves-light btn orange" }, [
-              _vm._v("Start Installation")
-            ])
+            _vm.orderType == "on_call"
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "waves-effect waves-light btn orange dynamic-btn"
+                  },
+                  [_vm._v("Repair")]
+                )
+              : _c(
+                  "a",
+                  {
+                    staticClass:
+                      "waves-effect waves-light btn orange dynamic-btn"
+                  },
+                  [_vm._v("Start Installation")]
+                )
           ]
         )
       ])
@@ -21971,7 +22190,7 @@ var render = function() {
             attrs: {
               to:
                 _vm.type == "admin"
-                  ? "/lsp-order/survey"
+                  ? "/lsp-order/review/" + _vm.id + "/survey"
                   : "/lsp-team-order/" + _vm.id + "/survey",
               tag: "li"
             }
@@ -21986,7 +22205,7 @@ var render = function() {
             attrs: {
               to:
                 _vm.type == "admin"
-                  ? "/lsp-order/cabling"
+                  ? "/lsp-order/review/" + _vm.id + "/cabling"
                   : "/lsp-team-order/" + _vm.id + "/cabling",
               tag: "li"
             }
@@ -22001,7 +22220,7 @@ var render = function() {
             attrs: {
               to:
                 _vm.type == "admin"
-                  ? "/lsp-order/splicing"
+                  ? "/lsp-order/review/" + _vm.id + "/splicing"
                   : "/lsp-team-order/" + _vm.id + "/splicing",
               tag: "li"
             }
@@ -22016,7 +22235,7 @@ var render = function() {
             attrs: {
               to:
                 _vm.type == "admin"
-                  ? "/lsp-order/activate"
+                  ? "/lsp-order/review/" + _vm.id + "/activate"
                   : "/lsp-team-order/" + _vm.id + "/activate",
               tag: "li"
             }
@@ -22051,9 +22270,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "remark" }, [
-    _c("p", [_vm._v("\n        " + _vm._s(_vm.value) + "\n    ")]),
+    _c("p", [_vm._v("\n        " + _vm._s(_vm.value.name) + "\n    ")]),
     _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.created_at))])
+    _c("p", [
+      _vm._v(_vm._s(_vm._f("format-date-with-time")(_vm.value.created_at)))
+    ])
   ])
 }
 var staticRenderFns = []
@@ -22497,6 +22718,8 @@ var render = function() {
   return _c("div", { staticClass: "customer-date" }, [
     _c("span", [_vm._t("lsp-accept-date")], 2),
     _vm._v(" "),
+    _c("span", { staticClass: "divided" }, [_vm._v("|")]),
+    _vm._v(" "),
     _c("span", { staticClass: "priority" }, [_vm._t("priority-date")], 2),
     _vm._v(" "),
     _c("br"),
@@ -22886,15 +23109,13 @@ var render = function() {
                 slot: "customer-date",
                 scopedSlots: _vm._u(
                   [
-                    request.lsp_accepted_at != null
+                    request.due_date != null
                       ? {
                           key: "lsp-accept-date",
                           fn: function() {
                             return [
                               _vm._v(
-                                _vm._s(
-                                  _vm._f("format-date")(request.lsp_accepted_at)
-                                )
+                                _vm._s(_vm._f("format-date")(request.due_date))
                               )
                             ]
                           },
@@ -22906,9 +23127,7 @@ var render = function() {
                           key: "priority-date",
                           fn: function() {
                             return [
-                              _vm._v(
-                                "| " + _vm._s(request.priority_level.name) + " "
-                              )
+                              _vm._v(_vm._s(request.priority_level.name) + " ")
                             ]
                           },
                           proxy: true
@@ -22925,7 +23144,7 @@ var render = function() {
             attrs: {
               slot: "customer-detail-chip",
               value: request.name,
-              address: request.address
+              address: request.customer_detail.township.name
             },
             slot: "customer-detail-chip"
           }),
@@ -23009,9 +23228,29 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "table-row-component" }, [
     _c("tr", [
-      _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))]),
+      _vm.type == "request-detail"
+        ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
+        : _vm.type == "repair-detail"
+        ? _c("td", { staticClass: "table-color" }, [
+            _vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))
+          ])
+        : _c("td", { staticClass: "table-color" }, [
+            _vm._v(_vm._s(_vm.value.name))
+          ]),
       _vm._v(" "),
-      _c("td", [_vm._v(_vm._s(_vm.value))])
+      _c("td", [
+        _vm.type == "request-detail"
+          ? _c("p", [_vm._v(_vm._s(_vm.value))])
+          : _vm.type == "repair-detail"
+          ? _c("p", [_vm._v(_vm._s(_vm.value.name))])
+          : _c("p", [_vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))]),
+        _vm._v(" "),
+        _vm.value.remark != null
+          ? _c("p", { staticClass: "single-remark" }, [
+              _vm._v(_vm._s(_vm.value.remark.name))
+            ])
+          : _vm._e()
+      ])
     ])
   ])
 }
@@ -23251,7 +23490,9 @@ var render = function() {
   return _c("div", { staticClass: "customer-home-header" }, [
     _c("h4", [_vm._v(_vm._s(_vm.id))]),
     _vm._v(" "),
-    _c("span", [_vm._v(_vm._s(_vm.step))])
+    _vm.step
+      ? _c("span", [_vm._v(_vm._s(_vm._f("capitalize")(_vm.step)))])
+      : _c("span", [_vm._v("On Call")])
   ])
 }
 var staticRenderFns = []
@@ -38573,6 +38814,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date', function (value
   var cuttedValue = value.slice(0, 10);
   return cuttedValue.replace(/-/gi, '/');
 });
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date-with-time', function (value) {
+  var cuttedValue = value.slice(0, 10);
+  return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(12, 16);
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
+  if (value == 'on_call') return value.charAt(0).toUpperCase() + value.charAt(1) + ' ' + value.charAt(3).toUpperCase() + value.slice(4);
+  if (typeof value !== 'string') return '';
+  return value.charAt(0).toUpperCase() + value.slice(1);
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('passOrFail', function (value) {
+  if (value == 'true') return 'Pass';
+  return 'Fail';
+});
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_router__WEBPACK_IMPORTED_MODULE_2__["default"])
@@ -43046,7 +43300,7 @@ __webpack_require__.r(__webpack_exports__);
       name: 'LSPTeamOrderRepair'
     }]
   }, {
-    path: '/lsp-order/',
+    path: '/lsp-order/review/:id',
     component: _components_lsp_order_detail_LSPOrderIndexComponent_vue__WEBPACK_IMPORTED_MODULE_27__["default"],
     children: [{
       path: 'survey',
@@ -43062,7 +43316,7 @@ __webpack_require__.r(__webpack_exports__);
       component: _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_31__["default"]
     }]
   }, {
-    path: '/lsp-order/repair/:id',
+    path: '/lsp-order/review/repair/:id',
     component: _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_32__["default"],
     name: 'order-repair',
     props: true

@@ -51,7 +51,10 @@
         }
         .customer-date {
           text-align: end; 
-
+          .divided {
+            margin: 0 9px;
+            color: #d8d8d8;
+          }
           .priority, .issue {
             color: $text-red;
           }

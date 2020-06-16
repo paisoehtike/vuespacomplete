@@ -36,13 +36,23 @@ export default {
     },
     methods: {
         typeOnClick(typer) {
-            this.selected = typer.id;
-            this.$emit('type-id', typer.id);
+            if (this.selected == typer.id) {
+                this.selected = null;
+                this.$emit('type-id', null);
+            } else {
+                this.selected = typer.id;
+                this.$emit('type-id', typer.id);
+            }
         }
     },
     watch: {
         defaultId: function(val) {
             this.selected = val;
+        }
+    },
+    mounted() {
+        if(defaultId) {
+            this.selected = defaultId;
         }
     }
 }

@@ -1,14 +1,22 @@
 <template>
   <div class="table-row-component">
     <tr>
-      <td class="table-color">{{ label }}</td>
-      <td>{{value}}</td>
+      <td class="table-color" v-if="type == 'request-detail'">{{ label }}</td>
+      <td class="table-color" v-else-if="type == 'repair-detail'">{{ label | capitalize}}</td>
+      <td class="table-color" v-else>{{ value.name }}</td>
+      <td>
+        <p v-if="type == 'request-detail'">{{ value }}</p>
+        <p v-else-if="type == 'repair-detail'">{{ value.name }}</p>
+        <p v-else>{{ value.status | passOrFail}}</p>
+
+        <p v-if="value.remark != null" class="single-remark">{{ value.remark.name }}</p>
+      </td>
     </tr>
   </div>
 </template>
 <script>
 export default {
-    props: ['value', 'label'],
+    props: ['value', 'label', 'type'],
     data() {
         return {
             data: {

@@ -10,19 +10,19 @@
             <!-- <span>{{customer.date}}</span> -->
             <template
               v-slot:lsp-accept-date
-              v-if="request.lsp_accepted_at != null"
-              >{{request.lsp_accepted_at | format-date}}</template>
+              v-if="request.due_date != null"
+              >{{request.due_date | format-date}}</template>
             <template
               v-slot:priority-date
               v-if="request.priority_level != null"
-            >| {{request.priority_level.name}} </template>
+            >{{request.priority_level.name}} </template>
             <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
 
           <CustomerDetailChip
             slot="customer-detail-chip"
             :value="request.name"
-            :address="request.address"
+            :address="request.customer_detail.township.name"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
             <template v-if="request.lsp_team != null" v-slot:assign>{{ request.lsp_team.name }}</template>

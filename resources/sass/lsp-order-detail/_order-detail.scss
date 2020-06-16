@@ -645,7 +645,7 @@
         margin-bottom: 6px;
     }
     p:first-child + p {
-        text-align: right;
+        text-align: left;
         font-size: 10px;
         line-height: 13px;
         color: #949fa2;
@@ -675,6 +675,6 @@
 }
 
 .customer-request-date {
-    padding-top: 69px;
+    padding-top: 47px;
     text-align: right;
 }

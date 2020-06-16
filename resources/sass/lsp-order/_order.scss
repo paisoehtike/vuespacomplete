@@ -33,8 +33,8 @@
   .order-assigned-row {
     display: flex;
     align-items: center;
-    span {
-      margin-right: 16px;
+    .dummy {
+      margin-left: 5px;
     }
     a {
       width: 100px;
@@ -72,4 +72,8 @@
   grid-column: 2/3;
   width: 100%;
   text-align: center;
+
+  .dynamic-btn {
+    min-width: 299px;
+  }
 }

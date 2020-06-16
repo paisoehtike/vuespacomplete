@@ -188,7 +188,7 @@ export default {
             ]
         },
         {
-            path: '/lsp-order/',
+            path: '/lsp-order/review/:id',
             component: LSPOrderIndex,
             children: [
                 {
@@ -210,7 +210,7 @@ export default {
             ]
         },
         {
-            path: '/lsp-order/repair/:id',
+            path: '/lsp-order/review/repair/:id',
             component: LSPOrderRepair,
             name: 'order-repair',
             props: true
