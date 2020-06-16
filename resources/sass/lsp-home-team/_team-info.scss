@@ -1,7 +1,7 @@
 .team-info-container {
   grid-column: 2/3;
-  z-index: 1000;
-  margin: 20px 0;
+  z-index: 2;
+  margin: 20px 0 5px;
 
   table {
     border: 1px solid $border-gery;
@@ -10,6 +10,11 @@
     }
     tr {
       border: none;
+      .activate-show-image {
+        width: 30px;
+        height: 30px;
+        margin: 1px;
+      }
     }
     td {
       background-color: $text-white;

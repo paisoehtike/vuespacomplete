@@ -2099,6 +2099,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+/* harmony import */ var _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../reuseable-component/ConfirmModalComponent */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2202,6 +2227,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _reuseable_home_HeaderComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -2214,7 +2240,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
     CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_8__["default"],
     CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_9__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__["default"]
+    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__["default"],
+    ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_11__["default"]
   },
   data: function data() {
     return {
@@ -2287,6 +2314,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.isRemainClass = "";
       this.isCompleteClass = "";
       this.isHistoryClass = "history-class";
+    },
+    resetPassword: function resetPassword(password) {
+      var _this5 = this;
+
+      axios.post("".concat(this.base_url, "change_to_team_password"), {
+        lsp_team_leader_id: this.teamDetail.leader_id,
+        password: password
+      }).then(function (res) {
+        _this5.getDetail();
+      })["catch"](console.log('Error'));
     }
   },
   created: function created() {
@@ -3157,6 +3194,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lsp_home_team_TeamInfoComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../lsp-home-team/TeamInfoComponent */ "./resources/js/components/lsp-home-team/TeamInfoComponent.vue");
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _resuable_lsp_detail_RemarksComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../resuable-lsp-detail/RemarksComponent */ "./resources/js/components/resuable-lsp-detail/RemarksComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5745,16 +5808,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['type'],
   data: function data() {
     return {
-      showModal: false
+      showModal: false,
+      newPassword: null,
+      confirmPassword: null,
+      isMatch: null,
+      errors: {
+        newPassword: null,
+        confirmPassword: null,
+        passwordDoesntMatch: null
+      }
     };
   },
   methods: {
     submitRemark: function submitRemark() {
       this.$emit('delete-confirm');
       this.showModal = false;
+    },
+    resetPassword: function resetPassword() {
+      if (this.newPassword !== this.confirmPassword) {
+        this.errors.passwordDoesntMatch = "Password Doesn't Match!";
+        this.isMatch = false;
+      } else {
+        this.isMatch = true;
+      }
+
+      if (!this.newPassword) {
+        this.errors.newPassword = "*This field is required*";
+      }
+
+      if (!this.confirmPassword) {
+        this.errors.confirmPassword = "*This field is required*";
+      }
+
+      if (this.newPassword && this.confirmPassword && this.isMatch) {
+        this.$emit('submit', this.confirmPassword);
+        this.showModal = false;
+        this.resetErrorMessages();
+      }
+    },
+    resetErrorMessages: function resetErrorMessages() {
+      this.errors.newPassword = null;
+      this.errors.confirmPassword = null;
+      this.errors.passwordDoesntMatch = null;
     }
   }
 });
@@ -6211,6 +6335,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17978,25 +18108,47 @@ var render = function() {
         "TeamInfo",
         [
           _c("TableRow", {
-            attrs: { label: "Leader Name", value: _vm.teamDetail.leader_name }
+            attrs: {
+              label: "Leader Name",
+              value: _vm.teamDetail.leader_name,
+              type: "request-detail"
+            }
           }),
           _vm._v(" "),
           _c("TableRow", {
-            attrs: { label: "Man Power", value: _vm.teamDetail.man_power }
+            attrs: {
+              label: "Man Power",
+              value: _vm.teamDetail.man_power,
+              type: "request-detail"
+            }
           }),
           _vm._v(" "),
           _c("TableRow", {
             attrs: {
               label: "Assigned Jobs",
-              value: _vm.teamDetail.assigned_job
+              value: _vm.teamDetail.assigned_jobs,
+              type: "request-detail"
             }
           }),
           _vm._v(" "),
           _c("TableRow", {
             attrs: {
               label: "Remaining Jobs",
-              value: _vm.teamDetail.remaining_job
+              value: _vm.teamDetail.remaining_jobs,
+              type: "request-detail"
             }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "password-reset" },
+        [
+          _c("ConfirmModal", {
+            attrs: { type: "password-reset" },
+            on: { submit: _vm.resetPassword }
           })
         ],
         1
@@ -18068,25 +18220,50 @@ var render = function() {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "CustomerIssueDate",
-                    { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(
-                            _vm._f("format-date")(customer.start_assign_at)
-                          ) +
-                          "\n      "
-                      )
-                    ]
-                  ),
+                  _c("CustomerIssueDate", {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        customer.due_date != null
+                          ? {
+                              key: "lsp-accept-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("format-date")(customer.due_date)
+                                    )
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
+                        customer.priority_level != null
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    _vm._s(customer.priority_level.name) + " "
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null
+                      ],
+                      null,
+                      true
+                    )
+                  }),
                   _vm._v(" "),
                   _c("CustomerDetailChip", {
                     attrs: {
                       slot: "customer-detail-chip",
                       value: customer.name,
-                      address: customer.address
+                      address: customer.customer_detail.township.name
                     },
                     slot: "customer-detail-chip"
                   }),
@@ -18169,25 +18346,50 @@ var render = function() {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "CustomerIssueDate",
-                    { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(
-                            _vm._f("format-date")(customer.start_assign_at)
-                          ) +
-                          "\n      "
-                      )
-                    ]
-                  ),
+                  _c("CustomerIssueDate", {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        customer.due_date != null
+                          ? {
+                              key: "lsp-accept-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("format-date")(customer.due_date)
+                                    )
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
+                        customer.priority_level != null
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    _vm._s(customer.priority_level.name) + " "
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null
+                      ],
+                      null,
+                      true
+                    )
+                  }),
                   _vm._v(" "),
                   _c("CustomerDetailChip", {
                     attrs: {
                       slot: "customer-detail-chip",
                       value: customer.name,
-                      address: customer.address
+                      address: customer.customer_detail.township.name
                     },
                     slot: "customer-detail-chip"
                   }),
@@ -18270,25 +18472,50 @@ var render = function() {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "CustomerIssueDate",
-                    { attrs: { slot: "customer-date" }, slot: "customer-date" },
-                    [
-                      _vm._v(
-                        "\n        " +
-                          _vm._s(
-                            _vm._f("format-date")(customer.start_assign_at)
-                          ) +
-                          "\n      "
-                      )
-                    ]
-                  ),
+                  _c("CustomerIssueDate", {
+                    attrs: { slot: "customer-date" },
+                    slot: "customer-date",
+                    scopedSlots: _vm._u(
+                      [
+                        customer.due_date != null
+                          ? {
+                              key: "lsp-accept-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("format-date")(customer.due_date)
+                                    )
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
+                        customer.priority_level != null
+                          ? {
+                              key: "priority-date",
+                              fn: function() {
+                                return [
+                                  _vm._v(
+                                    _vm._s(customer.priority_level.name) + " "
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null
+                      ],
+                      null,
+                      true
+                    )
+                  }),
                   _vm._v(" "),
                   _c("CustomerDetailChip", {
                     attrs: {
                       slot: "customer-detail-chip",
                       value: customer.name,
-                      address: customer.address
+                      address: customer.customer_detail.township.name
                     },
                     slot: "customer-detail-chip"
                   }),
@@ -19559,6 +19786,10 @@ var render = function() {
         "TeamInfo",
         [
           _c("TableRow", {
+            attrs: { label: "Image", value: _vm.data.images, type: "image" }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
             attrs: {
               label: "PPOE Username",
               value: _vm.data.ppoe_username,
@@ -19572,7 +19803,111 @@ var render = function() {
               value: _vm.data.ppoe_password,
               type: "request-detail"
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.data.olt
+            ? _c("TableRow", {
+                attrs: {
+                  label: "OLT",
+                  value: _vm.data.olt,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: { label: "OLT", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.fdt
+            ? _c("TableRow", {
+                attrs: {
+                  label: "FDT",
+                  value: _vm.data.fdt,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: { label: "FDT", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.fat
+            ? _c("TableRow", {
+                attrs: {
+                  label: "FAT",
+                  value: _vm.data.fat,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: { label: "FAT", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.fat_port
+            ? _c("TableRow", {
+                attrs: {
+                  label: "FAT Port",
+                  value: _vm.data.fat_port,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: { label: "FAT Port", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.product_usage.onu_adapter
+            ? _c("TableRow", {
+                attrs: {
+                  label: "ONU S/N",
+                  value: _vm.data.product_usage.onu_adapter.name,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: { label: "ONU S/N", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.product_usage.onu_type
+            ? _c("TableRow", {
+                attrs: {
+                  label: "ONU Type",
+                  value: _vm.data.product_usage.onu_type.name,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: { label: "ONU Type", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.product_usage.fiber_patch_cord
+            ? _c("TableRow", {
+                attrs: {
+                  label: "ONU S/N",
+                  value: _vm.data.product_usage.fiber_patch_cord.name,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: {
+                  label: "Fiber Patch Cord",
+                  value: "-",
+                  type: "request-detail"
+                }
+              }),
+          _vm._v(" "),
+          _vm.data.product_usage.fiber_cable
+            ? _c("TableRow", {
+                attrs: {
+                  label: "Fiber Cable",
+                  value: _vm.data.product_usage.fiber_cable.unit,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: {
+                  label: "Fiber Cable",
+                  value: "-",
+                  type: "request-detail"
+                }
+              })
         ],
         1
       ),
@@ -22555,14 +22890,27 @@ var render = function() {
     "div",
     {},
     [
-      _c("i", {
-        staticClass: "far fa-trash-alt remark-setting",
-        on: {
-          click: function($event) {
-            _vm.showModal = true
-          }
-        }
-      }),
+      _vm.type == "password-reset"
+        ? _c(
+            "p",
+            {
+              staticClass: "model-text",
+              on: {
+                click: function($event) {
+                  _vm.showModal = true
+                }
+              }
+            },
+            [_vm._v("Reset Password")]
+          )
+        : _c("i", {
+            staticClass: "far fa-trash-alt remark-setting",
+            on: {
+              click: function($event) {
+                _vm.showModal = true
+              }
+            }
+          }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
         _vm.showModal
@@ -22577,37 +22925,137 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("transition", { attrs: { name: "slide", appear: "" } }, [
-        _vm.showModal
-          ? _c("div", { staticClass: "modal-box" }, [
-              _c("h3", { staticClass: "text-center" }, [
-                _vm._v("You Cannot Undo This!")
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "remark-cancel-btn",
-                  on: {
-                    click: function($event) {
-                      _vm.showModal = false
-                    }
-                  }
-                },
-                [_vm._v("Cancel")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "remark-save-btn",
-                  on: { click: _vm.submitRemark }
-                },
-                [_vm._v("Confirm")]
-              )
-            ])
-          : _vm._e()
-      ])
+      _vm.type == "password-reset"
+        ? _c("transition", { attrs: { name: "slide", appear: "" } }, [
+            _vm.showModal
+              ? _c("div", { staticClass: "modal-box" }, [
+                  _c("div", { staticClass: "cross-close" }, [
+                    _c("span", [_vm._v("Reset Password")]),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "fas fa-times",
+                      on: {
+                        click: function($event) {
+                          _vm.showModal = false
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  !_vm.isMatch
+                    ? _c("p", { staticClass: "error-message" }, [
+                        _vm._v(_vm._s(_vm.errors.passwordDoesntMatch))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("label", { staticClass: "activate-label" }, [
+                      _vm._v("New Password")
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.newPassword
+                      ? _c("span", [_vm._v(_vm._s(_vm.errors.newPassword))])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newPassword,
+                          expression: "newPassword"
+                        }
+                      ],
+                      staticClass: "activate-input",
+                      attrs: { type: "password", name: "phone" },
+                      domProps: { value: _vm.newPassword },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.newPassword = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("label", { staticClass: "activate-label" }, [
+                      _vm._v("Confirm Password")
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.confirmPassword
+                      ? _c("span", [_vm._v(_vm._s(_vm.errors.confirmPassword))])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.confirmPassword,
+                          expression: "confirmPassword"
+                        }
+                      ],
+                      staticClass: "activate-input",
+                      attrs: { type: "password", name: "password" },
+                      domProps: { value: _vm.confirmPassword },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.confirmPassword = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "reset-button-container" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "remark-save-btn",
+                        on: { click: _vm.resetPassword }
+                      },
+                      [_vm._v("Reset Now")]
+                    )
+                  ])
+                ])
+              : _vm._e()
+          ])
+        : _c("transition", { attrs: { name: "slide", appear: "" } }, [
+            _vm.showModal
+              ? _c("div", { staticClass: "modal-box" }, [
+                  _c("h3", { staticClass: "text-center" }, [
+                    _vm._v("You Cannot Undo This!")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "remark-cancel-btn",
+                      on: {
+                        click: function($event) {
+                          _vm.showModal = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "remark-save-btn",
+                      on: { click: _vm.submitRemark }
+                    },
+                    [_vm._v("Confirm")]
+                  )
+                ])
+              : _vm._e()
+          ])
     ],
     1
   )
@@ -23234,23 +23682,39 @@ var render = function() {
         ? _c("td", { staticClass: "table-color" }, [
             _vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))
           ])
+        : _vm.type == "image"
+        ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
         : _c("td", { staticClass: "table-color" }, [
             _vm._v(_vm._s(_vm.value.name))
           ]),
       _vm._v(" "),
-      _c("td", [
-        _vm.type == "request-detail"
-          ? _c("p", [_vm._v(_vm._s(_vm.value))])
-          : _vm.type == "repair-detail"
-          ? _c("p", [_vm._v(_vm._s(_vm.value.name))])
-          : _c("p", [_vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))]),
-        _vm._v(" "),
-        _vm.value.remark != null
-          ? _c("p", { staticClass: "single-remark" }, [
-              _vm._v(_vm._s(_vm.value.remark.name))
-            ])
-          : _vm._e()
-      ])
+      _vm.type == "image"
+        ? _c(
+            "td",
+            _vm._l(_vm.value, function(index, data) {
+              return _c("img", {
+                key: data,
+                staticClass: "activate-show-image",
+                attrs: { src: index.thumbnail_image }
+              })
+            }),
+            0
+          )
+        : _c("td", [
+            _vm.type == "request-detail"
+              ? _c("p", [_vm._v(_vm._s(_vm.value))])
+              : _vm.type == "repair-detail"
+              ? _c("p", [_vm._v(_vm._s(_vm.value.name))])
+              : _c("p", [
+                  _vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))
+                ]),
+            _vm._v(" "),
+            _vm.value.remark != null
+              ? _c("p", { staticClass: "single-remark" }, [
+                  _vm._v(_vm._s(_vm.value.remark.name))
+                ])
+              : _vm._e()
+          ])
     ])
   ])
 }

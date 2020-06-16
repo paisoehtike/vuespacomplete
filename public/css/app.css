@@ -599,9 +599,23 @@
   font-size: 20px;
 }
 
+.team-detail-container .password-reset {
+  grid-column: 2/3;
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: 90%;
+}
+
+.team-detail-container .password-reset .model-text {
+  font-size: 15px;
+  text-decoration: underline;
+  color: #ec911a;
+  text-align: right;
+}
+
 .team-detail-container .detail-button {
   grid-column: 2/3;
-  margin-top: 31px;
+  margin-top: 10px;
   display: grid;
   grid-template-columns: 5% 30% 30% 30% 5%;
   text-align: center;
@@ -644,8 +658,8 @@
 
 .team-info-container {
   grid-column: 2/3;
-  z-index: 1000;
-  margin: 20px 0;
+  z-index: 2;
+  margin: 20px 0 5px;
 }
 
 .team-info-container table {
@@ -658,6 +672,12 @@
 
 .team-info-container table tr {
   border: none;
+}
+
+.team-info-container table tr .activate-show-image {
+  width: 30px;
+  height: 30px;
+  margin: 1px;
 }
 
 .team-info-container table td {
@@ -1141,6 +1161,32 @@
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.4px;
+}
+
+.modal-box .reset-button-container {
+  text-align: center;
+  margin: 38px 0 20px;
+}
+
+.modal-box .reset-button-container button {
+  width: 100%;
+  margin: 0;
+}
+
+.modal-box .cross-close {
+  display: grid;
+  grid-template-columns: 90%;
+  grid-auto-flow: column;
+  margin-bottom: 29px;
+}
+
+.modal-box .cross-close span {
+  font-size: 25px;
+}
+
+.modal-box .cross-close i {
+  font-size: 28px;
+  color: #b9b4b4;
 }
 
 .modal-box .remark-cancel-btn {

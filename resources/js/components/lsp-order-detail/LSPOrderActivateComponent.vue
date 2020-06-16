@@ -7,8 +7,34 @@
         </router-link>
         <ProgressBar :stepNo="'4'" :type="'admin'" :id="this.$route.params.id"></ProgressBar>
         <TeamInfo>
+            <TableRow :label="'Image'" :value="data.images" :type="'image'"></TableRow>
+
             <TableRow :label="'PPOE Username'" :value="data.ppoe_username" :type="'request-detail'"></TableRow>
             <TableRow :label="'PPOE Password'" :value="data.ppoe_password" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.olt" :label="'OLT'" :value="data.olt" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'OLT'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.fdt" :label="'FDT'" :value="data.fdt" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'FDT'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.fat" :label="'FAT'" :value="data.fat" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'FAT'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.fat_port" :label="'FAT Port'" :value="data.fat_port" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'FAT Port'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.product_usage.onu_adapter" :label="'ONU S/N'" :value="data.product_usage.onu_adapter.name" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'ONU S/N'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.product_usage.onu_type" :label="'ONU Type'" :value="data.product_usage.onu_type.name" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'ONU Type'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.product_usage.fiber_patch_cord" :label="'ONU S/N'" :value="data.product_usage.fiber_patch_cord.name" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'Fiber Patch Cord'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.product_usage.fiber_cable" :label="'Fiber Cable'" :value="data.product_usage.fiber_cable.unit" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'Fiber Cable'" :value="'-'" :type="'request-detail'"></TableRow>
         </TeamInfo>
         <div class="remarks">
             <h3>Remarks</h3>

@@ -456,6 +456,29 @@
         line-height: 17px;
         letter-spacing: .4px;
     }
+    .reset-button-container {
+        text-align: center;
+        margin: 38px 0 20px;
+
+        button {
+            width: 100%;
+            margin: 0;
+        }
+    }
+    .cross-close {
+        display: grid;
+        grid-template-columns: 90%;
+        grid-auto-flow: column;
+        margin-bottom: 29px;
+
+        span {
+            font-size: 25px;
+        }
+        i {
+            font-size: 28px;
+            color: #b9b4b4;
+        }
+    }
 
     .remark-cancel-btn {
         border: none;
