@@ -60,10 +60,10 @@
           <h4>{{detail.customer}}</h4>
         </div>
         <div class="order-type">
-          <p>Order Type : <span>{{order_type}}</span></p>
+          <p>Order Type : <span>{{this.$route.params.orderType | capitalize}}</span></p>
         </div>
         <div v-if="order_type == 'on_call'" class="order-type">
-          <p>Possible Issue : <span class="issue">{{issueType}}</span></p>
+          <p>Possible Issue : <span class="issue">{{detail.estimated_issue.name}}</span></p>
         </div>
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
@@ -75,14 +75,14 @@
     </div>
     <div class="customer-info-row">
       <CustomerInfo>
-        <TableRow :label="'Customer Name'" :value="detail.name"></TableRow>
-        <TableRow :label="'Customer Account No'" :value="detail.customer"></TableRow>
-        <TableRow :label="'Customer RMN'" :value="detail.customer_detail.rmn"></TableRow>
-        <TableRow :label="'PPOE Username'" :value="detail.customer_detail.ppoe_user_name"></TableRow>
-        <TableRow :label="'PPOE Password'" :value="detail.customer_detail.ppoe_password"></TableRow>
-        <TableRow :label="'Phone'" :value="detail.customer_detail.phone"></TableRow>
-        <TableRow :label="'Address'" :value="detail.customer_detail.address"></TableRow>
-        <TableRow :label="'Township'" :value="detail.customer_detail.township.name"></TableRow>
+        <TableRow :label="'Customer Name'" :value="detail.name" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Customer Account No'" :value="detail.customer" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Customer RMN'" :value="detail.customer_detail.rmn" :type="'request-detail'"></TableRow>
+        <TableRow :label="'PPOE Username'" :value="detail.customer_detail.ppoe_user_name" :type="'request-detail'"></TableRow>
+        <TableRow :label="'PPOE Password'" :value="detail.customer_detail.ppoe_password" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Phone'" :value="detail.customer_detail.phone" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Address'" :value="detail.customer_detail.address" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Township'" :value="detail.customer_detail.township.name" :type="'request-detail'"></TableRow>
         <!-- <TableRow
           v-for="(value,label) in customerDetails"
           :key="label"
@@ -93,10 +93,10 @@
     </div>
     <div class="order-info-row">
       <OrderInfo>
-        <TableRow :label="'Order Id'" :value="detail.id"></TableRow>
-        <TableRow :label="'Plan Name'" :value="detail.plan"></TableRow>
-        <TableRow :label="'Promo Name'" :value="detail.promotion"></TableRow>
-        <TableRow :label="'Create Date'" :value="detail.created_at"></TableRow>
+        <TableRow :label="'Order Id'" :value="detail.id" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Plan Name'" :value="detail.plan" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail'"></TableRow>
       </OrderInfo>
       <!-- <OrderInfo>
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>
@@ -104,7 +104,8 @@
     </div>
     <div class="team-order-button">
       <div @click="toSurvey" class="col s12 m6 l3 complete-btn">
-        <a class="waves-effect waves-light btn orange">Start Installation</a>
+        <a v-if="orderType == 'on_call'" class="waves-effect waves-light btn orange dynamic-btn">Repair</a>
+        <a v-else class="waves-effect waves-light btn orange dynamic-btn">Start Installation</a>
       </div>
     </div>
   </div>
@@ -142,9 +143,16 @@ export default {
   },
   methods: {
     getDetail() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.$route.params.orderType)
+      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
+    },
+    whichType() {
+      if (this.$route.params.orderType == 'installation' || this.$route.params.orderType == 'relocation') {
+        this.order_type = 'installation';
+      } else {
+        this.order_type = 'on_call';
+      }
     },
     bindResponseData(response) {
       this.detail = response.data.data;
@@ -158,8 +166,9 @@ export default {
     },
   },
   created() {
+    // this.order_type = this.$route.params.orderType;
+    this.whichType();
     this.getDetail();
-    this.order_type = this.$route.params.orderType;
   }
 }
 </script>

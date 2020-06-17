@@ -8,7 +8,8 @@
             <label v-show="!isSignIn" class="activate-label">Password</label>
             <label v-show="isSignIn" class="activate-label">Phone</label>
             <span v-if="errors.phone">{{ errors.phone }}</span>
-            <input v-model="phone" class="activate-input" type="text" name="phone">
+            <input v-if="type == 'password'" v-model="phone" class="activate-input" type="password" name="phone">
+            <input v-else v-model="phone" class="activate-input" type="text" name="phone">
         </div>
         <div>
             <label v-show="!isSignIn" class="activate-label">Confirm Password</label>
@@ -53,17 +54,15 @@ export default {
     },
     methods: {
         formSubmit() {
-            let formData = {
-                'phone': this.phone,
-                'password': this.password
-            }
             this.resetErrorMessages();
 
-            if(this.phone !== this.password) {
-                this.errors.passwordDoesntMatch = "Password Doesn't Match!";
-                this.isMatch = false;
-            } else {
-                this.isMatch = true;
+            if(!this.isSignIn) {
+                if(this.phone !== this.password) {
+                    this.errors.passwordDoesntMatch = "Password Doesn't Match!";
+                    this.isMatch = false;
+                } else {
+                    this.isMatch = true;
+                }
             }
 
             if(!this.phone) {
@@ -73,14 +72,29 @@ export default {
                 this.errors.password = "*This field is required*";
             }
             
+            // if(!this.isSignIn) {
+            //     let formData = {
+            //         'password': this.password
+            //     }
+            // } else if(this.isSignIn) {
+            //     let formData = {
+            //         'phone': this.phone,
+            //         'password': this.password
+            //     }
+            // }
+            // let formData = {
+            //     'phone': this.phone,
+            //     'password': this.password
+            // }
+
             if(!this.isSignIn) {
                 if(this.phone && this.password && this.isMatch) {
-                    this.$emit('submit', formData);
+                    this.$emit('submit', {'password': this.password});
                     this.resetErrorMessages();
                 }
             } else {
                 if(this.phone && this.password) {
-                    this.$emit('submit', formData);
+                    this.$emit('submit', {'phone': this.phone, 'password': this.password});
                     this.resetErrorMessages();
                 }
             }

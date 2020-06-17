@@ -31,7 +31,7 @@
         </form>
         <MultipleRemark :type="'repair'" :id="this.$route.params.id" :multipleRemarks="remarks" @reload="refresh"></MultipleRemark>
         <FinishButton @click.native="storeRepair" :type="'Save'"></FinishButton>
-        <FinishButton :type="'Finish'"></FinishButton>
+        <FinishButton @click.native="finishRepair" :type="'Finish'"></FinishButton>
     </div>
 </template>
 
@@ -96,19 +96,35 @@ export default {
             this.fiber_cable = data.fiber_cable;
         },
         preconfigRepair(res) {
-            if(res.data.data.remarks !== null) {
+            if(res.data.data.remarks != null) {
                 this.remarks = res.data.data.remarks;
             }
 
-            if(res.data.data.product_usage !== null) {
-                this.selectedOnuType = res.data.data.product_usage.onu_type.id;
-                this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
-                this.selectedTb = res.data.data.product_usage.termination_box.id;
-                this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+            if(res.data.data.product_usage != null) {
+                if(res.data.data.product_usage.onu_type != null) {
+                    this.selectedOnuType = res.data.data.product_usage.onu_type.id;
+                    this.onuId = res.data.data.product_usage.onu_type.id;
+                }
+                if(res.data.data.product_usage.fiber_patch_cord != null) {
+                    this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+                    this.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+                }
+                if(res.data.data.product_usage.termination_box != null) {
+                    this.selectedTb = res.data.data.product_usage.termination_box.id;
+                    this.tbId = res.data.data.product_usage.termination_box.id;
+                }
+                if(res.data.data.product_usage.onu_adapter != null) {
+                    this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+                    this.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+                }
+                if(res.data.data.product_usage.fiber_cable != null) {
+                    this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+                }
             }
         },
         refresh() {
             this.getRepair();
+            this.getInventory();
         },
         getRepair() {
             axios.get(this.base_url + 'lsp_team/repair?on_call_request_id=' + this.$route.params.id)
@@ -121,6 +137,11 @@ export default {
             .then( res => {
                 this.preconfigInventory(res.data.data);
             }).catch( console.log('Error') );
+        },
+        redirectTo(res) {
+            if (res.data.code == 200) {
+                this.$router.push('/lsp-order/' + this.$route.params.id + '/on_call');
+            }
         },
         storeRepair() {
             axios.post(this.base_url + 'lsp_team/repair_store',
@@ -138,12 +159,19 @@ export default {
                     fiber_cable_length: this.fiber_cable_length,
                     type: 'on_call'
                 }
-            ).then( res => { console.log(res) } ).catch( console.log('Sry Pl!') )
+            ).then( res => { 
+                this.refresh()
+             } ).catch( console.log('Sry Pl!') )
+        },
+        finishRepair() {
+            axios.post(`${this.base_url}lsp_team/on_call_step`, { on_call_request_id: this.$route.params.id })
+            .then( res => {
+                this.redirectTo(res)
+            }).catch(console.log('Error'));
         },
     },
-    created() {
-        this.getRepair();
-        this.getInventory();
+    mounted() {
+        this.refresh();
     }
 }
 </script>

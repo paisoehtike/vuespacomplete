@@ -32,6 +32,8 @@ import LSPOrderCabling from './components/lsp-order-detail/LSPOrderCablingCompon
 import LSPOrderSplicing from './components/lsp-order-detail/LSPOrderSplicingComponent'
 import LSPOrderActivate from './components/lsp-order-detail/LSPOrderActivateComponent'
 import LSPOrderRepair from './components/lsp-order-detail/LSPOrderRepairComponent.vue'
+import NotificationList from './components/notification/NotificationComponent.vue'
+import AdminNotificationList from './components/notification/AdminNotificationComponent.vue'
 
 export default {
     mode: 'history',
@@ -71,6 +73,10 @@ export default {
                 {
                     path: 'profile',
                     component: Profile,
+                },
+                {
+                    path: 'notification',
+                    component: AdminNotificationList,
                 },
                 {
                     path: 'new',
@@ -126,6 +132,10 @@ export default {
                 {
                     path: 'profile',
                     component: LSPTeamProfile
+                },
+                {
+                    path: 'notification',
+                    component: NotificationList,
                 },
                 {
                     path: 'first-time-password',
@@ -188,7 +198,7 @@ export default {
             ]
         },
         {
-            path: '/lsp-order/',
+            path: '/lsp-order/review/:id',
             component: LSPOrderIndex,
             children: [
                 {
@@ -210,7 +220,7 @@ export default {
             ]
         },
         {
-            path: '/lsp-order/repair/:id',
+            path: '/lsp-order/review/repair/:id',
             component: LSPOrderRepair,
             name: 'order-repair',
             props: true

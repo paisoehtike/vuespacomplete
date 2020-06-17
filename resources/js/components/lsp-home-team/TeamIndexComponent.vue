@@ -9,11 +9,11 @@
 
         <template v-slot:customer-name>{{team.leader_name}}</template>
 
-        <template v-slot:total-remaining>{{team.remaining}}</template>
+        <template v-slot:total-remaining>{{team.remaining_jobs }}</template>
 
-        <template v-slot:total-man-power>{{team.man_power}}</template>
+        <template v-slot:total-man-power>{{team.man_power }}</template>
 
-        <template v-slot:total-complete>{{team.complete}}</template>
+        <template v-slot:total-complete>{{team.completed_jobs }}</template>
       </Teams>
     </div>
 

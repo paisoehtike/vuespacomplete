@@ -7,11 +7,14 @@
     </div>
     <SquareImage></SquareImage>
     <TeamInfo>
-      <TableRow :label="'Leader Name'" :value="teamDetail.leader_name"></TableRow>
-      <TableRow :label="'Man Power'" :value="teamDetail.man_power"></TableRow>
-      <TableRow :label="'Assigned Jobs'" :value="teamDetail.assigned_job"></TableRow>
-      <TableRow :label="'Remaining Jobs'" :value="teamDetail.remaining_job"></TableRow>
+      <TableRow :label="'Leader Name'" :value="teamDetail.leader_name" :type="'request-detail'"></TableRow>
+      <TableRow :label="'Man Power'" :value="teamDetail.man_power" :type="'request-detail'"></TableRow>
+      <TableRow :label="'Assigned Jobs'" :value="teamDetail.assigned_jobs" :type="'request-detail'"></TableRow>
+      <TableRow :label="'Remaining Jobs'" :value="teamDetail.remaining_jobs" :type="'request-detail'"></TableRow>
     </TeamInfo>
+    <div class="password-reset">
+      <ConfirmModal @submit="resetPassword" :type="'password-reset'"></ConfirmModal>
+    </div>
     <div class="detail-button">
       <a class="button remain" @click="remain" :class="isRemainClass">Remaining</a>
       <a class="button complete" @click="complete" :class="isCompleteClass">Complete</a>
@@ -27,12 +30,19 @@
 
         <CustomerIssueDate slot="customer-date">
           <!-- <span>{{customer.date}}</span> -->
-          {{customer.start_assign_at | format-date}}
+          <template
+            v-slot:lsp-accept-date
+            v-if="customer.due_date != null"
+            >{{customer.due_date | format-date}}</template>
+          <template
+            v-slot:priority-date
+            v-if="customer.priority_level != null"
+          >{{customer.priority_level.name}} </template>
         </CustomerIssueDate>
         <CustomerDetailChip
           slot="customer-detail-chip"
           :value="customer.name"
-          :address="customer.address"
+          :address="customer.customer_detail.township.name"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
           <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
@@ -50,12 +60,19 @@
 
         <CustomerIssueDate slot="customer-date">
           <!-- <span>{{customer.date}}</span> -->
-          {{customer.start_assign_at | format-date}}
+          <template
+            v-slot:lsp-accept-date
+            v-if="customer.due_date != null"
+            >{{customer.due_date | format-date}}</template>
+          <template
+            v-slot:priority-date
+            v-if="customer.priority_level != null"
+          >{{customer.priority_level.name}} </template>
         </CustomerIssueDate>
         <CustomerDetailChip
           slot="customer-detail-chip"
           :value="customer.name"
-          :address="customer.address"
+          :address="customer.customer_detail.township.name"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
           <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
@@ -73,12 +90,19 @@
 
         <CustomerIssueDate slot="customer-date">
           <!-- <span>{{customer.date}}</span> -->
-          {{customer.start_assign_at | format-date}}
+          <template
+            v-slot:lsp-accept-date
+            v-if="customer.due_date != null"
+            >{{customer.due_date | format-date}}</template>
+          <template
+            v-slot:priority-date
+            v-if="customer.priority_level != null"
+          >{{customer.priority_level.name}} </template>
         </CustomerIssueDate>
         <CustomerDetailChip
           slot="customer-detail-chip"
           :value="customer.name"
-          :address="customer.address"
+          :address="customer.customer_detail.township.name"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
           <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
@@ -102,6 +126,7 @@ import CustomerDetailChip from "./../reuseable-component/CustomerDetailChipCompo
 import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateComponent";
 import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
+import ConfirmModal from './../reuseable-component/ConfirmModalComponent';
 
 export default {
   components: {
@@ -115,7 +140,8 @@ export default {
     CustomerDetailChip,
     CustomerIssueDate,
     CustomerHomeFooterButton,
-    CustomerHeader
+    CustomerHeader,
+    ConfirmModal
   },
   data() {
     return {
@@ -180,6 +206,14 @@ export default {
       this.isRemainClass = "";
       this.isCompleteClass = "";
       this.isHistoryClass = "history-class";
+    },
+    resetPassword(password) {
+      axios.post(`${this.base_url}change_to_team_password`, {
+        lsp_team_leader_id: this.teamDetail.leader_id,
+        password: password,
+      }).then( res => {
+        this.getDetail()
+      }).catch(console.log('Error'));
     }
   },
   created() {

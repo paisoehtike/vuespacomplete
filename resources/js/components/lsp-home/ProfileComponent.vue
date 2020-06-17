@@ -7,8 +7,8 @@
                 <h2>Profile</h2>
             </router-link>
         </div>
-        <LSPProfileHeader></LSPProfileHeader>
-        <LSPProfileBody></LSPProfileBody>
+        <LSPProfileHeader :response="response"></LSPProfileHeader>
+        <LSPProfileBody :response="response"></LSPProfileBody>
         <div class="logout-button">
             <FinishButton @click.native="logout" :type="'Logout'"></FinishButton>
         </div>
@@ -30,7 +30,21 @@ export default {
         LSPProfileBody,
         FinishButton,
     },
+    data() {
+        return {
+            response: null,
+        }
+    },
     methods: {
+        bindData(res) {
+            this.response = res.data;
+        },
+        get() {
+            axios.get(`${this.base_url}profile`)
+            .then( res => {
+                this.bindData(res)
+            }).catch( console.log('Error'));
+        },
         redirect(res) {
             if(res.status == 200) {
                 this.$router.push('/');
@@ -43,6 +57,9 @@ export default {
             } )
             .catch( console.log('Error') );
         }
+    },
+    mounted() {
+        this.get();
     }
 }
 </script>

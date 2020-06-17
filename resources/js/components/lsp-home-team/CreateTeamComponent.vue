@@ -8,6 +8,9 @@
     </div>
     <SquareImage></SquareImage>
     <div class="create-value-name">
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </div>
+    <div class="create-value-name">
       <div class="input-group">
         <label>Team Name</label>
         <br>
@@ -64,6 +67,7 @@ export default {
       phone: null,
       ftPassword: null,
       manPower: null,
+      errorMessage: null,
     }
   },
   methods: {
@@ -78,7 +82,12 @@ export default {
         }
       ).then( res => { 
         this.redirect(res); 
-      } ).catch( console.log('Error') );
+      } ).catch( error => {
+        this.showError(error);
+      } );
+    },
+    showError(error) {
+      this.errorMessage = error.response.data.message;
     },
     redirect(res) {
       if(res.status == 201) {

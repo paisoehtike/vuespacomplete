@@ -41,10 +41,13 @@ export default {
             this.remark = null;
         }
     },
-    created() {
-        if(this.preRemark !== null) {
-            this.remark = this.preRemark
+    watch: {
+        preRemark: function(val) {
+            this.remark = val;
         }
+    },
+    created() {
+        this.remark = this.preRemark;
     }
 }
 </script>

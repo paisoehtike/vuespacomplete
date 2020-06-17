@@ -22,9 +22,22 @@
     }
   }
 
+  .password-reset {
+    grid-column: 2/3;
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 90%;
+
+    .model-text {
+      font-size: 15px;
+      text-decoration: underline;
+      color: #ec911a;
+      text-align: right;
+    }
+  }
   .detail-button {
     grid-column: 2/3;
-    margin-top: 31px;
+    margin-top: 10px;
     display: grid;
     grid-template-columns: 5% 30% 30% 30% 5%;
     text-align: center;

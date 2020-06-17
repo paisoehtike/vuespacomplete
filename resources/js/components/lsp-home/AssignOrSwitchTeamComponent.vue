@@ -11,45 +11,45 @@
             <div class="modal-box" v-if="showModal">
                 <div class="assign-team-modal-header">
                     <CustomerTypeChip v-if="customer.customer_type != null" :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
-                    <OrderStepChip v-if="customer.installation_step != null" :value="customer.installation_step" slot="order-chip"></OrderStepChip>
+                    <OrderStepChip v-if="customer.installation_step != null" :value="customer.installation_step.name" slot="order-chip"></OrderStepChip>
                 </div>
                 <div class="customer-request-detail">
                     <div>
-                        <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
+                        <CustomerHeader :id="customer.customer" :step="customer.type"></CustomerHeader>
                     </div>
                     <div class="customer-request-date">
                         <CustomerIssueDate slot="customer-date">
                             <template 
                                 v-slot:lsp-accept-date
-                                v-if="customer.lsp_accepted_at != null"
-                                >{{customer.lsp_accepted_at | format-date}}</template>
+                                v-if="customer.due_date != null"
+                                >{{customer.due_date | format-date}}</template>
                             <template
                                 v-slot:priority-date
                                 v-if="customer.priority_level != null"
-                                >| {{customer.priority_level.name}} </template>
+                                > {{customer.priority_level.name}} </template>
                             <template
                                 v-slot:issue
                                 v-if="customer.issue != null"
-                                >| {{ customer.issue.name }}</template>
+                                > {{ customer.issue.name }}</template>
                         </CustomerIssueDate>
                     </div>
                 </div>
                 <CustomerDetailChip
                     slot="customer-detail-chip"
                     :value="customer.name"
-                    :address="customer.address"
+                    :address="customer.customer_detail.township.name"
                 ></CustomerDetailChip>
                 <h2 v-if="type == 'Accept'">Assigned Team :</h2>
                 <Teams v-if="type == 'Accept'">
-                    <template v-slot:team-name>{{assignedTeam.teamName}}</template>
+                    <template v-slot:team-name>{{assignedTeam.name}}</template>
 
-                    <template v-slot:customer-name>{{assignedTeam.customerName}}</template>
+                    <template v-slot:customer-name>{{assignedTeam.leader_name}}</template>
 
-                    <template v-slot:total-remaining>{{assignedTeam.remaining}}</template>
+                    <template v-slot:total-remaining>{{assignedTeam.remaining_jobs}}</template>
 
-                    <template v-slot:total-man-power>{{assignedTeam.manPower}}</template>
+                    <template v-slot:total-man-power>{{assignedTeam.man_power}}</template>
 
-                    <template v-slot:total-complete>{{assignedTeam.complete}}</template>
+                    <template v-slot:total-complete>{{assignedTeam.completed_jobs}}</template>
                 </Teams>
                 <h2>Select Team to Assign :</h2>
                 <div class="assign-team-wrapper">

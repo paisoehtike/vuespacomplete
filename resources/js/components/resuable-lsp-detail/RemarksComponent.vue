@@ -1,9 +1,9 @@
 <template>
     <div class="remark">
         <p>
-            {{ value }}
+            {{ value.name }}
         </p>
-        <p>{{ created_at }}</p>
+        <p>{{ value.created_at | format-date-with-time}}</p>
     </div>
 </template>
 

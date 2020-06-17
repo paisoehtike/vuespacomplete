@@ -272,7 +272,9 @@
     margin-top: 10px;
     z-index: 1;
 }
-
+.activate-form select {
+    display: block !important;
+}
 .activate-form h6 {
     font-size: 20px;
     line-height: 24px;
@@ -305,6 +307,12 @@
 .activate-form .error-message {
     color: red;
     font-weight: 600;
+}
+
+.create-value-name .error-message {
+    color: red;
+    font-weight: 600;
+    font-size: 11px;
 }
 
 .activate-label {
@@ -449,6 +457,29 @@
         font-size: 14px;
         line-height: 17px;
         letter-spacing: .4px;
+    }
+    .reset-button-container {
+        text-align: center;
+        margin: 38px 0 20px;
+
+        button {
+            width: 100%;
+            margin: 0;
+        }
+    }
+    .cross-close {
+        display: grid;
+        grid-template-columns: 90%;
+        grid-auto-flow: column;
+        margin-bottom: 29px;
+
+        span {
+            font-size: 25px;
+        }
+        i {
+            font-size: 28px;
+            color: #b9b4b4;
+        }
     }
 
     .remark-cancel-btn {
@@ -639,7 +670,7 @@
         margin-bottom: 6px;
     }
     p:first-child + p {
-        text-align: right;
+        text-align: left;
         font-size: 10px;
         line-height: 13px;
         color: #949fa2;
@@ -669,6 +700,6 @@
 }
 
 .customer-request-date {
-    padding-top: 69px;
+    padding-top: 47px;
     text-align: right;
 }
