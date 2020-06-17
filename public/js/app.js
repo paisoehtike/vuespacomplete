@@ -6459,6 +6459,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -6472,7 +6473,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   props: ["request_type", "type", "status"],
   data: function data() {
     return {
-      requests: null,
+      requests: [],
+      page: 1,
+      total_page: null,
       errorMessage: "Something Went Wrong!",
       apis: {
         "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
@@ -6496,53 +6499,70 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__["default"],
     CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
+  beforeMount: function beforeMount() {
+    window.addEventListener("scroll", this.infiniteHandler);
+  },
   methods: {
-    bindResponseData: function bindResponseData(response) {
-      this.requests = response.data.data;
+    infiniteHandler: function infiniteHandler() {
+      if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+        if (this.page <= this.total_page) {
+          this.getNew();
+        }
+      }
     },
-    apiCall: function apiCall(url) {
+    bindResponseData: function bindResponseData(response) {
       var _this = this;
 
-      axios.get(url).then(function (response) {
-        _this.bindResponseData(response);
+      response.data.data.forEach(function (result) {
+        _this.requests.push(result);
+      });
+      this.page = response.data.meta.current_page + 1; //to get next page
+
+      this.total_page = response.data.meta.total_pages;
+    },
+    apiCall: function apiCall(url, page) {
+      var _this2 = this;
+
+      axios.get("".concat(url, "&page=").concat(page)).then(function (response) {
+        _this2.bindResponseData(response);
       })["catch"](this.errorMessage);
     },
     getNew: function getNew() {
       switch (this.status) {
         case "new":
-          this.apiCall(this.apis["new"]);
+          this.apiCall(this.apis["new"], this.page);
           break;
 
         case "accepted":
-          this.apiCall(this.apis.accepted);
+          this.apiCall(this.apis.accepted, this.page);
           break;
 
         case "history":
-          this.apiCall(this.apis.history);
+          this.apiCall(this.apis.history, this.page);
           break;
 
         case "oncall-new":
-          this.apiCall(this.apis.oncallNew);
+          this.apiCall(this.apis.oncallNew, this.page);
           break;
 
         case "oncall-accepted":
-          this.apiCall(this.apis.oncallAccepted);
+          this.apiCall(this.apis.oncallAccepted, this.page);
           break;
 
         case "oncall-history":
-          this.apiCall(this.apis.oncallHistory);
+          this.apiCall(this.apis.oncallHistory, this.page);
           break;
 
         case "lsp-team-remain":
-          this.apiCall(this.apis.lspTeamRemain);
+          this.apiCall(this.apis.lspTeamRemain, this.page);
           break;
 
         case "lsp-team-history":
-          this.apiCall(this.apis.lspTeamHistory);
+          this.apiCall(this.apis.lspTeamHistory, this.page);
           break;
 
         case "lsp-team-complete":
-          this.apiCall(this.apis.lspTeamComplete);
+          this.apiCall(this.apis.lspTeamComplete, this.page);
           break;
 
         default:
@@ -6551,16 +6571,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       }
     },
     toOrder: function toOrder(request, event) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (event.target.id == "accept") {
         if (this.request_type == "on_call") {
           axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" + request.id).then(function (response) {
-            _this2.getNew();
+            _this3.getNew();
           })["catch"](this.errorMessage);
         } else {
           axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/" + request.id).then(function (response) {
-            _this2.getNew();
+            _this3.getNew();
           })["catch"](this.errorMessage);
         }
       } else {
