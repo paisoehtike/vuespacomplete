@@ -32,26 +32,57 @@
             </div>
             <div>
                 <label class="activate-label" for="olt">OLT :</label>
-                <input class="activate-input" v-model="olt" type="text" id="olt" name="olt">
+                <select v-model="olt" class="activate-input" @change="getFdt">
+                    <option disabled v-bind:value="''">Select OLT</option>
+                    <option v-for="(data, index) in olts" :key="index" v-bind:value="data.id">
+                        {{ data.name }}
+                    </option>
+                </select>
             </div>
             <div>
                 <label class="activate-label" for="fdt">FDT :</label>
-                <input class="activate-input" v-model="fdt" type="text" id="fdt" name="fdt">
+                <select v-model="fdt" class="activate-input" @change="getFat">
+                    <option disabled v-bind:value="''">Select FDT</option>
+                    <option v-for="(data, index) in fdts" :key="index" v-bind:value="data.id">
+                        {{ data.name }}
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label class="activate-label" for="fat-port">FAT :</label>
+                <select v-model="fat" class="activate-input" @change="getFatPort">
+                    <option disabled v-bind:value="''">Select FAT</option>
+                    <option v-for="(data, index) in fats" :key="index" v-bind:value="data.id">
+                        {{ data.name }}
+                    </option>
+                </select>
             </div>
             <div>
                 <label class="activate-label" for="fat-port">FAT Port :</label>
-                <input class="activate-input" v-model="fat_port" type="text" id="fat-port" name="fat-port">
+                <select v-model="fat_port" class="activate-input">
+                    <option disabled v-bind:value="''">Select FAT Port</option>
+                    <option v-for="(data, index) in fat_ports" :key="index" v-bind:value="data.id">
+                        {{ data.name }}
+                    </option>
+                </select>
             </div>
-            <div>
+            <!-- <div>
                 <label class="activate-label" for="onu-sn">ONU S/N :</label>
                 <input class="activate-input" v-model="onu_sn" type="text" id="onu-sn" name="onu-sn">
-            </div>
-            <label class="activate-label" for="onu-type">ONU S/N :</label>
-            <TypeSlider id="onu-type" v-if="selectedOnuType" :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
-            <TypeSlider id="onu-type" v-else :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
+            </div> -->
+
+            <label class="activate-label" for="onu-type">Select Router :</label>
+            <TypeSlider id="onu-type" v-if="selectedOnuType" :isInstallation="true" :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
+            <TypeSlider id="onu-type" v-else :type="onu_type" :isInstallation="true" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
+
             <label class="activate-label" for="fpc">Fibre Patch Cord :</label>
-            <TypeSlider id="fpc" v-if="selectedFpc" :type="fiber_patch_cord" :defaultId="selectedFpc" @type-id="setFpcId"></TypeSlider>
-            <TypeSlider id="fpc" v-else :type="fiber_patch_cord" :defaultId="selectedFpc" @type-id="setFpcId"></TypeSlider>
+            <TypeSlider id="fpc" v-if="selectedFpc" :isInstallation="true" :type="fiber_patch_cord" :defaultId="selectedFpc" @type-id="setFpcId"></TypeSlider>
+            <TypeSlider id="fpc" v-else :type="fiber_patch_cord" :isInstallation="true" :defaultId="selectedFpc" @type-id="setFpcId"></TypeSlider>
+
+            <label class="activate-label" for="fpc">ONU Adapter :</label>
+            <TypeSlider id="onu-adapter" v-if="selectedOnuAdapter" :isInstallation="true" :type="onu_adapter" :defaultId="selectedOnuAdapter" @type-id="setAdapterId"></TypeSlider>
+            <TypeSlider id="onu-adapter" v-else :type="onu_adapter" :isInstallation="true" :defaultId="selectedOnuAdapter" @type-id="setAdapterId"></TypeSlider>
+
             <div>
                 <label class="activate-label" for="fb-cable">Fibre Cable Length:</label>
                 <input class="activate-input" v-model="fiber_cable_length" type="text" id="fb-cable" name="fb-cable">
@@ -84,6 +115,7 @@ export default {
         return {
             selectedOnuType: null,
             selectedFpc: null,
+            selectedOnuAdapter: null,
             remarks: null,
             images: null,
             image: null,
@@ -91,16 +123,21 @@ export default {
 
             ppoeUserName: null,
             ppoePassword: null,
-            olt: null,
+            olts: null,
+            olt: '',
+            fdts: null,
             fdt: null,
+            fats: null,
+            fat: null,
+            fat_ports: null,
             fat_port: null,
-            onu_sn: null,
             fiber_cable_length: null,
 
             fiber_cable: null,
             fiber_patch_cord: null,
             fpcId: null,
             onu_adapter: null,
+            onuAdapterId: null,
             onu_type: null,
             onuId: null,
             termination_box: null,
@@ -110,10 +147,10 @@ export default {
         storeOnuStep() {
             axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_store',
                 {
-                    olt: this.olt,
-                    fdt: this.fdt,
-                    fat_port: this.fat_port,
-                    onu_sn: this.onu_sn,
+                    olt_id: this.olt,
+                    fdt_id: this.fdt,
+                    fat_id: this.fat,
+                    fat_port_id: this.fat_port,
                     installation_request_id: this.$route.params.id,
                     onu_type_id: this.onuId,
                     onu_type_quantity: 1,
@@ -121,6 +158,8 @@ export default {
                     fiber_patch_cord_quantity: 1,
                     fiber_cable_id: this.fiber_cable[0].id,
                     fiber_cable_length: this.fiber_cable_length,
+                    onu_adapter_id: this.onuAdapterId,
+                    onu_adapter_quantity: 1,
                     type: 'installation'
                 }
             ).then( res => { console.log(res) } ).catch( console.log('Sry Pl!') )
@@ -166,6 +205,7 @@ export default {
         preconfig(data) {
             this.onu_type = data.onu_type;
             this.fiber_patch_cord = data.fiber_patch_cord;
+            this.onu_adapter = data.onu_adapter;
             this.fiber_cable = data.fiber_cable;
         },
         setOnuId(id) {
@@ -173,6 +213,9 @@ export default {
         },  
         setFpcId(id) {
             this.fpcId = id;
+        },
+        setAdapterId(id) {
+            this.onuAdapterId = id;
         },
         loadPreRemarks(remarks) {
             this.remarks = remarks;
@@ -184,7 +227,9 @@ export default {
                     this.loadPreRemarks(res.data.data.remarks);
                     this.ppoeUserName = res.data.data.ppoe_username;
                     this.ppoePassword = res.data.data.ppoe_password;
-                    this.olt = res.data.data.olt;
+                    if (res.data.data.olt) {
+                        this.olt = res.data.data.olt;
+                    }
                     this.fdt = res.data.data.fdt;
                     this.fat_port = res.data.data.fat_port;
                     this.onu_sn = res.data.data.onu_sn;
@@ -192,6 +237,7 @@ export default {
                     if(res.data.data.product_usage !== null) {
                         this.selectedOnuType = res.data.data.product_usage.onu_type.id;
                         this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+                        this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
                         this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
                     }
                 } )
@@ -217,11 +263,39 @@ export default {
                     this.$router.push('/lsp-home/remaining');
                 }
             } ).catch( console.log('Error') );
+        },
+        getOlt() {
+            axios.get(`${this.base_url}get_olt_lists`)
+            .then( res => {
+                this.olts = res.data.data
+            }).catch(console.log('Error'));
+        },
+        getFdt() {
+            axios.get(`${this.base_url}get_fdt_lists/${this.olt}`)
+            .then( res => {
+                this.fdts = res.data.data
+                this.fdt = ''
+            }).catch(console.log('Error'));
+        },
+        getFat() {
+            axios.get(`${this.base_url}get_fat_lists/${this.fdt}`)
+            .then( res => {
+                this.fats = res.data.data
+                this.fat = ''
+            }).catch(console.log('Error'));
+        },
+        getFatPort() {
+            axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
+            .then( res => {
+                this.fat_ports = res.data.data
+                this.fat_port = ''
+            }).catch(console.log('Error'));
         }
     },
     created() {
         this.getActivate();
         this.getInventory();
+        this.getOlt();
     }
 }
 </script>

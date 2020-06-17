@@ -171,7 +171,7 @@ export default {
       this.getTeams();
     },
     acceptByLsp() {
-      if (this.orderType == 'installation') {
+      if (this.orderType == 'installation' || this.orderType == 'relocation') {
         axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id)
         .then( res => { console.log(res) } ).catch(console.log('Error'));
       } else {
@@ -180,7 +180,7 @@ export default {
       }
     },
     getDetail() {
-      if(this.orderType == 'installation') {
+      if(this.orderType == 'installation' || this.orderType == 'relocation') {
         axios.get(this.base_url + 'installation_requests/' + this.$route.params.id)
         .then( response => { this.bindResponseData(response) })
         .catch(console.log('Something Went Wrong!'));

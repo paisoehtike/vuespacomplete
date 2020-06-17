@@ -16,7 +16,7 @@ import 'swiper/css/swiper.css';
 
 export default {
     props: [
-        'type', 'defaultId'
+        'type', 'defaultId', 'isInstallation'
     ],
     name: 'swiper-example-free-mode',
     title: 'Free mode / No fixed positions',
@@ -36,12 +36,17 @@ export default {
     },
     methods: {
         typeOnClick(typer) {
-            if (this.selected == typer.id) {
-                this.selected = null;
-                this.$emit('type-id', null);
-            } else {
+            if (this.isInstallation) {
                 this.selected = typer.id;
                 this.$emit('type-id', typer.id);
+            } else {
+                if (this.selected == typer.id) {
+                    this.selected = null;
+                    this.$emit('type-id', null);
+                } else {
+                    this.selected = typer.id;
+                    this.$emit('type-id', typer.id);
+                }
             }
         }
     },

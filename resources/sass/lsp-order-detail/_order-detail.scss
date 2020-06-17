@@ -272,7 +272,9 @@
     margin-top: 10px;
     z-index: 1;
 }
-
+.activate-form select {
+    display: block !important;
+}
 .activate-form h6 {
     font-size: 20px;
     line-height: 24px;

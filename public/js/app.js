@@ -3736,7 +3736,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getTeams();
     },
     acceptByLsp: function acceptByLsp() {
-      if (this.orderType == 'installation') {
+      if (this.orderType == 'installation' || this.orderType == 'relocation') {
         axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id).then(function (res) {
           console.log(res);
         })["catch"](console.log('Error'));
@@ -3749,7 +3749,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      if (this.orderType == 'installation') {
+      if (this.orderType == 'installation' || this.orderType == 'relocation') {
         axios.get(this.base_url + 'installation_requests/' + this.$route.params.id).then(function (response) {
           _this.bindResponseData(response);
         })["catch"](console.log('Something Went Wrong!'));
@@ -3860,6 +3860,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3879,21 +3910,27 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     return {
       selectedOnuType: null,
       selectedFpc: null,
+      selectedOnuAdapter: null,
       remarks: null,
       images: null,
       image: null,
       imageFile: null,
       ppoeUserName: null,
       ppoePassword: null,
-      olt: null,
+      olts: null,
+      olt: '',
+      fdts: null,
       fdt: null,
+      fats: null,
+      fat: null,
+      fat_ports: null,
       fat_port: null,
-      onu_sn: null,
       fiber_cable_length: null,
       fiber_cable: null,
       fiber_patch_cord: null,
       fpcId: null,
       onu_adapter: null,
+      onuAdapterId: null,
       onu_type: null,
       onuId: null,
       termination_box: null
@@ -3902,10 +3939,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   methods: {
     storeOnuStep: function storeOnuStep() {
       axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_store', {
-        olt: this.olt,
-        fdt: this.fdt,
-        fat_port: this.fat_port,
-        onu_sn: this.onu_sn,
+        olt_id: this.olt,
+        fdt_id: this.fdt,
+        fat_id: this.fat,
+        fat_port_id: this.fat_port,
         installation_request_id: this.$route.params.id,
         onu_type_id: this.onuId,
         onu_type_quantity: 1,
@@ -3913,6 +3950,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fiber_patch_cord_quantity: 1,
         fiber_cable_id: this.fiber_cable[0].id,
         fiber_cable_length: this.fiber_cable_length,
+        onu_adapter_id: this.onuAdapterId,
+        onu_adapter_quantity: 1,
         type: 'installation'
       }).then(function (res) {
         console.log(res);
@@ -3961,6 +4000,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     preconfig: function preconfig(data) {
       this.onu_type = data.onu_type;
       this.fiber_patch_cord = data.fiber_patch_cord;
+      this.onu_adapter = data.onu_adapter;
       this.fiber_cable = data.fiber_cable;
     },
     setOnuId: function setOnuId(id) {
@@ -3968,6 +4008,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     setFpcId: function setFpcId(id) {
       this.fpcId = id;
+    },
+    setAdapterId: function setAdapterId(id) {
+      this.onuAdapterId = id;
     },
     loadPreRemarks: function loadPreRemarks(remarks) {
       this.remarks = remarks;
@@ -3982,7 +4025,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
         _this3.ppoeUserName = res.data.data.ppoe_username;
         _this3.ppoePassword = res.data.data.ppoe_password;
-        _this3.olt = res.data.data.olt;
+
+        if (res.data.data.olt) {
+          _this3.olt = res.data.data.olt;
+        }
+
         _this3.fdt = res.data.data.fdt;
         _this3.fat_port = res.data.data.fat_port;
         _this3.onu_sn = res.data.data.onu_sn;
@@ -3990,6 +4037,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (res.data.data.product_usage !== null) {
           _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
           _this3.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this3.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
           _this3.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
         }
       })["catch"](console.log('Error'));
@@ -4015,11 +4063,43 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           _this5.$router.push('/lsp-home/remaining');
         }
       })["catch"](console.log('Error'));
+    },
+    getOlt: function getOlt() {
+      var _this6 = this;
+
+      axios.get("".concat(this.base_url, "get_olt_lists")).then(function (res) {
+        _this6.olts = res.data.data;
+      })["catch"](console.log('Error'));
+    },
+    getFdt: function getFdt() {
+      var _this7 = this;
+
+      axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt)).then(function (res) {
+        _this7.fdts = res.data.data;
+        _this7.fdt = '';
+      })["catch"](console.log('Error'));
+    },
+    getFat: function getFat() {
+      var _this8 = this;
+
+      axios.get("".concat(this.base_url, "get_fat_lists/").concat(this.fdt)).then(function (res) {
+        _this8.fats = res.data.data;
+        _this8.fat = '';
+      })["catch"](console.log('Error'));
+    },
+    getFatPort: function getFatPort() {
+      var _this9 = this;
+
+      axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
+        _this9.fat_ports = res.data.data;
+        _this9.fat_port = '';
+      })["catch"](console.log('Error'));
     }
   },
   created: function created() {
     this.getActivate();
     this.getInventory();
+    this.getOlt();
   }
 });
 
@@ -5163,6 +5243,122 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-customer/SquareImageComponent */ "./resources/js/components/reuseable-customer/SquareImageComponent.vue");
+/* harmony import */ var _reuseable_component_NotiListComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/NotiListComponent */ "./resources/js/components/reuseable-component/NotiListComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    NotiList: _reuseable_component_NotiListComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      notifications: null
+    };
+  },
+  methods: {
+    bindData: function bindData(res) {
+      this.notifications = res.data.data;
+    },
+    get: function get() {
+      var _this = this;
+
+      axios.get("".concat(this.base_url, "admin_notification_lists")).then(function (res) {
+        _this.bindData(res);
+      })["catch"](console.log('Error'));
+    }
+  },
+  mounted: function mounted() {
+    this.get();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/NotificationComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/notification/NotificationComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../reuseable-customer/SquareImageComponent */ "./resources/js/components/reuseable-customer/SquareImageComponent.vue");
+/* harmony import */ var _reuseable_component_NotiListComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../reuseable-component/NotiListComponent */ "./resources/js/components/reuseable-component/NotiListComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    SquareImage: _reuseable_customer_SquareImageComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    NotiList: _reuseable_component_NotiListComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      notifications: null
+    };
+  },
+  methods: {
+    bindData: function bindData(res) {
+      this.notifications = res.data.data;
+    },
+    get: function get() {
+      var _this = this;
+
+      axios.get("".concat(this.base_url, "lsp_team/team_notification_lists")).then(function (res) {
+        _this.bindData(res);
+      })["catch"](console.log('Error'));
+    }
+  },
+  mounted: function mounted() {
+    this.get();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue?vue&type=script&lang=js& ***!
@@ -5738,7 +5934,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'defaultId'],
+  props: ['type', 'defaultId', 'isInstallation'],
   name: 'swiper-example-free-mode',
   title: 'Free mode / No fixed positions',
   components: {
@@ -5757,12 +5953,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     typeOnClick: function typeOnClick(typer) {
-      if (this.selected == typer.id) {
-        this.selected = null;
-        this.$emit('type-id', null);
-      } else {
+      if (this.isInstallation) {
         this.selected = typer.id;
         this.$emit('type-id', typer.id);
+      } else {
+        if (this.selected == typer.id) {
+          this.selected = null;
+          this.$emit('type-id', null);
+        } else {
+          this.selected = typer.id;
+          this.$emit('type-id', typer.id);
+        }
       }
     }
   },
@@ -6049,6 +6250,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['label', 'typeName', 'className']
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data', 'type'],
+  methods: {
+    toDetail: function toDetail() {
+      var _this = this;
+
+      axios.post("".concat(this.base_url, "lsp_team/notification_is_read"), {
+        id: this.data.id
+      }).then(function (res) {
+        if (res.data.code == 200) {
+          _this.$router.push({
+            name: 'lsp-order',
+            params: {
+              id: _this.data.request_id,
+              orderType: _this.data.type
+            }
+          });
+        }
+      })["catch"](console.log('Error'));
+    },
+    toReview: function toReview() {
+      var _this2 = this;
+
+      axios.post("".concat(this.base_url, "notification_is_read"), {
+        id: this.data.id
+      }).then(function (res) {
+        if (res.data.code == 200) {
+          _this2.$router.push({
+            name: 'order',
+            params: {
+              id: _this2.data.request_id,
+              orderType: _this2.data.type
+            }
+          });
+        }
+      })["catch"](console.log('Error'));
+    }
+  }
 });
 
 /***/ }),
@@ -6493,6 +6763,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -19809,7 +20081,7 @@ var render = function() {
             ? _c("TableRow", {
                 attrs: {
                   label: "OLT",
-                  value: _vm.data.olt,
+                  value: _vm.data.olt.name,
                   type: "request-detail"
                 }
               })
@@ -19821,7 +20093,7 @@ var render = function() {
             ? _c("TableRow", {
                 attrs: {
                   label: "FDT",
-                  value: _vm.data.fdt,
+                  value: _vm.data.fdt.name,
                   type: "request-detail"
                 }
               })
@@ -19833,7 +20105,7 @@ var render = function() {
             ? _c("TableRow", {
                 attrs: {
                   label: "FAT",
-                  value: _vm.data.fat,
+                  value: _vm.data.fat.name,
                   type: "request-detail"
                 }
               })
@@ -19845,7 +20117,7 @@ var render = function() {
             ? _c("TableRow", {
                 attrs: {
                   label: "FAT Port",
-                  value: _vm.data.fat_port,
+                  value: _vm.data.fat_port.name,
                   type: "request-detail"
                 }
               })
@@ -19856,7 +20128,7 @@ var render = function() {
           _vm.data.product_usage.onu_adapter
             ? _c("TableRow", {
                 attrs: {
-                  label: "ONU S/N",
+                  label: "Router",
                   value: _vm.data.product_usage.onu_adapter.name,
                   type: "request-detail"
                 }
@@ -19880,7 +20152,7 @@ var render = function() {
           _vm.data.product_usage.fiber_patch_cord
             ? _c("TableRow", {
                 attrs: {
-                  label: "ONU S/N",
+                  label: "Fiber Patch Cord",
                   value: _vm.data.product_usage.fiber_patch_cord.name,
                   type: "request-detail"
                 }
@@ -19897,7 +20169,7 @@ var render = function() {
             ? _c("TableRow", {
                 attrs: {
                   label: "Fiber Cable",
-                  value: _vm.data.product_usage.fiber_cable.unit,
+                  value: _vm.data.product_usage.fiber_cable.quantity,
                   type: "request-detail"
                 }
               })
@@ -20771,27 +21043,60 @@ var render = function() {
               [_vm._v("OLT :")]
             ),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.olt,
-                  expression: "olt"
-                }
-              ],
-              staticClass: "activate-input",
-              attrs: { type: "text", id: "olt", name: "olt" },
-              domProps: { value: _vm.olt },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.olt,
+                    expression: "olt"
                   }
-                  _vm.olt = $event.target.value
+                ],
+                staticClass: "activate-input",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.olt = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.getFdt
+                  ]
                 }
-              }
-            })
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { disabled: "" }, domProps: { value: "" } },
+                  [_vm._v("Select OLT")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.olts, function(data, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: data.id } },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(data.name) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
           ]),
           _vm._v(" "),
           _c("div", [
@@ -20801,27 +21106,123 @@ var render = function() {
               [_vm._v("FDT :")]
             ),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fdt,
-                  expression: "fdt"
-                }
-              ],
-              staticClass: "activate-input",
-              attrs: { type: "text", id: "fdt", name: "fdt" },
-              domProps: { value: _vm.fdt },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fdt,
+                    expression: "fdt"
                   }
-                  _vm.fdt = $event.target.value
+                ],
+                staticClass: "activate-input",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.fdt = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.getFat
+                  ]
                 }
-              }
-            })
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { disabled: "" }, domProps: { value: "" } },
+                  [_vm._v("Select FDT")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.fdts, function(data, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: data.id } },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(data.name) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c(
+              "label",
+              { staticClass: "activate-label", attrs: { for: "fat-port" } },
+              [_vm._v("FAT :")]
+            ),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fat,
+                    expression: "fat"
+                  }
+                ],
+                staticClass: "activate-input",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.fat = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.getFatPort
+                  ]
+                }
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { disabled: "" }, domProps: { value: "" } },
+                  [_vm._v("Select FAT")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.fats, function(data, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: data.id } },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(data.name) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
           ]),
           _vm._v(" "),
           _c("div", [
@@ -20831,69 +21232,70 @@ var render = function() {
               [_vm._v("FAT Port :")]
             ),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fat_port,
-                  expression: "fat_port"
-                }
-              ],
-              staticClass: "activate-input",
-              attrs: { type: "text", id: "fat-port", name: "fat-port" },
-              domProps: { value: _vm.fat_port },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.fat_port = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", [
             _c(
-              "label",
-              { staticClass: "activate-label", attrs: { for: "onu-sn" } },
-              [_vm._v("ONU S/N :")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.onu_sn,
-                  expression: "onu_sn"
-                }
-              ],
-              staticClass: "activate-input",
-              attrs: { type: "text", id: "onu-sn", name: "onu-sn" },
-              domProps: { value: _vm.onu_sn },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fat_port,
+                    expression: "fat_port"
                   }
-                  _vm.onu_sn = $event.target.value
+                ],
+                staticClass: "activate-input",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.fat_port = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
                 }
-              }
-            })
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { disabled: "" }, domProps: { value: "" } },
+                  [_vm._v("Select FAT Port")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.fat_ports, function(data, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: data.id } },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(data.name) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
           ]),
           _vm._v(" "),
           _c(
             "label",
             { staticClass: "activate-label", attrs: { for: "onu-type" } },
-            [_vm._v("ONU S/N :")]
+            [_vm._v("Select Router :")]
           ),
           _vm._v(" "),
           _vm.selectedOnuType
             ? _c("TypeSlider", {
                 attrs: {
                   id: "onu-type",
+                  isInstallation: true,
                   type: _vm.onu_type,
                   defaultId: _vm.selectedOnuType
                 },
@@ -20903,6 +21305,7 @@ var render = function() {
                 attrs: {
                   id: "onu-type",
                   type: _vm.onu_type,
+                  isInstallation: true,
                   defaultId: _vm.selectedOnuType
                 },
                 on: { "type-id": _vm.setOnuId }
@@ -20918,6 +21321,7 @@ var render = function() {
             ? _c("TypeSlider", {
                 attrs: {
                   id: "fpc",
+                  isInstallation: true,
                   type: _vm.fiber_patch_cord,
                   defaultId: _vm.selectedFpc
                 },
@@ -20927,9 +21331,36 @@ var render = function() {
                 attrs: {
                   id: "fpc",
                   type: _vm.fiber_patch_cord,
+                  isInstallation: true,
                   defaultId: _vm.selectedFpc
                 },
                 on: { "type-id": _vm.setFpcId }
+              }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "activate-label", attrs: { for: "fpc" } },
+            [_vm._v("ONU Adapter :")]
+          ),
+          _vm._v(" "),
+          _vm.selectedOnuAdapter
+            ? _c("TypeSlider", {
+                attrs: {
+                  id: "onu-adapter",
+                  isInstallation: true,
+                  type: _vm.onu_adapter,
+                  defaultId: _vm.selectedOnuAdapter
+                },
+                on: { "type-id": _vm.setAdapterId }
+              })
+            : _c("TypeSlider", {
+                attrs: {
+                  id: "onu-adapter",
+                  type: _vm.onu_adapter,
+                  isInstallation: true,
+                  defaultId: _vm.selectedOnuAdapter
+                },
+                on: { "type-id": _vm.setAdapterId }
               }),
           _vm._v(" "),
           _c("div", [
@@ -21548,7 +21979,9 @@ var render = function() {
               _c("p", [
                 _vm._v("Order Type : "),
                 _c("span", [
-                  _vm._v(_vm._s(_vm._f("capitalize")(_vm.order_type)))
+                  _vm._v(
+                    _vm._s(_vm._f("capitalize")(this.$route.params.orderType))
+                  )
                 ])
               ])
             ]),
@@ -22123,6 +22556,115 @@ var render = function() {
           attrs: { type: "team", status: "lsp-team-remain" }
         })
       ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=template&id=cc7523e8&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=template&id=cc7523e8& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "notification-container" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "order-header-row",
+            attrs: { to: "/home/new", tag: "div" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-chevron-left" }),
+            _vm._v(" "),
+            _c("h2", [_vm._v("Notifications")])
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "notification-box-container" },
+      _vm._l(_vm.notifications, function(value, key) {
+        return _c("NotiList", {
+          key: key,
+          attrs: { data: value, type: "Admin" }
+        })
+      }),
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/NotificationComponent.vue?vue&type=template&id=aa96d2ce&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/notification/NotificationComponent.vue?vue&type=template&id=aa96d2ce& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "notification-container" },
+      [
+        _c(
+          "router-link",
+          {
+            staticClass: "order-header-row",
+            attrs: { to: "/lsp-home/remaining", tag: "div" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-chevron-left" }),
+            _vm._v(" "),
+            _c("h2", [_vm._v("Notifications")])
+          ]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "notification-box-container" },
+      _vm._l(_vm.notifications, function(value, key) {
+        return _c("NotiList", { key: key, attrs: { data: value } })
+      }),
       1
     )
   ])
@@ -23352,6 +23894,57 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=template&id=06af2386&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=template&id=06af2386& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "noti-list",
+        on: {
+          click: function($event) {
+            _vm.type == "Admin" ? _vm.toReview() : _vm.toDetail()
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "noti-bell" }, [
+          _c("i", { staticClass: "fas fa-bell" }),
+          _vm._v(" "),
+          _vm.data.is_read == 0
+            ? _c("div", { staticClass: "noti-red-dot" })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.data.noti_message))]),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-angle-right" })
+      ]
+    ),
+    _vm._v(" "),
+    _c("hr")
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/OrderStepChipComponent.vue?vue&type=template&id=32e6b9da&":
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reuseable-component/OrderStepChipComponent.vue?vue&type=template&id=32e6b9da& ***!
@@ -23986,7 +24579,20 @@ var render = function() {
       "div",
       { staticClass: "header-row" },
       [
-        _c("h4", [_vm._v("LSP")]),
+        _vm.type == "admin"
+          ? _c("h4", [_vm._v("LSP")])
+          : _c("h4", [_vm._v("LSP Team")]),
+        _vm._v(" "),
+        _c("router-link", {
+          staticClass: "fas fa-bell noti-bell",
+          attrs: {
+            to:
+              _vm.type == "admin"
+                ? "/home/notification"
+                : "/lsp-team/notification",
+            tag: "i"
+          }
+        }),
         _vm._v(" "),
         _c("router-link", {
           staticClass: "fas fa-user-circle",
@@ -41718,6 +42324,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/notification/AdminNotificationComponent.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/notification/AdminNotificationComponent.vue ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminNotificationComponent_vue_vue_type_template_id_cc7523e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminNotificationComponent.vue?vue&type=template&id=cc7523e8& */ "./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=template&id=cc7523e8&");
+/* harmony import */ var _AdminNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminNotificationComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdminNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminNotificationComponent_vue_vue_type_template_id_cc7523e8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdminNotificationComponent_vue_vue_type_template_id_cc7523e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/notification/AdminNotificationComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminNotificationComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminNotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=template&id=cc7523e8&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=template&id=cc7523e8& ***!
+  \************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminNotificationComponent_vue_vue_type_template_id_cc7523e8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminNotificationComponent.vue?vue&type=template&id=cc7523e8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/AdminNotificationComponent.vue?vue&type=template&id=cc7523e8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminNotificationComponent_vue_vue_type_template_id_cc7523e8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminNotificationComponent_vue_vue_type_template_id_cc7523e8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/notification/NotificationComponent.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/notification/NotificationComponent.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotificationComponent_vue_vue_type_template_id_aa96d2ce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotificationComponent.vue?vue&type=template&id=aa96d2ce& */ "./resources/js/components/notification/NotificationComponent.vue?vue&type=template&id=aa96d2ce&");
+/* harmony import */ var _NotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotificationComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/notification/NotificationComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NotificationComponent_vue_vue_type_template_id_aa96d2ce___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotificationComponent_vue_vue_type_template_id_aa96d2ce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/notification/NotificationComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/notification/NotificationComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/notification/NotificationComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotificationComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/NotificationComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/notification/NotificationComponent.vue?vue&type=template&id=aa96d2ce&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/notification/NotificationComponent.vue?vue&type=template&id=aa96d2ce& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationComponent_vue_vue_type_template_id_aa96d2ce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotificationComponent.vue?vue&type=template&id=aa96d2ce& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/notification/NotificationComponent.vue?vue&type=template&id=aa96d2ce&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationComponent_vue_vue_type_template_id_aa96d2ce___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationComponent_vue_vue_type_template_id_aa96d2ce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue":
 /*!*************************************************************************************************!*\
   !*** ./resources/js/components/resuable-login-password/SignInAndFirstTimePasswordComponent.vue ***!
@@ -42721,6 +43465,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/reuseable-component/NotiListComponent.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/NotiListComponent.vue ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotiListComponent_vue_vue_type_template_id_06af2386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotiListComponent.vue?vue&type=template&id=06af2386& */ "./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=template&id=06af2386&");
+/* harmony import */ var _NotiListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotiListComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NotiListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NotiListComponent_vue_vue_type_template_id_06af2386___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotiListComponent_vue_vue_type_template_id_06af2386___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/reuseable-component/NotiListComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotiListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotiListComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotiListComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=template&id=06af2386&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=template&id=06af2386& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotiListComponent_vue_vue_type_template_id_06af2386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotiListComponent.vue?vue&type=template&id=06af2386& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reuseable-component/NotiListComponent.vue?vue&type=template&id=06af2386&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotiListComponent_vue_vue_type_template_id_06af2386___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotiListComponent_vue_vue_type_template_id_06af2386___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue":
 /*!********************************************************************************!*\
   !*** ./resources/js/components/reuseable-component/OrderStepChipComponent.vue ***!
@@ -43612,7 +44425,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_lsp_order_detail_LSPOrderSplicingComponent__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderSplicingComponent */ "./resources/js/components/lsp-order-detail/LSPOrderSplicingComponent.vue");
 /* harmony import */ var _components_lsp_order_detail_LSPOrderActivateComponent__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderActivateComponent */ "./resources/js/components/lsp-order-detail/LSPOrderActivateComponent.vue");
 /* harmony import */ var _components_lsp_order_detail_LSPOrderRepairComponent_vue__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/lsp-order-detail/LSPOrderRepairComponent.vue */ "./resources/js/components/lsp-order-detail/LSPOrderRepairComponent.vue");
+/* harmony import */ var _components_notification_NotificationComponent_vue__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/notification/NotificationComponent.vue */ "./resources/js/components/notification/NotificationComponent.vue");
+/* harmony import */ var _components_notification_AdminNotificationComponent_vue__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/notification/AdminNotificationComponent.vue */ "./resources/js/components/notification/AdminNotificationComponent.vue");
 // import LspHomeComponent from './components/LspHomeComponent'
+
+
 
 
 
@@ -43677,6 +44494,9 @@ __webpack_require__.r(__webpack_exports__);
       path: 'profile',
       component: _components_lsp_home_ProfileComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
     }, {
+      path: 'notification',
+      component: _components_notification_AdminNotificationComponent_vue__WEBPACK_IMPORTED_MODULE_34__["default"]
+    }, {
       path: 'new',
       component: _components_lsp_home_HomeComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
       name: 'home-new'
@@ -43718,6 +44538,9 @@ __webpack_require__.r(__webpack_exports__);
     }, {
       path: 'profile',
       component: _components_lsp_team_LSPTeamProfileComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }, {
+      path: 'notification',
+      component: _components_notification_NotificationComponent_vue__WEBPACK_IMPORTED_MODULE_33__["default"]
     }, {
       path: 'first-time-password',
       component: _components_lsp_team_LSPTeamFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]

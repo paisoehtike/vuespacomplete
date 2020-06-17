@@ -60,7 +60,7 @@
           <h4>{{detail.customer}}</h4>
         </div>
         <div class="order-type">
-          <p>Order Type : <span>{{order_type | capitalize}}</span></p>
+          <p>Order Type : <span>{{this.$route.params.orderType | capitalize}}</span></p>
         </div>
         <div v-if="order_type == 'on_call'" class="order-type">
           <p>Possible Issue : <span class="issue">{{detail.estimated_issue.name}}</span></p>
