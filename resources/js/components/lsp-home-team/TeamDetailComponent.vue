@@ -3,7 +3,7 @@
     <div class="detail-header-row">
       <router-link to="/team" tag="i" class="fas fa-chevron-left"></router-link>
       <h5>{{ teamDetail.name }}</h5>
-      <i class="fas fa-edit"></i>
+      <i @click="toEdit" class="fas fa-edit"></i>
     </div>
     <SquareImage></SquareImage>
     <TeamInfo>
@@ -166,7 +166,6 @@ export default {
         .then( response => { this.bindTeamDetail(response) } )
         .catch( console.log('Error') );
     },
-
     getRemain() {
       axios.get(this.base_url + 'teams_home?type=remaining&lsp_team_id=' + this.$route.params.id)
       .then( res => { this.bindRemain(res) }).catch(console.log('Error'));
@@ -180,7 +179,6 @@ export default {
       this.isCompleteClass = "";
       this.isHistoryClass = "";
     },
-
     bindComplete(res) {
       this.completeCustomers = res.data.data;
     },
@@ -193,7 +191,6 @@ export default {
       this.isCompleteClass = "complete-class";
       this.isHistoryClass = "";
     },
-
     bindHistory(res) {
       this.historyCustomers = res.data.data;
     },
@@ -214,6 +211,9 @@ export default {
       }).then( res => {
         this.getDetail()
       }).catch(console.log('Error'));
+    },
+    toEdit() {
+      this.$router.push({ name: 'team-edit', params: { id: this.teamDetail.id } });
     }
   },
   created() {

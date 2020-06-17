@@ -30,23 +30,46 @@
                 <label class="activate-label" for="ppoe-password">PPOE Password :</label>
                 <input class="activate-input" type="text" v-model="ppoePassword" id="ppoe-password" name="ppoe-password" readonly>
             </div>
+            <transition name="fade" appear>
+                <div class="modal-box1" v-if="showModal || showModal1" @click="showModal = false">
+                </div>
+            </transition>
             <div>
-                <label class="activate-label" for="olt">OLT :</label>
-                <select v-model="olt" class="activate-input" @change="getFdt">
+                <label class="activate-label" for="olt">Search and Select OLT</label>
+                <div @click="showModal = true" class="custom-search-box">
+                    <p>{{ oltResult }}</p>
+                </div>
+                <transition name="slide" appear>
+                    <div class="modal-box" v-if="showModal">
+                        <div class="cross-close">
+                            <span>Search and Select OLT</span>
+                            <i @click="showModal = false" class="fas fa-times"></i>
+                        </div>
+                        <input class="activate-input" v-model="oltSearchIndex" type="text">
+                        <div class="result-list">
+                            <p>OLT_01</p>
+                            <hr>
+                        </div>
+                    </div>
+                </transition>
+                <!-- <select v-model="olt" class="activate-input" @change="getFdt">
                     <option disabled v-bind:value="''">Select OLT</option>
                     <option v-for="(data, index) in olts" :key="index" v-bind:value="data.id">
                         {{ data.name }}
                     </option>
-                </select>
+                </select> -->
             </div>
             <div>
-                <label class="activate-label" for="fdt">FDT :</label>
-                <select v-model="fdt" class="activate-input" @change="getFat">
+                <label class="activate-label" for="fdt">Search and Select FDT</label>
+                <div class="custom-search-box">
+                    <p>{{ fdtResult }}</p>
+                </div>
+                <!-- <select v-model="fdt" class="activate-input" @change="getFat">
                     <option disabled v-bind:value="''">Select FDT</option>
                     <option v-for="(data, index) in fdts" :key="index" v-bind:value="data.id">
                         {{ data.name }}
                     </option>
-                </select>
+                </select> -->
             </div>
             <div>
                 <label class="activate-label" for="fat-port">FAT :</label>
@@ -113,6 +136,15 @@ export default {
     },
     data() {
         return {
+            showModal: false,
+            showModal1: false,
+
+            oltSearchIndex: null,
+            oltPage: 1,
+
+            oltResult: 'Search..',
+            fdtResult: 'Search..',
+
             selectedOnuType: null,
             selectedFpc: null,
             selectedOnuAdapter: null,
@@ -221,25 +253,46 @@ export default {
             this.remarks = remarks;
         },
         getActivate() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/onu_step?installation_id=' + this.$route.params.id)
+            axios.get(this.base_url + 'lsp_team/onu_step?installation_id=' + this.$route.params.id)
                 .then( res => { 
                     this.loadPreImages(res.data.data.images);
                     this.loadPreRemarks(res.data.data.remarks);
                     this.ppoeUserName = res.data.data.ppoe_username;
                     this.ppoePassword = res.data.data.ppoe_password;
                     if (res.data.data.olt) {
-                        this.olt = res.data.data.olt;
+                        this.olt = res.data.data.olt.id;
+                        this.oltResult = res.data.data.olt.name;
                     }
-                    this.fdt = res.data.data.fdt;
-                    this.fat_port = res.data.data.fat_port;
+                    if (res.data.data.fdt) {
+                        this.fdt = res.data.data.fdt.id;
+                        this.fdtResult = res.data.data.fdt.name;
+                    }
+                    if (res.data.data.fat) {
+                        this.fat = res.data.data.fat.id;
+                    }
+                    if (res.data.data.fat_port) {
+                        this.fat_port = res.data.data.fat_port.id;
+                    }
+                    
                     this.onu_sn = res.data.data.onu_sn;
-
-                    if(res.data.data.product_usage !== null) {
+                    if (res.data.data.product_usage.onu_type != null) {
                         this.selectedOnuType = res.data.data.product_usage.onu_type.id;
+                    }
+                    if (res.data.data.product_usage.fiber_patch_cord != null) {
                         this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+                    }
+                    if (res.data.data.product_usage.onu_adapter != null) {
                         this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+                    }
+                    if (res.data.data.product_usage.fiber_cable != null) {
                         this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
                     }
+                    // if(res.data.data.product_usage != null) {
+                    //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
+                    //     this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+                    //     this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+                    //     this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+                    // }
                 } )
                 .catch( console.log('Error') );
         },
@@ -281,21 +334,42 @@ export default {
             axios.get(`${this.base_url}get_fat_lists/${this.fdt}`)
             .then( res => {
                 this.fats = res.data.data
-                this.fat = ''
+                if (!this.fat) {
+                    this.fat = ''
+                }
             }).catch(console.log('Error'));
         },
         getFatPort() {
             axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
             .then( res => {
                 this.fat_ports = res.data.data
-                this.fat_port = ''
+                if (!this.fat_port) {
+                    this.fat_port = ''
+                }
             }).catch(console.log('Error'));
+        }
+    },
+    watch: {
+        fdt: function(val) {
+            this.getFat();
+        },
+        fat: function(val) {
+            this.getFatPort();
+        },
+        oltSearchIndex: function(val) {
+            setTimeout(function() {
+                if (val.length >= 2) {
+                    axios.get(`${this.base_url}get_olt_lists?q=${val}&page=${this.oltPage}`)
+                    .then( res => {
+                        console.log(res)
+                    }).catch(console.log('Error'));
+                }
+            }, 2000)
         }
     },
     created() {
         this.getActivate();
         this.getInventory();
-        this.getOlt();
     }
 }
 </script>

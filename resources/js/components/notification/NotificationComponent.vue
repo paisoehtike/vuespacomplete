@@ -25,15 +25,31 @@ export default {
     },
     data() {
         return {
-            notifications: null,
+            notifications: [],
+            page: 1,
+            total_page: null,
         }
     },
+    beforeMount() {
+        window.addEventListener("scroll", this.infiniteHandler)
+    },
     methods: {
+        infiniteHandler() {
+            if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+                if (this.page <= this.total_page) {
+                    this.get();
+                }
+            }
+        },
         bindData(res) {
-            this.notifications = res.data.data;
+            res.data.data.forEach(result => {
+                this.notifications.push(result);
+            });
+            this.page = res.data.meta.current_page +1; //to get next page
+            this.total_page = res.data.meta.total_pages;
         },
         get() {
-            axios.get(`${this.base_url}lsp_team/team_notification_lists`)
+            axios.get(`${this.base_url}lsp_team/team_notification_lists?page=${this.page}`)
             .then( res => {
                 this.bindData(res)
             }).catch(console.log('Error'));

@@ -122,6 +122,11 @@ export default {
             name: 'team-create'
         },
         {
+            path: '/team/edit/:id',
+            component: TeamCreate,
+            name: 'team-edit'
+        },
+        {
             path: '/lsp-team/',
             component: LSPOrderIndex,
             children: [
