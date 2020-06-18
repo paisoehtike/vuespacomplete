@@ -2313,6 +2313,25 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    toDetail: function toDetail(request) {
+      if (request.type == 'installation' || request.type == 'relocation') {
+        this.$router.push({
+          name: 'order',
+          params: {
+            id: request.id,
+            orderType: 'installation'
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'order',
+          params: {
+            id: request.id,
+            orderType: 'on_call'
+          }
+        });
+      }
+    },
     bindTeamDetail: function bindTeamDetail(response) {
       this.teamDetail = response.data.data;
     },
@@ -2639,6 +2658,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -2648,7 +2673,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['customer', 'type', 'teams', 'assignedTeam', 'requestType'],
+  props: ["customer", "type", "teams", "assignedTeam", "requestType"],
   components: {
     CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2662,15 +2687,24 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       showModal: false,
       assignOrSwitch: null,
       selected: null,
-      teamId: null
+      teamId: null,
+      availableTeams: []
     };
   },
   methods: {
     isAssigned: function isAssigned() {
-      if (this.type == 'New') {
-        this.assignOrSwitch = 'Assign';
+      var _this = this;
+
+      if (this.type == "New") {
+        this.assignOrSwitch = "Assign";
       } else {
-        this.assignOrSwitch = 'Switch';
+        this.teams && this.teams.forEach(function (element) {
+          _this.availableTeams.push(element);
+        });
+        this.availableTeams = this.availableTeams.filter(function (team) {
+          return team.id != _this.assignedTeam.id;
+        });
+        this.assignOrSwitch = "Switch";
       }
     },
     teamSelect: function teamSelect(team, index) {
@@ -2678,26 +2712,31 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.teamId = team.id;
     },
     assignTeam: function assignTeam() {
-      var _this = this;
+      var _this2 = this;
 
-      axios.post(this.base_url + 'assigned_team', {
+      axios.post(this.base_url + "assigned_team", {
         requested_id: this.$route.params.id,
         requested_type: this.requestType,
         lsp_team_id: this.teamId
       }).then(function (res) {
         if (res.status == 201) {
-          _this.showModal = false;
+          _this2.showModal = false;
 
-          _this.$emit('reload');
+          _this2.$emit("reload");
 
-          _this.assignOrSwitch = 'Switch';
-          _this.type = 'Accept';
+          _this2.assignOrSwitch = "Switch";
+          _this2.type = "Accept";
         }
-      })["catch"](console.log('Error'));
+      })["catch"](console.log("Error"));
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.isAssigned();
+  },
+  watch: {
+    teams: function teams(val) {
+      if (val.length) this.isAssigned();
+    }
   }
 });
 
@@ -2974,6 +3013,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         _this.authenticated(response);
       })["catch"](function (error) {
         _this.errorMessage = error.response.data.message;
+        alert(error.response.data.message);
       });
     }
   }
@@ -3730,6 +3770,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3794,6 +3841,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    toInstallationDetail: function toInstallationDetail() {
+      if (this.detail.installation_step != null) this.$router.push('/lsp-order/review/' + this.detail.id + '/survey');
+      alert('No installation record yet!');
+    },
     refresh: function refresh() {
       this.getDetail();
       this.getTeams();
@@ -5716,10 +5767,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['type', 'isAdmin', 'errorMessage'],
   data: function data() {
     return {
+      isShow: 'password',
+      isShowPassword: 'password',
       isSignIn: true,
       phone: null,
       password: null,
@@ -5732,6 +5791,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    showHide: function showHide() {
+      if (this.isShow == 'password') {
+        this.isShow = 'text';
+      } else {
+        this.isShow = 'password';
+      }
+    },
+    showHidePassword: function showHidePassword() {
+      if (this.isShowPassword == 'password') {
+        this.isShowPassword = 'text';
+      } else {
+        this.isShowPassword = 'password';
+      }
+    },
     formSubmit: function formSubmit() {
       this.resetErrorMessages();
 
@@ -18835,7 +18908,14 @@ var render = function() {
             _vm._l(_vm.customers, function(customer, index) {
               return _c(
                 "Customer",
-                { key: index },
+                {
+                  key: index,
+                  nativeOn: {
+                    click: function($event) {
+                      return _vm.toDetail(customer)
+                    }
+                  }
+                },
                 [
                   _c("CustomerHeader", {
                     attrs: {
@@ -18961,7 +19041,14 @@ var render = function() {
             _vm._l(_vm.completeCustomers, function(customer, index) {
               return _c(
                 "Customer",
-                { key: index },
+                {
+                  key: index,
+                  nativeOn: {
+                    click: function($event) {
+                      return _vm.toDetail(customer)
+                    }
+                  }
+                },
                 [
                   _c("CustomerHeader", {
                     attrs: {
@@ -19087,7 +19174,14 @@ var render = function() {
             _vm._l(_vm.historyCustomers, function(customer, index) {
               return _c(
                 "Customer",
-                { key: index },
+                {
+                  key: index,
+                  nativeOn: {
+                    click: function($event) {
+                      return _vm.toDetail(customer)
+                    }
+                  }
+                },
                 [
                   _c("CustomerHeader", {
                     attrs: {
@@ -19569,11 +19663,7 @@ var render = function() {
                                   fn: function() {
                                     return [
                                       _vm._v(
-                                        " " +
-                                          _vm._s(
-                                            _vm.customer.priority_level.name
-                                          ) +
-                                          " "
+                                        _vm._s(_vm.customer.priority_level.name)
                                       )
                                     ]
                                   },
@@ -19585,9 +19675,7 @@ var render = function() {
                                   key: "issue",
                                   fn: function() {
                                     return [
-                                      _vm._v(
-                                        " " + _vm._s(_vm.customer.issue.name)
-                                      )
+                                      _vm._v(_vm._s(_vm.customer.issue.name))
                                     ]
                                   },
                                   proxy: true
@@ -19607,7 +19695,8 @@ var render = function() {
                   attrs: {
                     slot: "customer-detail-chip",
                     value: _vm.customer.name,
-                    address: _vm.customer.customer_detail.township.name
+                    address: _vm.customer.customer_detail.address,
+                    remark: _vm.customer.remark
                   },
                   slot: "customer-detail-chip"
                 }),
@@ -19676,7 +19765,7 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "assign-team-wrapper" },
-                  _vm._l(_vm.teams, function(team, index) {
+                  _vm._l(_vm.availableTeams, function(team, index) {
                     return _c("Teams", {
                       key: index,
                       class: { teamClick: _vm.selected == index },
@@ -19751,7 +19840,7 @@ var render = function() {
                       staticClass: "remark-save-btn",
                       on: { click: _vm.assignTeam }
                     },
-                    [_vm._v("Save")]
+                    [_vm._v("Done")]
                   )
                 ])
               ],
@@ -20975,7 +21064,16 @@ var render = function() {
                     ])
                   ])
                 ])
-              : _vm._e(),
+              : _c("div", { staticClass: "order-type" }, [
+                  _c("p", [_vm._v("Due Date : "), _c("span", [_vm._v("N/A")])])
+                ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [
+                _vm._v("Remark : "),
+                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
+              ])
+            ]),
             _vm._v(" "),
             _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
@@ -21156,17 +21254,16 @@ var render = function() {
         [
           _vm.orderType == "installation"
             ? _c(
-                "router-link",
+                "div",
                 {
                   staticClass: "col s12 m6 l3 view-detail",
-                  attrs: {
-                    tag: "div",
-                    to: {
-                      path: "/lsp-order/review/" + _vm.detail.id + "/survey"
-                    }
-                  }
+                  on: { click: _vm.toInstallationDetail }
                 },
-                [_c("a", [_vm._v("View Installation Detail")])]
+                [
+                  _c("p", [_vm._v("*No Installation Record Yet")]),
+                  _vm._v(" "),
+                  _c("a", [_vm._v("View Installation Detail")])
+                ]
               )
             : _c(
                 "router-link",
@@ -21187,7 +21284,7 @@ var render = function() {
                 staticClass: "waves-effect waves-light btn orange",
                 on: { click: _vm.acceptByLsp }
               },
-              [_vm._v("Complete")]
+              [_vm._v("Finish")]
             )
           ])
         ],
@@ -23251,27 +23348,92 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm.type == "password"
-        ? _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.phone,
-                expression: "phone"
-              }
-            ],
-            staticClass: "activate-input",
-            attrs: { type: "password", name: "phone" },
-            domProps: { value: _vm.phone },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.phone = $event.target.value
-              }
-            }
-          })
+        ? _c("div", [
+            _vm.isShowPassword === "checkbox"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.phone,
+                      expression: "phone"
+                    }
+                  ],
+                  staticClass: "activate-input",
+                  attrs: { name: "phone", type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.phone)
+                      ? _vm._i(_vm.phone, null) > -1
+                      : _vm.phone
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.phone,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.phone = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.phone = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.phone = $$c
+                      }
+                    }
+                  }
+                })
+              : _vm.isShowPassword === "radio"
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.phone,
+                      expression: "phone"
+                    }
+                  ],
+                  staticClass: "activate-input",
+                  attrs: { name: "phone", type: "radio" },
+                  domProps: { checked: _vm._q(_vm.phone, null) },
+                  on: {
+                    change: function($event) {
+                      _vm.phone = null
+                    }
+                  }
+                })
+              : _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.phone,
+                      expression: "phone"
+                    }
+                  ],
+                  staticClass: "activate-input",
+                  attrs: { name: "phone", type: _vm.isShowPassword },
+                  domProps: { value: _vm.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.phone = $event.target.value
+                    }
+                  }
+                }),
+            _vm._v(" "),
+            _c("i", {
+              staticClass: "far fa-eye show-or-hide",
+              on: { click: _vm.showHidePassword }
+            })
+          ])
         : _c("input", {
             directives: [
               {
@@ -23282,7 +23444,7 @@ var render = function() {
               }
             ],
             staticClass: "activate-input",
-            attrs: { type: "text", name: "phone" },
+            attrs: { type: "number", min: "1", name: "phone" },
             domProps: { value: _vm.phone },
             on: {
               input: function($event) {
@@ -23333,27 +23495,92 @@ var render = function() {
         ? _c("span", [_vm._v(_vm._s(_vm.errors.password))])
         : _vm._e(),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.password,
-            expression: "password"
-          }
-        ],
-        staticClass: "activate-input",
-        attrs: { type: "password", name: "password" },
-        domProps: { value: _vm.password },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.password = $event.target.value
-          }
-        }
-      })
+      _c("div", [
+        _vm.isShow === "checkbox"
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.password,
+                  expression: "password"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { name: "password", type: "checkbox" },
+              domProps: {
+                checked: Array.isArray(_vm.password)
+                  ? _vm._i(_vm.password, null) > -1
+                  : _vm.password
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.password,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.password = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.password = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.password = $$c
+                  }
+                }
+              }
+            })
+          : _vm.isShow === "radio"
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.password,
+                  expression: "password"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { name: "password", type: "radio" },
+              domProps: { checked: _vm._q(_vm.password, null) },
+              on: {
+                change: function($event) {
+                  _vm.password = null
+                }
+              }
+            })
+          : _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.password,
+                  expression: "password"
+                }
+              ],
+              staticClass: "activate-input",
+              attrs: { name: "password", type: _vm.isShow },
+              domProps: { value: _vm.password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.password = $event.target.value
+                }
+              }
+            }),
+        _vm._v(" "),
+        _c("i", {
+          staticClass: "far fa-eye show-or-hide",
+          on: { click: _vm.showHide }
+        })
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "right" }, [
@@ -24234,9 +24461,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "order-customer-type" }, [
-    _vm.value ? _c("span", [_vm._v(_vm._s(_vm.value))]) : _vm._e()
-  ])
+  return _vm.value != "Default"
+    ? _c("div", { staticClass: "order-customer-type" }, [
+        _c("span", [_vm._v(_vm._s(_vm.value))])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

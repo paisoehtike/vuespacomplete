@@ -1,6 +1,6 @@
 <template>
-  <div class="order-customer-type">
-    <span v-if="value">{{value}}</span>
+  <div v-if="value != 'Default'" class="order-customer-type">
+    <span>{{value}}</span>
   </div>
 </template>
 <script>

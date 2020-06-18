@@ -48,7 +48,8 @@ export default {
                 this.authenticated(response);
             })
             .catch(error => {
-    			this.errorMessage = error.response.data.message;
+                this.errorMessage = error.response.data.message;
+                alert(error.response.data.message)
     		});
         }
     }

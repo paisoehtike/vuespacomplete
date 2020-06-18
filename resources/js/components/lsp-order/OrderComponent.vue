@@ -26,6 +26,12 @@
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
+        <div v-else class="order-type">
+          <p>Due Date : <span>N/A</span></p>
+        </div>
+        <div class="order-type">
+          <p>Remark : <span>{{detail.remark}}</span></p>
+        </div>
         <div v-if="detail.priority_level != null" class="order-type">
           <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
         </div>
@@ -83,14 +89,15 @@
       </OrderInfo> -->
     </div>
     <div class="order-button">
-      <router-link tag="div" :to="{ path: '/lsp-order/review/' + detail.id + '/survey'}" class="col s12 m6 l3 view-detail" v-if="orderType == 'installation'">
+      <div @click="toInstallationDetail" class="col s12 m6 l3 view-detail" v-if="orderType == 'installation'">
+        <p>*No Installation Record Yet</p>
         <a>View Installation Detail</a>
-      </router-link>
+      </div>
       <router-link tag="div" :to="{ path: '/lsp-order/review/repair/' + detail.id }" class="col s12 m6 l3 view-detail" v-else>
         <a>View Repair Detail</a>
       </router-link>
       <div class="col s12 m6 l3 complete-btn">
-        <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Complete</a>
+        <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Finish</a>
       </div>
     </div>
   </div>
@@ -166,6 +173,11 @@ export default {
     };
   },
   methods: {
+    toInstallationDetail() {
+      if(this.detail.installation_step != null)
+      this.$router.push('/lsp-order/review/' + this.detail.id + '/survey')
+      alert('No installation record yet!')
+    },
     refresh() {
       this.getDetail();
       this.getTeams();

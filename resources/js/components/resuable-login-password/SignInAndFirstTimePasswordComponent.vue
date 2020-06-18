@@ -8,14 +8,20 @@
             <label v-show="!isSignIn" class="activate-label">Password</label>
             <label v-show="isSignIn" class="activate-label">Phone</label>
             <span v-if="errors.phone">{{ errors.phone }}</span>
-            <input v-if="type == 'password'" v-model="phone" class="activate-input" type="password" name="phone">
-            <input v-else v-model="phone" class="activate-input" type="text" name="phone">
+            <div v-if="type == 'password'">
+                <input v-model="phone" class="activate-input" :type="isShowPassword" name="phone">
+                <i @click="showHidePassword" class="far fa-eye show-or-hide"></i>
+            </div>
+            <input v-else v-model="phone" class="activate-input" type="number" min="1" name="phone">
         </div>
         <div>
             <label v-show="!isSignIn" class="activate-label">Confirm Password</label>
             <label v-show="isSignIn" class="activate-label" for="onu-sn">Password</label>
             <span v-if="errors.password">{{ errors.password }}</span>
-            <input v-model="password" class="activate-input" type="password" name="password">
+            <div>
+                <input v-model="password" class="activate-input" :type="isShow" name="password">
+                <i @click="showHide" class="far fa-eye show-or-hide"></i>
+            </div>
         </div>
         <div class="right">
             <!-- <router-link v-show="type == 'sign-in'" 
@@ -41,6 +47,8 @@ export default {
     ],
     data() {
         return {
+            isShow: 'password',
+            isShowPassword: 'password',
             isSignIn: true,
             phone: null,
             password: null,
@@ -53,6 +61,20 @@ export default {
         }
     },
     methods: {
+        showHide() {
+            if(this.isShow == 'password') {
+                this.isShow = 'text'
+            } else {
+                this.isShow = 'password'
+            }
+        },
+        showHidePassword() {
+            if(this.isShowPassword == 'password') {
+                this.isShowPassword = 'text'
+            } else {
+                this.isShowPassword = 'password'
+            }
+        },
         formSubmit() {
             this.resetErrorMessages();
 
