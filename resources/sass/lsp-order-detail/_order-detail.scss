@@ -514,6 +514,10 @@
     .result-box {
         max-height: 270px;
         overflow: auto;
+        .load-more-button {
+            width: 100%;
+            margin-top: 18px;
+        }
     }
 
     .remark-cancel-btn {

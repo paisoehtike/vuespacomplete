@@ -21461,9 +21461,14 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _vm.oltPage < _vm.oltTotalPage
-                            ? _c("button", { on: { click: _vm.moreOlt } }, [
-                                _vm._v("Load More")
-                              ])
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "load-more-button",
+                                  on: { click: _vm.moreOlt }
+                                },
+                                [_vm._v("Load More")]
+                              )
                             : _vm._e()
                         ],
                         2
@@ -21562,9 +21567,14 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _vm.fdtPage < _vm.fdtTotalPage
-                            ? _c("button", { on: { click: _vm.moreFdt } }, [
-                                _vm._v("Load More")
-                              ])
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "load-more-button",
+                                  on: { click: _vm.moreFdt }
+                                },
+                                [_vm._v("Load More")]
+                              )
                             : _vm._e()
                         ],
                         2

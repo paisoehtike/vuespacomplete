@@ -1323,6 +1323,11 @@
   overflow: auto;
 }
 
+.modal-box .result-box .load-more-button {
+  width: 100%;
+  margin-top: 18px;
+}
+
 .modal-box .remark-cancel-btn {
   border: none;
   background: none;

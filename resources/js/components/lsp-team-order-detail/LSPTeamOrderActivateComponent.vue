@@ -53,7 +53,7 @@
                                 <p>{{ value.name }}</p>
                                 <hr>
                             </div>
-                            <button v-if="oltPage < oltTotalPage" @click="moreOlt">Load More</button>
+                            <button class="load-more-button" v-if="oltPage < oltTotalPage" @click="moreOlt">Load More</button>
                         </div>
                     </div>
                 </transition>
@@ -77,7 +77,7 @@
                                 <p>{{ value.name }}</p>
                                 <hr>
                             </div>
-                            <button v-if="fdtPage < fdtTotalPage" @click="moreFdt">Load More</button>
+                            <button class="load-more-button" v-if="fdtPage < fdtTotalPage" @click="moreFdt">Load More</button>
                         </div>
                     </div>
                 </transition>
