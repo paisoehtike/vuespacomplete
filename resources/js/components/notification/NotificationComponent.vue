@@ -2,7 +2,7 @@
     <div>
         <div class="notification-container">
             <router-link to="/lsp-home/remaining" tag="div" class="order-header-row">
-                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-left noti-left"></i>
                 <h2>Notifications</h2>
             </router-link>
         </div>

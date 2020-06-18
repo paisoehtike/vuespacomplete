@@ -3956,6 +3956,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3973,17 +3990,34 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
+      errors: {
+        olt: false,
+        fdt: false,
+        fat: false,
+        fat_port: false,
+        onuId: false,
+        fpcId: false,
+        fiber_cable_length: false,
+        onuAdapterId: false,
+        olt_null_error_for_fdt_search: false
+      },
       showModal: false,
       showModal1: false,
       oltSearchIndex: null,
+      oltSearchResult: [],
       oltPage: 1,
+      oltTotalPage: 1,
+      fdtSearchIndex: null,
+      fdtSearchResult: [],
+      fdtPage: 1,
+      fdtTotalPage: null,
       oltResult: 'Search..',
       fdtResult: 'Search..',
       selectedOnuType: null,
       selectedFpc: null,
       selectedOnuAdapter: null,
       remarks: null,
-      images: null,
+      images: [],
       image: null,
       imageFile: null,
       ppoeUserName: null,
@@ -4008,25 +4042,48 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    modalClose: function modalClose() {
+      this.showModal = false;
+      this.showModal1 = false;
+      this.oltPage = 1;
+      this.oltTotalPage = 1;
+      this.fdtPage = 1;
+      this.fdtTotalPage = 1;
+      this.oltSearchResult = [];
+      this.fdtSearchResult = [];
+      this.oltSearchIndex = null;
+      this.fdtSearchIndex = null;
+    },
     storeOnuStep: function storeOnuStep() {
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_store', {
-        olt_id: this.olt,
-        fdt_id: this.fdt,
-        fat_id: this.fat,
-        fat_port_id: this.fat_port,
-        installation_request_id: this.$route.params.id,
-        onu_type_id: this.onuId,
-        onu_type_quantity: 1,
-        fiber_patch_cord_id: this.fpcId,
-        fiber_patch_cord_quantity: 1,
-        fiber_cable_id: this.fiber_cable[0].id,
-        fiber_cable_length: this.fiber_cable_length,
-        onu_adapter_id: this.onuAdapterId,
-        onu_adapter_quantity: 1,
-        type: 'installation'
-      }).then(function (res) {
-        console.log(res);
-      })["catch"](console.log('Sry Pl!'));
+      if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true;
+      if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true;
+      if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true;
+      if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true;
+      if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true;
+      if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true;
+      if (!this.fiber_cable_length) this.errors.fiber_cable_length = true;
+      if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true;
+
+      if (!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId) {
+        axios.post("".concat(this.base_url, "lsp_team/activation_store"), {
+          olt_id: this.olt,
+          fdt_id: this.fdt,
+          fat_id: this.fat,
+          fat_port_id: this.fat_port,
+          installation_request_id: this.$route.params.id,
+          onu_type_id: this.onuId,
+          onu_type_quantity: 1,
+          fiber_patch_cord_id: this.fpcId,
+          fiber_patch_cord_quantity: 1,
+          fiber_cable_id: this.fiber_cable[0].id,
+          fiber_cable_length: this.fiber_cable_length,
+          onu_adapter_id: this.onuAdapterId,
+          onu_adapter_quantity: 1,
+          type: 'installation'
+        }).then(function (res) {
+          console.log(res);
+        })["catch"](console.log('Sry Pl!'));
+      }
     },
     onFileSelected: function onFileSelected(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -4065,6 +4122,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.images.push(img);
       this.image = null;
     },
+    deleteImage: function deleteImage(img) {
+      var _this3 = this;
+
+      axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
+        if (res.data.code == 200) {
+          _this3.images = _this3.images.filter(function (image) {
+            return image.id != img.id;
+          });
+        }
+      })["catch"](console.log('Error'));
+    },
     loadPreImages: function loadPreImages(images) {
       this.images = images;
     },
@@ -4087,50 +4155,53 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.remarks = remarks;
     },
     getActivate: function getActivate() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get(this.base_url + 'lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
-        _this3.loadPreImages(res.data.data.images);
+        _this4.loadPreImages(res.data.data.images);
 
-        _this3.loadPreRemarks(res.data.data.remarks);
+        _this4.loadPreRemarks(res.data.data.remarks);
 
-        _this3.ppoeUserName = res.data.data.ppoe_username;
-        _this3.ppoePassword = res.data.data.ppoe_password;
+        _this4.ppoeUserName = res.data.data.ppoe_username;
+        _this4.ppoePassword = res.data.data.ppoe_password;
 
         if (res.data.data.olt) {
-          _this3.olt = res.data.data.olt.id;
-          _this3.oltResult = res.data.data.olt.name;
+          _this4.olt = res.data.data.olt.id;
+          _this4.oltResult = res.data.data.olt.name;
         }
 
         if (res.data.data.fdt) {
-          _this3.fdt = res.data.data.fdt.id;
-          _this3.fdtResult = res.data.data.fdt.name;
+          _this4.fdt = res.data.data.fdt.id;
+          _this4.fdtResult = res.data.data.fdt.name;
         }
 
         if (res.data.data.fat) {
-          _this3.fat = res.data.data.fat.id;
+          _this4.fat = res.data.data.fat.id;
         }
 
         if (res.data.data.fat_port) {
-          _this3.fat_port = res.data.data.fat_port.id;
+          _this4.fat_port = res.data.data.fat_port.id;
         }
 
-        _this3.onu_sn = res.data.data.onu_sn;
+        _this4.onu_sn = res.data.data.onu_sn;
 
         if (res.data.data.product_usage.onu_type != null) {
-          _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this4.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this4.onuId = res.data.data.product_usage.onu_type.id;
         }
 
         if (res.data.data.product_usage.fiber_patch_cord != null) {
-          _this3.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this4.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this4.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
         }
 
         if (res.data.data.product_usage.onu_adapter != null) {
-          _this3.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          _this4.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          _this4.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
         }
 
         if (res.data.data.product_usage.fiber_cable != null) {
-          _this3.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this4.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
         } // if(res.data.data.product_usage != null) {
         //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
         //     this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
@@ -4141,61 +4212,101 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_inventory').then(function (res) {
-        _this4.preconfig(res.data.data);
+        _this5.preconfig(res.data.data);
       })["catch"](console.log('Error'));
     },
     getActivation: function getActivation() {
       this.getActivate();
     },
     storeStep: function storeStep() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
         step: 'splicing'
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.$router.push('/lsp-home/remaining');
+          _this6.$router.push('/lsp-home/remaining');
         }
       })["catch"](console.log('Error'));
     },
     getOlt: function getOlt() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get("".concat(this.base_url, "get_olt_lists")).then(function (res) {
-        _this6.olts = res.data.data;
+        _this7.olts = res.data.data;
+      })["catch"](console.log('Error'));
+    },
+    setOltSearchResult: function setOltSearchResult(val) {
+      this.oltResult = val.name;
+      this.olt = val.id;
+      this.oltPage = 1;
+      this.fdtResult = 'Search..';
+      this.fat = '';
+      this.fats = [];
+      this.fat_port = '';
+      this.fat_ports = [];
+      this.modalClose();
+    },
+    moreOlt: function moreOlt() {
+      var _this8 = this;
+
+      this.oltPage = this.oltPage + 1;
+      axios.get("".concat(this.base_url, "get_olt_lists?q=").concat(this.oltSearchIndex, "&page=").concat(this.oltPage)).then(function (res) {
+        res.data.data.forEach(function (element) {
+          _this8.oltSearchResult.push(element);
+        });
+      })["catch"](console.log('Error'));
+    },
+    setFdtSearchResult: function setFdtSearchResult(val) {
+      this.fdtResult = val.name;
+      this.fdt = val.id;
+      this.showModal1 = false;
+      this.fdtPage = 1;
+      this.fat_port = '';
+      this.fat_ports = [];
+      this.modalClose();
+    },
+    moreFdt: function moreFdt() {
+      var _this9 = this;
+
+      this.fdtPage = this.fdtPage + 1;
+      axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt, "?q=").concat(this.oltSearchIndex, "&page=").concat(this.fdtPage)).then(function (res) {
+        res.data.data.forEach(function (element) {
+          _this9.oltSearchResult.push(element);
+        });
       })["catch"](console.log('Error'));
     },
     getFdt: function getFdt() {
-      var _this7 = this;
+      var _this10 = this;
 
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt)).then(function (res) {
-        _this7.fdts = res.data.data;
-        _this7.fdt = '';
+        _this10.fdts = res.data.data;
+        _this10.fdt = '';
       })["catch"](console.log('Error'));
     },
     getFat: function getFat() {
-      var _this8 = this;
+      var _this11 = this;
 
       axios.get("".concat(this.base_url, "get_fat_lists/").concat(this.fdt)).then(function (res) {
-        _this8.fats = res.data.data;
+        _this11.fats = res.data.data;
 
-        if (!_this8.fat) {
-          _this8.fat = '';
+        if (!_this11.fat) {
+          _this11.fat = '';
         }
       })["catch"](console.log('Error'));
     },
     getFatPort: function getFatPort() {
-      var _this9 = this;
+      var _this12 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
-        _this9.fat_ports = res.data.data;
+        _this12.fat_ports = res.data.data;
 
-        if (!_this9.fat_port) {
-          _this9.fat_port = '';
+        if (!_this12.fat_port) {
+          _this12.fat_port = '';
         }
       })["catch"](console.log('Error'));
     }
@@ -4208,13 +4319,35 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getFatPort();
     },
     oltSearchIndex: function oltSearchIndex(val) {
-      setTimeout(function () {
-        if (val.length >= 2) {
-          axios.get("".concat(this.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(this.oltPage)).then(function (res) {
-            console.log(res);
+      var _this13 = this;
+
+      if (val.length >= 2) {
+        this.oltPage = 1;
+        setTimeout(function () {
+          axios.get("".concat(_this13.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this13.oltPage)).then(function (res) {
+            _this13.oltSearchResult = res.data.data;
+            _this13.oltTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
-        }
-      }, 2000);
+        }, 1000);
+      }
+    },
+    fdtSearchIndex: function fdtSearchIndex(val) {
+      var _this14 = this;
+
+      if (!this.olt) {
+        this.errors.olt_null_error_for_fdt_search = true;
+      }
+
+      this.fdtPage = 1;
+
+      if (val.length >= 2 && this.olt) {
+        setTimeout(function () {
+          axios.get("".concat(_this14.base_url, "get_fdt_lists/").concat(_this14.olt, "?q=").concat(val, "&page=").concat(_this14.fdtPage)).then(function (res) {
+            _this14.fdtSearchResult = res.data.data;
+            _this14.fdtTotalPage = res.data.meta.total_pages;
+          })["catch"](console.log('Error'));
+        }, 1000);
+      }
     }
   },
   created: function created() {
@@ -21094,6 +21227,15 @@ var render = function() {
                   _c("img", {
                     staticClass: "center-align",
                     attrs: { src: image.full_image }
+                  }),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "far fa-trash-alt image-trash-icon",
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteImage(image)
+                      }
+                    }
                   })
                 ])
               }),
@@ -21231,11 +21373,7 @@ var render = function() {
             _vm.showModal || _vm.showModal1
               ? _c("div", {
                   staticClass: "modal-box1",
-                  on: {
-                    click: function($event) {
-                      _vm.showModal = false
-                    }
-                  }
+                  on: { click: _vm.modalClose }
                 })
               : _vm._e()
           ]),
@@ -21248,6 +21386,8 @@ var render = function() {
                 { staticClass: "activate-label", attrs: { for: "olt" } },
                 [_vm._v("Search and Select OLT")]
               ),
+              _vm._v(" "),
+              this.errors.olt ? _c("span", [_vm._v("*Requried")]) : _vm._e(),
               _vm._v(" "),
               _c(
                 "div",
@@ -21270,11 +21410,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("i", {
                           staticClass: "fas fa-times",
-                          on: {
-                            click: function($event) {
-                              _vm.showModal = false
-                            }
-                          }
+                          on: { click: _vm.modalClose }
                         })
                       ]),
                       _vm._v(" "),
@@ -21300,11 +21436,139 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _c("div", { staticClass: "result-list" }, [
-                        _c("p", [_vm._v("OLT_01")]),
+                      _c(
+                        "div",
+                        { staticClass: "result-box" },
+                        [
+                          _vm._l(_vm.oltSearchResult, function(value, key) {
+                            return _c(
+                              "div",
+                              {
+                                key: key,
+                                staticClass: "result-list",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.setOltSearchResult(value)
+                                  }
+                                }
+                              },
+                              [
+                                _c("p", [_vm._v(_vm._s(value.name))]),
+                                _vm._v(" "),
+                                _c("hr")
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.oltPage < _vm.oltTotalPage
+                            ? _c("button", { on: { click: _vm.moreOlt } }, [
+                                _vm._v("Load More")
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c(
+                "label",
+                { staticClass: "activate-label", attrs: { for: "fdt" } },
+                [_vm._v("Search and Select FDT")]
+              ),
+              _vm._v(" "),
+              this.errors.fdt ? _c("span", [_vm._v("*Requried")]) : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "custom-search-box",
+                  on: {
+                    click: function($event) {
+                      _vm.showModal1 = true
+                    }
+                  }
+                },
+                [_c("p", [_vm._v(_vm._s(_vm.fdtResult))])]
+              ),
+              _vm._v(" "),
+              _c("transition", { attrs: { name: "slide", appear: "" } }, [
+                _vm.showModal1
+                  ? _c("div", { staticClass: "modal-box" }, [
+                      _c("div", { staticClass: "cross-close" }, [
+                        _c("span", [_vm._v("Search and Select FDT")]),
                         _vm._v(" "),
-                        _c("hr")
-                      ])
+                        _c("i", {
+                          staticClass: "fas fa-times",
+                          on: { click: _vm.modalClose }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      this.errors.olt_null_error_for_fdt_search
+                        ? _c("p", [_vm._v("*Search OLT First")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fdtSearchIndex,
+                            expression: "fdtSearchIndex"
+                          }
+                        ],
+                        staticClass: "activate-input",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.fdtSearchIndex },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fdtSearchIndex = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "result-box" },
+                        [
+                          _vm._l(_vm.fdtSearchResult, function(value, key) {
+                            return _c(
+                              "div",
+                              {
+                                key: key,
+                                staticClass: "result-list",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.setFdtSearchResult(value)
+                                  }
+                                }
+                              },
+                              [
+                                _c("p", [_vm._v(_vm._s(value.name))]),
+                                _vm._v(" "),
+                                _c("hr")
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.fdtPage < _vm.fdtTotalPage
+                            ? _c("button", { on: { click: _vm.moreFdt } }, [
+                                _vm._v("Load More")
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
                     ])
                   : _vm._e()
               ])
@@ -21315,21 +21579,11 @@ var render = function() {
           _c("div", [
             _c(
               "label",
-              { staticClass: "activate-label", attrs: { for: "fdt" } },
-              [_vm._v("Search and Select FDT")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "custom-search-box" }, [
-              _c("p", [_vm._v(_vm._s(_vm.fdtResult))])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c(
-              "label",
               { staticClass: "activate-label", attrs: { for: "fat-port" } },
               [_vm._v("FAT :")]
             ),
+            _vm._v(" "),
+            this.errors.fat ? _c("span", [_vm._v("*Requried")]) : _vm._e(),
             _vm._v(" "),
             _c(
               "select",
@@ -21394,6 +21648,8 @@ var render = function() {
               [_vm._v("FAT Port :")]
             ),
             _vm._v(" "),
+            this.errors.fat_port ? _c("span", [_vm._v("*Requried")]) : _vm._e(),
+            _vm._v(" "),
             _c(
               "select",
               {
@@ -21453,6 +21709,8 @@ var render = function() {
             [_vm._v("Select Router :")]
           ),
           _vm._v(" "),
+          this.errors.onuId ? _c("span", [_vm._v("*Requried")]) : _vm._e(),
+          _vm._v(" "),
           _vm.selectedOnuType
             ? _c("TypeSlider", {
                 attrs: {
@@ -21479,6 +21737,8 @@ var render = function() {
             [_vm._v("Fibre Patch Cord :")]
           ),
           _vm._v(" "),
+          this.errors.fpcId ? _c("span", [_vm._v("*Requried")]) : _vm._e(),
+          _vm._v(" "),
           _vm.selectedFpc
             ? _c("TypeSlider", {
                 attrs: {
@@ -21504,6 +21764,10 @@ var render = function() {
             { staticClass: "activate-label", attrs: { for: "fpc" } },
             [_vm._v("ONU Adapter :")]
           ),
+          _vm._v(" "),
+          this.errors.onuAdapterId
+            ? _c("span", [_vm._v("*Requried")])
+            : _vm._e(),
           _vm._v(" "),
           _vm.selectedOnuAdapter
             ? _c("TypeSlider", {
@@ -21532,6 +21796,10 @@ var render = function() {
               [_vm._v("Fibre Cable Length:")]
             ),
             _vm._v(" "),
+            this.errors.fiber_cable_length
+              ? _c("span", [_vm._v("*Requried")])
+              : _vm._e(),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -21542,7 +21810,12 @@ var render = function() {
                 }
               ],
               staticClass: "activate-input",
-              attrs: { type: "text", id: "fb-cable", name: "fb-cable" },
+              attrs: {
+                type: "number",
+                min: "1",
+                id: "fb-cable",
+                name: "fb-cable"
+              },
               domProps: { value: _vm.fiber_cable_length },
               on: {
                 input: function($event) {
@@ -22756,7 +23029,7 @@ var render = function() {
             attrs: { to: "/home/new", tag: "div" }
           },
           [
-            _c("i", { staticClass: "fas fa-chevron-left" }),
+            _c("i", { staticClass: "fas fa-chevron-left noti-left" }),
             _vm._v(" "),
             _c("h2", [_vm._v("Notifications")])
           ]
@@ -22812,7 +23085,7 @@ var render = function() {
             attrs: { to: "/lsp-home/remaining", tag: "div" }
           },
           [
-            _c("i", { staticClass: "fas fa-chevron-left" }),
+            _c("i", { staticClass: "fas fa-chevron-left noti-left" }),
             _vm._v(" "),
             _c("h2", [_vm._v("Notifications")])
           ]

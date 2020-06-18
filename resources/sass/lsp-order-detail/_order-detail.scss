@@ -383,6 +383,12 @@
         width: 100%;
         height: 100%;
     }
+    .image-trash-icon {
+        color: orangered;
+        position: relative;
+        top: -90px;
+        left: 27px;
+    }
 }
 
 .upload-img {
@@ -453,7 +459,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
     z-index: 99;
 
     width: 95%;
@@ -479,7 +485,10 @@
         }
     }
     .result-list {
-        margin-bottom: 14px;
+        padding-top: 15px;
+        &:hover {
+            background: #e3e3e3;
+        }
         p {
             color: #000;
             margin-left: 5px;
@@ -501,6 +510,10 @@
             font-size: 28px;
             color: #b9b4b4;
         }
+    }
+    .result-box {
+        max-height: 270px;
+        overflow: auto;
     }
 
     .remark-cancel-btn {
