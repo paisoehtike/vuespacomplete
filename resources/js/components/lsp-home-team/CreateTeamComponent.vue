@@ -14,6 +14,7 @@
     <div class="create-value-name">
       <div class="input-group">
         <label>Team Name</label>
+        <span class="error-message" v-if="errors.teamName">*Require</span>
         <br>
         <input v-model="teamName" type="text"/>
       </div>
@@ -21,6 +22,7 @@
     <div class="create-value-name">
       <div class="input-group">
         <label>Leader Name</label>
+        <span class="error-message" v-if="errors.leaderName">*Require</span>
         <br>
         <input v-model="leaderName" type="text"/>
       </div>
@@ -28,13 +30,15 @@
     <div class="create-value-name">
       <div class="input-group">
         <label>Phone Number</label>
+        <span class="error-message" v-if="errors.phone">*Require</span>
         <br>
-        <input v-model="phone" type="text"/>
+        <input v-model="phone" type="number" min="1"/>
       </div>
     </div>
     <div v-if="!this.$route.params.id" class="create-value-name">
       <div class="input-group">
         <label>First Time Password</label>
+        <span class="error-message" v-if="errors.ftPassword">*Require</span>
         <br>
         <input v-model="ftPassword" type="password"/>
       </div>
@@ -42,8 +46,9 @@
     <div class="create-value-name">
       <div class="input-group">
         <label>Man Power</label>
+        <span class="error-message" v-if="errors.manPower">*Require</span>
         <br>
-        <input v-model="manPower" type="text"/>
+        <input v-model="manPower" type="number" min="1"/>
       </div>
     </div>
     <div class="create-button">
@@ -70,10 +75,23 @@ export default {
       ftPassword: null,
       manPower: null,
       errorMessage: null,
+      errors: {
+        teamName: false,
+        leaderName: false,
+        phone: false,
+        ftPassword: false,
+        manPower: false,
+      }
     }
   },
   methods: {
     updateTeam() {
+      if (!this.teamName) this.errors.teamName = true
+      if (!this.leaderName) this.errors.leaderName = true
+      if (!this.phone) this.errors.phone = true
+      if (!this.manPower) this.errors.manPower = true
+
+      if (!this.errors.teamName && !this.errors.leaderName && !this.errors.phone && !this.errors.manPower)
       axios.post(`${this.base_url}teams/${this.$route.params.id}`, {
         team_name: this.teamName,
         leader_name: this.leaderName,
@@ -86,18 +104,25 @@ export default {
       } );
     },
     storeTeam() {
+      if (!this.teamName) this.errors.teamName = true
+      if (!this.leaderName) this.errors.leaderName = true
+      if (!this.phone) this.errors.phone = true
+      if (!this.ftPassword) this.errors.ftPassword = true
+      if (!this.manPower) this.errors.manPower = true
+
+      if (!this.errors.teamName && !this.errors.leaderName && !this.errors.phone && !this.errors.ftPassword && !this.errors.manPower)
       axios.post(this.base_url + 'teams', 
-        {
-          team_name: this.teamName,
-          leader_name: this.leaderName,
-          phone: this.phone,
-          first_time_password: this.ftPassword,
-          man_power: this.manPower
-        }).then( res => { 
-          this.redirect(res); 
-        } ).catch( error => {
-          this.showError(error);
-        } );
+      {
+        team_name: this.teamName,
+        leader_name: this.leaderName,
+        phone: this.phone,
+        first_time_password: this.ftPassword,
+        man_power: this.manPower
+      }).then( res => { 
+        this.redirect(res); 
+      } ).catch( error => {
+        this.showError(error);
+      } );
     },
     showError(error) {
       this.errorMessage = error.response.data.message;

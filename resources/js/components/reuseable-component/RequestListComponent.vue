@@ -22,7 +22,8 @@
           <CustomerDetailChip
             slot="customer-detail-chip"
             :value="request.name"
-            :address="request.customer_detail.township.name"
+            :address="request.address"
+            :remark="request.remark"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
             <template v-if="request.lsp_team != null" v-slot:assign>{{ request.lsp_team.name }}</template>
