@@ -4,7 +4,8 @@
       <router-link :to="{name: 'team'}">
         <i class="fas fa-chevron-left chevron-icon"></i>
       </router-link>
-      <h5>Create New Team</h5>
+      <h5 v-if="this.$route.params.id">Edit Team</h5>
+      <h5 v-else>Create New Team</h5>
     </div>
     <SquareImage></SquareImage>
     <div class="create-value-name">
@@ -31,7 +32,7 @@
         <input v-model="phone" type="text"/>
       </div>
     </div>
-    <div class="create-value-name">
+    <div v-if="!this.$route.params.id" class="create-value-name">
       <div class="input-group">
         <label>First Time Password</label>
         <br>
@@ -46,7 +47,8 @@
       </div>
     </div>
     <div class="create-button">
-      <a @click="storeTeam" class="waves-effect waves-light btn orange">Create</a>
+      <a @click="updateTeam" v-if="this.$route.params.id" class="waves-effect waves-light btn orange">Update</a>
+      <a @click="storeTeam" v-else class="waves-effect waves-light btn orange">Create</a>
     </div>
   </div>
 </template>
@@ -71,6 +73,18 @@ export default {
     }
   },
   methods: {
+    updateTeam() {
+      axios.post(`${this.base_url}teams/${this.$route.params.id}`, {
+        team_name: this.teamName,
+        leader_name: this.leaderName,
+        phone: this.phone,
+        man_power: this.manPower
+      }).then( res => { 
+        this.redirect(res); 
+      } ).catch( error => {
+        this.showError(error);
+      } );
+    },
     storeTeam() {
       axios.post(this.base_url + 'teams', 
         {
@@ -79,21 +93,37 @@ export default {
           phone: this.phone,
           first_time_password: this.ftPassword,
           man_power: this.manPower
-        }
-      ).then( res => { 
-        this.redirect(res); 
-      } ).catch( error => {
-        this.showError(error);
-      } );
+        }).then( res => { 
+          this.redirect(res); 
+        } ).catch( error => {
+          this.showError(error);
+        } );
     },
     showError(error) {
       this.errorMessage = error.response.data.message;
     },
     redirect(res) {
-      if(res.status == 201) {
+      if(res.status == 201 || res.status == 200) {
         this.$router.push({ name: 'team' });
       }
+    },
+    bindData(res) {
+      this.teamName = res.data.data.name
+      this.leaderName = res.data.data.leader_name
+      this.phone = res.data.data.leader.phone
+      this.manPower = res.data.data.man_power
+    },
+    get() {
+      if (this.$route.params.id) {
+        axios.get(`${this.base_url}teams/${this.$route.params.id}`)
+        .then( res => {
+          this.bindData(res)
+        }).catch(console.log('Error'));
+      }
     }
+  },
+  mounted() {
+    this.get();
   }
 };
 </script>

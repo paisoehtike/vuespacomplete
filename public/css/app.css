@@ -1118,6 +1118,17 @@
   color: #5f5f5f;
 }
 
+.custom-search-box {
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  margin: 10px 0 20px;
+}
+
+.custom-search-box p {
+  margin: 10px 8px;
+}
+
 .password-label {
   margin: 6px 0;
   font-size: 14px;
@@ -1264,6 +1275,17 @@
   margin: 0;
 }
 
+.modal-box .result-list {
+  margin-bottom: 14px;
+}
+
+.modal-box .result-list p {
+  color: #000;
+  margin-left: 5px;
+  font-size: 16px;
+  margin-bottom: 17px;
+}
+
 .modal-box .cross-close {
   display: grid;
   grid-template-columns: 90%;
@@ -1272,7 +1294,8 @@
 }
 
 .modal-box .cross-close span {
-  font-size: 25px;
+  font-size: 20px;
+  color: #000;
 }
 
 .modal-box .cross-close i {

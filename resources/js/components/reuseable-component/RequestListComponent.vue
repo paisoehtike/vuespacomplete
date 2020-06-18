@@ -35,6 +35,7 @@
             <template v-else v-slot:isAccept>Assign Team</template> -->
           </CustomerHomeFooterButton>
         </Customer>
+        <!-- <infinite-loading @distance="1" @infinite="infiniteHandler"></infinite-loading> -->
     </div>
 </template>
 <script>
@@ -46,11 +47,14 @@ import CustomerDetailChip from "./../reuseable-component/CustomerDetailChipCompo
 import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateComponent";
 import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
+
 export default {
   props: ["request_type", "type", "status"],
   data() {
     return {
-      requests: null,
+      requests: [],
+      page: 1,
+      total_page: null,
       errorMessage: "Something Went Wrong!",
       apis: {
         new:
@@ -83,13 +87,27 @@ export default {
     CustomerHomeFooterButton,
     CustomerHeader
   },
+  beforeMount() {
+    window.addEventListener("scroll", this.infiniteHandler)
+  },
   methods: {
-    bindResponseData(response) {
-      this.requests = response.data.data;
+    infiniteHandler() {
+      if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+        if (this.page <= this.total_page) {
+          this.getNew();
+        }
+      }
     },
-    apiCall(url) {
+    bindResponseData(response) {
+      response.data.data.forEach(result => {
+        this.requests.push(result);
+      });
+      this.page = response.data.meta.current_page +1; //to get next page
+      this.total_page = response.data.meta.total_pages;
+    },
+    apiCall(url, page) {
       axios
-        .get(url)
+        .get(`${url}&page=${page}`)
         .then(response => {
           this.bindResponseData(response);
         })
@@ -98,31 +116,31 @@ export default {
     getNew() {
       switch (this.status) {
         case "new":
-          this.apiCall(this.apis.new);
+          this.apiCall(this.apis.new, this.page);
           break;
         case "accepted":
-          this.apiCall(this.apis.accepted);
+          this.apiCall(this.apis.accepted, this.page);
           break;
         case "history":
-          this.apiCall(this.apis.history);
+          this.apiCall(this.apis.history, this.page);
           break;
         case "oncall-new":
-          this.apiCall(this.apis.oncallNew);
+          this.apiCall(this.apis.oncallNew, this.page);
           break;
         case "oncall-accepted":
-          this.apiCall(this.apis.oncallAccepted);
+          this.apiCall(this.apis.oncallAccepted, this.page);
           break;
         case "oncall-history":
-          this.apiCall(this.apis.oncallHistory);
+          this.apiCall(this.apis.oncallHistory, this.page);
           break;
         case "lsp-team-remain":
-          this.apiCall(this.apis.lspTeamRemain);
+          this.apiCall(this.apis.lspTeamRemain, this.page);
           break;
         case "lsp-team-history":
-          this.apiCall(this.apis.lspTeamHistory);
+          this.apiCall(this.apis.lspTeamHistory, this.page);
           break;
         case "lsp-team-complete":
-          this.apiCall(this.apis.lspTeamComplete);
+          this.apiCall(this.apis.lspTeamComplete, this.page);
           break;
         default:
           this.errorMessage;
