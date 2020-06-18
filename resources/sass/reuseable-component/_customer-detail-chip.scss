@@ -1,9 +1,15 @@
 .customer-detail-chip {
-  margin-top: 12px;
-  margin-left: 16px;
+  margin: 6px 8px;
 
   .customer-detail-name,
-  .customer-detail-address {
+  .customer-detail-address,
+  .customer-detail-remark {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 8% 92%;
+    align-items: center;
+    min-height: 20px;
+
     i {
       margin-right: 7px;
     }

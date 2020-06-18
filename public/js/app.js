@@ -2031,6 +2031,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -2047,14 +2052,25 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       phone: null,
       ftPassword: null,
       manPower: null,
-      errorMessage: null
+      errorMessage: null,
+      errors: {
+        teamName: false,
+        leaderName: false,
+        phone: false,
+        ftPassword: false,
+        manPower: false
+      }
     };
   },
   methods: {
     updateTeam: function updateTeam() {
       var _this = this;
 
-      axios.post("".concat(this.base_url, "teams/").concat(this.$route.params.id), {
+      if (!this.teamName) this.errors.teamName = true;
+      if (!this.leaderName) this.errors.leaderName = true;
+      if (!this.phone) this.errors.phone = true;
+      if (!this.manPower) this.errors.manPower = true;
+      if (!this.errors.teamName && !this.errors.leaderName && !this.errors.phone && !this.errors.manPower) axios.post("".concat(this.base_url, "teams/").concat(this.$route.params.id), {
         team_name: this.teamName,
         leader_name: this.leaderName,
         phone: this.phone,
@@ -2068,7 +2084,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     storeTeam: function storeTeam() {
       var _this2 = this;
 
-      axios.post(this.base_url + 'teams', {
+      if (!this.teamName) this.errors.teamName = true;
+      if (!this.leaderName) this.errors.leaderName = true;
+      if (!this.phone) this.errors.phone = true;
+      if (!this.ftPassword) this.errors.ftPassword = true;
+      if (!this.manPower) this.errors.manPower = true;
+      if (!this.errors.teamName && !this.errors.leaderName && !this.errors.phone && !this.errors.ftPassword && !this.errors.manPower) axios.post(this.base_url + 'teams', {
         team_name: this.teamName,
         leader_name: this.leaderName,
         phone: this.phone,
@@ -6400,8 +6421,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["value", "address"]
+  props: ["value", "address", "remark"]
 });
 
 /***/ }),
@@ -6711,6 +6734,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+//
 //
 //
 //
@@ -18436,6 +18460,10 @@ var render = function() {
         _c("div", { staticClass: "input-group" }, [
           _c("label", [_vm._v("Team Name")]),
           _vm._v(" "),
+          _vm.errors.teamName
+            ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
+            : _vm._e(),
+          _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("input", {
@@ -18464,6 +18492,10 @@ var render = function() {
       _c("div", { staticClass: "create-value-name" }, [
         _c("div", { staticClass: "input-group" }, [
           _c("label", [_vm._v("Leader Name")]),
+          _vm._v(" "),
+          _vm.errors.leaderName
+            ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
+            : _vm._e(),
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
@@ -18494,6 +18526,10 @@ var render = function() {
         _c("div", { staticClass: "input-group" }, [
           _c("label", [_vm._v("Phone Number")]),
           _vm._v(" "),
+          _vm.errors.phone
+            ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
+            : _vm._e(),
+          _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("input", {
@@ -18505,7 +18541,7 @@ var render = function() {
                 expression: "phone"
               }
             ],
-            attrs: { type: "text" },
+            attrs: { type: "number", min: "1" },
             domProps: { value: _vm.phone },
             on: {
               input: function($event) {
@@ -18523,6 +18559,12 @@ var render = function() {
         ? _c("div", { staticClass: "create-value-name" }, [
             _c("div", { staticClass: "input-group" }, [
               _c("label", [_vm._v("First Time Password")]),
+              _vm._v(" "),
+              _vm.errors.ftPassword
+                ? _c("span", { staticClass: "error-message" }, [
+                    _vm._v("*Require")
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("br"),
               _vm._v(" "),
@@ -18554,6 +18596,10 @@ var render = function() {
         _c("div", { staticClass: "input-group" }, [
           _c("label", [_vm._v("Man Power")]),
           _vm._v(" "),
+          _vm.errors.manPower
+            ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
+            : _vm._e(),
+          _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("input", {
@@ -18565,7 +18611,7 @@ var render = function() {
                 expression: "manPower"
               }
             ],
-            attrs: { type: "text" },
+            attrs: { type: "number", min: "1" },
             domProps: { value: _vm.manPower },
             on: {
               input: function($event) {
@@ -24069,19 +24115,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "customer-home-body-row" }, [
-    _c("div", { staticClass: "customer-detail-chip" }, [
-      _c("div", { staticClass: "customer-detail-name" }, [
-        _c("i", { staticClass: "fas fa-user-alt" }),
-        _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(_vm.value))])
-      ]),
+  return _c("div", { staticClass: "customer-detail-chip" }, [
+    _c("div", { staticClass: "customer-detail-name" }, [
+      _c("i", { staticClass: "fas fa-user-alt" }),
       _vm._v(" "),
-      _c("div", { staticClass: "customer-detail-address" }, [
-        _c("i", { staticClass: "fas fa-map-marker-alt" }),
-        _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(_vm.address))])
-      ])
+      _c("span", [_vm._v(_vm._s(_vm.value ? _vm.value : "-"))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "customer-detail-address" }, [
+      _c("i", { staticClass: "fas fa-map-marker-alt" }),
+      _vm._v(" "),
+      _c("span", [_vm._v(_vm._s(_vm.address ? _vm.address : "-"))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "customer-detail-remark" }, [
+      _c("i", { staticClass: "far fa-clipboard" }),
+      _vm._v(" "),
+      _c("span", [_vm._v(_vm._s(_vm.remark ? _vm.remark : "-"))])
     ])
   ])
 }
@@ -24630,7 +24680,8 @@ var render = function() {
             attrs: {
               slot: "customer-detail-chip",
               value: request.name,
-              address: request.customer_detail.township.name
+              address: request.address,
+              remark: request.remark
             },
             slot: "customer-detail-chip"
           }),
