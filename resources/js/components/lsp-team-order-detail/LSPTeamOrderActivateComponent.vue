@@ -125,6 +125,7 @@ import ProgressBar from "./../resuable-lsp-detail/ProgressBarComponent";
 import TypeSlider from "./../resuable-lsp-detail/TypeSliderComponent";
 import FinishButton from "./../resuable-lsp-detail/FinishButtonComponent";
 import MultipleRemark from "./../resuable-lsp-detail/MultipleRemarkComponent";
+import func from '../../../../vue-temp/vue-editor-bridge';
 
 export default {
     components: {
@@ -357,14 +358,14 @@ export default {
             this.getFatPort();
         },
         oltSearchIndex: function(val) {
-            setTimeout(function() {
-                if (val.length >= 2) {
+            if (val.length >= 2) {
+                setTimeout(function() {
                     axios.get(`${this.base_url}get_olt_lists?q=${val}&page=${this.oltPage}`)
                     .then( res => {
                         console.log(res)
                     }).catch(console.log('Error'));
-                }
-            }, 2000)
+                }, 2000)
+            }
         }
     },
     created() {
