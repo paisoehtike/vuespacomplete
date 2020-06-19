@@ -5,6 +5,7 @@ import * as firebase from "firebase/app";
 import "firebase/messaging";
 import Axios from "axios";
 
+let base_url = 'https://5bb-lsp-dev.mm-digital-solutions.com'
 
 var firebaseConfig = {
     apiKey: "AIzaSyA9PKyAAFcWZ3CkKuH2CRKfy-uSLAyOV_I",
@@ -80,7 +81,7 @@ function getCookie(name) {
 
 function sendTokenToServer(token) {
 
-    Axios.post(`${this.base_url}/api/fcm-web-tokens`,
+    Axios.post(`${base_url}/api/fcm-web-tokens`,
         {
             device_id: token,
             type: 'web'
@@ -90,7 +91,7 @@ function sendTokenToServer(token) {
         .catch(err => console.log('Unable to stor token.', err))
 
 
-    Axios.post(`${this.base_url}/api/lsp_team/fcm-web-team-tokens`,
+    Axios.post(`${base_url}/api/lsp_team/fcm-web-team-tokens`,
         {
             device_id: token,
             type: 'team'
