@@ -90,7 +90,7 @@ function sendTokenToServer(token) {
         .catch(err => console.log('Unable to stor token.', err))
 
 
-    Axios.post('/api/fcm-web-team-tokens',
+    Axios.post('/api/lsp_team/fcm-web-team-tokens',
         {
             device_id: token,
             type: 'team'

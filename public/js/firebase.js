@@ -8809,7 +8809,7 @@ function sendTokenToServer(token) {
   })["catch"](function (err) {
     return console.log('Unable to stor token.', err);
   });
-  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/fcm-web-team-tokens', {
+  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/lsp_team/fcm-web-team-tokens', {
     device_id: token,
     type: 'team'
   }, headerConfig).then(function (response) {
