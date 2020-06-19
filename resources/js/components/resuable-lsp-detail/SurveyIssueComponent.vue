@@ -98,15 +98,17 @@ export default {
             this.isSelect = false;
         },
         apiCall(status) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_survey_issue_status',
+            axios.post(this.base_url + 'lsp_team/store_survey_issue_status',
                         {
                             status: status,
                             survey_step_id: this.data.id
                         }    
-                ).then( response => { console.log(response) } ).catch(console.log('Something Went Wrong'));
+                ).then( response => { 
+                    if(response.data.code == 200) alert('Success!')
+                 } ).catch(console.log('Something Went Wrong'));
         },
         storeRemarkApiCall(remark) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_survey',
+            axios.post(this.base_url + 'lsp_team/store_survey',
                 {
                     remark: remark.remark,
                     survey_step_id: this.data.id
@@ -122,7 +124,7 @@ export default {
             this.storeRemarkApiCall(remark);
         },
         updateRemark(remark) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_survey/' + this.remarkId,
+            axios.post(this.base_url + 'lsp_team/update_survey/' + this.remarkId,
                 {
                     remark: remark.remark
                 }
@@ -132,9 +134,9 @@ export default {
              } ).catch(console.log('Something Went Wrong'));
         },
         deleteRemark() {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_survey/' + this.remarkId)
+            axios.post(this.base_url + 'lsp_team/delete_survey/' + this.remarkId)
                 .then( response => { 
-                    console.log(response)
+                    if(response.data.code == 200) alert('Successfully Deleted!')
                     this.isMark = false; 
                 }).catch(console.log('Something Went Wrong'));
         },

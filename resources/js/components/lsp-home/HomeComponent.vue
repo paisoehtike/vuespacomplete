@@ -54,7 +54,7 @@ export default {
       this.requests = response.data.data;
     },
     getNew() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new')
+      axios.get(this.base_url + 'installation_requests?type=new')
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     }

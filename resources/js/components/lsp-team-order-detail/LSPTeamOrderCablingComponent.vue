@@ -36,7 +36,7 @@ export default {
             this.remarks = response.data.data;
         },
         getCabling() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/cabling?installation_id=' + this.$route.params.id)
+            axios.get(this.base_url + 'lsp_team/cabling?installation_id=' + this.$route.params.id)
                 .then( response => { this.getRemarks(response) } )
                 .catch(console.log('Error'));
         },

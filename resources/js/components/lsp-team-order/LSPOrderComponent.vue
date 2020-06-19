@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     getDetail() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type)
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     },

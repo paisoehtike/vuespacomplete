@@ -2490,7 +2490,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getTeams: function getTeams() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams').then(function (response) {
+      axios.get(this.base_url + 'teams').then(function (response) {
         _this.bindTeams(response);
       })["catch"](console.log('Error'));
     }
@@ -2880,7 +2880,7 @@ __webpack_require__.r(__webpack_exports__);
     getNew: function getNew() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new').then(function (response) {
+      axios.get(this.base_url + 'installation_requests?type=new').then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     }
@@ -3014,7 +3014,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     formSubmit: function formSubmit(formData) {
       var _this = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData).then(function (response) {
+      axios.post(this.base_url + 'create_token', formData).then(function (response) {
         _this.authenticated(response);
       })["catch"](function (error) {
         _this.errorMessage = error.response.data.message;
@@ -4252,7 +4252,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getInventory: function getInventory() {
       var _this4 = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_inventory').then(function (res) {
+      axios.get(this.base_url + 'lsp_team/activation_inventory').then(function (res) {
         _this4.preconfig(res.data.data);
       })["catch"](console.log('Error'));
     },
@@ -4452,7 +4452,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getCabling: function getCabling() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/cabling?installation_id=' + this.$route.params.id).then(function (response) {
+      axios.get(this.base_url + 'lsp_team/cabling?installation_id=' + this.$route.params.id).then(function (response) {
         _this.getRemarks(response);
       })["catch"](console.log('Error'));
     },
@@ -4723,7 +4723,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getSplicing: function getSplicing() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/splicing?installation_id=' + this.$route.params.id).then(function (response) {
+      axios.get(this.base_url + 'lsp_team/splicing?installation_id=' + this.$route.params.id).then(function (response) {
         _this.getRemarks(response);
       })["catch"](console.log('Error'));
     },
@@ -4839,7 +4839,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getSurvey: function getSurvey() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
+      axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
         _this.addSurvey(response);
       })["catch"](console.log('Error'));
     },
@@ -5029,7 +5029,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type).then(function (response) {
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
@@ -5961,11 +5961,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this = this;
 
       if (this.type == 'splicing') {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_splicing/' + id).then(function (response) {
+        axios.post(this.base_url + 'lsp_team/delete_splicing/' + id).then(function (response) {
           _this.$emit('reload');
         })["catch"](console.log('Error'));
       } else if (this.type == 'activation') {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_delete/' + id).then(function (response) {
+        axios.post(this.base_url + 'lsp_team/activation_remark_delete/' + id).then(function (response) {
           _this.$emit('reload');
         })["catch"](console.log('Error'));
       } else if (this.type == 'repair') {
@@ -5973,7 +5973,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           _this.$emit('reload');
         })["catch"](console.log('Error'));
       } else {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id).then(function (response) {
+        axios.post(this.base_url + 'lsp_team/delete_cabling/' + id).then(function (response) {
           _this.$emit('reload');
         })["catch"](console.log('Error'));
       }
@@ -5982,13 +5982,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this2 = this;
 
       if (this.type == 'splicing') {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id, {
+        axios.post(this.base_url + 'lsp_team/update_splicing/' + id, {
           remark: remark.remark
         }).then(function (response) {
           _this2.$emit('reload');
         })["catch"](console.log('Error'));
       } else if (this.type == 'activation') {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_update/' + id, {
+        axios.post(this.base_url + 'lsp_team/activation_remark_update/' + id, {
           remark: remark.remark
         }).then(function (response) {
           _this2.$emit('reload');
@@ -6000,7 +6000,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           _this2.$emit('reload');
         })["catch"](console.log('Error'));
       } else {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id, {
+        axios.post(this.base_url + 'lsp_team/update_cabling/' + id, {
           remark: remark.remark
         }).then(function (response) {
           _this2.$emit('reload');
@@ -6011,14 +6011,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this3 = this;
 
       if (this.type == 'splicing') {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_splicing', {
+        axios.post(this.base_url + 'lsp_team/store_splicing', {
           installation_request_id: this.id,
           remark: remark.remark
         }).then(function (response) {
           _this3.$emit('reload');
         })["catch"](console.log('Error'));
       } else if (this.type == 'activation') {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_store', {
+        axios.post(this.base_url + 'lsp_team/activation_remark_store', {
           installation_request_id: this.id,
           remark: remark.remark
         }).then(function (response) {
@@ -6032,7 +6032,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           _this3.$emit('reload');
         })["catch"](console.log('Error'));
       } else {
-        axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling', {
+        axios.post(this.base_url + 'lsp_team/store_cabling', {
           installation_request_id: this.id,
           remark: remark.remark
         }).then(function (response) {
@@ -6214,17 +6214,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.isSelect = false;
     },
     apiCall: function apiCall(status) {
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_survey_issue_status', {
+      axios.post(this.base_url + 'lsp_team/store_survey_issue_status', {
         status: status,
         survey_step_id: this.data.id
       }).then(function (response) {
-        console.log(response);
+        if (response.data.code == 200) alert('Success!');
       })["catch"](console.log('Something Went Wrong'));
     },
     storeRemarkApiCall: function storeRemarkApiCall(remark) {
       var _this = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_survey', {
+      axios.post(this.base_url + 'lsp_team/store_survey', {
         remark: remark.remark,
         survey_step_id: this.data.id
       }).then(function (response) {
@@ -6240,7 +6240,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     updateRemark: function updateRemark(remark) {
       var _this2 = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_survey/' + this.remarkId, {
+      axios.post(this.base_url + 'lsp_team/update_survey/' + this.remarkId, {
         remark: remark.remark
       }).then(function (response) {
         _this2.remark = remark.remark;
@@ -6250,8 +6250,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     deleteRemark: function deleteRemark() {
       var _this3 = this;
 
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_survey/' + this.remarkId).then(function (response) {
-        console.log(response);
+      axios.post(this.base_url + 'lsp_team/delete_survey/' + this.remarkId).then(function (response) {
+        if (response.data.code == 200) alert('Successfully Deleted!');
         _this3.isMark = false;
       })["catch"](console.log('Something Went Wrong'));
     }
@@ -6950,7 +6950,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       apis: {
         "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
         accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
-        history: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history",
+        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
         oncallNew: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
         oncallAccepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
         oncallHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",

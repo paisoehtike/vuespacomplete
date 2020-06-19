@@ -56,13 +56,13 @@ export default {
     methods: {
         deleteRemark(id) {
             if(this.type == 'splicing') {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_splicing/' + id)
+                axios.post(this.base_url + 'lsp_team/delete_splicing/' + id)
                 .then( response => { 
                     this.$emit('reload');
                 })
                 .catch(console.log('Error'));
             } else if(this.type == 'activation') {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_delete/' + id)
+                axios.post(this.base_url + 'lsp_team/activation_remark_delete/' + id)
                 .then( response => { 
                     this.$emit('reload');
                 })
@@ -74,7 +74,7 @@ export default {
                 })
                 .catch(console.log('Error'));
             } else {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/delete_cabling/' + id)
+                axios.post(this.base_url + 'lsp_team/delete_cabling/' + id)
                 .then( response => { 
                     this.$emit('reload');
                 })
@@ -83,7 +83,7 @@ export default {
         },
         remarkUpdate(id, remark) {
             if(this.type == 'splicing') {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_splicing/' + id,
+                axios.post(this.base_url + 'lsp_team/update_splicing/' + id,
                 {
                     remark: remark.remark
                 }
@@ -92,7 +92,7 @@ export default {
                 })
                 .catch(console.log('Error'));
             } else if(this.type == 'activation') {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_update/' + id,
+                axios.post(this.base_url + 'lsp_team/activation_remark_update/' + id,
                 {
                     remark: remark.remark
                 }
@@ -110,7 +110,7 @@ export default {
                 })
                 .catch(console.log('Error'));
             } else {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/update_cabling/' + id,
+                axios.post(this.base_url + 'lsp_team/update_cabling/' + id,
                 {
                     remark: remark.remark
                 }
@@ -122,7 +122,7 @@ export default {
         },
         storeRemark(remark) {
             if(this.type == 'splicing') {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_splicing',
+                axios.post(this.base_url + 'lsp_team/store_splicing',
                 {
                     installation_request_id: this.id,
                     remark: remark.remark
@@ -132,7 +132,7 @@ export default {
                 })
                 .catch(console.log('Error'));
             } else if(this.type == 'activation') {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_remark_store',
+                axios.post(this.base_url + 'lsp_team/activation_remark_store',
                 {
                     installation_request_id: this.id,
                     remark: remark.remark
@@ -152,7 +152,7 @@ export default {
                 })
                 .catch(console.log('Error'));
             } else {
-                axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/store_cabling',
+                axios.post(this.base_url + 'lsp_team/store_cabling',
                 {
                     installation_request_id: this.id,
                     remark: remark.remark

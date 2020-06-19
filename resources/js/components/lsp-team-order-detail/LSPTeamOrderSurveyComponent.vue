@@ -77,7 +77,7 @@ export default {
             this.surveyIssues = response.data.data
         },
         getSurvey() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/survey?installation_id=' + this.$route.params.id)
+            axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id)
                 .then( response => { this.addSurvey(response) } )
                 .catch( console.log('Error') );
         },

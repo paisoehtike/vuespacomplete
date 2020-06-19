@@ -45,7 +45,7 @@ export default {
             }
         },
         formSubmit(formData) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData)
+            axios.post(this.base_url + 'create_token', formData)
             .then( response => {
                 this.authenticated(response);
             })

@@ -365,7 +365,7 @@ export default {
                 .catch( console.log('Error') );
         },
         getInventory() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_inventory')
+            axios.get(this.base_url + 'lsp_team/activation_inventory')
                 .then( res => {
                     this.preconfig(res.data.data);
                 }).catch( console.log('Error') );
