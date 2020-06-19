@@ -19,7 +19,7 @@
 
     <div class="create-new-team-button">
       <router-link :to="{name: 'team-create'}">
-        <span class="waves-effect waves-light btn orange">
+        <span class="add-button-style">
           <i class="fas fa-plus"></i>
           <span>Create New Team</span>
         </span>

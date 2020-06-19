@@ -19,6 +19,17 @@
   grid-column: 2/3;
 }
 
+.order-container .order-header-row .no-record-alert,
+.order-container .order-detail-row .no-record-alert,
+.order-container .order-assigned-row .no-record-alert,
+.order-container .customer-info-row .no-record-alert,
+.order-container .order-info-row .no-record-alert,
+.order-container .order-button .no-record-alert {
+  margin: 0;
+  font-size: 10px;
+  color: red;
+}
+
 .order-container .order-header-row {
   display: flex;
   margin-top: 16px;
@@ -71,6 +82,7 @@
 
 .order-container .order-button .view-detail {
   align-self: center;
+  text-align: center;
 }
 
 .order-container .order-button .view-detail a {
@@ -295,6 +307,7 @@
   height: 22px;
   text-align: center;
   border-radius: 10px;
+  margin-left: auto;
 }
 
 .customer-home-container .home-customer-container .customer-header-row .customer-type-container .customer-type-row .order-step {
@@ -311,7 +324,7 @@
 }
 
 .customer-home-container .home-customer-container .customer-header-row .customer-type-container .customer-date .divided {
-  margin: 0 9px;
+  margin: 0 1px;
   color: #d8d8d8;
 }
 
@@ -385,6 +398,7 @@
   background-color: #e7eaeb;
   color: #5f5f5f;
   border-radius: 0;
+  padding: 15px 11px;
 }
 
 .table-row-component p,
@@ -467,8 +481,10 @@
 }
 
 .home-customer-header-button-container .new,
-.home-customer-header-button-container .accept {
+.home-customer-header-button-container .accept,
+.home-customer-header-button-container .history {
   width: 95%;
+  text-transform: none !important;
 }
 
 .home-customer-footer-row {
@@ -547,19 +563,23 @@
 
 .team-index-container .create-new-team-button {
   position: fixed;
-  bottom: 80px;
-  right: 10px;
+  bottom: 90px;
+  right: 18px;
 }
 
-.team-index-container .create-new-team-button span {
+.team-index-container .create-new-team-button .add-button-style {
+  background: #ec911a;
+  padding: 10px 15px;
+  color: #fff;
   border-radius: 20px;
 }
 
-.team-index-container .create-new-team-button span i {
+.team-index-container .create-new-team-button .add-button-style i {
   margin-right: 5px;
+  font-size: 13px;
 }
 
-.team-index-container .create-new-team-button span span {
+.team-index-container .create-new-team-button .add-button-style span {
   margin-bottom: 5px;
 }
 
@@ -621,6 +641,14 @@
   background: #ec911a;
 }
 
+.teamClick h5,
+.teamClick .name,
+.teamClick .remaing-row,
+.teamClick .team-user-row,
+.teamClick .complete-row {
+  color: #fff !important;
+}
+
 .create-team-container {
   display: grid;
   grid-template-columns: 8% 84% 8%;
@@ -661,7 +689,8 @@
 .create-team-container .create-button {
   grid-column: 2/3;
   width: 100%;
-  margin-top: 99px;
+  margin-top: 60px;
+  margin-bottom: 100px;
 }
 
 .create-team-container .create-button a {
@@ -1272,7 +1301,7 @@
 
 .modal-box {
   position: fixed;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -60%);
   z-index: 99;

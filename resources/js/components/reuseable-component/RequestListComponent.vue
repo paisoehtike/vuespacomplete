@@ -29,14 +29,97 @@
             <template v-if="request.lsp_team != null" v-slot:assign>{{ request.lsp_team.name }}</template>
             <template v-else v-slot:assign>Not Assigned</template>
 
-            <template v-if="request.lsp_accepted_at == null" v-slot:isAccept>
+            <template v-if="request.lsp_accepted_at == null && isHistory == false" v-slot:isAccept>
               <a class="btn" id="accept">Accept</a>
             </template>
-            <!-- <template v-else-if="request.lsp_team" v-slot:isAccept>Switch Team</template>
-            <template v-else v-slot:isAccept>Assign Team</template> -->
+            <template v-else-if="request.lsp_team && isHistory == false" v-slot:isAccept>
+              <a class="btn" id="assignOrSwitch">Switch Team</a>
+            </template>
+            <template v-else-if="!request.lsp_team && isHistory == false" v-slot:isAccept>
+              <a class="btn" id="assignOrSwitch">Assign Team</a>
+            </template>
           </CustomerHomeFooterButton>
         </Customer>
-        <!-- <infinite-loading @distance="1" @infinite="infiniteHandler"></infinite-loading> -->
+
+        <transition name="fade" appear>
+          <div class="modal-box1" v-if="showModal" @click="showModal = false"></div>
+        </transition>
+
+        <transition name="slide" appear>
+          <div class="modal-box" v-if="showModal">
+            <div class="assign-team-modal-header">
+              <CustomerTypeChip
+                v-if="request.customer_type != null"
+                :value="request.customer_type.name"
+                slot="customer-chip"
+              ></CustomerTypeChip>
+              <OrderStepChip
+                v-if="request.installation_step != null"
+                :value="request.installation_step.name"
+                slot="order-chip"
+              ></OrderStepChip>
+            </div>
+            <div class="customer-request-detail">
+              <div>
+                <CustomerHeader :id="request.customer" :step="request.type"></CustomerHeader>
+              </div>
+              <div class="customer-request-date">
+                <CustomerIssueDate slot="customer-date">
+                  <template
+                    v-slot:lsp-accept-date
+                    v-if="request.due_date != null"
+                  >{{request.due_date | format-date}}</template>
+                  <template
+                    v-slot:priority-date
+                    v-if="request.priority_level != null"
+                  >{{request.priority_level.name}}</template>
+                  <template v-slot:issue v-if="request.issue != null">{{ request.issue.name }}</template>
+                </CustomerIssueDate>
+              </div>
+            </div>
+            <CustomerDetailChip
+              slot="customer-detail-chip"
+              :value="request.name"
+              :address="request.customer_detail.address"
+              :remark="request.remark"
+            ></CustomerDetailChip>
+            <h2 v-if="request.lsp_team != null">Assigned Team :</h2>
+            <Teams v-if="request.lsp_team != null">
+              <template v-slot:team-name>{{request.lsp_team.name}}</template>
+
+              <template v-slot:customer-name>{{request.lsp_team.leader_name}}</template>
+
+              <template v-slot:total-remaining>{{request.lsp_team.remaining_jobs}}</template>
+
+              <template v-slot:total-man-power>{{request.lsp_team.man_power}}</template>
+
+              <template v-slot:total-complete>{{request.lsp_team.completed_jobs}}</template>
+            </Teams>
+            <h2>Select Team to Assign :</h2>
+            <div class="assign-team-wrapper">
+              <Teams
+                @click.native="teamSelect(team, index)"
+                :class="{teamClick:selected == index}"
+                v-for="(team, index) in availableTeams"
+                :key="index"
+              >
+                <template v-slot:team-name>{{team.name}}</template>
+
+                <template v-slot:customer-name>{{team.leader_name}}</template>
+
+                <template v-slot:total-remaining>{{team.remaining_jobs}}</template>
+
+                <template v-slot:total-man-power>{{team.man_power}}</template>
+
+                <template v-slot:total-complete>{{team.completed_jobs}}</template>
+              </Teams>
+            </div>
+            <div class="modal-button-box">
+              <button @click="showModal = false" class="cancel-button">Cancel</button>
+              <button @click="assignTeam" class="remark-save-btn">Done</button>
+            </div>
+          </div>
+        </transition>
     </div>
 </template>
 <script>
@@ -48,14 +131,32 @@ import CustomerDetailChip from "./../reuseable-component/CustomerDetailChipCompo
 import CustomerIssueDate from "./../reuseable-component/CustomerIssueDateComponent";
 import CustomerHomeFooterButton from "./../reuseable-component/CustomerHomeFooterButton";
 import CustomerHeader from "./../reuseable-home/CustomerHeaderComponent";
+import Teams from "./../lsp-home-team/TeamComponent";
 
 export default {
-  props: ["request_type", "type", "status"],
+  props: ["request_type", "type", "status", "isHistory"],
+  components: {
+    Customer,
+    CustomerTypeChip,
+    OrderStepChip,
+    CustomerDetailChip,
+    CustomerIssueDate,
+    CustomerHomeFooterButton,
+    CustomerHeader,
+    Teams,
+  },
   data() {
     return {
       requests: [],
       page: 1,
       total_page: null,
+      showModal: false,
+      selected: null,
+      teamId: null,
+      requesterType: null,
+      requestId: null,
+      request: null,
+      availableTeams: [],
       errorMessage: "Something Went Wrong!",
       apis: {
         new:
@@ -79,15 +180,6 @@ export default {
       }
     };
   },
-  components: {
-    Customer,
-    CustomerTypeChip,
-    OrderStepChip,
-    CustomerDetailChip,
-    CustomerIssueDate,
-    CustomerHomeFooterButton,
-    CustomerHeader
-  },
   beforeMount() {
     window.addEventListener("scroll", this.infiniteHandler)
   },
@@ -98,6 +190,25 @@ export default {
           this.getNew();
         }
       }
+    },
+    assignTeam() {
+      axios
+        .post(this.base_url + "assigned_team", {
+          requested_id: this.request.id,
+          requested_type: this.requesterType,
+          lsp_team_id: this.teamId
+        })
+        .then(res => {
+          if (res.status == 201) {
+            this.showModal = false;
+            alert('successfully Processed!')
+          }
+        })
+        .catch(console.log("Error"));
+    },
+    teamSelect(team, index) {
+      this.selected = index;
+      this.teamId = team.id;
     },
     bindResponseData(response) {
       response.data.data.forEach(result => {
@@ -148,29 +259,48 @@ export default {
           break;
       }
     },
+    filterRequest(id) {
+      this.requests = this.requests.filter( request => {
+        return request.id != id;
+      })
+    },
     toOrder(request, event) {
       if (event.target.id == "accept") {
         if (this.request_type == "on_call") {
           axios
             .post(
-              "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" +
-                request.id
+              this.base_url + "on_call_requests_accepted/" +
+              request.id
             )
             .then(response => {
-              this.getNew();
+              this.filterRequest(request.id);
             })
             .catch(this.errorMessage);
         } else {
           axios
             .post(
-              "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/" +
+              this.base_url + "installation_requests_accepted/" +
                 request.id
             )
             .then(response => {
-              this.getNew();
+              this.filterRequest(request.id);
             })
             .catch(this.errorMessage);
         }
+      } else if(event.target.id == "assignOrSwitch") {
+        this.request = request
+        if(request.type == 'installation' || request.type == 'relocation') {
+          this.requesterType = 'installation'
+        } else {
+          this.requesterType = 'on_call'
+        }
+        if(request.lsp_team != null) {
+          this.availableTeams = this.availableTeams.filter( team => {
+            return team.id != request.lsp_team.id
+          })
+        }
+        this.showModal = true
+
       } else {
         this.$router.push({ name: 'order', params: { id: request.id, orderType: this.request_type }});
         // if(this.request_type == 'on_call') {
@@ -182,10 +312,21 @@ export default {
     },
     toTeamOrder(request) {
       this.$router.push({ name: 'lsp-order', params: { id: request.id, orderType: request.request_type }});
+    },
+    getTeams() {
+      axios.get(this.base_url + 'team_lists')
+      .then( res => { this.bindTeams(res) } )
+      .catch( console.log('Something Went Wrong!') );
+    },
+    bindTeams(res) {
+      res.data.data.forEach(element => {
+        this.availableTeams.push(element)
+      });
     }
   },
   created() {
     this.getNew();
+    this.getTeams();
   }
 };
 </script>

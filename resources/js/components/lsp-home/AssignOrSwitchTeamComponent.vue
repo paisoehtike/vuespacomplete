@@ -117,6 +117,10 @@ export default {
     isAssigned() {
       if (this.type == "New") {
         this.assignOrSwitch = "Assign";
+        this.teams &&
+        this.teams.forEach(element => {
+          this.availableTeams.push(element);
+        });
       } else {
         this.teams &&
           this.teams.forEach(element => {
@@ -151,7 +155,7 @@ export default {
     }
   },
   created(){
-       this.isAssigned();
+    this.isAssigned();
   },
   watch: {
     teams(val) {

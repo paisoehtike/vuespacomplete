@@ -38,7 +38,7 @@ export default {
         },
         redirect(res) {
             if(res.status == 200) {
-                this.$router.push('/');
+                this.$router.push('/?phone=' + this.$route.params.phone);
             } 
         },
         authenticated(response) {

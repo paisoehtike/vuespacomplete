@@ -2697,6 +2697,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (this.type == "New") {
         this.assignOrSwitch = "Assign";
+        this.teams && this.teams.forEach(function (element) {
+          _this.availableTeams.push(element);
+        });
       } else {
         this.teams && this.teams.forEach(function (element) {
           _this.availableTeams.push(element);
@@ -2976,6 +2979,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2988,7 +2992,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      errorMessage: null
+      errorMessage: null,
+      prePhone: null
     };
   },
   methods: {
@@ -3000,7 +3005,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         this.$router.push('/home/new');
       } else {
         if (response.data.data.is_admin == 0 && response.data.data.is_password_change == 0) {
-          this.$router.push('/lsp-team/first-time-password');
+          this.$router.push('/lsp-team/first-time-password/' + response.data.data.phone);
         } else {
           this.$router.push('/lsp-home/remaining');
         }
@@ -3015,6 +3020,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         _this.errorMessage = error.response.data.message;
         alert(error.response.data.message);
       });
+    }
+  },
+  created: function created() {
+    if (this.$route.query.phone) {
+      this.prePhone = this.$route.query.phone;
     }
   }
 });
@@ -3476,6 +3486,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3492,19 +3508,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   data: function data() {
     return {
       detail: null,
-      remarks: [{
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }, {
-        remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-        created_at: '2020/03/12 | 14:92'
-      }],
-      issueLists: {
-        onuType: "ZTE",
-        fiberPatchCord: "SC_APC/SC_APC",
-        terminationBox: "1 Cores OTB",
-        odnIssue: "No Issue",
-        fiberCable: "500m"
+      demy: {
+        name: 'N/A'
       }
     };
   },
@@ -3512,13 +3517,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getDetail: function getDetail() {
       var _this = this;
 
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/repair?on_call_request_id=' + this.$route.params.id).then(function (response) {
+      axios.get(this.base_url + 'repair?on_call_request_id=' + this.$route.params.id).then(function (response) {
         _this.bindResponseData(response);
       })["catch"](console.log('Something Went Wrong!'));
     },
     bindResponseData: function bindResponseData(response) {
       this.detail = response.data.data;
-      console.log(this.detail);
     }
   },
   created: function created() {
@@ -3671,8 +3675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
 /* harmony import */ var _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../lsp-home/AssignOrSwitchTeamComponent */ "./resources/js/components/lsp-home/AssignOrSwitchTeamComponent.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
 //
 //
 //
@@ -3800,50 +3803,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     AssignOrSwitchTeamComponent: _lsp_home_AssignOrSwitchTeamComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   data: function data() {
-    var _customer;
-
     return {
       detail: null,
       request_id: null,
       teams: null,
-      customer: (_customer = {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP"
-      }, _defineProperty(_customer, "orderStep", "Installation"), _defineProperty(_customer, "customerName", "U Min Thant"), _defineProperty(_customer, "address", "Mingalar Taung Nyunt"), _defineProperty(_customer, "assigned", "Not Assigned"), _defineProperty(_customer, "priority", "24"), _customer),
-      customerDetails: {
-        name: "Mg Mg",
-        accountNo: "YGNFX008",
-        rmn: "93123456",
-        ppoeName: "YGNFX008",
-        ppoePassword: "YGNFX008",
-        phone: "095385377",
-        address: "No(20), 19th Street,Latha Township, Yangon",
-        township: "Latha"
-      },
-      orderDetails: {
-        orderId: "5531",
-        orderType: "Relocation",
-        due: "22-02-2020",
-        status: "Splicing",
-        planName: "Premium",
-        promoName: "-",
-        createdDate: "17-02-2020"
-      },
-      customerType: "VVIP",
-      orderStep: "Splicing",
-      orderDetailID: "5531",
-      // orderType: "On Call",
-      issueType: "No Internet Connection",
-      dueDate: "2020/1/19",
-      priorityLevel: "24"
+      alert: false
     };
   },
   methods: {
     toInstallationDetail: function toInstallationDetail() {
       if (this.detail.installation_step != null) this.$router.push('/lsp-order/review/' + this.detail.id + '/survey');
-      alert('No installation record yet!');
+      this.alert = true;
     },
     refresh: function refresh() {
       this.getDetail();
@@ -4160,23 +4130,19 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     onFileSelected: function onFileSelected(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
-      this.createImage(files[0]); // this.image = files[0];
+      this.createImage(files[0]);
     },
     createImage: function createImage(file) {
-      var _this = this;
-
-      var image = new Image();
       var reader = new FileReader();
-
-      reader.onload = function (e) {
-        _this.image = e.target.result;
-        _this.imageFile = file;
-      };
-
-      reader.readAsDataURL(file); // this.uploadImage();
+      reader.readAsDataURL(file);
+      var vm = this;
+      reader.addEventListener('load', function () {
+        vm.image = reader.result;
+        vm.imageFile = file;
+      });
     },
     uploadImage: function uploadImage() {
-      var _this2 = this;
+      var _this = this;
 
       var config = {
         headers: {
@@ -4186,8 +4152,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var formData = new FormData();
       formData.append('image', this.imageFile);
       formData.append('installation_request_id', this.$route.params.id);
-      axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/image_store', formData, config).then(function (res) {
-        _this2.appendImage(res.data.data);
+      axios.post(this.base_url + 'lsp_team/image_store', formData, config).then(function (res) {
+        _this.appendImage(res.data.data);
       })["catch"](console.log('Cant Image'));
     },
     appendImage: function appendImage(img) {
@@ -4195,11 +4161,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.image = null;
     },
     deleteImage: function deleteImage(img) {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
         if (res.data.code == 200) {
-          _this3.images = _this3.images.filter(function (image) {
+          _this2.images = _this2.images.filter(function (image) {
             return image.id != img.id;
           });
         }
@@ -4227,53 +4193,53 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.remarks = remarks;
     },
     getActivate: function getActivate() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get(this.base_url + 'lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
-        _this4.loadPreImages(res.data.data.images);
+        _this3.loadPreImages(res.data.data.images);
 
-        _this4.loadPreRemarks(res.data.data.remarks);
+        _this3.loadPreRemarks(res.data.data.remarks);
 
-        _this4.ppoeUserName = res.data.data.ppoe_username;
-        _this4.ppoePassword = res.data.data.ppoe_password;
+        _this3.ppoeUserName = res.data.data.ppoe_username;
+        _this3.ppoePassword = res.data.data.ppoe_password;
 
         if (res.data.data.olt) {
-          _this4.olt = res.data.data.olt.id;
-          _this4.oltResult = res.data.data.olt.name;
+          _this3.olt = res.data.data.olt.id;
+          _this3.oltResult = res.data.data.olt.name;
         }
 
         if (res.data.data.fdt) {
-          _this4.fdt = res.data.data.fdt.id;
-          _this4.fdtResult = res.data.data.fdt.name;
+          _this3.fdt = res.data.data.fdt.id;
+          _this3.fdtResult = res.data.data.fdt.name;
         }
 
         if (res.data.data.fat) {
-          _this4.fat = res.data.data.fat.id;
+          _this3.fat = res.data.data.fat.id;
         }
 
         if (res.data.data.fat_port) {
-          _this4.fat_port = res.data.data.fat_port.id;
+          _this3.fat_port = res.data.data.fat_port.id;
         }
 
-        _this4.onu_sn = res.data.data.onu_sn;
+        _this3.onu_sn = res.data.data.onu_sn;
 
         if (res.data.data.product_usage.onu_type != null) {
-          _this4.selectedOnuType = res.data.data.product_usage.onu_type.id;
-          _this4.onuId = res.data.data.product_usage.onu_type.id;
+          _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this3.onuId = res.data.data.product_usage.onu_type.id;
         }
 
         if (res.data.data.product_usage.fiber_patch_cord != null) {
-          _this4.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
-          _this4.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+          _this3.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this3.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
         }
 
         if (res.data.data.product_usage.onu_adapter != null) {
-          _this4.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
-          _this4.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+          _this3.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          _this3.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
         }
 
         if (res.data.data.product_usage.fiber_cable != null) {
-          _this4.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this3.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
         } // if(res.data.data.product_usage != null) {
         //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
         //     this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
@@ -4284,32 +4250,32 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_inventory').then(function (res) {
-        _this5.preconfig(res.data.data);
+        _this4.preconfig(res.data.data);
       })["catch"](console.log('Error'));
     },
     getActivation: function getActivation() {
       this.getActivate();
     },
     storeStep: function storeStep() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
         step: 'splicing'
       }).then(function (res) {
         if (res.status == 200) {
-          _this6.$router.push('/lsp-home/remaining');
+          _this5.$router.push('/lsp-home/remaining');
         }
       })["catch"](console.log('Error'));
     },
     getOlt: function getOlt() {
-      var _this7 = this;
+      var _this6 = this;
 
       axios.get("".concat(this.base_url, "get_olt_lists")).then(function (res) {
-        _this7.olts = res.data.data;
+        _this6.olts = res.data.data;
       })["catch"](console.log('Error'));
     },
     setOltSearchResult: function setOltSearchResult(val) {
@@ -4324,12 +4290,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreOlt: function moreOlt() {
-      var _this8 = this;
+      var _this7 = this;
 
       this.oltPage = this.oltPage + 1;
       axios.get("".concat(this.base_url, "get_olt_lists?q=").concat(this.oltSearchIndex, "&page=").concat(this.oltPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this8.oltSearchResult.push(element);
+          _this7.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
@@ -4343,42 +4309,42 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreFdt: function moreFdt() {
-      var _this9 = this;
+      var _this8 = this;
 
       this.fdtPage = this.fdtPage + 1;
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt, "?q=").concat(this.oltSearchIndex, "&page=").concat(this.fdtPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this9.oltSearchResult.push(element);
+          _this8.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
     getFdt: function getFdt() {
-      var _this10 = this;
+      var _this9 = this;
 
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt)).then(function (res) {
-        _this10.fdts = res.data.data;
-        _this10.fdt = '';
+        _this9.fdts = res.data.data;
+        _this9.fdt = '';
       })["catch"](console.log('Error'));
     },
     getFat: function getFat() {
-      var _this11 = this;
+      var _this10 = this;
 
       axios.get("".concat(this.base_url, "get_fat_lists/").concat(this.fdt)).then(function (res) {
-        _this11.fats = res.data.data;
+        _this10.fats = res.data.data;
 
-        if (!_this11.fat) {
-          _this11.fat = '';
+        if (!_this10.fat) {
+          _this10.fat = '';
         }
       })["catch"](console.log('Error'));
     },
     getFatPort: function getFatPort() {
-      var _this12 = this;
+      var _this11 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
-        _this12.fat_ports = res.data.data;
+        _this11.fat_ports = res.data.data;
 
-        if (!_this12.fat_port) {
-          _this12.fat_port = '';
+        if (!_this11.fat_port) {
+          _this11.fat_port = '';
         }
       })["catch"](console.log('Error'));
     }
@@ -4391,20 +4357,20 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getFatPort();
     },
     oltSearchIndex: function oltSearchIndex(val) {
-      var _this13 = this;
+      var _this12 = this;
 
       if (val.length >= 2) {
         this.oltPage = 1;
         setTimeout(function () {
-          axios.get("".concat(_this13.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this13.oltPage)).then(function (res) {
-            _this13.oltSearchResult = res.data.data;
-            _this13.oltTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this12.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this12.oltPage)).then(function (res) {
+            _this12.oltSearchResult = res.data.data;
+            _this12.oltTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
     },
     fdtSearchIndex: function fdtSearchIndex(val) {
-      var _this14 = this;
+      var _this13 = this;
 
       if (!this.olt) {
         this.errors.olt_null_error_for_fdt_search = true;
@@ -4414,11 +4380,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (val.length >= 2 && this.olt) {
         setTimeout(function () {
-          axios.get("".concat(_this14.base_url, "get_fdt_lists/").concat(_this14.olt, "?q=").concat(val, "&page=").concat(_this14.fdtPage)).then(function (res) {
-            _this14.fdtSearchResult = res.data.data;
-            _this14.fdtTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this13.base_url, "get_fdt_lists/").concat(_this13.olt, "?q=").concat(val, "&page=").concat(_this13.fdtPage)).then(function (res) {
+            _this13.fdtSearchResult = res.data.data;
+            _this13.fdtTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
+      }
+    },
+    imageFile: function imageFile(val) {
+      if (val) {
+        this.uploadImage();
       }
     }
   },
@@ -5020,6 +4991,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -5237,7 +5215,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     redirect: function redirect(res) {
       if (res.status == 200) {
-        this.$router.push('/');
+        this.$router.push('/?phone=' + this.$route.params.phone);
       }
     },
     authenticated: function authenticated(response) {
@@ -5774,7 +5752,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'isAdmin', 'errorMessage'],
+  props: ['type', 'isAdmin', 'errorMessage', 'prePhoneNumber'],
   data: function data() {
     return {
       isShow: 'password',
@@ -5860,6 +5838,8 @@ __webpack_require__.r(__webpack_exports__);
       if (this.type !== 'sign-in') {
         this.isSignIn = false;
       }
+
+      if (this.prePhoneNumber) this.phone = this.prePhoneNumber;
     },
     resetErrorMessages: function resetErrorMessages() {
       this.errors.phone = null;
@@ -5867,7 +5847,7 @@ __webpack_require__.r(__webpack_exports__);
       this.errors.passwordDoesntMatch = null;
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.whichType();
   }
 });
@@ -6807,6 +6787,90 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/CustomerIssueDateComponent */ "./resources/js/components/reuseable-component/CustomerIssueDateComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
+/* harmony import */ var _lsp_home_team_TeamComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../lsp-home-team/TeamComponent */ "./resources/js/components/lsp-home-team/TeamComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6857,13 +6921,31 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["request_type", "type", "status"],
+  props: ["request_type", "type", "status", "isHistory"],
+  components: {
+    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
+    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__["default"],
+    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Teams: _lsp_home_team_TeamComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
+  },
   data: function data() {
     return {
       requests: [],
       page: 1,
       total_page: null,
+      showModal: false,
+      selected: null,
+      teamId: null,
+      requesterType: null,
+      requestId: null,
+      request: null,
+      availableTeams: [],
       errorMessage: "Something Went Wrong!",
       apis: {
         "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
@@ -6878,15 +6960,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       }
     };
   },
-  components: {
-    Customer: _reuseable_home_CustomerComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    CustomerTypeChip: _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
-    OrderStepChip: _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CustomerDetailChip: _reuseable_component_CustomerDetailChipComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CustomerIssueDate: _reuseable_component_CustomerIssueDateComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    CustomerHomeFooterButton: _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__["default"],
-    CustomerHeader: _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
-  },
   beforeMount: function beforeMount() {
     window.addEventListener("scroll", this.infiniteHandler);
   },
@@ -6898,21 +6971,39 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         }
       }
     },
-    bindResponseData: function bindResponseData(response) {
+    assignTeam: function assignTeam() {
       var _this = this;
 
+      axios.post(this.base_url + "assigned_team", {
+        requested_id: this.request.id,
+        requested_type: this.requesterType,
+        lsp_team_id: this.teamId
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this.showModal = false;
+          alert('successfully Processed!');
+        }
+      })["catch"](console.log("Error"));
+    },
+    teamSelect: function teamSelect(team, index) {
+      this.selected = index;
+      this.teamId = team.id;
+    },
+    bindResponseData: function bindResponseData(response) {
+      var _this2 = this;
+
       response.data.data.forEach(function (result) {
-        _this.requests.push(result);
+        _this2.requests.push(result);
       });
       this.page = response.data.meta.current_page + 1; //to get next page
 
       this.total_page = response.data.meta.total_pages;
     },
     apiCall: function apiCall(url, page) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("".concat(url, "&page=").concat(page)).then(function (response) {
-        _this2.bindResponseData(response);
+        _this3.bindResponseData(response);
       })["catch"](this.errorMessage);
     },
     getNew: function getNew() {
@@ -6958,19 +7049,40 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           break;
       }
     },
+    filterRequest: function filterRequest(id) {
+      this.requests = this.requests.filter(function (request) {
+        return request.id != id;
+      });
+    },
     toOrder: function toOrder(request, event) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (event.target.id == "accept") {
         if (this.request_type == "on_call") {
-          axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests_accepted/" + request.id).then(function (response) {
-            _this3.getNew();
+          axios.post(this.base_url + "on_call_requests_accepted/" + request.id).then(function (response) {
+            _this4.filterRequest(request.id);
           })["catch"](this.errorMessage);
         } else {
-          axios.post("https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests_accepted/" + request.id).then(function (response) {
-            _this3.getNew();
+          axios.post(this.base_url + "installation_requests_accepted/" + request.id).then(function (response) {
+            _this4.filterRequest(request.id);
           })["catch"](this.errorMessage);
         }
+      } else if (event.target.id == "assignOrSwitch") {
+        this.request = request;
+
+        if (request.type == 'installation' || request.type == 'relocation') {
+          this.requesterType = 'installation';
+        } else {
+          this.requesterType = 'on_call';
+        }
+
+        if (request.lsp_team != null) {
+          this.availableTeams = this.availableTeams.filter(function (team) {
+            return team.id != request.lsp_team.id;
+          });
+        }
+
+        this.showModal = true;
       } else {
         this.$router.push({
           name: 'order',
@@ -6993,10 +7105,25 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           orderType: request.request_type
         }
       });
+    },
+    getTeams: function getTeams() {
+      var _this5 = this;
+
+      axios.get(this.base_url + 'team_lists').then(function (res) {
+        _this5.bindTeams(res);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
+    bindTeams: function bindTeams(res) {
+      var _this6 = this;
+
+      res.data.data.forEach(function (element) {
+        _this6.availableTeams.push(element);
+      });
     }
   },
   created: function created() {
     this.getNew();
+    this.getTeams();
   }
 });
 
@@ -7011,8 +7138,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -7036,42 +7161,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['value', 'label', 'type'],
-  data: function data() {
-    var _data;
-
-    return {
-      data: (_data = {
-        name: 'Customer Name',
-        accountNo: 'Customer Account No',
-        rmn: 'Customer RMN',
-        ppoeName: 'PPOE Username',
-        ppoePassword: 'PPOE Password',
-        phone: 'Phone',
-        address: 'Address',
-        township: 'Township',
-        orderId: "OrderID",
-        orderType: "Order Type",
-        due: "Due",
-        status: "Status",
-        planName: "Plan Name",
-        promoName: "Promo Name",
-        createdDate: "Created Date",
-        leaderName: "Leader Name",
-        manPower: "Man Power",
-        assignJob: "Assigned Job",
-        remainJob: "Remaining Job",
-        poleIssue: "Pole Issue",
-        fat: "FAT",
-        authority: "Authority",
-        odnIssue: "ODN Issue",
-        customerIssue: "Customer Issue",
-        onuType: "ONU Type",
-        fiberPatchCord: "Fiber Patch Cord",
-        terminationBox: "Termination Box"
-      }, _defineProperty(_data, "odnIssue", "ODN Issue"), _defineProperty(_data, "fiberCable", "Fiber Cable"), _defineProperty(_data, "image", "Image"), _defineProperty(_data, "ppoeUserName", "PPOE User Name"), _defineProperty(_data, "ppoePassword", "PPOE Password"), _defineProperty(_data, "olt", "OLT"), _defineProperty(_data, "fdt", "FDT"), _defineProperty(_data, "fatPort", "FAT Port"), _defineProperty(_data, "onuSn", "ONU S/N"), _data)
-    };
-  }
+  props: ['value', 'label', 'type']
 });
 
 /***/ }),
@@ -18508,9 +18598,17 @@ var render = function() {
         "div",
         { staticClass: "create-team-header" },
         [
-          _c("router-link", { attrs: { to: { name: "team" } } }, [
-            _c("i", { staticClass: "fas fa-chevron-left chevron-icon" })
-          ]),
+          _c(
+            "router-link",
+            {
+              attrs: {
+                to: this.$route.params.id
+                  ? "/team/detail/" + this.$route.params.id
+                  : "/team"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-chevron-left chevron-icon" })]
+          ),
           _vm._v(" "),
           this.$route.params.id
             ? _c("h5", [_vm._v("Edit Team")])
@@ -18531,7 +18629,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "create-value-name" }, [
         _c("div", { staticClass: "input-group" }, [
-          _c("label", [_vm._v("Team Name")]),
+          _c("label", { staticClass: "activate-label" }, [_vm._v("Team Name")]),
           _vm._v(" "),
           _vm.errors.teamName
             ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
@@ -18548,6 +18646,7 @@ var render = function() {
                 expression: "teamName"
               }
             ],
+            staticClass: "activate-input",
             attrs: { type: "text" },
             domProps: { value: _vm.teamName },
             on: {
@@ -18564,7 +18663,9 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "create-value-name" }, [
         _c("div", { staticClass: "input-group" }, [
-          _c("label", [_vm._v("Leader Name")]),
+          _c("label", { staticClass: "activate-label" }, [
+            _vm._v("Leader Name")
+          ]),
           _vm._v(" "),
           _vm.errors.leaderName
             ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
@@ -18581,6 +18682,7 @@ var render = function() {
                 expression: "leaderName"
               }
             ],
+            staticClass: "activate-input",
             attrs: { type: "text" },
             domProps: { value: _vm.leaderName },
             on: {
@@ -18597,7 +18699,9 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "create-value-name" }, [
         _c("div", { staticClass: "input-group" }, [
-          _c("label", [_vm._v("Phone Number")]),
+          _c("label", { staticClass: "activate-label" }, [
+            _vm._v("Phone Number")
+          ]),
           _vm._v(" "),
           _vm.errors.phone
             ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
@@ -18614,6 +18718,7 @@ var render = function() {
                 expression: "phone"
               }
             ],
+            staticClass: "activate-input",
             attrs: { type: "number", min: "1" },
             domProps: { value: _vm.phone },
             on: {
@@ -18631,7 +18736,9 @@ var render = function() {
       !this.$route.params.id
         ? _c("div", { staticClass: "create-value-name" }, [
             _c("div", { staticClass: "input-group" }, [
-              _c("label", [_vm._v("First Time Password")]),
+              _c("label", { staticClass: "activate-label" }, [
+                _vm._v("First Time Password")
+              ]),
               _vm._v(" "),
               _vm.errors.ftPassword
                 ? _c("span", { staticClass: "error-message" }, [
@@ -18650,6 +18757,7 @@ var render = function() {
                     expression: "ftPassword"
                   }
                 ],
+                staticClass: "activate-input",
                 attrs: { type: "password" },
                 domProps: { value: _vm.ftPassword },
                 on: {
@@ -18667,7 +18775,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "create-value-name" }, [
         _c("div", { staticClass: "input-group" }, [
-          _c("label", [_vm._v("Man Power")]),
+          _c("label", { staticClass: "activate-label" }, [_vm._v("Man Power")]),
           _vm._v(" "),
           _vm.errors.manPower
             ? _c("span", { staticClass: "error-message" }, [_vm._v("*Require")])
@@ -18684,6 +18792,7 @@ var render = function() {
                 expression: "manPower"
               }
             ],
+            staticClass: "activate-input",
             attrs: { type: "number", min: "1" },
             domProps: { value: _vm.manPower },
             on: {
@@ -19400,7 +19509,7 @@ var render = function() {
         { staticClass: "create-new-team-button" },
         [
           _c("router-link", { attrs: { to: { name: "team-create" } } }, [
-            _c("span", { staticClass: "waves-effect waves-light btn orange" }, [
+            _c("span", { staticClass: "add-button-style" }, [
               _c("i", { staticClass: "fas fa-plus" }),
               _vm._v(" "),
               _c("span", [_vm._v("Create New Team")])
@@ -19520,7 +19629,8 @@ var render = function() {
             attrs: {
               request_type: "installation",
               type: "admin",
-              status: "accepted"
+              status: "accepted",
+              isHistory: false
             }
           })
         ],
@@ -19931,7 +20041,8 @@ var render = function() {
             attrs: {
               request_type: "installation",
               type: "admin",
-              status: "history"
+              status: "history",
+              isHistory: true
             }
           })
         ],
@@ -20022,7 +20133,8 @@ var render = function() {
             attrs: {
               request_type: "installation",
               type: "admin",
-              status: "new"
+              status: "new",
+              isHistory: false
             }
           })
         ],
@@ -20112,7 +20224,8 @@ var render = function() {
           attrs: {
             type: "sign-in",
             isAdmin: "Admin",
-            errorMessage: _vm.errorMessage
+            errorMessage: _vm.errorMessage,
+            prePhoneNumber: _vm.prePhone
           },
           on: { submit: _vm.formSubmit }
         },
@@ -20271,7 +20384,8 @@ var render = function() {
             attrs: {
               request_type: "on_call",
               type: "admin",
-              status: "oncall-accepted"
+              status: "oncall-accepted",
+              isHistory: false
             }
           })
         ],
@@ -20362,7 +20476,8 @@ var render = function() {
             attrs: {
               request_type: "on_call",
               type: "admin",
-              status: "oncall-new"
+              status: "oncall-new",
+              isHistory: false
             }
           })
         ],
@@ -20453,7 +20568,8 @@ var render = function() {
             attrs: {
               request_type: "on_call",
               type: "admin",
-              status: "oncall-history"
+              status: "oncall-history",
+              isHistory: true
             }
           })
         ],
@@ -20798,16 +20914,54 @@ var render = function() {
         [
           _c("h3", [_vm._v("Replace Items")]),
           _vm._v(" "),
-          _c(
-            "TeamInfo",
-            _vm._l(_vm.detail.product_usage, function(value, label) {
-              return _c("TableRow", {
-                key: label,
-                attrs: { label: label, value: value, type: "repair-detail" }
-              })
-            }),
-            1
-          )
+          _vm.detail.product_usage != null
+            ? _c(
+                "TeamInfo",
+                _vm._l(_vm.detail.product_usage, function(value, label) {
+                  return _c("TableRow", {
+                    key: label,
+                    attrs: { label: label, value: value, type: "repair-detail" }
+                  })
+                }),
+                1
+              )
+            : _c(
+                "TeamInfo",
+                [
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Onu_type",
+                      value: _vm.demy,
+                      type: "repair-detail"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Fiber_patch_cord",
+                      value: _vm.demy,
+                      type: "repair-detail"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Fiber_cable",
+                      value: _vm.demy,
+                      type: "repair-detail"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Onu_adapter",
+                      value: _vm.demy,
+                      type: "repair-detail"
+                    }
+                  })
+                ],
+                1
+              )
         ],
         1
       ),
@@ -21120,7 +21274,8 @@ var render = function() {
                   teams: _vm.teams,
                   requestType: _vm.orderType,
                   assignedTeam: _vm.detail.lsp_team
-                }
+                },
+                on: { reload: _vm.refresh }
               })
         ],
         1
@@ -21260,7 +21415,11 @@ var render = function() {
                   on: { click: _vm.toInstallationDetail }
                 },
                 [
-                  _c("p", [_vm._v("*No Installation Record Yet")]),
+                  _vm.alert
+                    ? _c("p", { staticClass: "no-record-alert" }, [
+                        _vm._v("*No Installation Record Yet")
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("a", [_vm._v("View Installation Detail")])
                 ]
@@ -21328,7 +21487,7 @@ var render = function() {
           staticClass: "order-header-row",
           attrs: {
             to: {
-              path: "/lsp-team-order/" + this.$route.params.id + "/splicing"
+              path: "/lsp-order/" + this.$route.params.id + "/installation"
             },
             tag: "div"
           }
@@ -21397,43 +21556,6 @@ var render = function() {
               )
             ],
             2
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.image !== null,
-                  expression: "image !== null"
-                }
-              ],
-              staticClass: "upload-img"
-            },
-            [
-              _c("img", { attrs: { src: _vm.image } }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "cancel",
-                  on: {
-                    click: function($event) {
-                      _vm.image = null
-                    }
-                  }
-                },
-                [_vm._v("Cancel")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "submit", on: { click: _vm.uploadImage } },
-                [_vm._v("Submit")]
-              )
-            ]
           ),
           _vm._v(" "),
           _c("div", [
@@ -21878,8 +22000,7 @@ var render = function() {
                 attrs: {
                   id: "onu-type",
                   type: _vm.onu_type,
-                  isInstallation: true,
-                  defaultId: _vm.selectedOnuType
+                  isInstallation: true
                 },
                 on: { "type-id": _vm.setOnuId }
               }),
@@ -22371,7 +22492,12 @@ var render = function() {
         "router-link",
         {
           staticClass: "order-header-row",
-          attrs: { to: { path: "/lsp-home/remaining" }, tag: "div" }
+          attrs: {
+            to: {
+              path: "/lsp-order/" + this.$route.params.id + "/installation"
+            },
+            tag: "div"
+          }
         },
         [
           _c("i", { staticClass: "fas fa-chevron-left" }),
@@ -22594,7 +22720,16 @@ var render = function() {
                     ])
                   ])
                 ])
-              : _vm._e(),
+              : _c("div", { staticClass: "order-type" }, [
+                  _c("p", [_vm._v("Due Date : "), _c("span", [_vm._v("N/A")])])
+                ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [
+                _vm._v("Remark : "),
+                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
+              ])
+            ]),
             _vm._v(" "),
             _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
@@ -22750,6 +22885,15 @@ var render = function() {
                   },
                   [_vm._v("Repair")]
                 )
+              : _vm.detail.installation_step != null
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "waves-effect waves-light btn orange dynamic-btn"
+                  },
+                  [_vm._v("Continue Installation")]
+                )
               : _c(
                   "a",
                   {
@@ -22806,8 +22950,8 @@ var render = function() {
             _c("HomeHeaderButton", {
               attrs: {
                 firstUrl: _vm.url.remain,
-                secondUrl: _vm.url.history,
-                thirdUrl: _vm.url.complete
+                secondUrl: _vm.url.complete,
+                thirdUrl: _vm.url.history
               },
               scopedSlots: _vm._u([
                 {
@@ -22820,14 +22964,14 @@ var render = function() {
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.history))]
+                    return [_vm._v(_vm._s(_vm.label.complete))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.complete))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -22926,8 +23070,8 @@ var render = function() {
             _c("HomeHeaderButton", {
               attrs: {
                 firstUrl: _vm.url.remain,
-                secondUrl: _vm.url.history,
-                thirdUrl: _vm.url.complete
+                secondUrl: _vm.url.complete,
+                thirdUrl: _vm.url.history
               },
               scopedSlots: _vm._u([
                 {
@@ -22940,14 +23084,14 @@ var render = function() {
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.history))]
+                    return [_vm._v(_vm._s(_vm.label.complete))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.complete))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -23109,8 +23253,8 @@ var render = function() {
             _c("HomeHeaderButton", {
               attrs: {
                 firstUrl: _vm.url.remain,
-                secondUrl: _vm.url.history,
-                thirdUrl: _vm.url.complete
+                secondUrl: _vm.url.complete,
+                thirdUrl: _vm.url.history
               },
               scopedSlots: _vm._u([
                 {
@@ -23123,14 +23267,14 @@ var render = function() {
                 {
                   key: "accept",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.history))]
+                    return [_vm._v(_vm._s(_vm.label.complete))]
                   },
                   proxy: true
                 },
                 {
                   key: "history",
                   fn: function() {
-                    return [_vm._v(_vm._s(_vm.label.complete))]
+                    return [_vm._v(_vm._s(_vm.label.history))]
                   },
                   proxy: true
                 }
@@ -24289,7 +24433,7 @@ var render = function() {
             _vm.showModal
               ? _c("div", { staticClass: "modal-box" }, [
                   _c("h3", { staticClass: "text-center" }, [
-                    _vm._v("You Cannot Undo This!")
+                    _vm._v("Are you sure to delete?")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -24750,8 +24894,6 @@ var render = function() {
           ? _c("div", { staticClass: "modal-box" }, [
               _c("h3", { staticClass: "text-center" }, [_vm._v("Remark")]),
               _vm._v(" "),
-              _c("p", [_vm._v("Please Add Latitude and Longitude")]),
-              _vm._v(" "),
               _c(
                 "textarea",
                 {
@@ -24830,144 +24972,466 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "home-customer-row" },
-    _vm._l(_vm.requests, function(request, index) {
-      return _c(
-        "Customer",
-        {
-          key: index,
-          nativeOn: {
-            click: function($event) {
-              _vm.type !== "team"
-                ? _vm.toOrder(request, $event)
-                : _vm.toTeamOrder(request)
-            }
-          }
-        },
-        [
-          _c("CustomerHeader", {
-            attrs: { id: request.customer, step: request.request_type }
-          }),
-          _vm._v(" "),
-          request.customer_type != null
-            ? _c("CustomerTypeChip", {
-                attrs: {
-                  slot: "customer-chip",
-                  value: request.customer_type.name
-                },
-                slot: "customer-chip"
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          request.installation_step != null
-            ? _c("OrderStepChip", {
-                attrs: {
-                  slot: "order-chip",
-                  value: request.installation_step.name
-                },
-                slot: "order-chip"
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          request.created_at != null
-            ? _c("CustomerIssueDate", {
-                attrs: { slot: "customer-date" },
-                slot: "customer-date",
-                scopedSlots: _vm._u(
-                  [
-                    request.due_date != null
-                      ? {
-                          key: "lsp-accept-date",
-                          fn: function() {
-                            return [
-                              _vm._v(
-                                _vm._s(_vm._f("format-date")(request.due_date))
-                              )
-                            ]
-                          },
-                          proxy: true
-                        }
-                      : null,
-                    request.priority_level != null
-                      ? {
-                          key: "priority-date",
-                          fn: function() {
-                            return [
-                              _vm._v(_vm._s(request.priority_level.name) + " ")
-                            ]
-                          },
-                          proxy: true
-                        }
-                      : null
-                  ],
-                  null,
-                  true
-                )
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _c("CustomerDetailChip", {
-            attrs: {
-              slot: "customer-detail-chip",
-              value: request.name,
-              address: request.address,
-              remark: request.remark
-            },
-            slot: "customer-detail-chip"
-          }),
-          _vm._v(" "),
-          _c("CustomerHomeFooterButton", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.type !== "team",
-                expression: "type !== 'team'"
+    [
+      _vm._l(_vm.requests, function(request, index) {
+        return _c(
+          "Customer",
+          {
+            key: index,
+            nativeOn: {
+              click: function($event) {
+                _vm.type !== "team"
+                  ? _vm.toOrder(request, $event)
+                  : _vm.toTeamOrder(request)
               }
-            ],
-            attrs: { slot: "customer-home-footer" },
-            slot: "customer-home-footer",
-            scopedSlots: _vm._u(
-              [
-                request.lsp_team != null
-                  ? {
-                      key: "assign",
-                      fn: function() {
-                        return [_vm._v(_vm._s(request.lsp_team.name))]
-                      },
-                      proxy: true
-                    }
-                  : {
-                      key: "assign",
-                      fn: function() {
-                        return [_vm._v("Not Assigned")]
-                      },
-                      proxy: true
-                    },
-                request.lsp_accepted_at == null
-                  ? {
-                      key: "isAccept",
-                      fn: function() {
-                        return [
-                          _c(
-                            "a",
-                            { staticClass: "btn", attrs: { id: "accept" } },
-                            [_vm._v("Accept")]
-                          )
-                        ]
-                      },
-                      proxy: true
-                    }
-                  : null
+            }
+          },
+          [
+            _c("CustomerHeader", {
+              attrs: { id: request.customer, step: request.request_type }
+            }),
+            _vm._v(" "),
+            request.customer_type != null
+              ? _c("CustomerTypeChip", {
+                  attrs: {
+                    slot: "customer-chip",
+                    value: request.customer_type.name
+                  },
+                  slot: "customer-chip"
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            request.installation_step != null
+              ? _c("OrderStepChip", {
+                  attrs: {
+                    slot: "order-chip",
+                    value: request.installation_step.name
+                  },
+                  slot: "order-chip"
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            request.created_at != null
+              ? _c("CustomerIssueDate", {
+                  attrs: { slot: "customer-date" },
+                  slot: "customer-date",
+                  scopedSlots: _vm._u(
+                    [
+                      request.due_date != null
+                        ? {
+                            key: "lsp-accept-date",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("format-date")(request.due_date)
+                                  )
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null,
+                      request.priority_level != null
+                        ? {
+                            key: "priority-date",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  _vm._s(request.priority_level.name) + " "
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null
+                    ],
+                    null,
+                    true
+                  )
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _c("CustomerDetailChip", {
+              attrs: {
+                slot: "customer-detail-chip",
+                value: request.name,
+                address: request.address,
+                remark: request.remark
+              },
+              slot: "customer-detail-chip"
+            }),
+            _vm._v(" "),
+            _c("CustomerHomeFooterButton", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.type !== "team",
+                  expression: "type !== 'team'"
+                }
               ],
-              null,
-              true
+              attrs: { slot: "customer-home-footer" },
+              slot: "customer-home-footer",
+              scopedSlots: _vm._u(
+                [
+                  request.lsp_team != null
+                    ? {
+                        key: "assign",
+                        fn: function() {
+                          return [_vm._v(_vm._s(request.lsp_team.name))]
+                        },
+                        proxy: true
+                      }
+                    : {
+                        key: "assign",
+                        fn: function() {
+                          return [_vm._v("Not Assigned")]
+                        },
+                        proxy: true
+                      },
+                  request.lsp_accepted_at == null && _vm.isHistory == false
+                    ? {
+                        key: "isAccept",
+                        fn: function() {
+                          return [
+                            _c(
+                              "a",
+                              { staticClass: "btn", attrs: { id: "accept" } },
+                              [_vm._v("Accept")]
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    : request.lsp_team && _vm.isHistory == false
+                    ? {
+                        key: "isAccept",
+                        fn: function() {
+                          return [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn",
+                                attrs: { id: "assignOrSwitch" }
+                              },
+                              [_vm._v("Switch Team")]
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    : !request.lsp_team && _vm.isHistory == false
+                    ? {
+                        key: "isAccept",
+                        fn: function() {
+                          return [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn",
+                                attrs: { id: "assignOrSwitch" }
+                              },
+                              [_vm._v("Assign Team")]
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    : null
+                ],
+                null,
+                true
+              )
+            })
+          ],
+          1
+        )
+      }),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade", appear: "" } }, [
+        _vm.showModal
+          ? _c("div", {
+              staticClass: "modal-box1",
+              on: {
+                click: function($event) {
+                  _vm.showModal = false
+                }
+              }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "slide", appear: "" } }, [
+        _vm.showModal
+          ? _c(
+              "div",
+              { staticClass: "modal-box" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "assign-team-modal-header" },
+                  [
+                    _vm.request.customer_type != null
+                      ? _c("CustomerTypeChip", {
+                          attrs: {
+                            slot: "customer-chip",
+                            value: _vm.request.customer_type.name
+                          },
+                          slot: "customer-chip"
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.request.installation_step != null
+                      ? _c("OrderStepChip", {
+                          attrs: {
+                            slot: "order-chip",
+                            value: _vm.request.installation_step.name
+                          },
+                          slot: "order-chip"
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "customer-request-detail" }, [
+                  _c(
+                    "div",
+                    [
+                      _c("CustomerHeader", {
+                        attrs: {
+                          id: _vm.request.customer,
+                          step: _vm.request.type
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "customer-request-date" },
+                    [
+                      _c("CustomerIssueDate", {
+                        attrs: { slot: "customer-date" },
+                        slot: "customer-date",
+                        scopedSlots: _vm._u(
+                          [
+                            _vm.request.due_date != null
+                              ? {
+                                  key: "lsp-accept-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("format-date")(
+                                            _vm.request.due_date
+                                          )
+                                        )
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null,
+                            _vm.request.priority_level != null
+                              ? {
+                                  key: "priority-date",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(
+                                        _vm._s(_vm.request.priority_level.name)
+                                      )
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null,
+                            _vm.request.issue != null
+                              ? {
+                                  key: "issue",
+                                  fn: function() {
+                                    return [
+                                      _vm._v(_vm._s(_vm.request.issue.name))
+                                    ]
+                                  },
+                                  proxy: true
+                                }
+                              : null
+                          ],
+                          null,
+                          true
+                        )
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("CustomerDetailChip", {
+                  attrs: {
+                    slot: "customer-detail-chip",
+                    value: _vm.request.name,
+                    address: _vm.request.customer_detail.address,
+                    remark: _vm.request.remark
+                  },
+                  slot: "customer-detail-chip"
+                }),
+                _vm._v(" "),
+                _vm.request.lsp_team != null
+                  ? _c("h2", [_vm._v("Assigned Team :")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.request.lsp_team != null
+                  ? _c("Teams", {
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "team-name",
+                            fn: function() {
+                              return [_vm._v(_vm._s(_vm.request.lsp_team.name))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "customer-name",
+                            fn: function() {
+                              return [
+                                _vm._v(_vm._s(_vm.request.lsp_team.leader_name))
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-remaining",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  _vm._s(_vm.request.lsp_team.remaining_jobs)
+                                )
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-man-power",
+                            fn: function() {
+                              return [
+                                _vm._v(_vm._s(_vm.request.lsp_team.man_power))
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-complete",
+                            fn: function() {
+                              return [
+                                _vm._v(
+                                  _vm._s(_vm.request.lsp_team.completed_jobs)
+                                )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        false,
+                        687651496
+                      )
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("h2", [_vm._v("Select Team to Assign :")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "assign-team-wrapper" },
+                  _vm._l(_vm.availableTeams, function(team, index) {
+                    return _c("Teams", {
+                      key: index,
+                      class: { teamClick: _vm.selected == index },
+                      nativeOn: {
+                        click: function($event) {
+                          return _vm.teamSelect(team, index)
+                        }
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "team-name",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.name))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "customer-name",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.leader_name))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-remaining",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.remaining_jobs))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-man-power",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.man_power))]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "total-complete",
+                            fn: function() {
+                              return [_vm._v(_vm._s(team.completed_jobs))]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    })
+                  }),
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-button-box" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cancel-button",
+                      on: {
+                        click: function($event) {
+                          _vm.showModal = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "remark-save-btn",
+                      on: { click: _vm.assignTeam }
+                    },
+                    [_vm._v("Done")]
+                  )
+                ])
+              ],
+              1
             )
-          })
-        ],
-        1
-      )
-    }),
-    1
+          : _vm._e()
+      ])
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -25140,7 +25604,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "order-info-row" }, [
-      _c("header", [_c("h5", [_vm._v("order Info")])])
+      _c("header", [_c("h5", [_vm._v("Order Info")])])
     ])
   }
 ]
@@ -45271,7 +45735,7 @@ __webpack_require__.r(__webpack_exports__);
       path: 'notification',
       component: _components_notification_NotificationComponent_vue__WEBPACK_IMPORTED_MODULE_33__["default"]
     }, {
-      path: 'first-time-password',
+      path: 'first-time-password/:phone',
       component: _components_lsp_team_LSPTeamFirstTimePasswordComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
     }]
   }, {

@@ -21,7 +21,8 @@
   }
 
   .new,
-  .accept {
+  .accept, .history {
     width: 95%;
+    text-transform: none !important;
   }
 }

@@ -43,7 +43,7 @@
 <script>
 export default {
     props: [
-        'type', 'isAdmin', 'errorMessage',
+        'type', 'isAdmin', 'errorMessage', 'prePhoneNumber'
     ],
     data() {
         return {
@@ -125,6 +125,7 @@ export default {
             if(this.type !== 'sign-in') {
                 this.isSignIn = false;
             }
+            if(this.prePhoneNumber) this.phone = this.prePhoneNumber
         },
         resetErrorMessages() {
             this.errors.phone = null;
@@ -132,7 +133,7 @@ export default {
             this.errors.passwordDoesntMatch = null;
         }
     },
-    mounted() {
+    created() {
         this.whichType();
     }
 }

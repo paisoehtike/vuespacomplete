@@ -11,7 +11,7 @@
         <transition name="slide" appear>
             <div class="modal-box" v-if="showModal">
                 <h3 class="text-center">Remark</h3>
-                <p>Please Add Latitude and Longitude</p>
+                <!-- <p>Please Add Latitude and Longitude</p> -->
                 <textarea v-model="remark" rows="9" name="remark" form="usrform">Write Remark</textarea>
                 <button @click="showModal = false" class="remark-cancel-btn">Cancel</button>
                 <button @click="submitRemark" class="remark-save-btn">Save</button>

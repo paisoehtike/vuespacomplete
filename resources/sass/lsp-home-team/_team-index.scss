@@ -11,12 +11,16 @@
   }
   .create-new-team-button {
     position: fixed;
-    bottom: 80px;
-    right: 10px;
-    span {
+    bottom: 90px;
+    right: 18px;
+    .add-button-style {
+      background: #ec911a;
+      padding: 10px 15px;
+      color: #fff;
       border-radius: 20px;
       i {
         margin-right: 5px;
+        font-size: 13px;
       }
       span {
         margin-bottom: 5px;
