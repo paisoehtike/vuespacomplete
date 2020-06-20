@@ -41087,7 +41087,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   data: function data() {
     return {
       get base_url() {
-        return "https://5bb-lsp-staging.mm-digital-solutions.com/api/";
+        // return "https://5bb-lsp-staging.mm-digital-solutions.com/api/";
+        return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
       }
 
     };
