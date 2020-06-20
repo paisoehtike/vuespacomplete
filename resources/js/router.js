@@ -143,7 +143,7 @@ export default {
                     component: NotificationList,
                 },
                 {
-                    path: 'first-time-password',
+                    path: 'first-time-password/:phone',
                     component: LSPTeamFirstTimePassword
                 }
             ]

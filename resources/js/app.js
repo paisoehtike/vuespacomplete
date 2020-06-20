@@ -17,7 +17,7 @@ Vue.mixin({
     data: function() {
         return {
           get base_url() {
-            return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+            return "https://5bb-lsp-staging.mm-digital-solutions.com/api/";
           }
         }
     }

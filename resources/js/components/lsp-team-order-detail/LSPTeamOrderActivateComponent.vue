@@ -1,7 +1,7 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
-        <router-link :to="{ path: '/lsp-team-order/' + this.$route.params.id + '/splicing'}" tag="div" class="order-header-row">
+        <router-link :to="{ path: '/lsp-order/' + this.$route.params.id + '/installation' }" tag="div" class="order-header-row">
             <i class="fas fa-chevron-left"></i>
             <h2>Activating For ONU</h2>
         </router-link>
@@ -18,11 +18,11 @@
                     <i class="fas fa-plus center-align"></i>
                 </div>
             </div>
-            <div v-show="image !== null" class="upload-img">
+            <!-- <div v-show="image !== null" class="upload-img">
                 <img :src="image">
                 <button @click="image = null" class="cancel">Cancel</button>
                 <button @click="uploadImage" class="submit">Submit</button>
-            </div>
+            </div> -->
             <div>
                 <label class="activate-label" for="ppoe-username">PPOE Username :</label>
                 <input class="activate-input" type="text" v-model="ppoeUserName" id="ppoe-username" name="ppoe-username" readonly>
@@ -110,7 +110,7 @@
             <label class="activate-label" for="onu-type">Select Router :</label>
             <span v-if="this.errors.onuId">*Requried</span>
             <TypeSlider id="onu-type" v-if="selectedOnuType" :isInstallation="true" :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
-            <TypeSlider id="onu-type" v-else :type="onu_type" :isInstallation="true" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
+            <TypeSlider id="onu-type" v-else :type="onu_type" :isInstallation="true" @type-id="setOnuId"></TypeSlider>
 
             <label class="activate-label" for="fpc">Fibre Patch Cord :</label>
             <span v-if="this.errors.fpcId">*Requried</span>
@@ -259,27 +259,24 @@ export default {
             if (!files.length)
                 return;
             this.createImage(files[0]);
-            // this.image = files[0];
         },
         createImage(file) {
-            var image = new Image();
             var reader = new FileReader();
-            reader.onload = (e) => {
-                this.image = e.target.result;
-                this.imageFile = file
-            };
             reader.readAsDataURL(file);
-            // this.uploadImage();
+            let vm = this
+            reader.addEventListener('load', ()=>{
+                vm.image = reader.result
+                vm.imageFile = file
+            })
         },
         uploadImage() {
             const config = {
                     headers: { 'content-type': 'multipart/form-data' }
                 }
-            
             let formData = new FormData();
             formData.append('image', this.imageFile);
             formData.append('installation_request_id', this.$route.params.id);
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/image_store',
+            axios.post(this.base_url + 'lsp_team/image_store',
             formData, config
             ).then( res => { 
                 this.appendImage(res.data.data) 
@@ -368,7 +365,7 @@ export default {
                 .catch( console.log('Error') );
         },
         getInventory() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/activation_inventory')
+            axios.get(this.base_url + 'lsp_team/activation_inventory')
                 .then( res => {
                     this.preconfig(res.data.data);
                 }).catch( console.log('Error') );
@@ -490,6 +487,11 @@ export default {
                         this.fdtTotalPage = res.data.meta.total_pages
                     }).catch(console.log('Error'));
                 }, 1000)
+            }
+        },
+        imageFile(val){
+            if(val){
+                this.uploadImage()
             }
         }
     },

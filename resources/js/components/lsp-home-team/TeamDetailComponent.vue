@@ -22,7 +22,7 @@
     </div>
 
     <div class="team-customer-detail" v-if="isRemain">
-      <Customer v-for="(customer,index) in customers" :key="index">
+      <Customer v-for="(customer,index) in customers" :key="index" @click.native="toDetail(customer)">
         <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
 
         <CustomerTypeChip :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="team-customer-detail" v-if="isRemain == false && isComplete">
-      <Customer v-for="(customer,index) in completeCustomers" :key="index">
+      <Customer v-for="(customer,index) in completeCustomers" :key="index" @click.native="toDetail(customer)">
         <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
 
         <CustomerTypeChip :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
@@ -82,7 +82,7 @@
     </div>
 
     <div class="team-customer-detail" v-if="isRemain == false && isComplete == false && isHistory">
-      <Customer v-for="(customer,index) in historyCustomers" :key="index">
+      <Customer v-for="(customer,index) in historyCustomers" :key="index" @click.native="toDetail(customer)">
         <CustomerHeader :id="customer.customer" :step="customer.request_type"></CustomerHeader>
 
         <CustomerTypeChip :value="customer.customer_type.name" slot="customer-chip"></CustomerTypeChip>
@@ -158,6 +158,13 @@ export default {
     };
   },
   methods: {
+    toDetail(request) {
+      if(request.type == 'installation' || request.type == 'relocation') {
+        this.$router.push({ name: 'order', params: { id: request.id, orderType: 'installation' }});
+      } else {
+        this.$router.push({ name: 'order', params: { id: request.id, orderType: 'on_call' }});
+      }
+    },
     bindTeamDetail(response) {
       this.teamDetail = response.data.data
     },

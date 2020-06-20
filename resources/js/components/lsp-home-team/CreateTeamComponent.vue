@@ -1,7 +1,7 @@
 <template>
   <div class="create-team-container">
     <div class="create-team-header">
-      <router-link :to="{name: 'team'}">
+      <router-link :to="this.$route.params.id ? '/team/detail/' + this.$route.params.id : '/team'">
         <i class="fas fa-chevron-left chevron-icon"></i>
       </router-link>
       <h5 v-if="this.$route.params.id">Edit Team</h5>
@@ -13,42 +13,42 @@
     </div>
     <div class="create-value-name">
       <div class="input-group">
-        <label>Team Name</label>
+        <label class="activate-label">Team Name</label>
         <span class="error-message" v-if="errors.teamName">*Require</span>
         <br>
-        <input v-model="teamName" type="text"/>
+        <input class="activate-input" v-model="teamName" type="text"/>
       </div>
     </div>
     <div class="create-value-name">
       <div class="input-group">
-        <label>Leader Name</label>
+        <label class="activate-label">Leader Name</label>
         <span class="error-message" v-if="errors.leaderName">*Require</span>
         <br>
-        <input v-model="leaderName" type="text"/>
+        <input class="activate-input" v-model="leaderName" type="text"/>
       </div>
     </div>
     <div class="create-value-name">
       <div class="input-group">
-        <label>Phone Number</label>
+        <label class="activate-label">Phone Number</label>
         <span class="error-message" v-if="errors.phone">*Require</span>
         <br>
-        <input v-model="phone" type="number" min="1"/>
+        <input class="activate-input" v-model="phone" type="number" min="1"/>
       </div>
     </div>
     <div v-if="!this.$route.params.id" class="create-value-name">
       <div class="input-group">
-        <label>First Time Password</label>
+        <label class="activate-label">First Time Password</label>
         <span class="error-message" v-if="errors.ftPassword">*Require</span>
         <br>
-        <input v-model="ftPassword" type="password"/>
+        <input class="activate-input" v-model="ftPassword" type="password"/>
       </div>
     </div>
     <div class="create-value-name">
       <div class="input-group">
-        <label>Man Power</label>
+        <label class="activate-label">Man Power</label>
         <span class="error-message" v-if="errors.manPower">*Require</span>
         <br>
-        <input v-model="manPower" type="number" min="1"/>
+        <input class="activate-input" v-model="manPower" type="number" min="1"/>
       </div>
     </div>
     <div class="create-button">

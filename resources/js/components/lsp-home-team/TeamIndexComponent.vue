@@ -19,7 +19,7 @@
 
     <div class="create-new-team-button">
       <router-link :to="{name: 'team-create'}">
-        <span class="waves-effect waves-light btn orange">
+        <span class="add-button-style">
           <i class="fas fa-plus"></i>
           <span>Create New Team</span>
         </span>
@@ -54,7 +54,7 @@ export default {
       this.teams = response.data.data
     },
     getTeams() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/teams')
+      axios.get(this.base_url + 'teams')
         .then( response => { this.bindTeams(response) } )
         .catch( console.log('Error') );
     }

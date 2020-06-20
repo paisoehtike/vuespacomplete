@@ -26,6 +26,12 @@
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
+        <div v-else class="order-type">
+          <p>Due Date : <span>N/A</span></p>
+        </div>
+        <div class="order-type">
+          <p>Remark : <span>{{detail.remark}}</span></p>
+        </div>
         <div v-if="detail.priority_level != null" class="order-type">
           <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
         </div>
@@ -44,7 +50,8 @@
       :requestType="orderType"
       :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
 
-      <AssignOrSwitchTeamComponent v-else 
+      <AssignOrSwitchTeamComponent v-else
+      @reload="refresh" 
       :customer="detail"
       :type="'Accept'"
       :teams="teams" 
@@ -83,14 +90,15 @@
       </OrderInfo> -->
     </div>
     <div class="order-button">
-      <router-link tag="div" :to="{ path: '/lsp-order/review/' + detail.id + '/survey'}" class="col s12 m6 l3 view-detail" v-if="orderType == 'installation'">
+      <div @click="toInstallationDetail" class="col s12 m6 l3 view-detail" v-if="orderType == 'installation'">
+        <p v-if="alert" class="no-record-alert">*No Installation Record Yet</p>
         <a>View Installation Detail</a>
-      </router-link>
+      </div>
       <router-link tag="div" :to="{ path: '/lsp-order/review/repair/' + detail.id }" class="col s12 m6 l3 view-detail" v-else>
         <a>View Repair Detail</a>
       </router-link>
       <div class="col s12 m6 l3 complete-btn">
-        <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Complete</a>
+        <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Finish</a>
       </div>
     </div>
   </div>
@@ -126,46 +134,15 @@ export default {
       detail: null,
       request_id: null,
       teams: null,
-      customer: {
-        name: "5531",
-        orderStep: "Installation",
-        date: "2020/3/19",
-        customerType: "VIP",
-        orderStep: "Installation",
-        customerName: "U Min Thant",
-        address: "Mingalar Taung Nyunt",
-        assigned: "Not Assigned",
-        priority: "24"
-      },
-      customerDetails: {
-        name: "Mg Mg",
-        accountNo: "YGNFX008",
-        rmn: "93123456",
-        ppoeName: "YGNFX008",
-        ppoePassword: "YGNFX008",
-        phone: "095385377",
-        address: "No(20), 19th Street,Latha Township, Yangon",
-        township: "Latha"
-      },
-      orderDetails: {
-        orderId: "5531",
-        orderType: "Relocation",
-        due: "22-02-2020",
-        status: "Splicing",
-        planName: "Premium",
-        promoName: "-",
-        createdDate: "17-02-2020"
-      },
-      customerType: "VVIP",
-      orderStep: "Splicing",
-      orderDetailID: "5531",
-      // orderType: "On Call",
-      issueType: "No Internet Connection",
-      dueDate: "2020/1/19",
-      priorityLevel: "24"
+      alert: false,
     };
   },
   methods: {
+    toInstallationDetail() {
+      if(this.detail.installation_step != null)
+      this.$router.push('/lsp-order/review/' + this.detail.id + '/survey')
+      this.alert = true
+    },
     refresh() {
       this.getDetail();
       this.getTeams();

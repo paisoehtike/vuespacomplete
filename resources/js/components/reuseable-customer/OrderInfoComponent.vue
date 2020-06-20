@@ -2,7 +2,7 @@
   <div class="order-info-container">
     <div class="order-info-row">
       <header>
-        <h5>order Info</h5>
+        <h5>Order Info</h5>
       </header>
     </div>
     <div class="order-info-detail-row">

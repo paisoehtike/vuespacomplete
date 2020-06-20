@@ -1,6 +1,9 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
+        <img src="/images/left_square.png" class="left-square">
+        <img src="/images/kite.png" class="kite">
+        <img src="/images/rectangle.png">
         <SignInAndFirstTimePassword
             @submit="formSubmit" 
             :type='"password"'
@@ -38,7 +41,7 @@ export default {
         },
         redirect(res) {
             if(res.status == 200) {
-                this.$router.push('/');
+                this.$router.push('/?phone=' + this.$route.params.phone);
             } 
         },
         authenticated(response) {

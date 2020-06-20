@@ -351,6 +351,14 @@
     margin: 10px 0 20px !important;
 }
 
+.show-or-hide {
+    position: relative;
+    left: 275px;
+    bottom: 51px;
+    font-size: 19px;
+    color: #292929;
+}
+
 .activate-input:not([readonly]) {
     box-sizing: border-box !important;
     background: #fff !important;
@@ -457,7 +465,7 @@
 
 .modal-box {
     position: fixed;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -60%);
     z-index: 99;

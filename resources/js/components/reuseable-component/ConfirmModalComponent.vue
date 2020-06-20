@@ -34,7 +34,7 @@
 
         <transition v-else name="slide" appear>
             <div class="modal-box" v-if="showModal">
-                <h3 class="text-center">You Cannot Undo This!</h3>
+                <h3 class="text-center">Are you sure to delete?</h3>
                 <button @click="showModal = false" class="remark-cancel-btn">Cancel</button>
                 <button @click="submitRemark" class="remark-save-btn">Confirm</button>
             </div>

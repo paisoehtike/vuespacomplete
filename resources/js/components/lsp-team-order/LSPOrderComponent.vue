@@ -68,6 +68,12 @@
         <div v-if="detail.due_date" class="order-type">
           <p>Due Date : <span>{{detail.due_date | format-date}}</span></p>
         </div>
+        <div v-else class="order-type">
+          <p>Due Date : <span>N/A</span></p>
+        </div>
+        <div class="order-type">
+          <p>Remark : <span>{{detail.remark}}</span></p>
+        </div>
         <div v-if="detail.priority_level != null" class="order-type">
           <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
         </div>
@@ -105,6 +111,7 @@
     <div class="team-order-button">
       <div @click="toSurvey" class="col s12 m6 l3 complete-btn">
         <a v-if="orderType == 'on_call'" class="waves-effect waves-light btn orange dynamic-btn">Repair</a>
+        <a v-else-if="detail.installation_step != null" class="waves-effect waves-light btn orange dynamic-btn">Continue Installation</a>
         <a v-else class="waves-effect waves-light btn orange dynamic-btn">Start Installation</a>
       </div>
     </div>
@@ -143,7 +150,7 @@ export default {
   },
   methods: {
     getDetail() {
-      axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type)
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=' + this.order_type)
       .then( response => { this.bindResponseData(response) })
       .catch(console.log('Something Went Wrong!'));
     },

@@ -1,11 +1,15 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
+        <img src="/images/left_square.png" class="left-square">
+        <img src="/images/kite.png" class="kite">
+        <img src="/images/rectangle.png">
         <SignInAndFirstTimePassword 
             @submit="formSubmit" 
             :type='"sign-in"' 
             :isAdmin="'Admin'"
-            :errorMessage="errorMessage">
+            :errorMessage="errorMessage"
+            :prePhoneNumber="prePhone">
             
             LSP
         </SignInAndFirstTimePassword>
@@ -26,6 +30,7 @@ export default {
     data() {
         return {
             errorMessage: null,
+            prePhone: null,
         }
     },
     methods: {
@@ -36,20 +41,26 @@ export default {
                 this.$router.push('/home/new');
             } else {
                 if(response.data.data.is_admin == 0 && response.data.data.is_password_change == 0) {
-                    this.$router.push('/lsp-team/first-time-password');
+                    this.$router.push('/lsp-team/first-time-password/' + response.data.data.phone);
                 } else {
                     this.$router.push('/lsp-home/remaining');
                 }
             }
         },
         formSubmit(formData) {
-            axios.post('https://5bb-lsp-dev.mm-digital-solutions.com/api/create_token', formData)
+            axios.post(this.base_url + 'create_token', formData)
             .then( response => {
                 this.authenticated(response);
             })
             .catch(error => {
-    			this.errorMessage = error.response.data.message;
+                this.errorMessage = error.response.data.message;
+                alert(error.response.data.message)
     		});
+        }
+    },
+    created() {
+        if(this.$route.query.phone) {
+            this.prePhone = this.$route.query.phone
         }
     }
 }

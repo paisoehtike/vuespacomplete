@@ -7,8 +7,14 @@
         </div>
         <div class="replace-item">
             <h3>Replace Items</h3>
-            <TeamInfo>
+            <TeamInfo v-if="detail.product_usage != null">
                 <TableRow v-for="(value,label) in detail.product_usage" :key="label" :label="label" :value="value" :type="'repair-detail'"></TableRow>
+            </TeamInfo>
+            <TeamInfo v-else>
+                <TableRow :label="'Onu_type'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Fiber_patch_cord'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Fiber_cable'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Onu_adapter'" :value="demy" :type="'repair-detail'"></TableRow>
             </TeamInfo>
         </div>
         <div class="remarks">
@@ -36,34 +42,19 @@ export default {
     data() {
         return {
             detail: null,
-            remarks: [
-                {
-                    remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-                    created_at: '2020/03/12 | 14:92'
-                },
-                {
-                    remark: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. In illo sapiente officiis. Officia inventore earum exercitationem sit reiciendis dicta iure!',
-                    created_at: '2020/03/12 | 14:92'
-                }
-            ],
-            issueLists: {
-                onuType: "ZTE",
-                fiberPatchCord: "SC_APC/SC_APC",
-                terminationBox: "1 Cores OTB",
-                odnIssue: "No Issue",
-                fiberCable: "500m",
+            demy: {
+                name: 'N/A'
             }
         }
     },
     methods: {
         getDetail() {
-            axios.get('https://5bb-lsp-dev.mm-digital-solutions.com/api/repair?on_call_request_id=' + this.$route.params.id)
+            axios.get(this.base_url + 'repair?on_call_request_id=' + this.$route.params.id)
             .then( response => { this.bindResponseData(response) })
             .catch(console.log('Something Went Wrong!'));
         },
         bindResponseData(response) {
             this.detail = response.data.data;
-            console.log(this.detail);
         },
     },
     created() {

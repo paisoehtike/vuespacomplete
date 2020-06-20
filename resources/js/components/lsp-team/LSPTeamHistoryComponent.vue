@@ -5,10 +5,10 @@
         <Header :type="'team'"></Header>
       </div>
       <div class="home-customer-header-button">
-        <HomeHeaderButton :firstUrl="url.remain" :secondUrl="url.history" :thirdUrl="url.complete">
+        <HomeHeaderButton :firstUrl="url.remain" :secondUrl="url.complete" :thirdUrl="url.history">
           <template v-slot:new>{{label.remain}}</template>
-          <template v-slot:accept>{{label.history}}</template>
-          <template v-slot:history>{{label.complete}}</template>
+          <template v-slot:accept>{{label.complete}}</template>
+          <template v-slot:history>{{label.history}}</template>
         </HomeHeaderButton>
       </div>
       <RequestList :type="'team'" :status="'lsp-team-history'"></RequestList>
