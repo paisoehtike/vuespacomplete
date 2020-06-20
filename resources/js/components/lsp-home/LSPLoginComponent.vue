@@ -1,6 +1,9 @@
 <template>
     <div class="order-container">
         <SquareImage></SquareImage>
+        <img src="/images/left_square.png" class="left-square">
+        <img src="/images/kite.png" class="kite">
+        <img src="/images/rectangle.png">
         <SignInAndFirstTimePassword 
             @submit="formSubmit" 
             :type='"sign-in"' 

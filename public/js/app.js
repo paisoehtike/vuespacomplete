@@ -2980,6 +2980,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6948,15 +6951,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       availableTeams: [],
       errorMessage: "Something Went Wrong!",
       apis: {
-        "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
-        accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
-        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
-        oncallNew: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
-        oncallAccepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
-        oncallHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",
-        lspTeamRemain: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
-        lspTeamHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history",
-        lspTeamComplete: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete"
+        "new": "https://5bb-lsp-staging.mm-digital-solutions.com/api/installation_requests?type=new",
+        accepted: "https://5bb-lsp-staging.mm-digital-solutions.com/api/installation_requests?type=accepted",
+        history: 'https://5bb-lsp-staging.mm-digital-solutions.com/api/installation_requests?type=history',
+        oncallNew: "https://5bb-lsp-staging.mm-digital-solutions.com/api/on_call_requests?type=new",
+        oncallAccepted: "https://5bb-lsp-staging.mm-digital-solutions.com/api/on_call_requests?type=accepted",
+        oncallHistory: "https://5bb-lsp-staging.mm-digital-solutions.com/api/on_call_requests?type=history",
+        lspTeamRemain: "https://5bb-lsp-staging.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
+        lspTeamHistory: "https://5bb-lsp-staging.mm-digital-solutions.com/api/lsp_team/home?type=history",
+        lspTeamComplete: "https://5bb-lsp-staging.mm-digital-solutions.com/api/lsp_team/home?type=complete"
       }
     };
   },
@@ -20217,6 +20220,15 @@ var render = function() {
     { staticClass: "order-container" },
     [
       _c("SquareImage"),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "left-square",
+        attrs: { src: "/images/left_square.png" }
+      }),
+      _vm._v(" "),
+      _c("img", { staticClass: "kite", attrs: { src: "/images/kite.png" } }),
+      _vm._v(" "),
+      _c("img", { attrs: { src: "/images/rectangle.png" } }),
       _vm._v(" "),
       _c(
         "SignInAndFirstTimePassword",
@@ -41063,7 +41075,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   data: function data() {
     return {
       get base_url() {
-        return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+        return "https://5bb-lsp-staging.mm-digital-solutions.com/api/";
       }
 
     };

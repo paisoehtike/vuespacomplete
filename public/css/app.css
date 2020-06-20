@@ -30,6 +30,21 @@
   color: red;
 }
 
+.order-container .left-square,
+.order-container .kite {
+  position: absolute;
+}
+
+.order-container .left-square {
+  bottom: -35px;
+  left: -16px;
+}
+
+.order-container .kite {
+  right: 20px;
+  bottom: 10px;
+}
+
 .order-container .order-header-row {
   display: flex;
   margin-top: 16px;
