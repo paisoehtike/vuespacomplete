@@ -8733,9 +8733,9 @@ __webpack_require__.r(__webpack_exports__);
  // Add the Firebase products that you want to use
 
 
- // let base_url = 'https://5bb-lsp-dev.mm-digital-solutions.com'
 
-var base_url = 'https://5bb-lsp-staging.mm-digital-solutions.com';
+var base_url = 'https://5bb-lsp-dev.mm-digital-solutions.com'; // let base_url = 'https://5bb-lsp-staging.mm-digital-solutions.com'
+
 var firebaseConfig = {
   apiKey: "AIzaSyA9PKyAAFcWZ3CkKuH2CRKfy-uSLAyOV_I",
   authDomain: "bb-lsp-team.firebaseapp.com",
