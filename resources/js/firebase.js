@@ -83,6 +83,7 @@ function getCookie(name) {
 function sendTokenToServer(token) {
     let splittedUrl = window.location.pathname.split("/");
     if (splittedUrl[1] == "lsp-home") {
+        alert(1)
         Axios.post(`${base_url}/api/lsp_team/fcm-web-team-tokens`,
             {
                 device_id: token,
