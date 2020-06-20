@@ -81,24 +81,25 @@ function getCookie(name) {
 }
 
 function sendTokenToServer(token) {
+    let splittedUrl = window.location.pathname.split("/");
+    if (splittedUrl[1] == "lsp-home") {
+        Axios.post(`${base_url}/api/lsp_team/fcm-web-team-tokens`,
+            {
+                device_id: token,
+                type: 'team'
+            },
+            headerConfig)
+            .then(response => console.log(response.data))
+            .catch(err => console.log('Unable to stor token.', err))
 
-    Axios.post(`${base_url}/api/fcm-web-tokens`,
-        {
-            device_id: token,
-            type: 'web'
-        },
-        headerConfig)
-        .then(response => console.log(response.data))
-        .catch(err => console.log('Unable to stor token.', err))
-
-
-    Axios.post(`${base_url}/api/lsp_team/fcm-web-team-tokens`,
-        {
-            device_id: token,
-            type: 'team'
-        },
-        headerConfig)
-        .then(response => console.log(response.data))
-        .catch(err => console.log('Unable to stor token.', err))
-
+    } else {
+        Axios.post(`${base_url}/api/fcm-web-tokens`,
+            {
+                device_id: token,
+                type: 'web'
+            },
+            headerConfig)
+            .then(response => console.log(response.data))
+            .catch(err => console.log('Unable to stor token.', err))
+    }
 }
