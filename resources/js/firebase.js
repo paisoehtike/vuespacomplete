@@ -5,7 +5,8 @@ import * as firebase from "firebase/app";
 import "firebase/messaging";
 import Axios from "axios";
 
-let base_url = 'https://5bb-lsp-dev.mm-digital-solutions.com'
+// let base_url = 'https://5bb-lsp-dev.mm-digital-solutions.com'
+let base_url = 'https://5bb-lsp-staging.mm-digital-solutions.com'
 
 var firebaseConfig = {
     apiKey: "AIzaSyA9PKyAAFcWZ3CkKuH2CRKfy-uSLAyOV_I",
