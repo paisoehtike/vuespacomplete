@@ -159,15 +159,15 @@ export default {
       availableTeams: [],
       errorMessage: "Something Went Wrong!",
       apis: {
-        new: "https://5bb-lsp-staging.mm-digital-solutions.com/api/installation_requests?type=new",
-        accepted: "https://5bb-lsp-staging.mm-digital-solutions.com/api/installation_requests?type=accepted",
-        history: 'https://5bb-lsp-staging.mm-digital-solutions.com/api/installation_requests?type=history',
-        oncallNew: "https://5bb-lsp-staging.mm-digital-solutions.com/api/on_call_requests?type=new",
-        oncallAccepted: "https://5bb-lsp-staging.mm-digital-solutions.com/api/on_call_requests?type=accepted",
-        oncallHistory: "https://5bb-lsp-staging.mm-digital-solutions.com/api/on_call_requests?type=history",
-        lspTeamRemain: "https://5bb-lsp-staging.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
-        lspTeamHistory: "https://5bb-lsp-staging.mm-digital-solutions.com/api/lsp_team/home?type=history",
-        lspTeamComplete: "https://5bb-lsp-staging.mm-digital-solutions.com/api/lsp_team/home?type=complete"
+        new: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
+        accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
+        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
+        oncallNew: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
+        oncallAccepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
+        oncallHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",
+        lspTeamRemain: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
+        lspTeamHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history",
+        lspTeamComplete: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete"
       },
     };
   },
