@@ -5192,6 +5192,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -23028,6 +23031,15 @@ var render = function() {
     { staticClass: "order-container" },
     [
       _c("SquareImage"),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "left-square",
+        attrs: { src: "/images/left_square.png" }
+      }),
+      _vm._v(" "),
+      _c("img", { staticClass: "kite", attrs: { src: "/images/kite.png" } }),
+      _vm._v(" "),
+      _c("img", { attrs: { src: "/images/rectangle.png" } }),
       _vm._v(" "),
       _c(
         "SignInAndFirstTimePassword",
