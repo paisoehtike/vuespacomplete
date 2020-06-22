@@ -8806,7 +8806,6 @@ function sendTokenToServer(token) {
   var splittedUrl = window.location.pathname.split("/");
 
   if (splittedUrl[1] == "lsp-home") {
-    alert(1);
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("".concat(base_url, "/api/lsp_team/fcm-web-team-tokens"), {
       device_id: token,
       type: 'team'
@@ -8836,7 +8835,7 @@ function sendTokenToServer(token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/phoenix/Desktop/5BB/lsp/resources/js/firebase.js */"./resources/js/firebase.js");
+module.exports = __webpack_require__(/*! /Users/william/Desktop/mmds/S-5BB-LSP-Web/resources/js/firebase.js */"./resources/js/firebase.js");
 
 
 /***/ })

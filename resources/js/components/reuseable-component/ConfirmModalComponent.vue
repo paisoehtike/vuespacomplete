@@ -19,12 +19,16 @@
                 <div>
                     <label class="activate-label">New Password</label>
                     <span v-if="errors.newPassword">{{ errors.newPassword }}</span>
-                    <input v-model="newPassword" class="activate-input" type="password" name="phone">
+                    <input v-model="newPassword" class="activate-input" :type="isShowPassword"  name="phone">
+                    <i @click="showHidePassword" v-if="changeState == true" class="far fa-eye show-or-hide"></i>
+                    <i @click="showHidePassword" v-else class="fas fa-eye-slash show-or-hide"></i>
                 </div>
                 <div>
                     <label class="activate-label">Confirm Password</label>
                     <span v-if="errors.confirmPassword">{{ errors.confirmPassword }}</span>
-                    <input v-model="confirmPassword" class="activate-input" type="password" name="password">
+                    <input v-model="confirmPassword" class="activate-input" :type="isShow"  name="password">
+                    <i @click="showHide" v-if="changeStatePassword == true" class="far fa-eye show-or-hide"></i>
+                    <i @click="showHide" v-else class="fas fa-eye-slash show-or-hide"></i>
                 </div>
                 <div class="reset-button-container">
                     <button @click="resetPassword" class="remark-save-btn">Reset Now</button>
@@ -51,6 +55,10 @@ export default {
             newPassword: null,
             confirmPassword: null,
             isMatch: null,
+            changeState: true,
+            changeStatePassword: true,
+            isShowPassword: 'password',
+            isShow: 'password',
             errors: {
                 newPassword: null,
                 confirmPassword: null,
@@ -62,6 +70,24 @@ export default {
         submitRemark() {
             this.$emit('delete-confirm');
             this.showModal = false;
+        },
+        showHide() {
+            if(this.isShow == 'password') {
+                this.isShow = 'text'
+                this.changeStatePassword = false
+            } else {
+                this.isShow = 'password'
+                this.changeStatePassword = true
+            }
+        },
+        showHidePassword() {
+            if(this.isShowPassword == 'password') {
+                this.isShowPassword = 'text'
+                this.changeState = false
+            } else {
+                this.isShowPassword = 'password'
+                this.changeState = true
+            }
         },
         resetPassword() {
             if(this.newPassword !== this.confirmPassword) {

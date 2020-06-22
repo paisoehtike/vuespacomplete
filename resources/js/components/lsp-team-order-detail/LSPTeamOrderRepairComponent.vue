@@ -144,6 +144,7 @@ export default {
             }
         },
         storeRepair() {
+            if(this.fiber_cable_length == "") this.fiber_cable_length = null
             axios.post(this.base_url + 'lsp_team/repair_store',
                 {
                     on_call_request_id: this.$route.params.id,

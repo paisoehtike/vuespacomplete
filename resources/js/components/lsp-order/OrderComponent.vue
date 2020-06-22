@@ -98,6 +98,7 @@
         <a>View Repair Detail</a>
       </router-link>
       <div class="col s12 m6 l3 complete-btn">
+        <p v-if="completeAlert" class="no-record-alert">*Doesn't Complete Yet</p>
         <a @click="acceptByLsp" class="waves-effect waves-light btn orange">Finish</a>
       </div>
     </div>
@@ -135,13 +136,17 @@ export default {
       request_id: null,
       teams: null,
       alert: false,
-    };
+      completeAlert: false
+    }
   },
   methods: {
     toInstallationDetail() {
-      if(this.detail.installation_step != null)
-      this.$router.push('/lsp-order/review/' + this.detail.id + '/survey')
-      this.alert = true
+      if(this.detail.installation_step != null) {
+        this.$router.push('/lsp-order/review/' + this.detail.id + '/survey')
+      } else {
+        this.alert = true
+        alert('No Installation Record Yet!')
+      }
     },
     refresh() {
       this.getDetail();
@@ -149,8 +154,14 @@ export default {
     },
     acceptByLsp() {
       if (this.orderType == 'installation' || this.orderType == 'relocation') {
-        axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id)
-        .then( res => { console.log(res) } ).catch(console.log('Error'));
+        if(this.detail.step == null || this.detail.step.name != 'Activation') {
+          this.completeAlert = true
+          alert("Doesn't Complete Yet!")
+        } else {
+          axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id)
+          .then( res => { if(res.data.code == 200) alert('Finish Successfully!') } ).catch(console.log('Error'));
+        }
+        
       } else {
         axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id)
         .then( res => { console.log(res) } ).catch(console.log('Error'));

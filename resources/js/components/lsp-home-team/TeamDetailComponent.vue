@@ -40,9 +40,10 @@
           >{{customer.priority_level.name}} </template>
         </CustomerIssueDate>
         <CustomerDetailChip
-          slot="customer-detail-chip"
-          :value="customer.name"
-          :address="customer.customer_detail.township.name"
+            slot="customer-detail-chip"
+            :value="customer.name"
+            :address="customer"
+            :remark="customer.remark"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
           <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
@@ -70,9 +71,10 @@
           >{{customer.priority_level.name}} </template>
         </CustomerIssueDate>
         <CustomerDetailChip
-          slot="customer-detail-chip"
-          :value="customer.name"
-          :address="customer.customer_detail.township.name"
+            slot="customer-detail-chip"
+            :value="customer.name"
+            :address="customer"
+            :remark="customer.remark"
         ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
           <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
@@ -100,10 +102,11 @@
           >{{customer.priority_level.name}} </template>
         </CustomerIssueDate>
         <CustomerDetailChip
-          slot="customer-detail-chip"
-          :value="customer.name"
-          :address="customer.customer_detail.township.name"
-        ></CustomerDetailChip>
+            slot="customer-detail-chip"
+            :value="customer.name"
+            :address="customer"
+            :remark="customer.remark"
+          ></CustomerDetailChip>
         <CustomerHomeFooterButton slot="customer-home-footer">
           <template v-if="customer.lsp_team != null" v-slot:assign>{{customer.lsp_team.name}}</template>
           <a class="btn" slot="button">Accept</a>

@@ -166,7 +166,15 @@ export default {
     },
     toSurvey() {
       if(this.order_type == 'installation') {
-        this.$router.push({ name: 'LSPTeamOrderSurvey', params: { id: this.detail.id } });
+        if(this.detail.step == null || this.detail.step.name == 'Survey') {
+          this.$router.push({ name: 'LSPTeamOrderSurvey', params: { id: this.detail.id } });
+        } else if(this.detail.step.name == 'Cabling') {
+          this.$router.push({ name: 'LSPTeamOrderCabling', params: { id: this.detail.id } });
+        } else if(this.detail.step.name == 'Splicing') {
+          this.$router.push({ name: 'LSPTeamOrderSplicing', params: { id: this.detail.id } });
+        } else if(this.detail.step.name == 'Activation') {
+          this.$router.push({ name: 'LSPTeamOrderActivate', params: { id: this.detail.id } });
+        }
       } else {
         this.$router.push({ name: 'LSPTeamOrderRepair', params: { id: this.detail.id } });
       }

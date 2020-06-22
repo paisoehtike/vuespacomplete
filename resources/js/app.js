@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './router';
+import moment from "moment";
+
 var VueCookie = require('vue-cookie');
 const axios = require('axios');
 
@@ -42,8 +44,13 @@ Vue.filter('capitalize', function (value) {
 
 Vue.filter('passOrFail', function (value) {
     if (value == 'true') return 'Pass'
-    return 'Fail'
+    if (value == 'false') return 'Fail'
+    return '-'
 });
+
+Vue.filter('dateFormatAgo', function (value) {
+    return moment(value, "YYYYMMDD").fromNow();
+})
 
 const app = new Vue({
     el: '#app',

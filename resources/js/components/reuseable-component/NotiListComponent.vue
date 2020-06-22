@@ -6,7 +6,10 @@
                 <i class="fas fa-bell"></i>
                 <div v-if="data.is_read == 0" class="noti-red-dot"></div>
             </div>
-            <p>{{ data.noti_message }}</p>
+            <div>
+                <p>{{ data.noti_message }}</p>
+                <span>{{ data.created_at | dateFormatAgo }}</span>
+            </div>
             <i class="fas fa-angle-right"></i>
         </div>
         <hr>

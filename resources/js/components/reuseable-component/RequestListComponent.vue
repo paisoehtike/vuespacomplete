@@ -14,7 +14,7 @@
               >{{request.due_date | format-date}}</template>
             <template
               v-slot:priority-date
-              v-if="request.priority_level != null"
+              v-if="request.priority_level != null && request.priority_level.name != 'Default'"
             >{{request.priority_level.name}} </template>
             <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
@@ -22,7 +22,7 @@
           <CustomerDetailChip
             slot="customer-detail-chip"
             :value="request.name"
-            :address="request.address"
+            :address="request"
             :remark="request.remark"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
@@ -80,7 +80,7 @@
             <CustomerDetailChip
               slot="customer-detail-chip"
               :value="request.name"
-              :address="request.customer_detail.address"
+              :address="request"
               :remark="request.remark"
             ></CustomerDetailChip>
             <h2 v-if="request.lsp_team != null">Assigned Team :</h2>
@@ -313,6 +313,15 @@ export default {
       res.data.data.forEach(element => {
         this.availableTeams.push(element)
       });
+    }
+  },
+  watch: {
+    showModal(val) {
+      if (val) {
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        document.documentElement.style.overflow = "auto";
+      }
     }
   },
   created() {

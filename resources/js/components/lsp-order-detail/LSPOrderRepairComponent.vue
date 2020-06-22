@@ -11,10 +11,10 @@
                 <TableRow v-for="(value,label) in detail.product_usage" :key="label" :label="label" :value="value" :type="'repair-detail'"></TableRow>
             </TeamInfo>
             <TeamInfo v-else>
-                <TableRow :label="'Onu_type'" :value="demy" :type="'repair-detail'"></TableRow>
-                <TableRow :label="'Fiber_patch_cord'" :value="demy" :type="'repair-detail'"></TableRow>
-                <TableRow :label="'Fiber_cable'" :value="demy" :type="'repair-detail'"></TableRow>
-                <TableRow :label="'Onu_adapter'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Onu Type'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Fiber Patch Cord'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Fiber Cable'" :value="demy" :type="'repair-detail'"></TableRow>
+                <TableRow :label="'Onu Adapter'" :value="demy" :type="'repair-detail'"></TableRow>
             </TeamInfo>
         </div>
         <div class="remarks">
@@ -43,7 +43,7 @@ export default {
         return {
             detail: null,
             demy: {
-                name: 'N/A'
+                name: '-'
             }
         }
     },

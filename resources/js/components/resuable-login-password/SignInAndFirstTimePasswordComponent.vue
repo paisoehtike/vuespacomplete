@@ -10,7 +10,8 @@
             <span v-if="errors.phone">{{ errors.phone }}</span>
             <div v-if="type == 'password'">
                 <input v-model="phone" class="activate-input" :type="isShowPassword" name="phone">
-                <i @click="showHidePassword" class="far fa-eye show-or-hide"></i>
+                <i @click="showHidePassword" v-if="changeState == true" class="far fa-eye show-or-hide"></i>
+                <i @click="showHidePassword" v-else class="fas fa-eye-slash show-or-hide"></i>
             </div>
             <input v-else v-model="phone" class="activate-input" type="number" min="1" name="phone">
         </div>
@@ -20,7 +21,8 @@
             <span v-if="errors.password">{{ errors.password }}</span>
             <div>
                 <input v-model="password" class="activate-input" :type="isShow" name="password">
-                <i @click="showHide" class="far fa-eye show-or-hide"></i>
+                <i @click="showHide" v-if="changeStatePassword == true" class="far fa-eye show-or-hide"></i>
+                <i @click="showHide" v-else class="fas fa-eye-slash show-or-hide"></i>
             </div>
         </div>
         <div class="right">
@@ -49,6 +51,8 @@ export default {
         return {
             isShow: 'password',
             isShowPassword: 'password',
+            changeState: true,
+            changeStatePassword: true,
             isSignIn: true,
             phone: null,
             password: null,
@@ -64,15 +68,19 @@ export default {
         showHide() {
             if(this.isShow == 'password') {
                 this.isShow = 'text'
+                this.changeStatePassword = false
             } else {
                 this.isShow = 'password'
+                this.changeStatePassword = true
             }
         },
         showHidePassword() {
             if(this.isShowPassword == 'password') {
                 this.isShowPassword = 'text'
+                this.changeState = false
             } else {
                 this.isShowPassword = 'password'
+                this.changeState = true
             }
         },
         formSubmit() {
