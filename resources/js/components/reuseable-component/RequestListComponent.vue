@@ -40,6 +40,8 @@
             </template>
           </CustomerHomeFooterButton>
         </Customer>
+        
+        <p v-if="noRecordYet" class="no-record-yet-message">No Record Yet!</p>
 
         <transition name="fade" appear>
           <div class="modal-box1" v-if="showModal" @click="showModal = false"></div>
@@ -158,6 +160,7 @@ export default {
       request: null,
       availableTeams: [],
       errorMessage: "Something Went Wrong!",
+      noRecordYet: false,
       apis: {
         new: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
         accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
@@ -202,6 +205,9 @@ export default {
       this.teamId = team.id;
     },
     bindResponseData(response) {
+      if(!response.data.data.length) {
+        this.noRecordYet = true
+      }
       response.data.data.forEach(result => {
         this.requests.push(result);
       });

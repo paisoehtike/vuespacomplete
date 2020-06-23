@@ -8,6 +8,11 @@
     .home-customer-header-button,
     .home-customer-footer-button {
       grid-column: 2/3;
+
+      .no-record-yet-message {
+        text-align: center;
+        color: #d3d3d3;
+      }
     }
     
     .home-customer-row {

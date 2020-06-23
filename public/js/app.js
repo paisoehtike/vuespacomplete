@@ -7032,6 +7032,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -7067,6 +7069,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       request: null,
       availableTeams: [],
       errorMessage: "Something Went Wrong!",
+      noRecordYet: false,
       apis: {
         "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
         accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
@@ -7111,6 +7114,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     bindResponseData: function bindResponseData(response) {
       var _this2 = this;
+
+      if (!response.data.data.length) {
+        this.noRecordYet = true;
+      }
 
       response.data.data.forEach(function (result) {
         _this2.requests.push(result);
@@ -46672,6 +46679,12 @@ var render = function() {
           1
         )
       }),
+      _vm._v(" "),
+      _vm.noRecordYet
+        ? _c("p", { staticClass: "no-record-yet-message" }, [
+            _vm._v("No Record Yet!")
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
         _vm.showModal
