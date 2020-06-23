@@ -32,7 +32,7 @@
               >{{customer.due_date | format-date}}</template>
               <template
                 v-slot:priority-date
-                v-if="customer.priority_level != null"
+                v-if="customer.priority_level != null && customer.priority_level.name != 'Default'"
               >{{customer.priority_level.name}}</template>
               <template v-slot:issue v-if="customer.issue != null">{{ customer.issue.name }}</template>
             </CustomerIssueDate>
@@ -41,9 +41,15 @@
         <CustomerDetailChip
           slot="customer-detail-chip"
           :value="customer.name"
-          :address="customer.customer_detail.address"
+          :address="customer"
           :remark="customer.remark"
         ></CustomerDetailChip>
+        <!-- <CustomerDetailChip
+            slot="customer-detail-chip"
+            :value="request.name"
+            :address="request"
+            :remark="request.remark"
+        ></CustomerDetailChip>-->
         <h2 v-if="type == 'Accept'">Assigned Team :</h2>
         <Teams v-if="type == 'Accept'">
           <template v-slot:team-name>{{assignedTeam.name}}</template>
@@ -118,9 +124,9 @@ export default {
       if (this.type == "New") {
         this.assignOrSwitch = "Assign";
         this.teams &&
-        this.teams.forEach(element => {
-          this.availableTeams.push(element);
-        });
+          this.teams.forEach(element => {
+            this.availableTeams.push(element);
+          });
       } else {
         this.teams &&
           this.teams.forEach(element => {
@@ -154,13 +160,19 @@ export default {
         .catch(console.log("Error"));
     }
   },
-  created(){
+  created() {
     this.isAssigned();
   },
   watch: {
     teams(val) {
-        if(val.length)
-      this.isAssigned();
+      if (val.length) this.isAssigned();
+    },
+    showModal(val) {
+      if (val) {
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        document.documentElement.style.overflow = "auto";
+      }
     }
   }
 };

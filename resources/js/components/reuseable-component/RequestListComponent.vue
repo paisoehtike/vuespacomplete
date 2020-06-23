@@ -14,7 +14,7 @@
               >{{request.due_date | format-date}}</template>
             <template
               v-slot:priority-date
-              v-if="request.priority_level != null"
+              v-if="request.priority_level != null && request.priority_level.name != 'Default'"
             >{{request.priority_level.name}} </template>
             <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
           </CustomerIssueDate>
@@ -22,7 +22,7 @@
           <CustomerDetailChip
             slot="customer-detail-chip"
             :value="request.name"
-            :address="request.address"
+            :address="request"
             :remark="request.remark"
           ></CustomerDetailChip>
           <CustomerHomeFooterButton v-show="type !== 'team'" slot="customer-home-footer">
@@ -80,7 +80,7 @@
             <CustomerDetailChip
               slot="customer-detail-chip"
               :value="request.name"
-              :address="request.customer_detail.address"
+              :address="request"
               :remark="request.remark"
             ></CustomerDetailChip>
             <h2 v-if="request.lsp_team != null">Assigned Team :</h2>
@@ -264,9 +264,10 @@ export default {
               request.id
             )
             .then(response => {
+              if(response.data.code == 200) alert('Successfully Professed!')
               this.filterRequest(request.id);
             })
-            .catch(this.errorMessage);
+            .catch(console.log('Error'));
         } else {
           axios
             .post(
@@ -274,9 +275,10 @@ export default {
                 request.id
             )
             .then(response => {
+              if(response.data.code == 200) alert('Successfully Professed!')
               this.filterRequest(request.id);
             })
-            .catch(this.errorMessage);
+            .catch(console.log('Error'));
         }
       } else if(event.target.id == "assignOrSwitch") {
         this.request = request
@@ -305,14 +307,25 @@ export default {
       this.$router.push({ name: 'lsp-order', params: { id: request.id, orderType: request.request_type }});
     },
     getTeams() {
-      axios.get(this.base_url + 'team_lists')
-      .then( res => { this.bindTeams(res) } )
-      .catch( console.log('Something Went Wrong!') );
+      if(this.type == 'admin' && this.status == 'accepted' || this.status == 'oncall-accepted') {
+        axios.get(this.base_url + 'team_lists')
+        .then( res => { this.bindTeams(res) } )
+        .catch( console.log('Something Went Wrong!') );
+      }
     },
     bindTeams(res) {
       res.data.data.forEach(element => {
         this.availableTeams.push(element)
       });
+    }
+  },
+  watch: {
+    showModal(val) {
+      if (val) {
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        document.documentElement.style.overflow = "auto";
+      }
     }
   },
   created() {

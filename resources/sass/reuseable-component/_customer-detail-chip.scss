@@ -7,11 +7,12 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 8% 92%;
-    align-items: center;
+    align-items: self-start;
     min-height: 20px;
 
     i {
       margin-right: 7px;
+      margin-top: 4px;
     }
     i,span {
         color: $text-gery;

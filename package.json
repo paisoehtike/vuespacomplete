@@ -22,6 +22,7 @@
     "dependencies": {
         "firebase": "^7.15.2",
         "materialize-css": "^1.0.0-rc.2",
+        "moment": "^2.27.0",
         "swiper": "^5.3.6",
         "vue": "^2.6.11",
         "vue-awesome-swiper": "^4.0.4",

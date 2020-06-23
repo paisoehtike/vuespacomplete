@@ -197,7 +197,7 @@ export default {
             fdt: null,
             fats: null,
             fat: null,
-            fat_ports: null,
+            fat_ports: [],
             fat_port: null,
             fiber_cable_length: null,
 
@@ -225,6 +225,10 @@ export default {
             this.fdtSearchIndex = null
         },
         storeOnuStep() {
+            Object.keys(this.errors).forEach(key => {
+                this.errors[key] = false
+            })
+            
             if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true
             if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true
             if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true
@@ -236,28 +240,30 @@ export default {
 
             if(!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId) {
                 axios.post(`${this.base_url}lsp_team/activation_store`,
-                    {
-                        olt_id: this.olt,
-                        fdt_id: this.fdt,
-                        fat_id: this.fat,
-                        fat_port_id: this.fat_port,
-                        installation_request_id: this.$route.params.id,
-                        onu_type_id: this.onuId,
-                        onu_type_quantity: 1,
-                        fiber_patch_cord_id: this.fpcId,
-                        fiber_patch_cord_quantity: 1,
-                        fiber_cable_id: this.fiber_cable[0].id,
-                        fiber_cable_length: this.fiber_cable_length,
-                        onu_adapter_id: this.onuAdapterId,
-                        onu_adapter_quantity: 1,
-                        type: 'installation'
-                    }).then( res => { console.log(res) } ).catch( console.log('Sry Pl!') )
-                }
+                {
+                    olt_id: this.olt,
+                    fdt_id: this.fdt,
+                    fat_id: this.fat,
+                    fat_port_id: this.fat_port,
+                    installation_request_id: this.$route.params.id,
+                    onu_type_id: this.onuId,
+                    onu_type_quantity: 1,
+                    fiber_patch_cord_id: this.fpcId,
+                    fiber_patch_cord_quantity: 1,
+                    fiber_cable_id: this.fiber_cable[0].id,
+                    fiber_cable_length: this.fiber_cable_length,
+                    onu_adapter_id: this.onuAdapterId,
+                    onu_adapter_quantity: 1,
+                    type: 'installation'
+                }).then( res => { 
+                    if(res.data.code == 200) alert('Successfully Processed')
+                 } ).catch( console.log('Sry Pl!') )
+            }
         },
         onFileSelected(e) {
             let files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
+            if (!files.length) return;
+            
             this.createImage(files[0]);
         },
         createImage(file) {
@@ -285,6 +291,7 @@ export default {
         appendImage(img) {
             this.images.push(img);
             this.image = null;
+            this.$refs.fileInput.value = null
         },
         deleteImage(img) {
             axios.post(`${this.base_url}lsp_team/image_delete/${img.id}`)
@@ -337,6 +344,7 @@ export default {
                     }
                     if (res.data.data.fat_port) {
                         this.fat_port = res.data.data.fat_port.id;
+                        this.fat_ports.push(res.data.data.fat_port);
                     }
                     
                     this.onu_sn = res.data.data.onu_sn;
@@ -377,10 +385,11 @@ export default {
             axios.post(this.base_url + 'lsp_team/installation_step', 
                 {
                     installation_request_id: this.$route.params.id,
-                    step: 'splicing'
+                    step: 'activation'
                 }
             ).then( res => { 
                 if(res.status == 200) {
+                    alert('Successfully Processed!')
                     this.$router.push('/lsp-home/remaining');
                 }
             } ).catch( console.log('Error') );
@@ -448,7 +457,9 @@ export default {
         getFatPort() {
             axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
             .then( res => {
-                this.fat_ports = res.data.data
+                res.data.data.forEach(element => {
+                    this.fat_ports.push(element)
+                });
                 if (!this.fat_port) {
                     this.fat_port = ''
                 }

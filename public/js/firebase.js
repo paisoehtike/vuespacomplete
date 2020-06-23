@@ -8764,7 +8764,7 @@ Notification.requestPermission().then(function (permission) {
 
 messaging.getToken().then(function (token) {
   if (token) {
-    console.log('Token', token);
+    // console.log('Token', token)
     sendTokenToServer(token);
   } else {
     // Show permission request.
@@ -8776,7 +8776,7 @@ messaging.getToken().then(function (token) {
 
 messaging.onTokenRefresh(function () {
   messaging.getToken().then(function (refreshedToken) {
-    console.log('Token refreshed.', refreshedToken);
+    // console.log('Token refreshed.', refreshedToken);
     sendTokenToServer(refreshedToken);
   })["catch"](function (err) {
     console.log('Unable to retrieve refreshed token ', err);
@@ -8806,7 +8806,6 @@ function sendTokenToServer(token) {
   var splittedUrl = window.location.pathname.split("/");
 
   if (splittedUrl[1] == "lsp-home") {
-    alert(1);
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("".concat(base_url, "/api/lsp_team/fcm-web-team-tokens"), {
       device_id: token,
       type: 'team'
@@ -8836,7 +8835,7 @@ function sendTokenToServer(token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/phoenix/Desktop/5BB/lsp/resources/js/firebase.js */"./resources/js/firebase.js");
+module.exports = __webpack_require__(/*! /Users/william/Desktop/mmds/S-5BB-LSP-Web/resources/js/firebase.js */"./resources/js/firebase.js");
 
 
 /***/ })

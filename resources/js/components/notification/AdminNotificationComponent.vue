@@ -31,7 +31,7 @@ export default {
         }
     },
     beforeMount() {
-        window.addEventListener("scroll", this.infiniteHandler)
+        document.addEventListener("scroll", this.infiniteHandler)
     },
     methods: {
         infiniteHandler() {
@@ -49,10 +49,12 @@ export default {
             this.total_page = res.data.meta.total_pages;
         },
         get() {
-            axios.get(`${this.base_url}admin_notification_lists?page=${this.page}`)
-            .then( res => {
-                this.bindData(res)
-            }).catch(console.log('Error'));
+            if(window.location.pathname == '/home/notification') {
+                axios.get(`${this.base_url}admin_notification_lists?page=${this.page}`)
+                .then( res => {
+                    this.bindData(res)
+                }).catch(console.log('Error'));
+            }
         }
     },
     mounted() {

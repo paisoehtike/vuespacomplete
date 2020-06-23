@@ -41,7 +41,7 @@ Notification.requestPermission().then((permission) => {
 // subsequent calls to getToken will return from cache.
 messaging.getToken().then((token) => {
     if (token) {
-        console.log('Token', token)
+        // console.log('Token', token)
         sendTokenToServer(token)
     } else {
         // Show permission request.
@@ -54,7 +54,7 @@ messaging.getToken().then((token) => {
 // Callback fired if Instance ID token is updated.
 messaging.onTokenRefresh(() => {
     messaging.getToken().then((refreshedToken) => {
-        console.log('Token refreshed.', refreshedToken);
+        // console.log('Token refreshed.', refreshedToken);
         sendTokenToServer(refreshedToken)
     }).catch((err) => {
         console.log('Unable to retrieve refreshed token ', err);
@@ -83,7 +83,6 @@ function getCookie(name) {
 function sendTokenToServer(token) {
     let splittedUrl = window.location.pathname.split("/");
     if (splittedUrl[1] == "lsp-home") {
-        alert(1)
         Axios.post(`${base_url}/api/lsp_team/fcm-web-team-tokens`,
             {
                 device_id: token,

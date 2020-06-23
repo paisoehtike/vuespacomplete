@@ -1,8 +1,8 @@
 <template>
     <div class="finish-section">
-        <button class="buttonFinish" :class="{buttonSave : isSave}">
+        <p class="buttonFinish" :class="{buttonSave : isSave}">
             {{ type }}
-        </button>
+        </p>
     </div>
 </template>
 
