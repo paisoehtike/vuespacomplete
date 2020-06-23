@@ -47408,30 +47408,14 @@ var render = function() {
           _c("p", [_vm._v("Man Power")])
         ]),
     _vm._v(" "),
-    _vm.response.data.assigned_order
+    _vm.response.data.assigned_order != null
       ? _c("div", { staticClass: "profile-body pb-2" }, [
-          _c("h5", [
-            _vm._v(
-              _vm._s(
-                _vm.response.data.assigned_order
-                  ? _vm.response.data.assigned_order
-                  : "0"
-              )
-            )
-          ]),
+          _c("h5", [_vm._v(_vm._s(_vm.response.data.assigned_order))]),
           _vm._v(" "),
           _c("p", [_vm._v("Assigned Order")])
         ])
       : _c("div", { staticClass: "profile-body pb-2" }, [
-          _c("h5", [
-            _vm._v(
-              _vm._s(
-                _vm.response.data.remaining_job
-                  ? _vm.response.data.remaining_job
-                  : "0"
-              )
-            )
-          ]),
+          _c("h5", [_vm._v(_vm._s(_vm.response.data.remaining_job))]),
           _vm._v(" "),
           _c("p", [_vm._v("Remaining")])
         ]),
@@ -47443,22 +47427,14 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.response.data.complete_job,
-            expression: "response.data.complete_job"
+            value: _vm.response.data.complete_job != null,
+            expression: "response.data.complete_job != null"
           }
         ],
         staticClass: "profile-body pb-3"
       },
       [
-        _c("h5", [
-          _vm._v(
-            _vm._s(
-              _vm.response.data.complete_job
-                ? _vm.response.data.complete_job
-                : "0"
-            )
-          )
-        ]),
+        _c("h5", [_vm._v(_vm._s(_vm.response.data.complete_job))]),
         _vm._v(" "),
         _c("p", [_vm._v("Complete")])
       ]
@@ -47471,20 +47447,14 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.response.data.assign_job,
-            expression: "response.data.assign_job"
+            value: _vm.response.data.assign_job != null,
+            expression: "response.data.assign_job != null"
           }
         ],
         staticClass: "profile-body pb-4"
       },
       [
-        _c("h5", [
-          _vm._v(
-            _vm._s(
-              _vm.response.data.assign_job ? _vm.response.data.assign_job : "0"
-            )
-          )
-        ]),
+        _c("h5", [_vm._v(_vm._s(_vm.response.data.assign_job))]),
         _vm._v(" "),
         _c("p", [_vm._v("History")])
       ]
