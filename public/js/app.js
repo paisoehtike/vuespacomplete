@@ -5664,7 +5664,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   beforeMount: function beforeMount() {
-    window.addEventListener("scroll", this.infiniteHandler);
+    document.addEventListener("scroll", this.infiniteHandler);
   },
   methods: {
     infiniteHandler: function infiniteHandler() {
@@ -5687,9 +5687,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     get: function get() {
       var _this2 = this;
 
-      axios.get("".concat(this.base_url, "admin_notification_lists?page=").concat(this.page)).then(function (res) {
-        _this2.bindData(res);
-      })["catch"](console.log('Error'));
+      if (window.location.pathname == '/home/notification') {
+        axios.get("".concat(this.base_url, "admin_notification_lists?page=").concat(this.page)).then(function (res) {
+          _this2.bindData(res);
+        })["catch"](console.log('Error'));
+      }
     }
   },
   mounted: function mounted() {
@@ -5745,8 +5747,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   methods: {
     infiniteHandler: function infiniteHandler() {
-      if (window.location.pathname != '/home/notification') return;
-
       if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
         if (this.page <= this.total_page) {
           this.get();
@@ -5768,9 +5768,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     get: function get() {
       var _this2 = this;
 
-      axios.get("".concat(this.base_url, "lsp_team/team_notification_lists?page=").concat(this.page)).then(function (res) {
-        _this2.bindData(res);
-      })["catch"](console.log('Error'));
+      if (window.location.pathname == '/lsp-team/notification') {
+        axios.get("".concat(this.base_url, "lsp_team/team_notification_lists?page=").concat(this.page)).then(function (res) {
+          _this2.bindData(res);
+        })["catch"](console.log('Error'));
+      }
     }
   },
   mounted: function mounted() {

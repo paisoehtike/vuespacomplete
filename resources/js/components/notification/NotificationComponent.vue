@@ -35,7 +35,6 @@ export default {
     },
     methods: {
         infiniteHandler() {
-            if(window.location.pathname != '/home/notification') return;
             if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
                 if (this.page <= this.total_page) {
                     this.get();
@@ -50,10 +49,12 @@ export default {
             this.total_page = res.data.meta.total_pages;
         },
         get() {
-            axios.get(`${this.base_url}lsp_team/team_notification_lists?page=${this.page}`)
-            .then( res => {
-                this.bindData(res)
-            }).catch(console.log('Error'));
+            if(window.location.pathname == '/lsp-team/notification') {
+                axios.get(`${this.base_url}lsp_team/team_notification_lists?page=${this.page}`)
+                .then( res => {
+                    this.bindData(res)
+                }).catch(console.log('Error'));
+            }
         }
     },
     mounted() {

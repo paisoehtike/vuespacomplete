@@ -8764,7 +8764,7 @@ Notification.requestPermission().then(function (permission) {
 
 messaging.getToken().then(function (token) {
   if (token) {
-    console.log('Token', token);
+    // console.log('Token', token)
     sendTokenToServer(token);
   } else {
     // Show permission request.
@@ -8776,7 +8776,7 @@ messaging.getToken().then(function (token) {
 
 messaging.onTokenRefresh(function () {
   messaging.getToken().then(function (refreshedToken) {
-    console.log('Token refreshed.', refreshedToken);
+    // console.log('Token refreshed.', refreshedToken);
     sendTokenToServer(refreshedToken);
   })["catch"](function (err) {
     console.log('Unable to retrieve refreshed token ', err);
