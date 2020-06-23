@@ -264,9 +264,10 @@ export default {
               request.id
             )
             .then(response => {
+              if(response.data.code == 200) alert('Successfully Professed!')
               this.filterRequest(request.id);
             })
-            .catch(this.errorMessage);
+            .catch(console.log('Error'));
         } else {
           axios
             .post(
@@ -274,9 +275,10 @@ export default {
                 request.id
             )
             .then(response => {
+              if(response.data.code == 200) alert('Successfully Professed!')
               this.filterRequest(request.id);
             })
-            .catch(this.errorMessage);
+            .catch(console.log('Error'));
         }
       } else if(event.target.id == "assignOrSwitch") {
         this.request = request
@@ -305,9 +307,11 @@ export default {
       this.$router.push({ name: 'lsp-order', params: { id: request.id, orderType: request.request_type }});
     },
     getTeams() {
-      axios.get(this.base_url + 'team_lists')
-      .then( res => { this.bindTeams(res) } )
-      .catch( console.log('Something Went Wrong!') );
+      if(this.type == 'admin' && this.status == 'accepted' || this.status == 'oncall-accepted') {
+        axios.get(this.base_url + 'team_lists')
+        .then( res => { this.bindTeams(res) } )
+        .catch( console.log('Something Went Wrong!') );
+      }
     },
     bindTeams(res) {
       res.data.data.forEach(element => {

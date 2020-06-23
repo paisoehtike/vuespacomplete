@@ -3855,9 +3855,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           })["catch"](console.log('Error'));
         }
       } else {
-        axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id).then(function (res) {
-          console.log(res);
-        })["catch"](console.log('Error'));
+        if (this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
+          this.completeAlert = true;
+          alert("Doesn't Complete Yet!");
+        } else {
+          axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id).then(function (res) {
+            if (res.data.code == 200) alert('Finish Successfully!');
+          })["catch"](console.log('Error'));
+        }
       }
     },
     getDetail: function getDetail() {
@@ -4100,7 +4105,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       fdt: null,
       fats: null,
       fat: null,
-      fat_ports: null,
+      fat_ports: [],
       fat_port: null,
       fiber_cable_length: null,
       fiber_cable: null,
@@ -4127,6 +4132,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.fdtSearchIndex = null;
     },
     storeOnuStep: function storeOnuStep() {
+      var _this = this;
+
+      Object.keys(this.errors).forEach(function (key) {
+        _this.errors[key] = false;
+      });
       if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true;
       if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true;
       if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true;
@@ -4153,7 +4163,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
           onu_adapter_quantity: 1,
           type: 'installation'
         }).then(function (res) {
-          console.log(res);
+          if (res.data.code == 200) alert('Successfully Processed');
         })["catch"](console.log('Sry Pl!'));
       }
     },
@@ -4172,7 +4182,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       });
     },
     uploadImage: function uploadImage() {
-      var _this = this;
+      var _this2 = this;
 
       var config = {
         headers: {
@@ -4183,7 +4193,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       formData.append('image', this.imageFile);
       formData.append('installation_request_id', this.$route.params.id);
       axios.post(this.base_url + 'lsp_team/image_store', formData, config).then(function (res) {
-        _this.appendImage(res.data.data);
+        _this2.appendImage(res.data.data);
       })["catch"](console.log('Cant Image'));
     },
     appendImage: function appendImage(img) {
@@ -4192,11 +4202,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.$refs.fileInput.value = null;
     },
     deleteImage: function deleteImage(img) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
         if (res.data.code == 200) {
-          _this2.images = _this2.images.filter(function (image) {
+          _this3.images = _this3.images.filter(function (image) {
             return image.id != img.id;
           });
         }
@@ -4224,53 +4234,55 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.remarks = remarks;
     },
     getActivate: function getActivate() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get(this.base_url + 'lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
-        _this3.loadPreImages(res.data.data.images);
+        _this4.loadPreImages(res.data.data.images);
 
-        _this3.loadPreRemarks(res.data.data.remarks);
+        _this4.loadPreRemarks(res.data.data.remarks);
 
-        _this3.ppoeUserName = res.data.data.ppoe_username;
-        _this3.ppoePassword = res.data.data.ppoe_password;
+        _this4.ppoeUserName = res.data.data.ppoe_username;
+        _this4.ppoePassword = res.data.data.ppoe_password;
 
         if (res.data.data.olt) {
-          _this3.olt = res.data.data.olt.id;
-          _this3.oltResult = res.data.data.olt.name;
+          _this4.olt = res.data.data.olt.id;
+          _this4.oltResult = res.data.data.olt.name;
         }
 
         if (res.data.data.fdt) {
-          _this3.fdt = res.data.data.fdt.id;
-          _this3.fdtResult = res.data.data.fdt.name;
+          _this4.fdt = res.data.data.fdt.id;
+          _this4.fdtResult = res.data.data.fdt.name;
         }
 
         if (res.data.data.fat) {
-          _this3.fat = res.data.data.fat.id;
+          _this4.fat = res.data.data.fat.id;
         }
 
         if (res.data.data.fat_port) {
-          _this3.fat_port = res.data.data.fat_port.id;
+          _this4.fat_port = res.data.data.fat_port.id;
+
+          _this4.fat_ports.push(res.data.data.fat_port);
         }
 
-        _this3.onu_sn = res.data.data.onu_sn;
+        _this4.onu_sn = res.data.data.onu_sn;
 
         if (res.data.data.product_usage.onu_type != null) {
-          _this3.selectedOnuType = res.data.data.product_usage.onu_type.id;
-          _this3.onuId = res.data.data.product_usage.onu_type.id;
+          _this4.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this4.onuId = res.data.data.product_usage.onu_type.id;
         }
 
         if (res.data.data.product_usage.fiber_patch_cord != null) {
-          _this3.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
-          _this3.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+          _this4.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this4.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
         }
 
         if (res.data.data.product_usage.onu_adapter != null) {
-          _this3.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
-          _this3.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+          _this4.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          _this4.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
         }
 
         if (res.data.data.product_usage.fiber_cable != null) {
-          _this3.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this4.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
         } // if(res.data.data.product_usage != null) {
         //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
         //     this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
@@ -4281,17 +4293,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get(this.base_url + 'lsp_team/activation_inventory').then(function (res) {
-        _this4.preconfig(res.data.data);
+        _this5.preconfig(res.data.data);
       })["catch"](console.log('Error'));
     },
     getActivation: function getActivation() {
       this.getActivate();
     },
     storeStep: function storeStep() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.post(this.base_url + 'lsp_team/installation_step', {
         installation_request_id: this.$route.params.id,
@@ -4300,15 +4312,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (res.status == 200) {
           alert('Successfully Processed!');
 
-          _this5.$router.push('/lsp-home/remaining');
+          _this6.$router.push('/lsp-home/remaining');
         }
       })["catch"](console.log('Error'));
     },
     getOlt: function getOlt() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get("".concat(this.base_url, "get_olt_lists")).then(function (res) {
-        _this6.olts = res.data.data;
+        _this7.olts = res.data.data;
       })["catch"](console.log('Error'));
     },
     setOltSearchResult: function setOltSearchResult(val) {
@@ -4323,12 +4335,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreOlt: function moreOlt() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.oltPage = this.oltPage + 1;
       axios.get("".concat(this.base_url, "get_olt_lists?q=").concat(this.oltSearchIndex, "&page=").concat(this.oltPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this7.oltSearchResult.push(element);
+          _this8.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
@@ -4342,42 +4354,44 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreFdt: function moreFdt() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.fdtPage = this.fdtPage + 1;
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt, "?q=").concat(this.oltSearchIndex, "&page=").concat(this.fdtPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this8.oltSearchResult.push(element);
+          _this9.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
     getFdt: function getFdt() {
-      var _this9 = this;
+      var _this10 = this;
 
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt)).then(function (res) {
-        _this9.fdts = res.data.data;
-        _this9.fdt = '';
+        _this10.fdts = res.data.data;
+        _this10.fdt = '';
       })["catch"](console.log('Error'));
     },
     getFat: function getFat() {
-      var _this10 = this;
+      var _this11 = this;
 
       axios.get("".concat(this.base_url, "get_fat_lists/").concat(this.fdt)).then(function (res) {
-        _this10.fats = res.data.data;
+        _this11.fats = res.data.data;
 
-        if (!_this10.fat) {
-          _this10.fat = '';
+        if (!_this11.fat) {
+          _this11.fat = '';
         }
       })["catch"](console.log('Error'));
     },
     getFatPort: function getFatPort() {
-      var _this11 = this;
+      var _this12 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
-        _this11.fat_ports = res.data.data;
+        res.data.data.forEach(function (element) {
+          _this12.fat_ports.push(element);
+        });
 
-        if (!_this11.fat_port) {
-          _this11.fat_port = '';
+        if (!_this12.fat_port) {
+          _this12.fat_port = '';
         }
       })["catch"](console.log('Error'));
     }
@@ -4390,20 +4404,20 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getFatPort();
     },
     oltSearchIndex: function oltSearchIndex(val) {
-      var _this12 = this;
+      var _this13 = this;
 
       if (val.length >= 2) {
         this.oltPage = 1;
         setTimeout(function () {
-          axios.get("".concat(_this12.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this12.oltPage)).then(function (res) {
-            _this12.oltSearchResult = res.data.data;
-            _this12.oltTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this13.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this13.oltPage)).then(function (res) {
+            _this13.oltSearchResult = res.data.data;
+            _this13.oltTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
     },
     fdtSearchIndex: function fdtSearchIndex(val) {
-      var _this13 = this;
+      var _this14 = this;
 
       if (!this.olt) {
         this.errors.olt_null_error_for_fdt_search = true;
@@ -4413,9 +4427,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (val.length >= 2 && this.olt) {
         setTimeout(function () {
-          axios.get("".concat(_this13.base_url, "get_fdt_lists/").concat(_this13.olt, "?q=").concat(val, "&page=").concat(_this13.fdtPage)).then(function (res) {
-            _this13.fdtSearchResult = res.data.data;
-            _this13.fdtTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this14.base_url, "get_fdt_lists/").concat(_this14.olt, "?q=").concat(val, "&page=").concat(_this14.fdtPage)).then(function (res) {
+            _this14.fdtSearchResult = res.data.data;
+            _this14.fdtTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
@@ -4695,6 +4709,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       axios.post("".concat(this.base_url, "lsp_team/on_call_step"), {
         on_call_request_id: this.$route.params.id
       }).then(function (res) {
+        if (res.data.code == 200) alert('Successfully Processed!');
+
         _this4.redirectTo(res);
       })["catch"](console.log('Error'));
     }
@@ -5729,10 +5745,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   methods: {
     infiniteHandler: function infiniteHandler() {
+      if (window.location.pathname != '/home/notification') return;
+
       if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
         if (this.page <= this.total_page) {
           this.get();
         }
+
+        s;
       }
     },
     bindData: function bindData(res) {
@@ -7158,12 +7178,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       if (event.target.id == "accept") {
         if (this.request_type == "on_call") {
           axios.post(this.base_url + "on_call_requests_accepted/" + request.id).then(function (response) {
+            if (response.data.code == 200) alert('Successfully Professed!');
+
             _this4.filterRequest(request.id);
-          })["catch"](this.errorMessage);
+          })["catch"](console.log('Error'));
         } else {
           axios.post(this.base_url + "installation_requests_accepted/" + request.id).then(function (response) {
+            if (response.data.code == 200) alert('Successfully Professed!');
+
             _this4.filterRequest(request.id);
-          })["catch"](this.errorMessage);
+          })["catch"](console.log('Error'));
         }
       } else if (event.target.id == "assignOrSwitch") {
         this.request = request;
@@ -7207,9 +7231,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getTeams: function getTeams() {
       var _this5 = this;
 
-      axios.get(this.base_url + 'team_lists').then(function (res) {
-        _this5.bindTeams(res);
-      })["catch"](console.log('Something Went Wrong!'));
+      if (this.type == 'admin' && this.status == 'accepted' || this.status == 'oncall-accepted') {
+        axios.get(this.base_url + 'team_lists').then(function (res) {
+          _this5.bindTeams(res);
+        })["catch"](console.log('Something Went Wrong!'));
+      }
     },
     bindTeams: function bindTeams(res) {
       var _this6 = this;

@@ -167,6 +167,7 @@ export default {
         finishRepair() {
             axios.post(`${this.base_url}lsp_team/on_call_step`, { on_call_request_id: this.$route.params.id })
             .then( res => {
+                if(res.data.code == 200) alert('Successfully Processed!')
                 this.redirectTo(res)
             }).catch(console.log('Error'));
         },

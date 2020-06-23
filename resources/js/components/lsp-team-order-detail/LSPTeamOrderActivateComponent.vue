@@ -197,7 +197,7 @@ export default {
             fdt: null,
             fats: null,
             fat: null,
-            fat_ports: null,
+            fat_ports: [],
             fat_port: null,
             fiber_cable_length: null,
 
@@ -225,6 +225,10 @@ export default {
             this.fdtSearchIndex = null
         },
         storeOnuStep() {
+            Object.keys(this.errors).forEach(key => {
+                this.errors[key] = false
+            })
+            
             if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true
             if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true
             if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true
@@ -251,7 +255,9 @@ export default {
                     onu_adapter_id: this.onuAdapterId,
                     onu_adapter_quantity: 1,
                     type: 'installation'
-                }).then( res => { console.log(res) } ).catch( console.log('Sry Pl!') )
+                }).then( res => { 
+                    if(res.data.code == 200) alert('Successfully Processed')
+                 } ).catch( console.log('Sry Pl!') )
             }
         },
         onFileSelected(e) {
@@ -338,6 +344,7 @@ export default {
                     }
                     if (res.data.data.fat_port) {
                         this.fat_port = res.data.data.fat_port.id;
+                        this.fat_ports.push(res.data.data.fat_port);
                     }
                     
                     this.onu_sn = res.data.data.onu_sn;
@@ -450,7 +457,9 @@ export default {
         getFatPort() {
             axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
             .then( res => {
-                this.fat_ports = res.data.data
+                res.data.data.forEach(element => {
+                    this.fat_ports.push(element)
+                });
                 if (!this.fat_port) {
                     this.fat_port = ''
                 }

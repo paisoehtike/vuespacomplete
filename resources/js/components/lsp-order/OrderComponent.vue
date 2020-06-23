@@ -163,8 +163,13 @@ export default {
         }
         
       } else {
-        axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id)
-        .then( res => { console.log(res) } ).catch(console.log('Error'));
+        if(this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
+          this.completeAlert = true
+          alert("Doesn't Complete Yet!")
+        } else {
+          axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id)
+          .then( res => { if(res.data.code == 200) alert('Finish Successfully!') } ).catch(console.log('Error'));
+        }
       }
     },
     getDetail() {

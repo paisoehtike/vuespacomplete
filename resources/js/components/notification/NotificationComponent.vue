@@ -35,10 +35,11 @@ export default {
     },
     methods: {
         infiniteHandler() {
+            if(window.location.pathname != '/home/notification') return;
             if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
                 if (this.page <= this.total_page) {
                     this.get();
-                }
+                }s
             }
         },
         bindData(res) {
