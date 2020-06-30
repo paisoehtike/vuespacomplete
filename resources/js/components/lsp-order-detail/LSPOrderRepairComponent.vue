@@ -8,9 +8,11 @@
         <div class="replace-item">
             <h3>Replace Items</h3>
             <TeamInfo v-if="detail.product_usage != null">
+                <TableRow :label="'Image'" :value="detail.images" :type="'image'"></TableRow>
                 <TableRow v-for="(value,label) in detail.product_usage" :key="label" :label="label" :value="value" :type="'repair-detail'"></TableRow>
             </TeamInfo>
             <TeamInfo v-else>
+                <TableRow :label="'Image'" :value="data.images" :type="'image'"></TableRow>
                 <TableRow :label="'Onu Type'" :value="demy" :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Fiber Patch Cord'" :value="demy" :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Fiber Cable'" :value="demy" :type="'repair-detail'"></TableRow>

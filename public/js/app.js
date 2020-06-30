@@ -3511,6 +3511,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4573,6 +4575,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4588,6 +4603,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
+      imageFile: null,
+      images: [],
       remarks: null,
       fiber_cable_length: null,
       selectedOnuType: null,
@@ -4606,6 +4623,54 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     };
   },
   methods: {
+    onFileSelected: function onFileSelected(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      var vm = this;
+      reader.addEventListener('load', function () {
+        vm.image = reader.result;
+        vm.imageFile = file;
+      });
+    },
+    uploadImage: function uploadImage() {
+      var _this = this;
+
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('image', this.imageFile);
+      formData.append('on_call_request_id', this.$route.params.id);
+      axios.post(this.base_url + 'lsp_team/repair_image_store', formData, config).then(function (res) {
+        _this.appendImage(res.data.data);
+      })["catch"](console.log('Cant Image'));
+    },
+    appendImage: function appendImage(img) {
+      this.images.push(img);
+      this.image = null;
+      this.$refs.fileInput.value = null;
+    },
+    deleteImage: function deleteImage(img) {
+      var _this2 = this;
+
+      axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
+        if (res.data.code == 200) {
+          _this2.images = _this2.images.filter(function (image) {
+            return image.id != img.id;
+          });
+        }
+      })["catch"](console.log('Error'));
+    },
+    loadPreImages: function loadPreImages(images) {
+      this.images = images;
+    },
     setOnuId: function setOnuId(id) {
       this.onuId = id;
     },
@@ -4664,17 +4729,19 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.getInventory();
     },
     getRepair: function getRepair() {
-      var _this = this;
+      var _this3 = this;
 
       axios.get(this.base_url + 'lsp_team/repair?on_call_request_id=' + this.$route.params.id).then(function (res) {
-        _this.preconfigRepair(res);
+        _this3.preconfigRepair(res);
+
+        _this3.loadPreImages(res.data.data.images);
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get(this.base_url + 'lsp_team/activation_inventory').then(function (res) {
-        _this2.preconfigInventory(res.data.data);
+        _this4.preconfigInventory(res.data.data);
       })["catch"](console.log('Error'));
     },
     redirectTo: function redirectTo(res) {
@@ -4683,7 +4750,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       }
     },
     storeRepair: function storeRepair() {
-      var _this3 = this;
+      var _this5 = this;
 
       if (this.fiber_cable_length == "") this.fiber_cable_length = null;
       axios.post(this.base_url + 'lsp_team/repair_store', {
@@ -4700,19 +4767,26 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fiber_cable_length: this.fiber_cable_length,
         type: 'on_call'
       }).then(function (res) {
-        _this3.refresh();
+        _this5.refresh();
       })["catch"](console.log('Sry Pl!'));
     },
     finishRepair: function finishRepair() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.post("".concat(this.base_url, "lsp_team/on_call_step"), {
         on_call_request_id: this.$route.params.id
       }).then(function (res) {
         if (res.data.code == 200) alert('Successfully Processed!');
 
-        _this4.redirectTo(res);
+        _this6.redirectTo(res);
       })["catch"](console.log('Error'));
+    }
+  },
+  watch: {
+    imageFile: function imageFile(val) {
+      if (val) {
+        this.uploadImage();
+      }
     }
   },
   mounted: function mounted() {
@@ -42264,17 +42338,39 @@ var render = function() {
           _vm.detail.product_usage != null
             ? _c(
                 "TeamInfo",
-                _vm._l(_vm.detail.product_usage, function(value, label) {
-                  return _c("TableRow", {
-                    key: label,
-                    attrs: { label: label, value: value, type: "repair-detail" }
+                [
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Image",
+                      value: _vm.detail.images,
+                      type: "image"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.detail.product_usage, function(value, label) {
+                    return _c("TableRow", {
+                      key: label,
+                      attrs: {
+                        label: label,
+                        value: value,
+                        type: "repair-detail"
+                      }
+                    })
                   })
-                }),
-                1
+                ],
+                2
               )
             : _c(
                 "TeamInfo",
                 [
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Image",
+                      value: _vm.data.images,
+                      type: "image"
+                    }
+                  }),
+                  _vm._v(" "),
                   _c("TableRow", {
                     attrs: {
                       label: "Onu Type",
@@ -43602,6 +43698,55 @@ var render = function() {
           _c("h2", [_vm._v("Repair")])
         ]
       ),
+      _vm._v(" "),
+      _c("div", { staticClass: "activate-form", attrs: { action: "" } }, [
+        _c("h6", [_vm._v("Images")]),
+        _vm._v(" "),
+        _c("input", {
+          ref: "fileInput",
+          staticStyle: { display: "none" },
+          attrs: { type: "file" },
+          on: { change: _vm.onFileSelected }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "add-img" },
+          [
+            _vm._l(_vm.images, function(image, index) {
+              return _c("div", { key: index, staticClass: "pre-img-item" }, [
+                _c("img", {
+                  staticClass: "center-align",
+                  attrs: { src: image.full_image }
+                }),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "far fa-trash-alt image-trash-icon",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteImage(image)
+                    }
+                  }
+                })
+              ])
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "img-item",
+                on: {
+                  click: function($event) {
+                    return _vm.$refs.fileInput.click()
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-plus center-align" })]
+            )
+          ],
+          2
+        )
+      ]),
       _vm._v(" "),
       _c(
         "form",

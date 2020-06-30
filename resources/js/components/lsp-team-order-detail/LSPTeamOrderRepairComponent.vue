@@ -5,6 +5,19 @@
             <i class="fas fa-chevron-left"></i>
             <h2>Repair</h2>
         </router-link>
+        <div action="" class="activate-form">
+            <h6>Images</h6>
+            <input type="file" @change="onFileSelected" ref="fileInput" style="display: none;">
+            <div class="add-img">
+                <div v-for="(image, index) in images" :key="index" class="pre-img-item">
+                    <img :src="image.full_image" class="center-align">
+                    <i @click="deleteImage(image)" class="far fa-trash-alt image-trash-icon"></i>
+                </div>
+                <div @click="$refs.fileInput.click()" class="img-item">
+                    <i class="fas fa-plus center-align"></i>
+                </div>
+            </div>
+        </div>
         <form action="" class="activate-form">
             <h6>Replace Items</h6>
 
@@ -52,6 +65,8 @@ export default {
     },
     data() {
         return {
+            imageFile: null,
+            images: [],
             remarks: null,
 
             fiber_cable_length: null,
@@ -73,6 +88,52 @@ export default {
         }
     },
     methods: {
+        onFileSelected(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            let vm = this
+            reader.addEventListener('load', ()=>{
+                vm.image = reader.result
+                vm.imageFile = file
+            })
+        },
+        uploadImage() {
+            const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+            let formData = new FormData();
+            formData.append('image', this.imageFile);
+            formData.append('on_call_request_id', this.$route.params.id);
+            axios.post(this.base_url + 'lsp_team/repair_image_store',
+            formData, config
+            ).then( res => { 
+                this.appendImage(res.data.data) 
+            } ).catch(console.log('Cant Image'));
+        },
+        appendImage(img) {
+            this.images.push(img);
+            this.image = null;
+            this.$refs.fileInput.value = null
+        },
+        deleteImage(img) {
+            axios.post(`${this.base_url}lsp_team/image_delete/${img.id}`)
+            .then( res => {
+                if(res.data.code == 200) {
+                    this.images = this.images.filter( function(image) {
+                        return image.id != img.id; 
+                    });
+                }
+            }).catch(console.log('Error'));
+        },
+        loadPreImages(images) {
+            this.images = images;
+        },
         setOnuId(id) {
             this.onuId = id;
         },  
@@ -130,6 +191,7 @@ export default {
             axios.get(this.base_url + 'lsp_team/repair?on_call_request_id=' + this.$route.params.id)
             .then( res => { 
                 this.preconfigRepair(res);
+                this.loadPreImages(res.data.data.images);
             } ).catch( console.log('Error') );
         },
         getInventory() {
@@ -171,6 +233,13 @@ export default {
                 this.redirectTo(res)
             }).catch(console.log('Error'));
         },
+    },
+    watch: {
+        imageFile(val){
+            if(val){
+                this.uploadImage()
+            }
+        }
     },
     mounted() {
         this.refresh();
