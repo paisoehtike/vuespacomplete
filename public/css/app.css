@@ -223,6 +223,14 @@
   grid-column: 2/3;
 }
 
+.home-container .home-container-row .home-header-row .no-record-yet-message,
+.home-container .home-container-row .home-customer-row .no-record-yet-message,
+.home-container .home-container-row .home-customer-header-button .no-record-yet-message,
+.home-container .home-container-row .home-customer-footer-button .no-record-yet-message {
+  text-align: center;
+  color: #d3d3d3;
+}
+
 .home-container .home-container-row .home-customer-row {
   margin-bottom: 70px;
 }
@@ -931,7 +939,7 @@
   /*   background: #ddd; */
 }
 
-.progressbar li.selected + li:after {
+.progressbar li.selected:after {
   background-color: #ffd503;
 }
 

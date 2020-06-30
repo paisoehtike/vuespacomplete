@@ -13,20 +13,20 @@
             <h5>{{ response.data.man_power }}</h5>
             <p>Man Power</p>
         </div>
-        <div class="profile-body pb-2" v-if="response.data.assigned_order">
-            <h5>{{ response.data.assigned_order ? response.data.assigned_order : '0' }}</h5>
+        <div class="profile-body pb-2" v-if="response.data.assigned_order != null">
+            <h5>{{ response.data.assigned_order  }}</h5>
             <p>Assigned Order</p>
         </div>
         <div class="profile-body pb-2" v-else>
-            <h5>{{ response.data.remaining_job ? response.data.remaining_job:'0' }}</h5>
+            <h5>{{ response.data.remaining_job }}</h5>
             <p>Remaining</p>
         </div>
-        <div class="profile-body pb-3" v-show="response.data.complete_job">
-            <h5>{{ response.data.complete_job ? response.data.complete_job:'0' }}</h5>
+        <div class="profile-body pb-3" v-show="response.data.complete_job != null">
+            <h5>{{ response.data.complete_job }}</h5>
             <p>Complete</p>
         </div>
-        <div class="profile-body pb-4" v-show="response.data.assign_job">
-            <h5>{{ response.data.assign_job ? response.data.assign_job:'0' }}</h5>
+        <div class="profile-body pb-4" v-show="response.data.assign_job != null">
+            <h5>{{ response.data.assign_job }}</h5>
             <p>History</p>
         </div>
     </div>

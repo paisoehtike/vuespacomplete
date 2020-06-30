@@ -7032,6 +7032,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -7067,6 +7069,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       request: null,
       availableTeams: [],
       errorMessage: "Something Went Wrong!",
+      noRecordYet: false,
       apis: {
         "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
         accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
@@ -7111,6 +7114,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     bindResponseData: function bindResponseData(response) {
       var _this2 = this;
+
+      if (!response.data.data.length) {
+        this.noRecordYet = true;
+      }
 
       response.data.data.forEach(function (result) {
         _this2.requests.push(result);
@@ -46673,6 +46680,12 @@ var render = function() {
         )
       }),
       _vm._v(" "),
+      _vm.noRecordYet
+        ? _c("p", { staticClass: "no-record-yet-message" }, [
+            _vm._v("No Record Yet!")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
         _vm.showModal
           ? _c("div", {
@@ -47408,30 +47421,14 @@ var render = function() {
           _c("p", [_vm._v("Man Power")])
         ]),
     _vm._v(" "),
-    _vm.response.data.assigned_order
+    _vm.response.data.assigned_order != null
       ? _c("div", { staticClass: "profile-body pb-2" }, [
-          _c("h5", [
-            _vm._v(
-              _vm._s(
-                _vm.response.data.assigned_order
-                  ? _vm.response.data.assigned_order
-                  : "0"
-              )
-            )
-          ]),
+          _c("h5", [_vm._v(_vm._s(_vm.response.data.assigned_order))]),
           _vm._v(" "),
           _c("p", [_vm._v("Assigned Order")])
         ])
       : _c("div", { staticClass: "profile-body pb-2" }, [
-          _c("h5", [
-            _vm._v(
-              _vm._s(
-                _vm.response.data.remaining_job
-                  ? _vm.response.data.remaining_job
-                  : "0"
-              )
-            )
-          ]),
+          _c("h5", [_vm._v(_vm._s(_vm.response.data.remaining_job))]),
           _vm._v(" "),
           _c("p", [_vm._v("Remaining")])
         ]),
@@ -47443,22 +47440,14 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.response.data.complete_job,
-            expression: "response.data.complete_job"
+            value: _vm.response.data.complete_job != null,
+            expression: "response.data.complete_job != null"
           }
         ],
         staticClass: "profile-body pb-3"
       },
       [
-        _c("h5", [
-          _vm._v(
-            _vm._s(
-              _vm.response.data.complete_job
-                ? _vm.response.data.complete_job
-                : "0"
-            )
-          )
-        ]),
+        _c("h5", [_vm._v(_vm._s(_vm.response.data.complete_job))]),
         _vm._v(" "),
         _c("p", [_vm._v("Complete")])
       ]
@@ -47471,20 +47460,14 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.response.data.assign_job,
-            expression: "response.data.assign_job"
+            value: _vm.response.data.assign_job != null,
+            expression: "response.data.assign_job != null"
           }
         ],
         staticClass: "profile-body pb-4"
       },
       [
-        _c("h5", [
-          _vm._v(
-            _vm._s(
-              _vm.response.data.assign_job ? _vm.response.data.assign_job : "0"
-            )
-          )
-        ]),
+        _c("h5", [_vm._v(_vm._s(_vm.response.data.assign_job))]),
         _vm._v(" "),
         _c("p", [_vm._v("History")])
       ]
