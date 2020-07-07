@@ -2066,6 +2066,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     updateTeam: function updateTeam() {
       var _this = this;
 
+      Object.keys(this.errors).forEach(function (key) {
+        _this.errors[key] = false;
+      });
       if (!this.teamName) this.errors.teamName = true;
       if (!this.leaderName) this.errors.leaderName = true;
       if (!this.phone) this.errors.phone = true;
@@ -2084,6 +2087,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     storeTeam: function storeTeam() {
       var _this2 = this;
 
+      Object.keys(this.errors).forEach(function (key) {
+        _this2.errors[key] = false;
+      });
       if (!this.teamName) this.errors.teamName = true;
       if (!this.leaderName) this.errors.leaderName = true;
       if (!this.phone) this.errors.phone = true;
@@ -2155,6 +2161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 /* harmony import */ var _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../reuseable-component/ConfirmModalComponent */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue");
+//
 //
 //
 //
@@ -2399,6 +2406,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         lsp_team_leader_id: this.teamDetail.leader_id,
         password: password
       }).then(function (res) {
+        if (res.data.code == 200) alert('Successfully Processed!');
+
         _this5.getDetail();
       })["catch"](console.log('Error'));
     },
@@ -3018,7 +3027,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   methods: {
     authenticated: function authenticated(response) {
       this.errorMessage = null;
-      this.$cookie.set('token', response.data.data.token, '1m');
+      this.$cookie.set('token', response.data.data.token, '30d');
 
       if (response.data.data.is_admin == 1) {
         this.$router.push('/home/new');
@@ -4314,7 +4323,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (res.status == 200) {
           alert('Successfully Processed!');
 
-          _this6.$router.push('/lsp-home/remaining');
+          _this6.$router.push('/lsp-order/' + _this6.$route.params.id + '/installation');
         }
       })["catch"](console.log('Error'));
     },
@@ -4767,6 +4776,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fiber_cable_length: this.fiber_cable_length,
         type: 'on_call'
       }).then(function (res) {
+        if (res.data.code == 200) alert('Successfully Processed!');
+
         _this5.refresh();
       })["catch"](console.log('Sry Pl!'));
     },
@@ -4938,6 +4949,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4953,11 +4969,47 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      surveyIssues: null
+      surveyIssues: null,
+      errors: {
+        poleIssueStatus: null,
+        authorityStatus: null,
+        fatStatus: null,
+        odnIssueStatus: null,
+        customerIssueStatus: null
+      },
+      blockApiCall: null
     };
   },
   methods: {
+    changeStatus: function changeStatus(type, status) {
+      switch (type) {
+        case 'pole_issue':
+          this.errors.poleIssueStatus = status;
+          break;
+
+        case 'authority':
+          this.errors.authorityStatus = status;
+          break;
+
+        case 'fat':
+          this.errors.fatStatus = status;
+          break;
+
+        case 'odn_issue':
+          this.errors.odnIssueStatus = status;
+          break;
+
+        case 'customer_issue':
+          this.errors.customerIssueStatus = status;
+          break;
+      }
+    },
     addSurvey: function addSurvey(response) {
+      this.errors.poleIssueStatus = response.data.data.pole_issue.status;
+      this.errors.authorityStatus = response.data.data.authority.status;
+      this.errors.fatStatus = response.data.data.fat.status;
+      this.errors.odnIssueStatus = response.data.data.odn_issue.status;
+      this.errors.customerIssueStatus = response.data.data.customer_issue.status;
       this.surveyIssues = response.data.data;
     },
     getSurvey: function getSurvey() {
@@ -4970,17 +5022,29 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     storeStep: function storeStep() {
       var _this2 = this;
 
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'survey'
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/cabling');
+      Object.keys(this.errors).forEach(function (key) {
+        if (_this2.errors[key] == 'pending' || _this2.errors[key] == null) {
+          alert('Please take all survey!');
+          _this2.blockApiCall = true;
+          return;
+        } else {
+          _this2.blockApiCall = false;
         }
-      })["catch"](console.log('Error'));
+      });
+
+      if (!this.blockApiCall) {
+        axios.post(this.base_url + 'lsp_team/installation_step', {
+          installation_request_id: this.$route.params.id,
+          step: 'survey'
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/cabling');
+          }
+        })["catch"](console.log('Error'));
+      }
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     this.getSurvey();
   }
 });
@@ -6378,22 +6442,26 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.isSelect = false;
     },
     apiCall: function apiCall(status) {
+      var _this = this;
+
       axios.post(this.base_url + 'lsp_team/store_survey_issue_status', {
         status: status,
         survey_step_id: this.data.id
       }).then(function (response) {
         if (response.data.code == 200) alert('Success!');
+
+        _this.$emit('status', response.data.data.status);
       })["catch"](console.log('Something Went Wrong'));
     },
     storeRemarkApiCall: function storeRemarkApiCall(remark) {
-      var _this = this;
+      var _this2 = this;
 
       axios.post(this.base_url + 'lsp_team/store_survey', {
         remark: remark.remark,
         survey_step_id: this.data.id
       }).then(function (response) {
-        _this.remarkId = response.data.data.remark.id;
-        _this.remark = response.data.data.remark.name;
+        _this2.remarkId = response.data.data.remark.id;
+        _this2.remark = response.data.data.remark.name;
       })["catch"](console.log('Something Went Wrong'));
     },
     storeRemark: function storeRemark(remark) {
@@ -6402,21 +6470,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.storeRemarkApiCall(remark);
     },
     updateRemark: function updateRemark(remark) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post(this.base_url + 'lsp_team/update_survey/' + this.remarkId, {
         remark: remark.remark
       }).then(function (response) {
-        _this2.remark = remark.remark;
-        _this2.isMark = true;
+        _this3.remark = remark.remark;
+        _this3.isMark = true;
       })["catch"](console.log('Something Went Wrong'));
     },
     deleteRemark: function deleteRemark() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post(this.base_url + 'lsp_team/delete_survey/' + this.remarkId).then(function (response) {
         if (response.data.code == 200) alert('Successfully Deleted!');
-        _this3.isMark = false;
+        _this4.isMark = false;
       })["catch"](console.log('Something Went Wrong'));
     }
   },
@@ -6898,8 +6966,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['value']
+  props: ['value', 'status'],
+  computed: {
+    completeOrFinish: function completeOrFinish() {
+      return {
+        completeStatus: this.status === 'Complete',
+        finishStatus: this.value === 'Finish'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -7504,6 +7584,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -40349,6 +40430,14 @@ var render = function() {
           _vm._v(" "),
           _c("TableRow", {
             attrs: {
+              label: "Phone Number",
+              value: _vm.teamDetail.leader.phone,
+              type: "request-detail"
+            }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
+            attrs: {
               label: "Man Power",
               value: _vm.teamDetail.man_power,
               type: "request-detail"
@@ -42121,18 +42210,6 @@ var render = function() {
                 attrs: { label: "FAT Port", value: "-", type: "request-detail" }
               }),
           _vm._v(" "),
-          _vm.data.product_usage && _vm.data.product_usage.onu_adapter
-            ? _c("TableRow", {
-                attrs: {
-                  label: "Router",
-                  value: _vm.data.product_usage.onu_adapter.name,
-                  type: "request-detail"
-                }
-              })
-            : _c("TableRow", {
-                attrs: { label: "ONU S/N", value: "-", type: "request-detail" }
-              }),
-          _vm._v(" "),
           _vm.data.product_usage && _vm.data.product_usage.onu_type
             ? _c("TableRow", {
                 attrs: {
@@ -42614,7 +42691,10 @@ var render = function() {
                 _vm._v(" "),
                 _vm.detail.installation_step != null
                   ? _c("OrderStepChip", {
-                      attrs: { value: _vm.detail.installation_step.name }
+                      attrs: {
+                        status: _vm.detail.status,
+                        value: _vm.detail.installation_step.name
+                      }
                     })
                   : _vm._e()
               ],
@@ -42665,13 +42745,6 @@ var render = function() {
                   _c("p", [_vm._v("Due Date : "), _c("span", [_vm._v("N/A")])])
                 ]),
             _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Remark : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
-              ])
-            ]),
-            _vm._v(" "),
             _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
@@ -42681,7 +42754,14 @@ var render = function() {
                     ])
                   ])
                 ])
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [
+                _vm._v("Remark : "),
+                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
+              ])
+            ])
           ])
         ],
         1
@@ -44010,6 +44090,17 @@ var render = function() {
       _vm._v(" "),
       _c("SurveyIssue", {
         attrs: { data: _vm.surveyIssues.pole_issue },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["pole_issue"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44029,6 +44120,17 @@ var render = function() {
       _vm._v(" "),
       _c("SurveyIssue", {
         attrs: { data: _vm.surveyIssues.authority },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["authority"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44048,6 +44150,14 @@ var render = function() {
       _vm._v(" "),
       _c("SurveyIssue", {
         attrs: { data: _vm.surveyIssues.fat },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(void 0, ["fat"].concat(argsArray))
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44065,6 +44175,17 @@ var render = function() {
       _vm._v(" "),
       _c("SurveyIssue", {
         attrs: { data: _vm.surveyIssues.odn_issue },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["odn_issue"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44084,6 +44205,17 @@ var render = function() {
       _vm._v(" "),
       _c("SurveyIssue", {
         attrs: { data: _vm.surveyIssues.customer_issue },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["customer_issue"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44176,7 +44308,10 @@ var render = function() {
                 _vm._v(" "),
                 _vm.detail.installation_step != null
                   ? _c("OrderStepChip", {
-                      attrs: { value: _vm.detail.installation_step.name }
+                      attrs: {
+                        status: _vm.detail.status,
+                        value: _vm.detail.installation_step.name
+                      }
                     })
                   : _vm._e()
               ],
@@ -44222,13 +44357,6 @@ var render = function() {
                   _c("p", [_vm._v("Due Date : "), _c("span", [_vm._v("N/A")])])
                 ]),
             _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Remark : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
-              ])
-            ]),
-            _vm._v(" "),
             _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
@@ -44238,7 +44366,14 @@ var render = function() {
                     ])
                   ])
                 ])
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [
+                _vm._v("Remark : "),
+                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
+              ])
+            ])
           ])
         ],
         1
@@ -45363,7 +45498,11 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "mrb-2" }, [
               _c("p", [
-                _vm._v(_vm._s(_vm._f("format-date")(multipleRemark.created_at)))
+                _vm._v(
+                  _vm._s(
+                    _vm._f("format-date-with-time")(multipleRemark.updated_at)
+                  )
+                )
               ])
             ]),
             _vm._v(" "),
@@ -45604,14 +45743,14 @@ var render = function() {
                 expression: "!isSelect"
               }
             ],
-            staticClass: "button-fail",
+            staticClass: "button-pass",
             on: {
               click: function($event) {
-                return _vm.fail()
+                return _vm.pass()
               }
             }
           },
-          [_vm._v("Fail")]
+          [_vm._v("Pass")]
         ),
         _vm._v(" "),
         _c(
@@ -45625,14 +45764,14 @@ var render = function() {
                 expression: "!isSelect"
               }
             ],
-            staticClass: "button-pass",
+            staticClass: "button-fail",
             on: {
               click: function($event) {
-                return _vm.pass()
+                return _vm.fail()
               }
             }
           },
-          [_vm._v("Pass")]
+          [_vm._v("Fail")]
         ),
         _vm._v(" "),
         _c(
@@ -46503,9 +46642,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "order-step" }, [
-    _c("span", [_vm._v(_vm._s(_vm.value))])
-  ])
+  return _vm.status === "Complete" || _vm.status === "Finish"
+    ? _c("div", { staticClass: "order-step", class: _vm.completeOrFinish }, [
+        _c("span", [_vm._v(_vm._s(_vm.status))])
+      ])
+    : _c("div", { staticClass: "order-step" }, [
+        _c("span", [_vm._v(_vm._s(_vm.value))])
+      ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46680,6 +46823,7 @@ var render = function() {
               ? _c("OrderStepChip", {
                   attrs: {
                     slot: "order-chip",
+                    status: request.status,
                     value: request.installation_step.name
                   },
                   slot: "order-chip"
@@ -47500,7 +47644,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "lsp-profile-body" }, [
-    _c("h4", [_vm._v("Team(" + _vm._s(_vm.response.data.teams_count) + ")")]),
+    _c("h4", [_vm._v("Team")]),
     _vm._v(" "),
     _c("table", [
       _c(
@@ -62764,7 +62908,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date', function (value
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date-with-time', function (value) {
   var cuttedValue = value.slice(0, 10);
-  return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(12, 16);
+  return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(11, 16);
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
   if (value == 'on_call') return value.charAt(0).toUpperCase() + value.charAt(1) + ' ' + value.charAt(3).toUpperCase() + value.slice(4);

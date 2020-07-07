@@ -24,8 +24,8 @@
             <TableRow v-if="data.fat_port" :label="'FAT Port'" :value="data.fat_port.name" :type="'request-detail'"></TableRow>
             <TableRow v-else :label="'FAT Port'" :value="'-'" :type="'request-detail'"></TableRow>
 
-            <TableRow v-if="data.product_usage && data.product_usage.onu_adapter" :label="'Router'" :value="data.product_usage.onu_adapter.name" :type="'request-detail'"></TableRow>
-            <TableRow v-else :label="'ONU S/N'" :value="'-'" :type="'request-detail'"></TableRow>
+            <!-- <TableRow v-if="data.product_usage && data.product_usage.onu_adapter" :label="'Router'" :value="data.product_usage.onu_adapter.name" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'ONU S/N'" :value="'-'" :type="'request-detail'"></TableRow> -->
 
             <TableRow v-if="data.product_usage && data.product_usage.onu_type" :label="'ONU Type'" :value="data.product_usage.onu_type.name" :type="'request-detail'"></TableRow>
             <TableRow v-else :label="'ONU Type'" :value="'-'" :type="'request-detail'"></TableRow>

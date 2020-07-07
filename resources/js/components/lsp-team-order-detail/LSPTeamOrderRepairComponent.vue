@@ -222,7 +222,8 @@ export default {
                     fiber_cable_length: this.fiber_cable_length,
                     type: 'on_call'
                 }
-            ).then( res => { 
+            ).then( res => {
+                if(res.data.code == 200) alert('Successfully Processed!') 
                 this.refresh()
              } ).catch( console.log('Sry Pl!') )
         },

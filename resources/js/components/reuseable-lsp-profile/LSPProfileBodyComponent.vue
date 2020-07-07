@@ -1,6 +1,7 @@
 <template>
     <div class="lsp-profile-body">
-        <h4>Team({{ response.data.teams_count }})</h4>
+        <!-- <h4>Team({{ response.data.teams_count }})</h4> -->
+        <h4>Team</h4>
         <table>
             <tbody>
                 <tr v-for="(value, key) in response.data.teams" :key="key">

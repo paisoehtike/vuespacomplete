@@ -390,7 +390,7 @@ export default {
             ).then( res => { 
                 if(res.status == 200) {
                     alert('Successfully Processed!')
-                    this.$router.push('/lsp-home/remaining');
+                    this.$router.push('/lsp-order/' + this.$route.params.id + '/installation');
                 }
             } ).catch( console.log('Error') );
         },

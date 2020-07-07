@@ -11,7 +11,7 @@
       <OrderDetail>
         <div class="order-detail-header">
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
-          <OrderStepChip v-if="detail.installation_step != null" :value="detail.installation_step.name"></OrderStepChip>
+          <OrderStepChip v-if="detail.installation_step != null" :status="detail.status" :value="detail.installation_step.name"></OrderStepChip>
         </div>
         <div class="order-detail-id">
           <h4>{{detail.customer}}</h4>
@@ -29,11 +29,11 @@
         <div v-else class="order-type">
           <p>Due Date : <span>N/A</span></p>
         </div>
-        <div class="order-type">
-          <p>Remark : <span>{{detail.remark}}</span></p>
-        </div>
         <div v-if="detail.priority_level != null" class="order-type">
           <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
+        </div>
+        <div class="order-type">
+          <p>Remark : <span>{{detail.remark}}</span></p>
         </div>
       </OrderDetail>
     </div>

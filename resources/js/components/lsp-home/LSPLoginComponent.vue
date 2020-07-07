@@ -36,7 +36,7 @@ export default {
     methods: {
         authenticated(response) {
             this.errorMessage = null;
-            this.$cookie.set('token', response.data.data.token, '1m');
+            this.$cookie.set('token', response.data.data.token, '30d');
             if(response.data.data.is_admin == 1) {
                 this.$router.push('/home/new');
             } else {

@@ -9,8 +9,8 @@
                 </p>
             </div>
             <div class="right status-control-button">
-                <a v-show="!isSelect" class="button-fail" @click="fail()">Fail</a>
                 <a v-show="!isSelect" class="button-pass" @click="pass()">Pass</a>
+                <a v-show="!isSelect" class="button-fail" @click="fail()">Fail</a>
                 <a v-show="isSelect" class="button-undo" @click="undo()">Undo</a>
             </div>
         </div>
@@ -105,6 +105,7 @@ export default {
                         }    
                 ).then( response => { 
                     if(response.data.code == 200) alert('Success!')
+                    this.$emit('status', response.data.data.status)
                  } ).catch(console.log('Something Went Wrong'));
         },
         storeRemarkApiCall(remark) {

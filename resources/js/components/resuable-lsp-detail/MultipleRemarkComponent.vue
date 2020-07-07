@@ -15,7 +15,7 @@
                 </p>
             </div>
             <div class="mrb-2">
-                <p>{{ multipleRemark.created_at | format-date}}</p>
+                <p>{{ multipleRemark.updated_at | format-date-with-time}}</p>
             </div>
             <div class="mrb-3 master-right">
                 <RemarkModal @review-remark="remarkUpdate(multipleRemark.id, ...arguments)" :type="'update'" :preRemark="multipleRemark.name"></RemarkModal>

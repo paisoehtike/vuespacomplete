@@ -4,7 +4,7 @@
           <CustomerHeader :id="request.customer" :step="request.request_type"></CustomerHeader>
 
           <CustomerTypeChip v-if="request.customer_type != null" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip v-if="request.installation_step != null" :value="request.installation_step.name" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-if="request.installation_step != null" :status="request.status" :value="request.installation_step.name" slot="order-chip"></OrderStepChip>
 
           <CustomerIssueDate v-if="request.created_at != null" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
