@@ -54,7 +54,9 @@
       <OrderDetail>
         <div class="order-detail-header">
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
-          <OrderStepChip v-if="detail.installation_step != null" :status="detail.status" :value="detail.installation_step.name"></OrderStepChip>
+
+          <OrderStepChip v-if="detail.complete_at_by_5BB != null" :status="'Finish'" :value="'Finish'" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-else-if="detail.installation_step != null && detail.complete_at_by_5BB == null" :status="detail.status" :value="detail.installation_step.name" slot="order-chip"></OrderStepChip>
         </div>
         <div class="order-detail-id">
           <h4>{{detail.customer}}</h4>
@@ -101,8 +103,8 @@
       <OrderInfo>
         <TableRow :label="'Order Id'" :value="detail.id" :type="'request-detail'"></TableRow>
         <TableRow :label="'Plan Name'" :value="detail.plan" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'repair-detail'"></TableRow>
+        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail-time-stemp'"></TableRow>
       </OrderInfo>
       <!-- <OrderInfo>
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>

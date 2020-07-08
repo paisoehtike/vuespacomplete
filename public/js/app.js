@@ -3522,6 +3522,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3811,6 +3815,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3860,6 +3868,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (this.detail.step == null || this.detail.step.name != 'Activation') {
           this.completeAlert = true;
           alert("Doesn't Complete Yet!");
+        } else if (this.detail.complete_at_by_5BB != null) {
+          alert('Already completed this!');
         } else {
           axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id).then(function (res) {
             if (res.data.code == 200) alert('Finish Successfully!');
@@ -3869,6 +3879,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
           this.completeAlert = true;
           alert("Doesn't Complete Yet!");
+        } else if (this.detail.complete_at_by_5BB != null) {
+          alert('Already completed this!');
         } else {
           axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id).then(function (res) {
             if (res.data.code == 200) alert('Finish Successfully!');
@@ -4779,7 +4791,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (res.data.code == 200) alert('Successfully Processed!');
 
         _this5.refresh();
-      })["catch"](console.log('Sry Pl!'));
+      })["catch"](console.log('Error!'));
     },
     finishRepair: function finishRepair() {
       var _this6 = this;
@@ -5067,6 +5079,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+//
+//
 //
 //
 //
@@ -7188,6 +7202,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -7434,6 +7449,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -42443,8 +42460,8 @@ var render = function() {
                   _c("TableRow", {
                     attrs: {
                       label: "Image",
-                      value: _vm.data.images,
-                      type: "image"
+                      value: _vm.demy,
+                      type: "repair-detail"
                     }
                   }),
                   _vm._v(" "),
@@ -42486,18 +42503,24 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "remarks" },
-        [
-          _c("h3", [_vm._v("Remarks")]),
-          _vm._v(" "),
-          _vm._l(_vm.detail.remarks, function(value, key) {
-            return _c("Remarks", { key: key, attrs: { value: value } })
-          })
-        ],
-        2
-      )
+      _vm.detail.remarks != null
+        ? _c(
+            "div",
+            { staticClass: "remarks" },
+            [
+              _c("h3", [_vm._v("Remarks")]),
+              _vm._v(" "),
+              _vm._l(_vm.detail.remarks, function(value, key) {
+                return _c("Remarks", { key: key, attrs: { value: value } })
+              })
+            ],
+            2
+          )
+        : _c("div", { staticClass: "remarks" }, [
+            _c("h3", [_vm._v("Remarks")]),
+            _vm._v(" "),
+            _c("p", [_vm._v("No Remark Yet!")])
+          ])
     ],
     1
   )
@@ -42689,12 +42712,24 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.detail.installation_step != null
+                _vm.detail.complete_at_by_5BB != null
                   ? _c("OrderStepChip", {
                       attrs: {
+                        slot: "order-chip",
+                        status: "Finish",
+                        value: "Finish"
+                      },
+                      slot: "order-chip"
+                    })
+                  : _vm.detail.installation_step != null &&
+                    _vm.detail.complete_at_by_5BB == null
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
                         status: _vm.detail.status,
                         value: _vm.detail.installation_step.name
-                      }
+                      },
+                      slot: "order-chip"
                     })
                   : _vm._e()
               ],
@@ -42767,42 +42802,46 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-assigned-row" },
-        [
-          _c("span", [_vm._v("Assigned Team :")]),
-          _vm._v(" "),
-          !_vm.detail.lsp_team
-            ? _c("span", { staticClass: "dummy" }, [_vm._v("N/A")])
-            : _c("span", { staticClass: "dummy" }, [
-                _vm._v(_vm._s(_vm.detail.lsp_team.name))
-              ]),
-          _vm._v(" "),
-          !_vm.detail.lsp_team
-            ? _c("AssignOrSwitchTeamComponent", {
-                attrs: {
-                  customer: _vm.detail,
-                  teams: _vm.teams,
-                  type: "New",
-                  requestType: _vm.orderType,
-                  assignedTeam: _vm.detail.lsp_team
-                },
-                on: { reload: _vm.refresh }
-              })
-            : _c("AssignOrSwitchTeamComponent", {
-                attrs: {
-                  customer: _vm.detail,
-                  type: "Accept",
-                  teams: _vm.teams,
-                  requestType: _vm.orderType,
-                  assignedTeam: _vm.detail.lsp_team
-                },
-                on: { reload: _vm.refresh }
-              })
-        ],
-        1
-      ),
+      _c("div", { staticClass: "order-assigned-row" }, [
+        _c("span", [_vm._v("Assigned Team :")]),
+        _vm._v(" "),
+        !_vm.detail.lsp_team
+          ? _c("span", { staticClass: "dummy" }, [_vm._v("N/A")])
+          : _c("span", { staticClass: "dummy" }, [
+              _vm._v(_vm._s(_vm.detail.lsp_team.name))
+            ]),
+        _vm._v(" "),
+        _vm.detail.complete_at_by_5BB == null ||
+        _vm.detail.status.name == "Complete"
+          ? _c(
+              "span",
+              [
+                !_vm.detail.lsp_team
+                  ? _c("AssignOrSwitchTeamComponent", {
+                      attrs: {
+                        customer: _vm.detail,
+                        teams: _vm.teams,
+                        type: "New",
+                        requestType: _vm.orderType,
+                        assignedTeam: _vm.detail.lsp_team
+                      },
+                      on: { reload: _vm.refresh }
+                    })
+                  : _c("AssignOrSwitchTeamComponent", {
+                      attrs: {
+                        customer: _vm.detail,
+                        type: "Accept",
+                        teams: _vm.teams,
+                        requestType: _vm.orderType,
+                        assignedTeam: _vm.detail.lsp_team
+                      },
+                      on: { reload: _vm.refresh }
+                    })
+              ],
+              1
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -42907,8 +42946,8 @@ var render = function() {
               _c("TableRow", {
                 attrs: {
                   label: "Promo Name",
-                  value: _vm.detail.promotion,
-                  type: "request-detail"
+                  value: _vm.detail.promotion ? _vm.detail.promotion : "-",
+                  type: "repair-detail"
                 }
               }),
               _vm._v(" "),
@@ -42916,7 +42955,7 @@ var render = function() {
                 attrs: {
                   label: "Create Date",
                   value: _vm.detail.created_at,
-                  type: "request-detail"
+                  type: "request-detail-time-stemp"
                 }
               })
             ],
@@ -44306,12 +44345,24 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.detail.installation_step != null
+                _vm.detail.complete_at_by_5BB != null
                   ? _c("OrderStepChip", {
                       attrs: {
+                        slot: "order-chip",
+                        status: "Finish",
+                        value: "Finish"
+                      },
+                      slot: "order-chip"
+                    })
+                  : _vm.detail.installation_step != null &&
+                    _vm.detail.complete_at_by_5BB == null
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
                         status: _vm.detail.status,
                         value: _vm.detail.installation_step.name
-                      }
+                      },
+                      slot: "order-chip"
                     })
                   : _vm._e()
               ],
@@ -44483,7 +44534,7 @@ var render = function() {
                 attrs: {
                   label: "Promo Name",
                   value: _vm.detail.promotion,
-                  type: "request-detail"
+                  type: "repair-detail"
                 }
               }),
               _vm._v(" "),
@@ -44491,7 +44542,7 @@ var render = function() {
                 attrs: {
                   label: "Create Date",
                   value: _vm.detail.created_at,
-                  type: "request-detail"
+                  type: "request-detail-time-stemp"
                 }
               })
             ],
@@ -46819,7 +46870,17 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            request.installation_step != null
+            request.complete_at_by_5BB != null
+              ? _c("OrderStepChip", {
+                  attrs: {
+                    slot: "order-chip",
+                    status: "Finish",
+                    value: "Finish"
+                  },
+                  slot: "order-chip"
+                })
+              : request.installation_step != null &&
+                request.complete_at_by_5BB == null
               ? _c("OrderStepChip", {
                   attrs: {
                     slot: "order-chip",
@@ -46860,6 +46921,17 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(request.priority_level.name) + " "
                                 )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null,
+                      request.estimated_issue != null
+                        ? {
+                            key: "issue",
+                            fn: function() {
+                              return [
+                                _vm._v(_vm._s(request.estimated_issue.name))
                               ]
                             },
                             proxy: true
@@ -47074,12 +47146,14 @@ var render = function() {
                                   proxy: true
                                 }
                               : null,
-                            _vm.request.issue != null
+                            _vm.request.estimated_issue != null
                               ? {
                                   key: "issue",
                                   fn: function() {
                                     return [
-                                      _vm._v(_vm._s(_vm.request.issue.name))
+                                      _vm._v(
+                                        _vm._s(_vm.request.estimated_issue.name)
+                                      )
                                     ]
                                   },
                                   proxy: true
@@ -47286,6 +47360,8 @@ var render = function() {
     _c("tr", [
       _vm.type == "request-detail"
         ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
+        : _vm.type == "request-detail-time-stemp"
+        ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
         : _vm.type == "repair-detail"
         ? _c("td", { staticClass: "table-color" }, [
             _vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))
@@ -47311,8 +47387,12 @@ var render = function() {
         : _c("td", [
             _vm.type == "request-detail"
               ? _c("p", [_vm._v(_vm._s(_vm.value))])
+              : _vm.type == "request-detail-time-stemp"
+              ? _c("p", [
+                  _vm._v(_vm._s(_vm._f("format-date-with-time")(_vm.value)))
+                ])
               : _vm.type == "repair-detail"
-              ? _c("p", [_vm._v(_vm._s(_vm.value.name))])
+              ? _c("p", [_vm._v(_vm._s(_vm.value.name ? _vm.value.name : "-"))])
               : _c("p", [
                   _vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))
                 ]),

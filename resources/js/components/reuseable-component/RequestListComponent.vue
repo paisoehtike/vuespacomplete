@@ -4,7 +4,8 @@
           <CustomerHeader :id="request.customer" :step="request.request_type"></CustomerHeader>
 
           <CustomerTypeChip v-if="request.customer_type != null" :value="request.customer_type.name" slot="customer-chip"></CustomerTypeChip>
-          <OrderStepChip v-if="request.installation_step != null" :status="request.status" :value="request.installation_step.name" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-if="request.complete_at_by_5BB != null" :status="'Finish'" :value="'Finish'" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-else-if="request.installation_step != null && request.complete_at_by_5BB == null" :status="request.status" :value="request.installation_step.name" slot="order-chip"></OrderStepChip>
 
           <CustomerIssueDate v-if="request.created_at != null" slot="customer-date">
             <!-- <span>{{customer.date}}</span> -->
@@ -16,7 +17,7 @@
               v-slot:priority-date
               v-if="request.priority_level != null && request.priority_level.name != 'Default'"
             >{{request.priority_level.name}} </template>
-            <!-- <template v-slot:issue>{{ customer.issue }}</template> -->
+            <template v-slot:issue v-if="request.estimated_issue != null">{{ request.estimated_issue.name }}</template>
           </CustomerIssueDate>
 
           <CustomerDetailChip
@@ -75,7 +76,7 @@
                     v-slot:priority-date
                     v-if="request.priority_level != null"
                   >{{request.priority_level.name}}</template>
-                  <template v-slot:issue v-if="request.issue != null">{{ request.issue.name }}</template>
+                  <template v-slot:issue v-if="request.estimated_issue != null">{{ request.estimated_issue.name }}</template>
                 </CustomerIssueDate>
               </div>
             </div>

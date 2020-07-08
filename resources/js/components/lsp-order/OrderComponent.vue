@@ -11,7 +11,9 @@
       <OrderDetail>
         <div class="order-detail-header">
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
-          <OrderStepChip v-if="detail.installation_step != null" :status="detail.status" :value="detail.installation_step.name"></OrderStepChip>
+
+          <OrderStepChip v-if="detail.complete_at_by_5BB != null" :status="'Finish'" :value="'Finish'" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-else-if="detail.installation_step != null && detail.complete_at_by_5BB == null" :status="detail.status" :value="detail.installation_step.name" slot="order-chip"></OrderStepChip>
         </div>
         <div class="order-detail-id">
           <h4>{{detail.customer}}</h4>
@@ -42,21 +44,23 @@
       <span v-if="!detail.lsp_team" class="dummy">N/A</span>
       <span v-else class="dummy">{{ detail.lsp_team.name }}</span>
 
-      <AssignOrSwitchTeamComponent v-if="!detail.lsp_team" 
-      @reload="refresh"
-      :customer="detail"
-      :teams="teams" 
-      :type="'New'"
-      :requestType="orderType"
-      :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
+      <span v-if="detail.complete_at_by_5BB == null || detail.status.name == 'Complete'">
+        <AssignOrSwitchTeamComponent v-if="!detail.lsp_team" 
+        @reload="refresh"
+        :customer="detail"
+        :teams="teams" 
+        :type="'New'"
+        :requestType="orderType"
+        :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
 
-      <AssignOrSwitchTeamComponent v-else
-      @reload="refresh" 
-      :customer="detail"
-      :type="'Accept'"
-      :teams="teams" 
-      :requestType="orderType"
-      :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
+        <AssignOrSwitchTeamComponent v-else
+        @reload="refresh" 
+        :customer="detail"
+        :type="'Accept'"
+        :teams="teams" 
+        :requestType="orderType"
+        :assignedTeam="detail.lsp_team"></AssignOrSwitchTeamComponent>
+      </span>
 
       <!-- <a class="waves-effect btn">Assign</a> -->
     </div>
@@ -82,8 +86,8 @@
       <OrderInfo>
         <TableRow :label="'Order Id'" :value="detail.id" :type="'request-detail'"></TableRow>
         <TableRow :label="'Plan Name'" :value="detail.plan" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Promo Name'" :value="detail.promotion ? detail.promotion:'-'" :type="'repair-detail'"></TableRow>
+        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail-time-stemp'"></TableRow>
       </OrderInfo>
       <!-- <OrderInfo>
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>
@@ -157,15 +161,18 @@ export default {
         if(this.detail.step == null || this.detail.step.name != 'Activation') {
           this.completeAlert = true
           alert("Doesn't Complete Yet!")
+        } else if(this.detail.complete_at_by_5BB != null) {
+          alert('Already completed this!')
         } else {
           axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id)
           .then( res => { if(res.data.code == 200) alert('Finish Successfully!') } ).catch(console.log('Error'));
         }
-        
       } else {
         if(this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
           this.completeAlert = true
           alert("Doesn't Complete Yet!")
+        } else if(this.detail.complete_at_by_5BB != null) {
+          alert('Already completed this!')
         } else {
           axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id)
           .then( res => { if(res.data.code == 200) alert('Finish Successfully!') } ).catch(console.log('Error'));
