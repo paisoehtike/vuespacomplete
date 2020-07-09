@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <i v-if="type == 'update'" @click="showModal = true" class="far fa-edit remark-setting"></i>
-        <i v-else @click="showModal = true" class="fas fa-plus add-remark"></i>
+        <i v-if="type == 'update'" @click="showOrHideModal" class="far fa-edit remark-setting"></i>
+        <i v-else @click="showOrHideModal" class="fas fa-plus add-remark"></i>
 
         <transition name="fade" appear>
             <div class="modal-box1" v-if="showModal" @click="showModal = false">
@@ -23,7 +23,7 @@
 <script>
 export default {
     props: [
-        'type', 'preRemark'
+        'type', 'preRemark', 'isComplete',
     ],
     data() {
         return {
@@ -32,6 +32,11 @@ export default {
         }
     },
     methods: {
+        showOrHideModal() {
+            if(!this.isComplete) {
+                this.showModal = true
+            }
+        },
         submitRemark() {
             let remark = {
                 'remark': this.remark,

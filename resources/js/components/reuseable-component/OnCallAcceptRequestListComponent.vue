@@ -35,10 +35,10 @@
             <template v-if="request.lsp_accepted_at == null && isHistory == false" v-slot:isAccept>
               <a class="btn" id="accept">Accept</a>
             </template>
-            <template v-else-if="request.lsp_team && isHistory == false && request.complete_at_by_lsp == null && request.complete_at_by_5BB == null && request.complete_at_by_lsp_team == null" v-slot:isAccept>
+            <template v-else-if="request.lsp_team && isHistory == false && request.complete_at_by_lsp == null && request.complete_at_by_5BB == null" v-slot:isAccept>
               <a class="btn" id="assignOrSwitch">Switch Team</a>
             </template>
-            <template v-else-if="!request.lsp_team && isHistory == false && request.complete_at_by_lsp == null && request.complete_at_by_5BB == null && request.complete_at_by_lsp_team == null" v-slot:isAccept>
+            <template v-else-if="!request.lsp_team && isHistory == false && request.complete_at_by_lsp == null && request.complete_at_by_5BB == null" v-slot:isAccept>
               <a class="btn" id="assignOrSwitch">Assign Team</a>
             </template>
           </CustomerHomeFooterButton>

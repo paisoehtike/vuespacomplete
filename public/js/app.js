@@ -3819,6 +3819,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3868,7 +3869,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (this.detail.step == null || this.detail.step.name != 'Activation') {
           this.completeAlert = true;
           alert("Doesn't Complete Yet!");
-        } else if (this.detail.complete_at_by_5BB != null) {
+        } else if (this.detail.complete_at_by_lsp != null) {
           alert('Already completed this!');
         } else {
           axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id).then(function (res) {
@@ -3879,7 +3880,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
           this.completeAlert = true;
           alert("Doesn't Complete Yet!");
-        } else if (this.detail.complete_at_by_5BB != null) {
+        } else if (this.detail.complete_at_by_lsp != null) {
           alert('Already completed this!');
         } else {
           axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id).then(function (res) {
@@ -4497,6 +4498,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4512,35 +4516,59 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      remarks: null
+      remarks: null,
+      detail: null,
+      isComplete: null
     };
   },
   methods: {
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
     getRemarks: function getRemarks(response) {
       this.remarks = response.data.data;
     },
     getCabling: function getCabling() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get(this.base_url + 'lsp_team/cabling?installation_id=' + this.$route.params.id).then(function (response) {
-        _this.getRemarks(response);
+        _this2.getRemarks(response);
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'cabling'
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/splicing');
-        }
-      })["catch"](console.log('Error'));
+      if (this.isComplete) {
+        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/splicing');
+      } else {
+        axios.post(this.base_url + 'lsp_team/installation_step', {
+          installation_request_id: this.$route.params.id,
+          step: 'cabling'
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this3.$router.push('/lsp-team-order/' + _this3.$route.params.id + '/splicing');
+          }
+        })["catch"](console.log('Error'));
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getCabling();
+  },
+  watch: {
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
+    }
   }
 });
 
@@ -4845,6 +4873,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4860,35 +4892,59 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      remarks: null
+      remarks: null,
+      detail: null,
+      isComplete: null
     };
   },
   methods: {
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
     getRemarks: function getRemarks(response) {
       this.remarks = response.data.data;
     },
     getSplicing: function getSplicing() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get(this.base_url + 'lsp_team/splicing?installation_id=' + this.$route.params.id).then(function (response) {
-        _this.getRemarks(response);
+        _this2.getRemarks(response);
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'splicing'
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/activate');
-        }
-      })["catch"](console.log('Error'));
+      if (this.isComplete) {
+        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/activate');
+      } else {
+        axios.post(this.base_url + 'lsp_team/installation_step', {
+          installation_request_id: this.$route.params.id,
+          step: 'splicing'
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this3.$router.push('/lsp-team-order/' + _this3.$route.params.id + '/activate');
+          }
+        })["catch"](console.log('Error'));
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getSplicing();
+  },
+  watch: {
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
+    }
   }
 });
 
@@ -4966,6 +5022,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4982,14 +5043,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   data: function data() {
     return {
       surveyIssues: null,
+      isComplete: null,
+      detail: null,
       errors: {
         poleIssueStatus: null,
         authorityStatus: null,
         fatStatus: null,
         odnIssueStatus: null,
         customerIssueStatus: null
-      },
-      blockApiCall: null
+      }
     };
   },
   methods: {
@@ -5024,40 +5086,64 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.errors.customerIssueStatus = response.data.data.customer_issue.status;
       this.surveyIssues = response.data.data;
     },
-    getSurvey: function getSurvey() {
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
       var _this = this;
 
-      axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
-        _this.addSurvey(response);
-      })["catch"](console.log('Error'));
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
     },
-    storeStep: function storeStep() {
+    getSurvey: function getSurvey() {
       var _this2 = this;
 
-      Object.keys(this.errors).forEach(function (key) {
-        if (_this2.errors[key] == 'pending' || _this2.errors[key] == null) {
-          alert('Please take all survey!');
-          _this2.blockApiCall = true;
-          return;
-        } else {
-          _this2.blockApiCall = false;
-        }
-      });
+      axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
+        _this2.addSurvey(response);
+      })["catch"](console.log('Error'));
+    },
+    isValid: function isValid() {
+      var _this3 = this;
 
-      if (!this.blockApiCall) {
-        axios.post(this.base_url + 'lsp_team/installation_step', {
-          installation_request_id: this.$route.params.id,
-          step: 'survey'
-        }).then(function (res) {
-          if (res.status == 200) {
-            _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/cabling');
-          }
-        })["catch"](console.log('Error'));
+      var matchingKey = Object.keys(this.errors).find(function (key) {
+        return _this3.errors[key] == 'pending' || _this3.errors[key] == null;
+      });
+      return Boolean(matchingKey); // convert to boolean.
+    },
+    storeStep: function storeStep() {
+      var _this4 = this;
+
+      if (this.isComplete) {
+        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/cabling');
+      } else {
+        var matchingKey = this.isValid();
+
+        if (matchingKey == true) {
+          alert('Please take all survey!');
+        } else {
+          axios.post(this.base_url + 'lsp_team/installation_step', {
+            installation_request_id: this.$route.params.id,
+            step: 'survey'
+          }).then(function (res) {
+            if (res.status == 200) {
+              _this4.$router.push('/lsp-team-order/' + _this4.$route.params.id + '/cabling');
+            }
+          })["catch"](console.log('Error'));
+        }
       }
     }
   },
-  mounted: function mounted() {
+  created: function created() {
+    this.getDetail();
     this.getSurvey();
+  },
+  watch: {
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
+    }
   }
 });
 
@@ -5079,6 +5165,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+//
 //
 //
 //
@@ -6197,7 +6284,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['type', 'id', 'multipleRemarks'],
+  props: ['type', 'id', 'multipleRemarks', 'isComplete'],
   methods: {
     deleteRemark: function deleteRemark(id) {
       var _this = this;
@@ -6401,6 +6488,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -6410,7 +6498,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['data'],
+  props: ['data', 'isComplete'],
   data: function data() {
     return {
       isSelect: false,
@@ -6650,7 +6738,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type'],
+  props: ['type', 'isComplete'],
   data: function data() {
     return {
       showModal: false,
@@ -6669,6 +6757,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    showOrHideModal: function showOrHideModal() {
+      if (!this.isComplete) {
+        this.showModal = true;
+      }
+    },
     submitRemark: function submitRemark() {
       this.$emit('delete-confirm');
       this.showModal = false;
@@ -7030,7 +7123,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'preRemark'],
+  props: ['type', 'preRemark', 'isComplete'],
   data: function data() {
     return {
       showModal: false,
@@ -7038,6 +7131,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    showOrHideModal: function showOrHideModal() {
+      if (!this.isComplete) {
+        this.showModal = true;
+      }
+    },
     submitRemark: function submitRemark() {
       var remark = {
         'remark': this.remark
@@ -7076,6 +7174,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 /* harmony import */ var _lsp_home_team_TeamComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../lsp-home-team/TeamComponent */ "./resources/js/components/lsp-home-team/TeamComponent.vue");
+//
+//
 //
 //
 //
@@ -7391,7 +7491,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
             orderType: this.request_type
           }
         }); // if(this.request_type == 'on_call') {
-        //   this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: this.request_type } });
+        //   this.$router.push({ name: 'order-on-call', params: { id: request.id, orderType: this.request_type } });
         // } else {
         //   this.$router.push({ name: 'order', params: { id: request.id, orderType: this.request_type }});
         // }
@@ -42721,6 +42821,16 @@ var render = function() {
                       },
                       slot: "order-chip"
                     })
+                  : _vm.detail.complete_at_by_lsp != null &&
+                    _vm.detail.complete_at_by_5BB == null
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        status: "Complete",
+                        value: "Complete"
+                      },
+                      slot: "order-chip"
+                    })
                   : _vm.detail.installation_step != null &&
                     _vm.detail.complete_at_by_5BB == null
                   ? _c("OrderStepChip", {
@@ -42811,8 +42921,9 @@ var render = function() {
               _vm._v(_vm._s(_vm.detail.lsp_team.name))
             ]),
         _vm._v(" "),
-        _vm.detail.complete_at_by_5BB == null ||
-        _vm.detail.status.name == "Complete"
+        _vm.detail.complete_at_by_lsp == null &&
+        _vm.detail.complete_at_by_5BB == null &&
+        _vm.detail.complete_at_by_lsp_team == null
           ? _c(
               "span",
               [
@@ -43754,7 +43865,11 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("MultipleRemark", {
-        attrs: { id: this.$route.params.id, multipleRemarks: _vm.remarks },
+        attrs: {
+          id: this.$route.params.id,
+          isComplete: _vm.isComplete,
+          multipleRemarks: _vm.remarks
+        },
         on: {
           reload: function($event) {
             return _vm.getCabling()
@@ -44056,6 +44171,7 @@ var render = function() {
         attrs: {
           type: "splicing",
           id: this.$route.params.id,
+          isComplete: _vm.isComplete,
           multipleRemarks: _vm.remarks
         },
         on: {
@@ -44128,7 +44244,10 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.pole_issue },
+        attrs: {
+          data: _vm.surveyIssues.pole_issue,
+          isComplete: _vm.isComplete
+        },
         on: {
           status: function($event) {
             var i = arguments.length,
@@ -44158,7 +44277,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.authority },
+        attrs: { data: _vm.surveyIssues.authority, isComplete: _vm.isComplete },
         on: {
           status: function($event) {
             var i = arguments.length,
@@ -44188,7 +44307,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.fat },
+        attrs: { data: _vm.surveyIssues.fat, isComplete: _vm.isComplete },
         on: {
           status: function($event) {
             var i = arguments.length,
@@ -44213,7 +44332,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.odn_issue },
+        attrs: { data: _vm.surveyIssues.odn_issue, isComplete: _vm.isComplete },
         on: {
           status: function($event) {
             var i = arguments.length,
@@ -44243,7 +44362,10 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.customer_issue },
+        attrs: {
+          data: _vm.surveyIssues.customer_issue,
+          isComplete: _vm.isComplete
+        },
         on: {
           status: function($event) {
             var i = arguments.length,
@@ -44569,7 +44691,8 @@ var render = function() {
                   },
                   [_vm._v("Repair")]
                 )
-              : _vm.detail.installation_step != null
+              : _vm.detail.installation_step != null &&
+                _vm.detail.complete_at_by_5BB == null
               ? _c(
                   "a",
                   {
@@ -44577,6 +44700,15 @@ var render = function() {
                       "waves-effect waves-light btn orange dynamic-btn"
                   },
                   [_vm._v("Continue Installation")]
+                )
+              : _vm.detail.complete_at_by_5BB != null
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "waves-effect waves-light btn orange dynamic-btn"
+                  },
+                  [_vm._v("View Installation")]
                 )
               : _c(
                   "a",
@@ -45527,7 +45659,12 @@ var render = function() {
         _c(
           "div",
           { staticClass: "right" },
-          [_c("RemarkModal", { on: { "review-remark": _vm.storeRemark } })],
+          [
+            _c("RemarkModal", {
+              attrs: { isComplete: _vm.isComplete },
+              on: { "review-remark": _vm.storeRemark }
+            })
+          ],
           1
         )
       ]),
@@ -45562,7 +45699,11 @@ var render = function() {
               { staticClass: "mrb-3 master-right" },
               [
                 _c("RemarkModal", {
-                  attrs: { type: "update", preRemark: multipleRemark.name },
+                  attrs: {
+                    isComplete: _vm.isComplete,
+                    type: "update",
+                    preRemark: multipleRemark.name
+                  },
                   on: {
                     "review-remark": function($event) {
                       var i = arguments.length,
@@ -45577,6 +45718,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("ConfirmModal", {
+                  attrs: { isComplete: _vm.isComplete },
                   on: {
                     "delete-confirm": function($event) {
                       return _vm.deleteRemark(multipleRemark.id)
@@ -45784,7 +45926,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "right status-control-button" }, [
         _c(
-          "a",
+          "button",
           {
             directives: [
               {
@@ -45795,6 +45937,7 @@ var render = function() {
               }
             ],
             staticClass: "button-pass",
+            attrs: { disabled: _vm.isComplete },
             on: {
               click: function($event) {
                 return _vm.pass()
@@ -45805,7 +45948,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "a",
+          "button",
           {
             directives: [
               {
@@ -45816,6 +45959,7 @@ var render = function() {
               }
             ],
             staticClass: "button-fail",
+            attrs: { disabled: _vm.isComplete },
             on: {
               click: function($event) {
                 return _vm.fail()
@@ -45826,7 +45970,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "a",
+          "button",
           {
             directives: [
               {
@@ -45837,6 +45981,7 @@ var render = function() {
               }
             ],
             staticClass: "button-undo",
+            attrs: { disabled: _vm.isComplete },
             on: {
               click: function($event) {
                 return _vm.undo()
@@ -45866,6 +46011,7 @@ var render = function() {
                 expression: "!isMark"
               }
             ],
+            attrs: { isComplete: _vm.isComplete },
             on: { "review-remark": _vm.storeRemark }
           }),
           _vm._v(" "),
@@ -45879,6 +46025,7 @@ var render = function() {
               }
             ],
             attrs: {
+              isComplete: _vm.isComplete,
               type: "update",
               preRemark:
                 _vm.data.remark != null ? _vm.data.remark.name : _vm.remark
@@ -45895,6 +46042,7 @@ var render = function() {
                 expression: "isMark"
               }
             ],
+            attrs: { isComplete: _vm.isComplete },
             on: { "delete-confirm": _vm.deleteRemark }
           })
         ],
@@ -46016,11 +46164,7 @@ var render = function() {
           )
         : _c("i", {
             staticClass: "far fa-trash-alt remark-setting",
-            on: {
-              click: function($event) {
-                _vm.showModal = true
-              }
-            }
+            on: { click: _vm.showOrHideModal }
           }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
@@ -46730,19 +46874,11 @@ var render = function() {
       _vm.type == "update"
         ? _c("i", {
             staticClass: "far fa-edit remark-setting",
-            on: {
-              click: function($event) {
-                _vm.showModal = true
-              }
-            }
+            on: { click: _vm.showOrHideModal }
           })
         : _c("i", {
             staticClass: "fas fa-plus add-remark",
-            on: {
-              click: function($event) {
-                _vm.showModal = true
-              }
-            }
+            on: { click: _vm.showOrHideModal }
           }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
@@ -46879,6 +47015,16 @@ var render = function() {
                   },
                   slot: "order-chip"
                 })
+              : request.complete_at_by_lsp != null &&
+                request.complete_at_by_5BB == null
+              ? _c("OrderStepChip", {
+                  attrs: {
+                    slot: "order-chip",
+                    status: "Complete",
+                    value: "Complete"
+                  },
+                  slot: "order-chip"
+                })
               : request.installation_step != null &&
                 request.complete_at_by_5BB == null
               ? _c("OrderStepChip", {
@@ -46996,7 +47142,11 @@ var render = function() {
                         },
                         proxy: true
                       }
-                    : request.lsp_team && _vm.isHistory == false
+                    : request.lsp_team &&
+                      _vm.isHistory == false &&
+                      request.complete_at_by_lsp == null &&
+                      request.complete_at_by_5BB == null &&
+                      request.complete_at_by_lsp_team == null
                     ? {
                         key: "isAccept",
                         fn: function() {
@@ -47013,7 +47163,11 @@ var render = function() {
                         },
                         proxy: true
                       }
-                    : !request.lsp_team && _vm.isHistory == false
+                    : !request.lsp_team &&
+                      _vm.isHistory == false &&
+                      request.complete_at_by_lsp == null &&
+                      request.complete_at_by_5BB == null &&
+                      request.complete_at_by_lsp_team == null
                     ? {
                         key: "isAccept",
                         fn: function() {

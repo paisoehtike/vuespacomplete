@@ -113,7 +113,8 @@
     <div class="team-order-button">
       <div @click="toSurvey" class="col s12 m6 l3 complete-btn">
         <a v-if="orderType == 'on_call'" class="waves-effect waves-light btn orange dynamic-btn">Repair</a>
-        <a v-else-if="detail.installation_step != null" class="waves-effect waves-light btn orange dynamic-btn">Continue Installation</a>
+        <a v-else-if="detail.installation_step != null && detail.complete_at_by_5BB == null" class="waves-effect waves-light btn orange dynamic-btn">Continue Installation</a>
+        <a v-else-if="detail.complete_at_by_5BB != null" class="waves-effect waves-light btn orange dynamic-btn">View Installation</a>
         <a v-else class="waves-effect waves-light btn orange dynamic-btn">Start Installation</a>
       </div>
     </div>

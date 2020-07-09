@@ -13,6 +13,7 @@
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
 
           <OrderStepChip v-if="detail.complete_at_by_5BB != null" :status="'Finish'" :value="'Finish'" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-else-if="detail.complete_at_by_lsp != null && detail.complete_at_by_5BB == null" :status="'Complete'" :value="'Complete'" slot="order-chip"></OrderStepChip>
           <OrderStepChip v-else-if="detail.installation_step != null && detail.complete_at_by_5BB == null" :status="detail.status" :value="detail.installation_step.name" slot="order-chip"></OrderStepChip>
         </div>
         <div class="order-detail-id">
@@ -44,7 +45,7 @@
       <span v-if="!detail.lsp_team" class="dummy">N/A</span>
       <span v-else class="dummy">{{ detail.lsp_team.name }}</span>
 
-      <span v-if="detail.complete_at_by_5BB == null || detail.status.name == 'Complete'">
+      <span v-if="detail.complete_at_by_lsp == null && detail.complete_at_by_5BB == null && detail.complete_at_by_lsp_team == null">
         <AssignOrSwitchTeamComponent v-if="!detail.lsp_team" 
         @reload="refresh"
         :customer="detail"
@@ -161,7 +162,7 @@ export default {
         if(this.detail.step == null || this.detail.step.name != 'Activation') {
           this.completeAlert = true
           alert("Doesn't Complete Yet!")
-        } else if(this.detail.complete_at_by_5BB != null) {
+        } else if(this.detail.complete_at_by_lsp != null) {
           alert('Already completed this!')
         } else {
           axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id)
@@ -171,7 +172,7 @@ export default {
         if(this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
           this.completeAlert = true
           alert("Doesn't Complete Yet!")
-        } else if(this.detail.complete_at_by_5BB != null) {
+        } else if(this.detail.complete_at_by_lsp != null) {
           alert('Already completed this!')
         } else {
           axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id)

@@ -9,9 +9,9 @@
                 </p>
             </div>
             <div class="right status-control-button">
-                <a v-show="!isSelect" class="button-pass" @click="pass()">Pass</a>
-                <a v-show="!isSelect" class="button-fail" @click="fail()">Fail</a>
-                <a v-show="isSelect" class="button-undo" @click="undo()">Undo</a>
+                <button v-show="!isSelect" class="button-pass" @click="pass()" :disabled="isComplete">Pass</button>
+                <button v-show="!isSelect" class="button-fail" @click="fail()" :disabled="isComplete">Fail</button>
+                <button v-show="isSelect" class="button-undo" @click="undo()" :disabled="isComplete">Undo</button>
             </div>
         </div>
         <div class="divider"></div>
@@ -20,15 +20,16 @@
                 <p class="remark-header">Remark</p>
             </div>
             <div class="master-right ir-2">
-                <RemarkModal v-show="!isMark" @review-remark="storeRemark"></RemarkModal>
+                <RemarkModal v-show="!isMark" :isComplete="isComplete" @review-remark="storeRemark"></RemarkModal>
                
                 <RemarkModal v-show="isMark" 
-                    @review-remark="updateRemark" 
+                    @review-remark="updateRemark"
+                    :isComplete="isComplete"
                     :type="'update'" 
                     :preRemark="data.remark != null ? data.remark.name : remark">
                 </RemarkModal>
 
-                <ConfirmModal v-show="isMark" @delete-confirm="deleteRemark"></ConfirmModal>
+                <ConfirmModal v-show="isMark" :isComplete="isComplete" @delete-confirm="deleteRemark"></ConfirmModal>
             </div>
             <div v-show="isMark" class="remark-body ir-3">
                 <p>
@@ -51,7 +52,7 @@ export default {
         ConfirmModal
     },
     props: [
-        'data'
+        'data', 'isComplete',
     ],
     data() {
         return {

@@ -6,8 +6,9 @@
             <h2>Survey</h2>
         </router-link>
         <ProgressBar :stepNo="'1'" :type="'team'" :id="this.$route.params.id"></ProgressBar>
-        <SurveyIssue  
+        <SurveyIssue
             :data="surveyIssues.pole_issue"
+            :isComplete="isComplete"
             @status="changeStatus('pole_issue', ...arguments)"
             v-slot:issue-name>
 
@@ -15,6 +16,7 @@
         </SurveyIssue>
         <SurveyIssue  
             :data="surveyIssues.authority"
+            :isComplete="isComplete"
             @status="changeStatus('authority', ...arguments)"
             v-slot:issue-name>
 
@@ -22,6 +24,7 @@
         </SurveyIssue>
         <SurveyIssue  
             :data="surveyIssues.fat"
+            :isComplete="isComplete"
             @status="changeStatus('fat', ...arguments)"
             v-slot:issue-name>
 
@@ -29,6 +32,7 @@
         </SurveyIssue>
         <SurveyIssue  
             :data="surveyIssues.odn_issue"
+            :isComplete="isComplete"
             @status="changeStatus('odn_issue', ...arguments)"
             v-slot:issue-name>
 
@@ -36,6 +40,7 @@
         </SurveyIssue>
         <SurveyIssue  
             :data="surveyIssues.customer_issue"
+            :isComplete="isComplete"
             @status="changeStatus('customer_issue', ...arguments)"
             v-slot:issue-name>
 
@@ -75,6 +80,8 @@ export default {
     data() {
         return {
             surveyIssues: null,
+            isComplete: null,
+            detail: null,
             errors: {
                 poleIssueStatus: null,
                 authorityStatus: null,
@@ -82,7 +89,6 @@ export default {
                 odnIssueStatus: null,
                 customerIssueStatus: null,
             },
-            blockApiCall: null,
         }
     },
     methods: {
@@ -113,38 +119,55 @@ export default {
             this.errors.customerIssueStatus = response.data.data.customer_issue.status
             this.surveyIssues = response.data.data
         },
+        bindResponseData(response) {
+            this.detail = response.data.data;
+        },
+        getDetail() {
+            axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation')
+            .then( response => { this.bindResponseData(response) })
+            .catch(console.log('Something Went Wrong!'));
+        },
         getSurvey() {
             axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id)
                 .then( response => { this.addSurvey(response) } )
                 .catch( console.log('Error') );
         },
+        isValid() {
+            const matchingKey = Object.keys(this.errors).find(key => this.errors[key] == 'pending' || this.errors[key] == null);
+            return Boolean(matchingKey); // convert to boolean.
+        },
         storeStep() {
-            Object.keys(this.errors).forEach(key => {
-                if(this.errors[key] == 'pending' || this.errors[key] == null) {
+            if(this.isComplete) {
+                this.$router.push('/lsp-team-order/' + this.$route.params.id + '/cabling');
+            } else {
+                const matchingKey = this.isValid()
+                if(matchingKey == true) {
                     alert('Please take all survey!')
-                    this.blockApiCall = true
-                    return
                 } else {
-                    this.blockApiCall = false
-                }
-            })
-
-            if(!this.blockApiCall) {
-                axios.post(this.base_url + 'lsp_team/installation_step', 
-                {
-                    installation_request_id: this.$route.params.id,
-                    step: 'survey'
-                }
-                ).then( res => { 
-                    if(res.status == 200) {
-                        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/cabling');
+                    axios.post(this.base_url + 'lsp_team/installation_step', 
+                    {
+                        installation_request_id: this.$route.params.id,
+                        step: 'survey'
                     }
-                } ).catch( console.log('Error') );
+                    ).then( res => { 
+                        if(res.status == 200) {
+                            this.$router.push('/lsp-team-order/' + this.$route.params.id + '/cabling');
+                        }
+                    } ).catch( console.log('Error') );
+                }
+            }
+        },
+    },
+    created() {
+        this.getDetail();
+        this.getSurvey();
+    },
+    watch: {
+        detail(val) {
+            if(val.complete_at_by_5BB != null) {
+                this.isComplete = true
             }
         }
-    },
-    mounted() {
-        this.getSurvey();
     }
 }
 </script>
