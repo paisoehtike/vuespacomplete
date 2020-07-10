@@ -38,7 +38,7 @@
             <div>
                 <label class="activate-label" for="olt">Search and Select OLT</label>
                 <span v-if="this.errors.olt">*Requried</span>
-                <div @click="showModal = true" class="custom-search-box">
+                <div @click="openShowModal" class="custom-search-box">
                     <p>{{ oltResult }}</p>
                 </div>
                 <transition name="slide" appear>
@@ -61,7 +61,7 @@
             <div>
                 <label class="activate-label" for="fdt">Search and Select FDT</label>
                 <span v-if="this.errors.fdt">*Requried</span>
-                <div @click="showModal1 = true" class="custom-search-box">
+                <div @click="openShowModal1" class="custom-search-box">
                     <p>{{ fdtResult }}</p>
                 </div>
                 <transition name="slide" appear>
@@ -85,7 +85,7 @@
             <div>
                 <label class="activate-label" for="fat-port">FAT :</label>
                 <span v-if="this.errors.fat">*Requried</span>
-                <select v-model="fat" class="activate-input" @change="getFatPort">
+                <select v-model="fat" class="activate-input" @change="getFatPort" :disabled="isComplete == true">
                     <option disabled v-bind:value="''">Select FAT</option>
                     <option v-for="(data, index) in fats" :key="index" v-bind:value="data.id">
                         {{ data.name }}
@@ -95,7 +95,7 @@
             <div>
                 <label class="activate-label" for="fat-port">FAT Port :</label>
                 <span v-if="this.errors.fat_port">*Requried</span>
-                <select v-model="fat_port" class="activate-input">
+                <select v-model="fat_port" class="activate-input" :disabled="isComplete == true">
                     <option disabled v-bind:value="''">Select FAT Port</option>
                     <option v-for="(data, index) in fat_ports" :key="index" v-bind:value="data.id">
                         {{ data.name }}
@@ -109,26 +109,32 @@
 
             <label class="activate-label" for="onu-type">Select Router :</label>
             <span v-if="this.errors.onuId">*Requried</span>
-            <TypeSlider id="onu-type" v-if="selectedOnuType" :isInstallation="true" :type="onu_type" :defaultId="selectedOnuType" @type-id="setOnuId"></TypeSlider>
-            <TypeSlider id="onu-type" v-else :type="onu_type" :isInstallation="true" @type-id="setOnuId"></TypeSlider>
+            <TypeSlider id="onu-type" v-if="selectedOnuType" :isInstallation="true" :type="onu_type" :defaultId="selectedOnuType" :isRelocation="detail.type" :isComplete="isComplete" @type-id="setOnuId"></TypeSlider>
+            <TypeSlider id="onu-type" v-else :type="onu_type" :isInstallation="true" :isRelocation="detail.type" :isComplete="isComplete" @type-id="setOnuId"></TypeSlider>
+
+            <div v-if="showSerialNo">
+                <label class="activate-label" for="fb-cable">Router Serial No :</label>
+                <span v-if="this.errors.odnSn">*Requried</span>
+                <input class="activate-input" v-model="odnSn" type="text" min="1" :disabled="isComplete == true">
+            </div>
 
             <label class="activate-label" for="fpc">Fibre Patch Cord :</label>
             <span v-if="this.errors.fpcId">*Requried</span>
-            <TypeSlider id="fpc" v-if="selectedFpc" :isInstallation="true" :type="fiber_patch_cord" :defaultId="selectedFpc" @type-id="setFpcId"></TypeSlider>
-            <TypeSlider id="fpc" v-else :type="fiber_patch_cord" :isInstallation="true" :defaultId="selectedFpc" @type-id="setFpcId"></TypeSlider>
+            <TypeSlider id="fpc" v-if="selectedFpc" :isInstallation="true" :type="fiber_patch_cord" :defaultId="selectedFpc" :isComplete="isComplete" @type-id="setFpcId"></TypeSlider>
+            <TypeSlider id="fpc" v-else :type="fiber_patch_cord" :isInstallation="true" :defaultId="selectedFpc" :isComplete="isComplete" @type-id="setFpcId"></TypeSlider>
 
-            <label class="activate-label" for="fpc">ONU Adapter :</label>
-            <span v-if="this.errors.onuAdapterId">*Requried</span>
-            <TypeSlider id="onu-adapter" v-if="selectedOnuAdapter" :isInstallation="true" :type="onu_adapter" :defaultId="selectedOnuAdapter" @type-id="setAdapterId"></TypeSlider>
-            <TypeSlider id="onu-adapter" v-else :type="onu_adapter" :isInstallation="true" :defaultId="selectedOnuAdapter" @type-id="setAdapterId"></TypeSlider>
+            <label class="activate-label" for="fpc" v-if="detail.type == 'relocation'">ONU Adapter :</label>
+            <span v-if="detail.type == 'relocation' && this.errors.onuAdapterId">*Requried</span>
+            <TypeSlider id="onu-adapter" v-if="selectedOnuAdapter && detail.type == 'relocation'" :isInstallation="true" :type="onu_adapter" :defaultId="selectedOnuAdapter" :isComplete="isComplete" @type-id="setAdapterId"></TypeSlider>
+            <TypeSlider id="onu-adapter" v-else-if="!selectedOnuAdapter && detail.type == 'relocation'" :type="onu_adapter" :isInstallation="true" :defaultId="selectedOnuAdapter" :isComplete="isComplete" @type-id="setAdapterId"></TypeSlider>
 
             <div>
                 <label class="activate-label" for="fb-cable">Fibre Cable Length:</label>
                 <span v-if="this.errors.fiber_cable_length">*Requried</span>
-                <input class="activate-input" v-model="fiber_cable_length" type="number" min="1" id="fb-cable" name="fb-cable">
+                <input class="activate-input" v-model="fiber_cable_length" type="number" min="1" id="fb-cable" name="fb-cable" :disabled="isComplete == true">
             </div>
         </div>
-        <MultipleRemark :type="'activation'" :id="this.$route.params.id" :multipleRemarks="remarks" @reload="getActivation"></MultipleRemark>
+        <MultipleRemark :type="'activation'" :id="this.$route.params.id" :multipleRemarks="remarks" :isComplete="isComplete" @reload="getActivation"></MultipleRemark>
         <FinishButton @click.native="storeOnuStep" :type="'Save'"></FinishButton>
         <FinishButton @click.native="storeStep" :type="'Finish'"></FinishButton>
     </div>
@@ -159,6 +165,7 @@ export default {
                 fat: false,
                 fat_port: false,
                 onuId: false,
+                odnSn: false,
                 fpcId: false,
                 fiber_cable_length: false,
                 onuAdapterId: false,
@@ -208,10 +215,34 @@ export default {
             onuAdapterId: null,
             onu_type: null,
             onuId: null,
+            odnSn: null,
             termination_box: null,
+
+            detail: null,
+            showSerialNo: true,
+            isChanged: false,
+            isComplete: null,
         }
     },
     methods: {
+        openShowModal() {
+            if(!this.isComplete) {
+                this.showModal = true;
+            }
+        },
+        openShowModal1() {
+            if(!this.isComplete) {
+                this.showModal1 = true;
+            }
+        },
+        bindResponseData(response) {
+            this.detail = response.data.data;
+        },
+        getDetail() {
+            axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation')
+            .then( response => { this.bindResponseData(response) })
+            .catch(console.log('Something Went Wrong!'));
+        },
         modalClose() {
             this.showModal = false
             this.showModal1 = false
@@ -225,39 +256,52 @@ export default {
             this.fdtSearchIndex = null
         },
         storeOnuStep() {
-            Object.keys(this.errors).forEach(key => {
-                this.errors[key] = false
-            })
-            
-            if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true
-            if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true
-            if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true
-            if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true
-            if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true
-            if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true
-            if (!this.fiber_cable_length) this.errors.fiber_cable_length = true
-            if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true
+            if(!this.isComplete) {
+                Object.keys(this.errors).forEach(key => {
+                    this.errors[key] = false
+                })
+                
+                if(this.detail.type == 'relocation') {
+                    if(this.onuId != null && this.odnSn == null) {
+                        this.errors.odnSn = true
+                    } else {
+                        this.errors.odnSn = false
+                    }
+                } else {
+                    if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true
+                    if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true
+                    if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true
+                    if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true
+                    if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true
+                    if (!this.odnSn) this.errors.odnSn = true
+                    if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true
+                    if (!this.fiber_cable_length) this.errors.fiber_cable_length = true
+                }
+                // if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true
 
-            if(!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId) {
-                axios.post(`${this.base_url}lsp_team/activation_store`,
-                {
-                    olt_id: this.olt,
-                    fdt_id: this.fdt,
-                    fat_id: this.fat,
-                    fat_port_id: this.fat_port,
-                    installation_request_id: this.$route.params.id,
-                    onu_type_id: this.onuId,
-                    onu_type_quantity: 1,
-                    fiber_patch_cord_id: this.fpcId,
-                    fiber_patch_cord_quantity: 1,
-                    fiber_cable_id: this.fiber_cable[0].id,
-                    fiber_cable_length: this.fiber_cable_length,
-                    onu_adapter_id: this.onuAdapterId,
-                    onu_adapter_quantity: 1,
-                    type: 'installation'
-                }).then( res => { 
-                    if(res.data.code == 200) alert('Successfully Processed')
-                 } ).catch( console.log('Sry Pl!') )
+                if(!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId && !this.errors.odnSn) {
+                    axios.post(`${this.base_url}lsp_team/activation_store`,
+                    {
+                        olt_id: this.olt,
+                        fdt_id: this.fdt,
+                        fat_id: this.fat,
+                        fat_port_id: this.fat_port,
+                        installation_request_id: this.$route.params.id,
+                        onu_type_id: this.onuId,
+                        onu_type_quantity: 1,
+                        fiber_patch_cord_id: this.fpcId,
+                        fiber_patch_cord_quantity: 1,
+                        fiber_cable_id: this.fiber_cable[0].id,
+                        fiber_cable_length: this.fiber_cable_length,
+                        onu_adapter_id: this.onuAdapterId,
+                        odn_sn: this.odnSn,
+                        onu_adapter_quantity: 1,
+                        type: 'installation'
+                    }).then( res => { 
+                        if(res.data.code == 200) alert('Successfully Processed')
+                        this.isChanged = false
+                    } ).catch( console.log('Sry Pl!') )
+                }
             }
         },
         onFileSelected(e) {
@@ -276,17 +320,19 @@ export default {
             })
         },
         uploadImage() {
-            const config = {
+            if(!this.isComplete) {
+                const config = {
                     headers: { 'content-type': 'multipart/form-data' }
                 }
-            let formData = new FormData();
-            formData.append('image', this.imageFile);
-            formData.append('installation_request_id', this.$route.params.id);
-            axios.post(this.base_url + 'lsp_team/image_store',
-            formData, config
-            ).then( res => { 
-                this.appendImage(res.data.data) 
-            } ).catch(console.log('Cant Image'));
+                let formData = new FormData();
+                formData.append('image', this.imageFile);
+                formData.append('installation_request_id', this.$route.params.id);
+                axios.post(this.base_url + 'lsp_team/image_store',
+                formData, config
+                ).then( res => { 
+                    this.appendImage(res.data.data) 
+                } ).catch(console.log('Cant Image'));
+            }
         },
         appendImage(img) {
             this.images.push(img);
@@ -294,14 +340,16 @@ export default {
             this.$refs.fileInput.value = null
         },
         deleteImage(img) {
-            axios.post(`${this.base_url}lsp_team/image_delete/${img.id}`)
-            .then( res => {
-                if(res.data.code == 200) {
-                    this.images = this.images.filter( function(image) {
-                        return image.id != img.id; 
-                    });
-                }
-            }).catch(console.log('Error'));
+            if(!this.isComplete) {
+                axios.post(`${this.base_url}lsp_team/image_delete/${img.id}`)
+                .then( res => {
+                    if(res.data.code == 200) {
+                        this.images = this.images.filter( function(image) {
+                            return image.id != img.id; 
+                        });
+                    }
+                }).catch(console.log('Error'));
+            }
         },
         loadPreImages(images) {
             this.images = images;
@@ -334,34 +382,46 @@ export default {
                     if (res.data.data.olt) {
                         this.olt = res.data.data.olt.id;
                         this.oltResult = res.data.data.olt.name;
+                        this.isChanged = false
                     }
                     if (res.data.data.fdt) {
                         this.fdt = res.data.data.fdt.id;
                         this.fdtResult = res.data.data.fdt.name;
+                        this.isChanged = false
                     }
                     if (res.data.data.fat) {
                         this.fat = res.data.data.fat.id;
+                        this.isChanged = false
+                    }
+                    if (res.data.data.odn_sn) {
+                        this.odnSn = res.data.data.odn_sn;
+                        this.isChanged = false
                     }
                     if (res.data.data.fat_port) {
                         this.fat_port = res.data.data.fat_port.id;
                         this.fat_ports.push(res.data.data.fat_port);
+                        this.isChanged = false
                     }
                     
                     this.onu_sn = res.data.data.onu_sn;
                     if (res.data.data.product_usage.onu_type != null) {
                         this.selectedOnuType = res.data.data.product_usage.onu_type.id;
                         this.onuId = res.data.data.product_usage.onu_type.id;
+                        this.isChanged = false
                     }
                     if (res.data.data.product_usage.fiber_patch_cord != null) {
                         this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
                         this.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+                        this.isChanged = false
                     }
                     if (res.data.data.product_usage.onu_adapter != null) {
                         this.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
                         this.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+                        this.isChanged = false
                     }
                     if (res.data.data.product_usage.fiber_cable != null) {
                         this.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+                        this.isChanged = false
                     }
                     // if(res.data.data.product_usage != null) {
                     //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
@@ -382,17 +442,23 @@ export default {
             this.getActivate();
         },
         storeStep() {
-            axios.post(this.base_url + 'lsp_team/installation_step', 
-                {
-                    installation_request_id: this.$route.params.id,
-                    step: 'activation'
+            if(!this.isComplete) {
+                if(this.isChanged == true) {
+                alert('Please Save before Finishing ONU step!')
+                } else {
+                    axios.post(this.base_url + 'lsp_team/installation_step', 
+                    {
+                        installation_request_id: this.$route.params.id,
+                        step: 'activation'
+                    }
+                    ).then( res => { 
+                        if(res.status == 200) {
+                            alert('Successfully Processed!')
+                            this.$router.push('/lsp-order/' + this.$route.params.id + '/installation');
+                        }
+                    } ).catch( console.log('Error') );
                 }
-            ).then( res => { 
-                if(res.status == 200) {
-                    alert('Successfully Processed!')
-                    this.$router.push('/lsp-order/' + this.$route.params.id + '/installation');
-                }
-            } ).catch( console.log('Error') );
+            }
         },
         getOlt() {
             axios.get(`${this.base_url}get_olt_lists`)
@@ -467,11 +533,19 @@ export default {
         }
     },
     watch: {
+        olt() {
+            this.isChanged = true
+        },
         fdt: function(val) {
             this.getFat();
+            this.isChanged = true
         },
         fat: function(val) {
             this.getFatPort();
+            this.isChanged = true
+        },
+        fat_port() {
+            this.isChanged = true
         },
         oltSearchIndex: function(val) {
             if (val.length >= 2) {
@@ -504,9 +578,35 @@ export default {
             if(val){
                 this.uploadImage()
             }
+        },
+        onuId(val) {
+            if(val == null) {
+                this.showSerialNo = false;
+            } else {
+                this.showSerialNo = true;
+            }
+            this.isChanged = true
+        },
+        fpcId() {
+            this.isChanged = true
+        },
+        fiber_cable_length() {
+            this.isChanged = true
+        },
+        onuAdapterId() {
+            this.isChanged = true
+        },
+        odnSn() {
+            this.isChanged = true
+        },
+        detail(val) {
+            if(val.complete_at_by_5BB != null) {
+                this.isComplete = true
+            }
         }
     },
     created() {
+        this.getDetail();
         this.getActivate();
         this.getInventory();
     }

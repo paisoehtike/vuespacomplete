@@ -3380,6 +3380,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4074,6 +4077,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4097,6 +4106,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fat: false,
         fat_port: false,
         onuId: false,
+        odnSn: false,
         fpcId: false,
         fiber_cable_length: false,
         onuAdapterId: false,
@@ -4139,10 +4149,35 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       onuAdapterId: null,
       onu_type: null,
       onuId: null,
-      termination_box: null
+      odnSn: null,
+      termination_box: null,
+      detail: null,
+      showSerialNo: true,
+      isChanged: false,
+      isComplete: null
     };
   },
   methods: {
+    openShowModal: function openShowModal() {
+      if (!this.isComplete) {
+        this.showModal = true;
+      }
+    },
+    openShowModal1: function openShowModal1() {
+      if (!this.isComplete) {
+        this.showModal1 = true;
+      }
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
     modalClose: function modalClose() {
       this.showModal = false;
       this.showModal1 = false;
@@ -4156,39 +4191,53 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.fdtSearchIndex = null;
     },
     storeOnuStep: function storeOnuStep() {
-      var _this = this;
+      var _this2 = this;
 
-      Object.keys(this.errors).forEach(function (key) {
-        _this.errors[key] = false;
-      });
-      if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true;
-      if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true;
-      if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true;
-      if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true;
-      if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true;
-      if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true;
-      if (!this.fiber_cable_length) this.errors.fiber_cable_length = true;
-      if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true;
+      if (!this.isComplete) {
+        Object.keys(this.errors).forEach(function (key) {
+          _this2.errors[key] = false;
+        });
 
-      if (!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId) {
-        axios.post("".concat(this.base_url, "lsp_team/activation_store"), {
-          olt_id: this.olt,
-          fdt_id: this.fdt,
-          fat_id: this.fat,
-          fat_port_id: this.fat_port,
-          installation_request_id: this.$route.params.id,
-          onu_type_id: this.onuId,
-          onu_type_quantity: 1,
-          fiber_patch_cord_id: this.fpcId,
-          fiber_patch_cord_quantity: 1,
-          fiber_cable_id: this.fiber_cable[0].id,
-          fiber_cable_length: this.fiber_cable_length,
-          onu_adapter_id: this.onuAdapterId,
-          onu_adapter_quantity: 1,
-          type: 'installation'
-        }).then(function (res) {
-          if (res.data.code == 200) alert('Successfully Processed');
-        })["catch"](console.log('Sry Pl!'));
+        if (this.detail.type == 'relocation') {
+          if (this.onuId != null && this.odnSn == null) {
+            this.errors.odnSn = true;
+          } else {
+            this.errors.odnSn = false;
+          }
+        } else {
+          if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true;
+          if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true;
+          if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true;
+          if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true;
+          if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true;
+          if (!this.odnSn) this.errors.odnSn = true;
+          if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true;
+          if (!this.fiber_cable_length) this.errors.fiber_cable_length = true;
+        } // if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true
+
+
+        if (!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId && !this.errors.odnSn) {
+          axios.post("".concat(this.base_url, "lsp_team/activation_store"), {
+            olt_id: this.olt,
+            fdt_id: this.fdt,
+            fat_id: this.fat,
+            fat_port_id: this.fat_port,
+            installation_request_id: this.$route.params.id,
+            onu_type_id: this.onuId,
+            onu_type_quantity: 1,
+            fiber_patch_cord_id: this.fpcId,
+            fiber_patch_cord_quantity: 1,
+            fiber_cable_id: this.fiber_cable[0].id,
+            fiber_cable_length: this.fiber_cable_length,
+            onu_adapter_id: this.onuAdapterId,
+            odn_sn: this.odnSn,
+            onu_adapter_quantity: 1,
+            type: 'installation'
+          }).then(function (res) {
+            if (res.data.code == 200) alert('Successfully Processed');
+            _this2.isChanged = false;
+          })["catch"](console.log('Sry Pl!'));
+        }
       }
     },
     onFileSelected: function onFileSelected(e) {
@@ -4206,19 +4255,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       });
     },
     uploadImage: function uploadImage() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var config = {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
-      };
-      var formData = new FormData();
-      formData.append('image', this.imageFile);
-      formData.append('installation_request_id', this.$route.params.id);
-      axios.post(this.base_url + 'lsp_team/image_store', formData, config).then(function (res) {
-        _this2.appendImage(res.data.data);
-      })["catch"](console.log('Cant Image'));
+      if (!this.isComplete) {
+        var config = {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        };
+        var formData = new FormData();
+        formData.append('image', this.imageFile);
+        formData.append('installation_request_id', this.$route.params.id);
+        axios.post(this.base_url + 'lsp_team/image_store', formData, config).then(function (res) {
+          _this3.appendImage(res.data.data);
+        })["catch"](console.log('Cant Image'));
+      }
     },
     appendImage: function appendImage(img) {
       this.images.push(img);
@@ -4226,15 +4277,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.$refs.fileInput.value = null;
     },
     deleteImage: function deleteImage(img) {
-      var _this3 = this;
+      var _this4 = this;
 
-      axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
-        if (res.data.code == 200) {
-          _this3.images = _this3.images.filter(function (image) {
-            return image.id != img.id;
-          });
-        }
-      })["catch"](console.log('Error'));
+      if (!this.isComplete) {
+        axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
+          if (res.data.code == 200) {
+            _this4.images = _this4.images.filter(function (image) {
+              return image.id != img.id;
+            });
+          }
+        })["catch"](console.log('Error'));
+      }
     },
     loadPreImages: function loadPreImages(images) {
       this.images = images;
@@ -4258,55 +4311,69 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.remarks = remarks;
     },
     getActivate: function getActivate() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get(this.base_url + 'lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
-        _this4.loadPreImages(res.data.data.images);
+        _this5.loadPreImages(res.data.data.images);
 
-        _this4.loadPreRemarks(res.data.data.remarks);
+        _this5.loadPreRemarks(res.data.data.remarks);
 
-        _this4.ppoeUserName = res.data.data.ppoe_username;
-        _this4.ppoePassword = res.data.data.ppoe_password;
+        _this5.ppoeUserName = res.data.data.ppoe_username;
+        _this5.ppoePassword = res.data.data.ppoe_password;
 
         if (res.data.data.olt) {
-          _this4.olt = res.data.data.olt.id;
-          _this4.oltResult = res.data.data.olt.name;
+          _this5.olt = res.data.data.olt.id;
+          _this5.oltResult = res.data.data.olt.name;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.fdt) {
-          _this4.fdt = res.data.data.fdt.id;
-          _this4.fdtResult = res.data.data.fdt.name;
+          _this5.fdt = res.data.data.fdt.id;
+          _this5.fdtResult = res.data.data.fdt.name;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.fat) {
-          _this4.fat = res.data.data.fat.id;
+          _this5.fat = res.data.data.fat.id;
+          _this5.isChanged = false;
+        }
+
+        if (res.data.data.odn_sn) {
+          _this5.odnSn = res.data.data.odn_sn;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.fat_port) {
-          _this4.fat_port = res.data.data.fat_port.id;
+          _this5.fat_port = res.data.data.fat_port.id;
 
-          _this4.fat_ports.push(res.data.data.fat_port);
+          _this5.fat_ports.push(res.data.data.fat_port);
+
+          _this5.isChanged = false;
         }
 
-        _this4.onu_sn = res.data.data.onu_sn;
+        _this5.onu_sn = res.data.data.onu_sn;
 
         if (res.data.data.product_usage.onu_type != null) {
-          _this4.selectedOnuType = res.data.data.product_usage.onu_type.id;
-          _this4.onuId = res.data.data.product_usage.onu_type.id;
+          _this5.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this5.onuId = res.data.data.product_usage.onu_type.id;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.product_usage.fiber_patch_cord != null) {
-          _this4.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
-          _this4.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+          _this5.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this5.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.product_usage.onu_adapter != null) {
-          _this4.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
-          _this4.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+          _this5.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          _this5.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.product_usage.fiber_cable != null) {
-          _this4.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this5.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this5.isChanged = false;
         } // if(res.data.data.product_usage != null) {
         //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
         //     this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
@@ -4317,34 +4384,40 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get(this.base_url + 'lsp_team/activation_inventory').then(function (res) {
-        _this5.preconfig(res.data.data);
+        _this6.preconfig(res.data.data);
       })["catch"](console.log('Error'));
     },
     getActivation: function getActivation() {
       this.getActivate();
     },
     storeStep: function storeStep() {
-      var _this6 = this;
-
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'activation'
-      }).then(function (res) {
-        if (res.status == 200) {
-          alert('Successfully Processed!');
-
-          _this6.$router.push('/lsp-order/' + _this6.$route.params.id + '/installation');
-        }
-      })["catch"](console.log('Error'));
-    },
-    getOlt: function getOlt() {
       var _this7 = this;
 
+      if (!this.isComplete) {
+        if (this.isChanged == true) {
+          alert('Please Save before Finishing ONU step!');
+        } else {
+          axios.post(this.base_url + 'lsp_team/installation_step', {
+            installation_request_id: this.$route.params.id,
+            step: 'activation'
+          }).then(function (res) {
+            if (res.status == 200) {
+              alert('Successfully Processed!');
+
+              _this7.$router.push('/lsp-order/' + _this7.$route.params.id + '/installation');
+            }
+          })["catch"](console.log('Error'));
+        }
+      }
+    },
+    getOlt: function getOlt() {
+      var _this8 = this;
+
       axios.get("".concat(this.base_url, "get_olt_lists")).then(function (res) {
-        _this7.olts = res.data.data;
+        _this8.olts = res.data.data;
       })["catch"](console.log('Error'));
     },
     setOltSearchResult: function setOltSearchResult(val) {
@@ -4359,12 +4432,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreOlt: function moreOlt() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.oltPage = this.oltPage + 1;
       axios.get("".concat(this.base_url, "get_olt_lists?q=").concat(this.oltSearchIndex, "&page=").concat(this.oltPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this8.oltSearchResult.push(element);
+          _this9.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
@@ -4378,70 +4451,78 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreFdt: function moreFdt() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.fdtPage = this.fdtPage + 1;
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt, "?q=").concat(this.oltSearchIndex, "&page=").concat(this.fdtPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this9.oltSearchResult.push(element);
+          _this10.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
     getFdt: function getFdt() {
-      var _this10 = this;
+      var _this11 = this;
 
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt)).then(function (res) {
-        _this10.fdts = res.data.data;
-        _this10.fdt = '';
+        _this11.fdts = res.data.data;
+        _this11.fdt = '';
       })["catch"](console.log('Error'));
     },
     getFat: function getFat() {
-      var _this11 = this;
+      var _this12 = this;
 
       axios.get("".concat(this.base_url, "get_fat_lists/").concat(this.fdt)).then(function (res) {
-        _this11.fats = res.data.data;
+        _this12.fats = res.data.data;
 
-        if (!_this11.fat) {
-          _this11.fat = '';
+        if (!_this12.fat) {
+          _this12.fat = '';
         }
       })["catch"](console.log('Error'));
     },
     getFatPort: function getFatPort() {
-      var _this12 = this;
+      var _this13 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this12.fat_ports.push(element);
+          _this13.fat_ports.push(element);
         });
 
-        if (!_this12.fat_port) {
-          _this12.fat_port = '';
+        if (!_this13.fat_port) {
+          _this13.fat_port = '';
         }
       })["catch"](console.log('Error'));
     }
   },
   watch: {
+    olt: function olt() {
+      this.isChanged = true;
+    },
     fdt: function fdt(val) {
       this.getFat();
+      this.isChanged = true;
     },
     fat: function fat(val) {
       this.getFatPort();
+      this.isChanged = true;
+    },
+    fat_port: function fat_port() {
+      this.isChanged = true;
     },
     oltSearchIndex: function oltSearchIndex(val) {
-      var _this13 = this;
+      var _this14 = this;
 
       if (val.length >= 2) {
         this.oltPage = 1;
         setTimeout(function () {
-          axios.get("".concat(_this13.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this13.oltPage)).then(function (res) {
-            _this13.oltSearchResult = res.data.data;
-            _this13.oltTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this14.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this14.oltPage)).then(function (res) {
+            _this14.oltSearchResult = res.data.data;
+            _this14.oltTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
     },
     fdtSearchIndex: function fdtSearchIndex(val) {
-      var _this14 = this;
+      var _this15 = this;
 
       if (!this.olt) {
         this.errors.olt_null_error_for_fdt_search = true;
@@ -4451,9 +4532,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (val.length >= 2 && this.olt) {
         setTimeout(function () {
-          axios.get("".concat(_this14.base_url, "get_fdt_lists/").concat(_this14.olt, "?q=").concat(val, "&page=").concat(_this14.fdtPage)).then(function (res) {
-            _this14.fdtSearchResult = res.data.data;
-            _this14.fdtTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this15.base_url, "get_fdt_lists/").concat(_this15.olt, "?q=").concat(val, "&page=").concat(_this15.fdtPage)).then(function (res) {
+            _this15.fdtSearchResult = res.data.data;
+            _this15.fdtTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
@@ -4462,9 +4543,36 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       if (val) {
         this.uploadImage();
       }
+    },
+    onuId: function onuId(val) {
+      if (val == null) {
+        this.showSerialNo = false;
+      } else {
+        this.showSerialNo = true;
+      }
+
+      this.isChanged = true;
+    },
+    fpcId: function fpcId() {
+      this.isChanged = true;
+    },
+    fiber_cable_length: function fiber_cable_length() {
+      this.isChanged = true;
+    },
+    onuAdapterId: function onuAdapterId() {
+      this.isChanged = true;
+    },
+    odnSn: function odnSn() {
+      this.isChanged = true;
+    },
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getActivate();
     this.getInventory();
   }
@@ -6630,10 +6738,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'defaultId', 'isInstallation'],
+  props: ['type', 'defaultId', 'isInstallation', 'isRelocation', 'isComplete'],
   name: 'swiper-example-free-mode',
   title: 'Free mode / No fixed positions',
   components: {
@@ -6643,6 +6757,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       selected: null,
+      complete: null,
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 18,
@@ -6652,16 +6767,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     typeOnClick: function typeOnClick(typer) {
-      if (this.isInstallation) {
-        this.selected = typer.id;
-        this.$emit('type-id', typer.id);
-      } else {
-        if (this.selected == typer.id) {
-          this.selected = null;
+      if (!this.isComplete) {
+        if (typer == 0) {
+          this.selected = 0;
           this.$emit('type-id', null);
         } else {
-          this.selected = typer.id;
-          this.$emit('type-id', typer.id);
+          if (this.isInstallation) {
+            this.selected = typer.id;
+            this.$emit('type-id', typer.id);
+          } else {
+            if (this.selected == typer.id) {
+              this.selected = null;
+              this.$emit('type-id', null);
+            } else {
+              this.selected = typer.id;
+              this.$emit('type-id', typer.id);
+            }
+          }
         }
       }
     }
@@ -6669,11 +6791,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     defaultId: function defaultId(val) {
       this.selected = val;
-    }
-  },
-  mounted: function mounted() {
-    if (defaultId) {
-      this.selected = defaultId;
     }
   }
 });
@@ -42339,6 +42456,22 @@ var render = function() {
                 attrs: { label: "ONU Type", value: "-", type: "request-detail" }
               }),
           _vm._v(" "),
+          _vm.data.odn_sn
+            ? _c("TableRow", {
+                attrs: {
+                  label: "Router Serial No",
+                  value: _vm.data.odn_sn,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: {
+                  label: "Router Serial No",
+                  value: "-",
+                  type: "request-detail"
+                }
+              }),
+          _vm._v(" "),
           _vm.data.product_usage && _vm.data.product_usage.fiber_patch_cord
             ? _c("TableRow", {
                 attrs: {
@@ -43337,11 +43470,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "custom-search-box",
-                  on: {
-                    click: function($event) {
-                      _vm.showModal = true
-                    }
-                  }
+                  on: { click: _vm.openShowModal }
                 },
                 [_c("p", [_vm._v(_vm._s(_vm.oltResult))])]
               ),
@@ -43439,11 +43568,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "custom-search-box",
-                  on: {
-                    click: function($event) {
-                      _vm.showModal1 = true
-                    }
-                  }
+                  on: { click: _vm.openShowModal1 }
                 },
                 [_c("p", [_vm._v(_vm._s(_vm.fdtResult))])]
               ),
@@ -43551,6 +43676,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "activate-input",
+                attrs: { disabled: _vm.isComplete == true },
                 on: {
                   change: [
                     function($event) {
@@ -43616,6 +43742,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "activate-input",
+                attrs: { disabled: _vm.isComplete == true },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -43671,7 +43798,9 @@ var render = function() {
                   id: "onu-type",
                   isInstallation: true,
                   type: _vm.onu_type,
-                  defaultId: _vm.selectedOnuType
+                  defaultId: _vm.selectedOnuType,
+                  isRelocation: _vm.detail.type,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setOnuId }
               })
@@ -43679,10 +43808,52 @@ var render = function() {
                 attrs: {
                   id: "onu-type",
                   type: _vm.onu_type,
-                  isInstallation: true
+                  isInstallation: true,
+                  isRelocation: _vm.detail.type,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setOnuId }
               }),
+          _vm._v(" "),
+          _vm.showSerialNo
+            ? _c("div", [
+                _c(
+                  "label",
+                  { staticClass: "activate-label", attrs: { for: "fb-cable" } },
+                  [_vm._v("Router Serial No :")]
+                ),
+                _vm._v(" "),
+                this.errors.odnSn
+                  ? _c("span", [_vm._v("*Requried")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.odnSn,
+                      expression: "odnSn"
+                    }
+                  ],
+                  staticClass: "activate-input",
+                  attrs: {
+                    type: "text",
+                    min: "1",
+                    disabled: _vm.isComplete == true
+                  },
+                  domProps: { value: _vm.odnSn },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.odnSn = $event.target.value
+                    }
+                  }
+                })
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "label",
@@ -43698,7 +43869,8 @@ var render = function() {
                   id: "fpc",
                   isInstallation: true,
                   type: _vm.fiber_patch_cord,
-                  defaultId: _vm.selectedFpc
+                  defaultId: _vm.selectedFpc,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setFpcId }
               })
@@ -43707,40 +43879,47 @@ var render = function() {
                   id: "fpc",
                   type: _vm.fiber_patch_cord,
                   isInstallation: true,
-                  defaultId: _vm.selectedFpc
+                  defaultId: _vm.selectedFpc,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setFpcId }
               }),
           _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "activate-label", attrs: { for: "fpc" } },
-            [_vm._v("ONU Adapter :")]
-          ),
+          _vm.detail.type == "relocation"
+            ? _c(
+                "label",
+                { staticClass: "activate-label", attrs: { for: "fpc" } },
+                [_vm._v("ONU Adapter :")]
+              )
+            : _vm._e(),
           _vm._v(" "),
-          this.errors.onuAdapterId
+          _vm.detail.type == "relocation" && this.errors.onuAdapterId
             ? _c("span", [_vm._v("*Requried")])
             : _vm._e(),
           _vm._v(" "),
-          _vm.selectedOnuAdapter
+          _vm.selectedOnuAdapter && _vm.detail.type == "relocation"
             ? _c("TypeSlider", {
                 attrs: {
                   id: "onu-adapter",
                   isInstallation: true,
                   type: _vm.onu_adapter,
-                  defaultId: _vm.selectedOnuAdapter
+                  defaultId: _vm.selectedOnuAdapter,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setAdapterId }
               })
-            : _c("TypeSlider", {
+            : !_vm.selectedOnuAdapter && _vm.detail.type == "relocation"
+            ? _c("TypeSlider", {
                 attrs: {
                   id: "onu-adapter",
                   type: _vm.onu_adapter,
                   isInstallation: true,
-                  defaultId: _vm.selectedOnuAdapter
+                  defaultId: _vm.selectedOnuAdapter,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setAdapterId }
-              }),
+              })
+            : _vm._e(),
           _vm._v(" "),
           _c("div", [
             _c(
@@ -43767,7 +43946,8 @@ var render = function() {
                 type: "number",
                 min: "1",
                 id: "fb-cable",
-                name: "fb-cable"
+                name: "fb-cable",
+                disabled: _vm.isComplete == true
               },
               domProps: { value: _vm.fiber_cable_length },
               on: {
@@ -43788,7 +43968,8 @@ var render = function() {
         attrs: {
           type: "activation",
           id: this.$route.params.id,
-          multipleRemarks: _vm.remarks
+          multipleRemarks: _vm.remarks,
+          isComplete: _vm.isComplete
         },
         on: { reload: _vm.getActivation }
       }),
@@ -46105,22 +46286,39 @@ var render = function() {
   return _c(
     "swiper",
     { staticClass: "swiper", attrs: { options: _vm.swiperOption } },
-    _vm._l(_vm.type, function(typer, index) {
-      return _c(
-        "swiper-slide",
-        {
-          key: index,
-          class: { onClick: _vm.selected == typer.id },
-          nativeOn: {
-            click: function($event) {
-              return _vm.typeOnClick(typer)
+    [
+      _vm.isRelocation == "relocation"
+        ? _c(
+            "swiper-slide",
+            {
+              class: { onClick: _vm.selected == 0 },
+              nativeOn: {
+                click: function($event) {
+                  return _vm.typeOnClick(0)
+                }
+              }
+            },
+            [_vm._v("\n        None\n    ")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.type, function(typer, index) {
+        return _c(
+          "swiper-slide",
+          {
+            key: index,
+            class: { onClick: _vm.selected == typer.id },
+            nativeOn: {
+              click: function($event) {
+                return _vm.typeOnClick(typer)
+              }
             }
-          }
-        },
-        [_vm._v("\n        " + _vm._s(typer.name) + "\n    ")]
-      )
-    }),
-    1
+          },
+          [_vm._v("\n        " + _vm._s(typer.name) + "\n    ")]
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
