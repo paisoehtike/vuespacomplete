@@ -59,6 +59,9 @@
           .priority, .issue {
             color: $text-red;
           }
+          .issue {
+            font-size: 12px;
+          }
         }
       }
     }

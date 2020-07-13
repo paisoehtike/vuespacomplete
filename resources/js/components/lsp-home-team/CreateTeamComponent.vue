@@ -86,6 +86,9 @@ export default {
   },
   methods: {
     updateTeam() {
+      Object.keys(this.errors).forEach(key => {
+        this.errors[key] = false
+      })
       if (!this.teamName) this.errors.teamName = true
       if (!this.leaderName) this.errors.leaderName = true
       if (!this.phone) this.errors.phone = true
@@ -104,6 +107,9 @@ export default {
       } );
     },
     storeTeam() {
+      Object.keys(this.errors).forEach(key => {
+        this.errors[key] = false
+      })
       if (!this.teamName) this.errors.teamName = true
       if (!this.leaderName) this.errors.leaderName = true
       if (!this.phone) this.errors.phone = true

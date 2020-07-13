@@ -2066,6 +2066,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     updateTeam: function updateTeam() {
       var _this = this;
 
+      Object.keys(this.errors).forEach(function (key) {
+        _this.errors[key] = false;
+      });
       if (!this.teamName) this.errors.teamName = true;
       if (!this.leaderName) this.errors.leaderName = true;
       if (!this.phone) this.errors.phone = true;
@@ -2084,6 +2087,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     storeTeam: function storeTeam() {
       var _this2 = this;
 
+      Object.keys(this.errors).forEach(function (key) {
+        _this2.errors[key] = false;
+      });
       if (!this.teamName) this.errors.teamName = true;
       if (!this.leaderName) this.errors.leaderName = true;
       if (!this.phone) this.errors.phone = true;
@@ -2155,6 +2161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 /* harmony import */ var _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../reuseable-component/ConfirmModalComponent */ "./resources/js/components/reuseable-component/ConfirmModalComponent.vue");
+//
 //
 //
 //
@@ -2399,6 +2406,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         lsp_team_leader_id: this.teamDetail.leader_id,
         password: password
       }).then(function (res) {
+        if (res.data.code == 200) alert('Successfully Processed!');
+
         _this5.getDetail();
       })["catch"](console.log('Error'));
     },
@@ -3018,7 +3027,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   methods: {
     authenticated: function authenticated(response) {
       this.errorMessage = null;
-      this.$cookie.set('token', response.data.data.token, '1m');
+      this.$cookie.set('token', response.data.data.token, '30d');
 
       if (response.data.data.is_admin == 1) {
         this.$router.push('/home/new');
@@ -3371,6 +3380,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3485,6 +3497,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resuable_lsp_detail_RemarksComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../resuable-lsp-detail/RemarksComponent */ "./resources/js/components/resuable-lsp-detail/RemarksComponent.vue");
 /* harmony import */ var _lsp_home_team_TeamInfoComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../lsp-home-team/TeamInfoComponent */ "./resources/js/components/lsp-home-team/TeamInfoComponent.vue");
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -3802,6 +3818,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3851,6 +3872,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (this.detail.step == null || this.detail.step.name != 'Activation') {
           this.completeAlert = true;
           alert("Doesn't Complete Yet!");
+        } else if (this.detail.complete_at_by_lsp != null) {
+          alert('Already completed this!');
         } else {
           axios.post(this.base_url + 'installation_step_completed/' + this.$route.params.id).then(function (res) {
             if (res.data.code == 200) alert('Finish Successfully!');
@@ -3860,6 +3883,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (this.detail.lsp_team == null || this.detail.complete_at_by_lsp_team == null) {
           this.completeAlert = true;
           alert("Doesn't Complete Yet!");
+        } else if (this.detail.complete_at_by_lsp != null) {
+          alert('Already completed this!');
         } else {
           axios.post(this.base_url + 'on_call_step_completed/' + this.$route.params.id).then(function (res) {
             if (res.data.code == 200) alert('Finish Successfully!');
@@ -4052,6 +4077,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4075,6 +4106,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fat: false,
         fat_port: false,
         onuId: false,
+        odnSn: false,
         fpcId: false,
         fiber_cable_length: false,
         onuAdapterId: false,
@@ -4117,10 +4149,35 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       onuAdapterId: null,
       onu_type: null,
       onuId: null,
-      termination_box: null
+      odnSn: null,
+      termination_box: null,
+      detail: null,
+      showSerialNo: true,
+      isChanged: false,
+      isComplete: null
     };
   },
   methods: {
+    openShowModal: function openShowModal() {
+      if (!this.isComplete) {
+        this.showModal = true;
+      }
+    },
+    openShowModal1: function openShowModal1() {
+      if (!this.isComplete) {
+        this.showModal1 = true;
+      }
+    },
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
     modalClose: function modalClose() {
       this.showModal = false;
       this.showModal1 = false;
@@ -4134,39 +4191,53 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.fdtSearchIndex = null;
     },
     storeOnuStep: function storeOnuStep() {
-      var _this = this;
+      var _this2 = this;
 
-      Object.keys(this.errors).forEach(function (key) {
-        _this.errors[key] = false;
-      });
-      if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true;
-      if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true;
-      if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true;
-      if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true;
-      if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true;
-      if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true;
-      if (!this.fiber_cable_length) this.errors.fiber_cable_length = true;
-      if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true;
+      if (!this.isComplete) {
+        Object.keys(this.errors).forEach(function (key) {
+          _this2.errors[key] = false;
+        });
 
-      if (!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId) {
-        axios.post("".concat(this.base_url, "lsp_team/activation_store"), {
-          olt_id: this.olt,
-          fdt_id: this.fdt,
-          fat_id: this.fat,
-          fat_port_id: this.fat_port,
-          installation_request_id: this.$route.params.id,
-          onu_type_id: this.onuId,
-          onu_type_quantity: 1,
-          fiber_patch_cord_id: this.fpcId,
-          fiber_patch_cord_quantity: 1,
-          fiber_cable_id: this.fiber_cable[0].id,
-          fiber_cable_length: this.fiber_cable_length,
-          onu_adapter_id: this.onuAdapterId,
-          onu_adapter_quantity: 1,
-          type: 'installation'
-        }).then(function (res) {
-          if (res.data.code == 200) alert('Successfully Processed');
-        })["catch"](console.log('Sry Pl!'));
+        if (this.detail.type == 'relocation') {
+          if (this.onuId != null && this.odnSn == null) {
+            this.errors.odnSn = true;
+          } else {
+            this.errors.odnSn = false;
+          }
+        } else {
+          if (!this.olt || !Number.isInteger(this.olt)) this.errors.olt = true;
+          if (!this.fdt || !Number.isInteger(this.fdt)) this.errors.fdt = true;
+          if (!this.fat || !Number.isInteger(this.fat)) this.errors.fat = true;
+          if (!this.fat_port || !Number.isInteger(this.fat_port)) this.errors.fat_port = true;
+          if (!this.onuId || !Number.isInteger(this.onuId)) this.errors.onuId = true;
+          if (!this.odnSn) this.errors.odnSn = true;
+          if (!this.fpcId || !Number.isInteger(this.fpcId)) this.errors.fpcId = true;
+          if (!this.fiber_cable_length) this.errors.fiber_cable_length = true;
+        } // if (!this.onuAdapterId || !Number.isInteger(this.onuAdapterId)) this.errors.onuAdapterId = true
+
+
+        if (!this.errors.olt && !this.errors.fdt && !this.errors.fat && !this.errors.fat_port && !this.errors.onuId && !this.errors.fpcId && !this.errors.fiber_cable_length && !this.errors.onuAdapterId && !this.errors.odnSn) {
+          axios.post("".concat(this.base_url, "lsp_team/activation_store"), {
+            olt_id: this.olt,
+            fdt_id: this.fdt,
+            fat_id: this.fat,
+            fat_port_id: this.fat_port,
+            installation_request_id: this.$route.params.id,
+            onu_type_id: this.onuId,
+            onu_type_quantity: 1,
+            fiber_patch_cord_id: this.fpcId,
+            fiber_patch_cord_quantity: 1,
+            fiber_cable_id: this.fiber_cable[0].id,
+            fiber_cable_length: this.fiber_cable_length,
+            onu_adapter_id: this.onuAdapterId,
+            odn_sn: this.odnSn,
+            onu_adapter_quantity: 1,
+            type: 'installation'
+          }).then(function (res) {
+            if (res.data.code == 200) alert('Successfully Processed');
+            _this2.isChanged = false;
+          })["catch"](console.log('Sry Pl!'));
+        }
       }
     },
     onFileSelected: function onFileSelected(e) {
@@ -4184,19 +4255,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       });
     },
     uploadImage: function uploadImage() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var config = {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
-      };
-      var formData = new FormData();
-      formData.append('image', this.imageFile);
-      formData.append('installation_request_id', this.$route.params.id);
-      axios.post(this.base_url + 'lsp_team/image_store', formData, config).then(function (res) {
-        _this2.appendImage(res.data.data);
-      })["catch"](console.log('Cant Image'));
+      if (!this.isComplete) {
+        var config = {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        };
+        var formData = new FormData();
+        formData.append('image', this.imageFile);
+        formData.append('installation_request_id', this.$route.params.id);
+        axios.post(this.base_url + 'lsp_team/image_store', formData, config).then(function (res) {
+          _this3.appendImage(res.data.data);
+        })["catch"](console.log('Cant Image'));
+      }
     },
     appendImage: function appendImage(img) {
       this.images.push(img);
@@ -4204,15 +4277,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.$refs.fileInput.value = null;
     },
     deleteImage: function deleteImage(img) {
-      var _this3 = this;
+      var _this4 = this;
 
-      axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
-        if (res.data.code == 200) {
-          _this3.images = _this3.images.filter(function (image) {
-            return image.id != img.id;
-          });
-        }
-      })["catch"](console.log('Error'));
+      if (!this.isComplete) {
+        axios.post("".concat(this.base_url, "lsp_team/image_delete/").concat(img.id)).then(function (res) {
+          if (res.data.code == 200) {
+            _this4.images = _this4.images.filter(function (image) {
+              return image.id != img.id;
+            });
+          }
+        })["catch"](console.log('Error'));
+      }
     },
     loadPreImages: function loadPreImages(images) {
       this.images = images;
@@ -4236,55 +4311,69 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.remarks = remarks;
     },
     getActivate: function getActivate() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get(this.base_url + 'lsp_team/onu_step?installation_id=' + this.$route.params.id).then(function (res) {
-        _this4.loadPreImages(res.data.data.images);
+        _this5.loadPreImages(res.data.data.images);
 
-        _this4.loadPreRemarks(res.data.data.remarks);
+        _this5.loadPreRemarks(res.data.data.remarks);
 
-        _this4.ppoeUserName = res.data.data.ppoe_username;
-        _this4.ppoePassword = res.data.data.ppoe_password;
+        _this5.ppoeUserName = res.data.data.ppoe_username;
+        _this5.ppoePassword = res.data.data.ppoe_password;
 
         if (res.data.data.olt) {
-          _this4.olt = res.data.data.olt.id;
-          _this4.oltResult = res.data.data.olt.name;
+          _this5.olt = res.data.data.olt.id;
+          _this5.oltResult = res.data.data.olt.name;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.fdt) {
-          _this4.fdt = res.data.data.fdt.id;
-          _this4.fdtResult = res.data.data.fdt.name;
+          _this5.fdt = res.data.data.fdt.id;
+          _this5.fdtResult = res.data.data.fdt.name;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.fat) {
-          _this4.fat = res.data.data.fat.id;
+          _this5.fat = res.data.data.fat.id;
+          _this5.isChanged = false;
+        }
+
+        if (res.data.data.odn_sn) {
+          _this5.odnSn = res.data.data.odn_sn;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.fat_port) {
-          _this4.fat_port = res.data.data.fat_port.id;
+          _this5.fat_port = res.data.data.fat_port.id;
 
-          _this4.fat_ports.push(res.data.data.fat_port);
+          _this5.fat_ports.push(res.data.data.fat_port);
+
+          _this5.isChanged = false;
         }
 
-        _this4.onu_sn = res.data.data.onu_sn;
+        _this5.onu_sn = res.data.data.onu_sn;
 
         if (res.data.data.product_usage.onu_type != null) {
-          _this4.selectedOnuType = res.data.data.product_usage.onu_type.id;
-          _this4.onuId = res.data.data.product_usage.onu_type.id;
+          _this5.selectedOnuType = res.data.data.product_usage.onu_type.id;
+          _this5.onuId = res.data.data.product_usage.onu_type.id;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.product_usage.fiber_patch_cord != null) {
-          _this4.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
-          _this4.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+          _this5.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
+          _this5.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.product_usage.onu_adapter != null) {
-          _this4.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
-          _this4.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+          _this5.selectedOnuAdapter = res.data.data.product_usage.onu_adapter.id;
+          _this5.onuAdapterId = res.data.data.product_usage.onu_adapter.id;
+          _this5.isChanged = false;
         }
 
         if (res.data.data.product_usage.fiber_cable != null) {
-          _this4.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this5.fiber_cable_length = res.data.data.product_usage.fiber_cable.quantity;
+          _this5.isChanged = false;
         } // if(res.data.data.product_usage != null) {
         //     this.selectedOnuType = res.data.data.product_usage.onu_type.id;
         //     this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
@@ -4295,34 +4384,40 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       })["catch"](console.log('Error'));
     },
     getInventory: function getInventory() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get(this.base_url + 'lsp_team/activation_inventory').then(function (res) {
-        _this5.preconfig(res.data.data);
+        _this6.preconfig(res.data.data);
       })["catch"](console.log('Error'));
     },
     getActivation: function getActivation() {
       this.getActivate();
     },
     storeStep: function storeStep() {
-      var _this6 = this;
-
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'activation'
-      }).then(function (res) {
-        if (res.status == 200) {
-          alert('Successfully Processed!');
-
-          _this6.$router.push('/lsp-home/remaining');
-        }
-      })["catch"](console.log('Error'));
-    },
-    getOlt: function getOlt() {
       var _this7 = this;
 
+      if (!this.isComplete) {
+        if (this.isChanged == true) {
+          alert('Please Save before Finishing ONU step!');
+        } else {
+          axios.post(this.base_url + 'lsp_team/installation_step', {
+            installation_request_id: this.$route.params.id,
+            step: 'activation'
+          }).then(function (res) {
+            if (res.status == 200) {
+              alert('Successfully Processed!');
+
+              _this7.$router.push('/lsp-order/' + _this7.$route.params.id + '/installation');
+            }
+          })["catch"](console.log('Error'));
+        }
+      }
+    },
+    getOlt: function getOlt() {
+      var _this8 = this;
+
       axios.get("".concat(this.base_url, "get_olt_lists")).then(function (res) {
-        _this7.olts = res.data.data;
+        _this8.olts = res.data.data;
       })["catch"](console.log('Error'));
     },
     setOltSearchResult: function setOltSearchResult(val) {
@@ -4337,12 +4432,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreOlt: function moreOlt() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.oltPage = this.oltPage + 1;
       axios.get("".concat(this.base_url, "get_olt_lists?q=").concat(this.oltSearchIndex, "&page=").concat(this.oltPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this8.oltSearchResult.push(element);
+          _this9.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
@@ -4356,70 +4451,78 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.modalClose();
     },
     moreFdt: function moreFdt() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.fdtPage = this.fdtPage + 1;
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt, "?q=").concat(this.oltSearchIndex, "&page=").concat(this.fdtPage)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this9.oltSearchResult.push(element);
+          _this10.oltSearchResult.push(element);
         });
       })["catch"](console.log('Error'));
     },
     getFdt: function getFdt() {
-      var _this10 = this;
+      var _this11 = this;
 
       axios.get("".concat(this.base_url, "get_fdt_lists/").concat(this.olt)).then(function (res) {
-        _this10.fdts = res.data.data;
-        _this10.fdt = '';
+        _this11.fdts = res.data.data;
+        _this11.fdt = '';
       })["catch"](console.log('Error'));
     },
     getFat: function getFat() {
-      var _this11 = this;
+      var _this12 = this;
 
       axios.get("".concat(this.base_url, "get_fat_lists/").concat(this.fdt)).then(function (res) {
-        _this11.fats = res.data.data;
+        _this12.fats = res.data.data;
 
-        if (!_this11.fat) {
-          _this11.fat = '';
+        if (!_this12.fat) {
+          _this12.fat = '';
         }
       })["catch"](console.log('Error'));
     },
     getFatPort: function getFatPort() {
-      var _this12 = this;
+      var _this13 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
         res.data.data.forEach(function (element) {
-          _this12.fat_ports.push(element);
+          _this13.fat_ports.push(element);
         });
 
-        if (!_this12.fat_port) {
-          _this12.fat_port = '';
+        if (!_this13.fat_port) {
+          _this13.fat_port = '';
         }
       })["catch"](console.log('Error'));
     }
   },
   watch: {
+    olt: function olt() {
+      this.isChanged = true;
+    },
     fdt: function fdt(val) {
       this.getFat();
+      this.isChanged = true;
     },
     fat: function fat(val) {
       this.getFatPort();
+      this.isChanged = true;
+    },
+    fat_port: function fat_port() {
+      this.isChanged = true;
     },
     oltSearchIndex: function oltSearchIndex(val) {
-      var _this13 = this;
+      var _this14 = this;
 
       if (val.length >= 2) {
         this.oltPage = 1;
         setTimeout(function () {
-          axios.get("".concat(_this13.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this13.oltPage)).then(function (res) {
-            _this13.oltSearchResult = res.data.data;
-            _this13.oltTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this14.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this14.oltPage)).then(function (res) {
+            _this14.oltSearchResult = res.data.data;
+            _this14.oltTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
     },
     fdtSearchIndex: function fdtSearchIndex(val) {
-      var _this14 = this;
+      var _this15 = this;
 
       if (!this.olt) {
         this.errors.olt_null_error_for_fdt_search = true;
@@ -4429,9 +4532,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (val.length >= 2 && this.olt) {
         setTimeout(function () {
-          axios.get("".concat(_this14.base_url, "get_fdt_lists/").concat(_this14.olt, "?q=").concat(val, "&page=").concat(_this14.fdtPage)).then(function (res) {
-            _this14.fdtSearchResult = res.data.data;
-            _this14.fdtTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this15.base_url, "get_fdt_lists/").concat(_this15.olt, "?q=").concat(val, "&page=").concat(_this15.fdtPage)).then(function (res) {
+            _this15.fdtSearchResult = res.data.data;
+            _this15.fdtTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
@@ -4440,9 +4543,36 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       if (val) {
         this.uploadImage();
       }
+    },
+    onuId: function onuId(val) {
+      if (val == null) {
+        this.showSerialNo = false;
+      } else {
+        this.showSerialNo = true;
+      }
+
+      this.isChanged = true;
+    },
+    fpcId: function fpcId() {
+      this.isChanged = true;
+    },
+    fiber_cable_length: function fiber_cable_length() {
+      this.isChanged = true;
+    },
+    onuAdapterId: function onuAdapterId() {
+      this.isChanged = true;
+    },
+    odnSn: function odnSn() {
+      this.isChanged = true;
+    },
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getActivate();
     this.getInventory();
   }
@@ -4476,6 +4606,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4491,35 +4624,59 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      remarks: null
+      remarks: null,
+      detail: null,
+      isComplete: null
     };
   },
   methods: {
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
     getRemarks: function getRemarks(response) {
       this.remarks = response.data.data;
     },
     getCabling: function getCabling() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get(this.base_url + 'lsp_team/cabling?installation_id=' + this.$route.params.id).then(function (response) {
-        _this.getRemarks(response);
+        _this2.getRemarks(response);
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'cabling'
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/splicing');
-        }
-      })["catch"](console.log('Error'));
+      if (this.isComplete) {
+        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/splicing');
+      } else {
+        axios.post(this.base_url + 'lsp_team/installation_step', {
+          installation_request_id: this.$route.params.id,
+          step: 'cabling'
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this3.$router.push('/lsp-team-order/' + _this3.$route.params.id + '/splicing');
+          }
+        })["catch"](console.log('Error'));
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getCabling();
+  },
+  watch: {
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
+    }
   }
 });
 
@@ -4767,8 +4924,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         fiber_cable_length: this.fiber_cable_length,
         type: 'on_call'
       }).then(function (res) {
+        if (res.data.code == 200) alert('Successfully Processed!');
+
         _this5.refresh();
-      })["catch"](console.log('Sry Pl!'));
+      })["catch"](console.log('Error!'));
     },
     finishRepair: function finishRepair() {
       var _this6 = this;
@@ -4822,6 +4981,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4837,35 +5000,59 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      remarks: null
+      remarks: null,
+      detail: null,
+      isComplete: null
     };
   },
   methods: {
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
+      var _this = this;
+
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
+    },
     getRemarks: function getRemarks(response) {
       this.remarks = response.data.data;
     },
     getSplicing: function getSplicing() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get(this.base_url + 'lsp_team/splicing?installation_id=' + this.$route.params.id).then(function (response) {
-        _this.getRemarks(response);
+        _this2.getRemarks(response);
       })["catch"](console.log('Error'));
     },
     storeStep: function storeStep() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'splicing'
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/activate');
-        }
-      })["catch"](console.log('Error'));
+      if (this.isComplete) {
+        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/activate');
+      } else {
+        axios.post(this.base_url + 'lsp_team/installation_step', {
+          installation_request_id: this.$route.params.id,
+          step: 'splicing'
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this3.$router.push('/lsp-team-order/' + _this3.$route.params.id + '/activate');
+          }
+        })["catch"](console.log('Error'));
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getSplicing();
+  },
+  watch: {
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
+    }
   }
 });
 
@@ -4938,6 +5125,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4953,35 +5150,108 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   },
   data: function data() {
     return {
-      surveyIssues: null
+      surveyIssues: null,
+      isComplete: null,
+      detail: null,
+      errors: {
+        poleIssueStatus: null,
+        authorityStatus: null,
+        fatStatus: null,
+        odnIssueStatus: null,
+        customerIssueStatus: null
+      }
     };
   },
   methods: {
+    changeStatus: function changeStatus(type, status) {
+      switch (type) {
+        case 'pole_issue':
+          this.errors.poleIssueStatus = status;
+          break;
+
+        case 'authority':
+          this.errors.authorityStatus = status;
+          break;
+
+        case 'fat':
+          this.errors.fatStatus = status;
+          break;
+
+        case 'odn_issue':
+          this.errors.odnIssueStatus = status;
+          break;
+
+        case 'customer_issue':
+          this.errors.customerIssueStatus = status;
+          break;
+      }
+    },
     addSurvey: function addSurvey(response) {
+      this.errors.poleIssueStatus = response.data.data.pole_issue.status;
+      this.errors.authorityStatus = response.data.data.authority.status;
+      this.errors.fatStatus = response.data.data.fat.status;
+      this.errors.odnIssueStatus = response.data.data.odn_issue.status;
+      this.errors.customerIssueStatus = response.data.data.customer_issue.status;
       this.surveyIssues = response.data.data;
     },
-    getSurvey: function getSurvey() {
+    bindResponseData: function bindResponseData(response) {
+      this.detail = response.data.data;
+    },
+    getDetail: function getDetail() {
       var _this = this;
 
-      axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
-        _this.addSurvey(response);
-      })["catch"](console.log('Error'));
+      axios.get(this.base_url + 'lsp_team/home/' + this.$route.params.id + '?request_type=installation').then(function (response) {
+        _this.bindResponseData(response);
+      })["catch"](console.log('Something Went Wrong!'));
     },
-    storeStep: function storeStep() {
+    getSurvey: function getSurvey() {
       var _this2 = this;
 
-      axios.post(this.base_url + 'lsp_team/installation_step', {
-        installation_request_id: this.$route.params.id,
-        step: 'survey'
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.$router.push('/lsp-team-order/' + _this2.$route.params.id + '/cabling');
-        }
+      axios.get(this.base_url + 'lsp_team/survey?installation_id=' + this.$route.params.id).then(function (response) {
+        _this2.addSurvey(response);
       })["catch"](console.log('Error'));
+    },
+    isValid: function isValid() {
+      var _this3 = this;
+
+      var matchingKey = Object.keys(this.errors).find(function (key) {
+        return _this3.errors[key] == 'pending' || _this3.errors[key] == null;
+      });
+      return Boolean(matchingKey); // convert to boolean.
+    },
+    storeStep: function storeStep() {
+      var _this4 = this;
+
+      if (this.isComplete) {
+        this.$router.push('/lsp-team-order/' + this.$route.params.id + '/cabling');
+      } else {
+        var matchingKey = this.isValid();
+
+        if (matchingKey == true) {
+          alert('Please take all survey!');
+        } else {
+          axios.post(this.base_url + 'lsp_team/installation_step', {
+            installation_request_id: this.$route.params.id,
+            step: 'survey'
+          }).then(function (res) {
+            if (res.status == 200) {
+              _this4.$router.push('/lsp-team-order/' + _this4.$route.params.id + '/cabling');
+            }
+          })["catch"](console.log('Error'));
+        }
+      }
     }
   },
   created: function created() {
+    this.getDetail();
     this.getSurvey();
+  },
+  watch: {
+    detail: function detail(val) {
+      if (val.complete_at_by_5BB != null) {
+        this.isComplete = true;
+      }
+    }
   }
 });
 
@@ -5003,6 +5273,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+//
+//
+//
 //
 //
 //
@@ -6119,7 +6392,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['type', 'id', 'multipleRemarks'],
+  props: ['type', 'id', 'multipleRemarks', 'isComplete'],
   methods: {
     deleteRemark: function deleteRemark(id) {
       var _this = this;
@@ -6323,6 +6596,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -6332,7 +6606,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     RemarkModal: _reuseable_component_RemarkModalComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     ConfirmModal: _reuseable_component_ConfirmModalComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['data'],
+  props: ['data', 'isComplete'],
   data: function data() {
     return {
       isSelect: false,
@@ -6378,22 +6652,26 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.isSelect = false;
     },
     apiCall: function apiCall(status) {
+      var _this = this;
+
       axios.post(this.base_url + 'lsp_team/store_survey_issue_status', {
         status: status,
         survey_step_id: this.data.id
       }).then(function (response) {
         if (response.data.code == 200) alert('Success!');
+
+        _this.$emit('status', response.data.data.status);
       })["catch"](console.log('Something Went Wrong'));
     },
     storeRemarkApiCall: function storeRemarkApiCall(remark) {
-      var _this = this;
+      var _this2 = this;
 
       axios.post(this.base_url + 'lsp_team/store_survey', {
         remark: remark.remark,
         survey_step_id: this.data.id
       }).then(function (response) {
-        _this.remarkId = response.data.data.remark.id;
-        _this.remark = response.data.data.remark.name;
+        _this2.remarkId = response.data.data.remark.id;
+        _this2.remark = response.data.data.remark.name;
       })["catch"](console.log('Something Went Wrong'));
     },
     storeRemark: function storeRemark(remark) {
@@ -6402,21 +6680,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.storeRemarkApiCall(remark);
     },
     updateRemark: function updateRemark(remark) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post(this.base_url + 'lsp_team/update_survey/' + this.remarkId, {
         remark: remark.remark
       }).then(function (response) {
-        _this2.remark = remark.remark;
-        _this2.isMark = true;
+        _this3.remark = remark.remark;
+        _this3.isMark = true;
       })["catch"](console.log('Something Went Wrong'));
     },
     deleteRemark: function deleteRemark() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post(this.base_url + 'lsp_team/delete_survey/' + this.remarkId).then(function (response) {
         if (response.data.code == 200) alert('Successfully Deleted!');
-        _this3.isMark = false;
+        _this4.isMark = false;
       })["catch"](console.log('Something Went Wrong'));
     }
   },
@@ -6460,10 +6738,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'defaultId', 'isInstallation'],
+  props: ['type', 'defaultId', 'isInstallation', 'isRelocation', 'isComplete'],
   name: 'swiper-example-free-mode',
   title: 'Free mode / No fixed positions',
   components: {
@@ -6473,6 +6757,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       selected: null,
+      complete: null,
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 18,
@@ -6482,16 +6767,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     typeOnClick: function typeOnClick(typer) {
-      if (this.isInstallation) {
-        this.selected = typer.id;
-        this.$emit('type-id', typer.id);
-      } else {
-        if (this.selected == typer.id) {
-          this.selected = null;
+      if (!this.isComplete) {
+        if (typer == 0) {
+          this.selected = 0;
           this.$emit('type-id', null);
         } else {
-          this.selected = typer.id;
-          this.$emit('type-id', typer.id);
+          if (this.isInstallation) {
+            this.selected = typer.id;
+            this.$emit('type-id', typer.id);
+          } else {
+            if (this.selected == typer.id) {
+              this.selected = null;
+              this.$emit('type-id', null);
+            } else {
+              this.selected = typer.id;
+              this.$emit('type-id', typer.id);
+            }
+          }
         }
       }
     }
@@ -6499,11 +6791,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     defaultId: function defaultId(val) {
       this.selected = val;
-    }
-  },
-  mounted: function mounted() {
-    if (defaultId) {
-      this.selected = defaultId;
     }
   }
 });
@@ -6568,7 +6855,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type'],
+  props: ['type', 'isComplete'],
   data: function data() {
     return {
       showModal: false,
@@ -6587,6 +6874,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    showOrHideModal: function showOrHideModal() {
+      if (!this.isComplete) {
+        this.showModal = true;
+      }
+    },
     submitRemark: function submitRemark() {
       this.$emit('delete-confirm');
       this.showModal = false;
@@ -6898,8 +7190,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['value']
+  props: ['value', 'status'],
+  computed: {
+    completeOrFinish: function completeOrFinish() {
+      return {
+        completeStatus: this.status === 'Complete',
+        finishStatus: this.value === 'Finish'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -6936,7 +7240,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'preRemark'],
+  props: ['type', 'preRemark', 'isComplete'],
   data: function data() {
     return {
       showModal: false,
@@ -6944,6 +7248,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    showOrHideModal: function showOrHideModal() {
+      if (!this.isComplete) {
+        this.showModal = true;
+      }
+    },
     submitRemark: function submitRemark() {
       var remark = {
         'remark': this.remark
@@ -6982,6 +7291,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_CustomerHomeFooterButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerHomeFooterButton */ "./resources/js/components/reuseable-component/CustomerHomeFooterButton.vue");
 /* harmony import */ var _reuseable_home_CustomerHeaderComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-home/CustomerHeaderComponent */ "./resources/js/components/reuseable-home/CustomerHeaderComponent.vue");
 /* harmony import */ var _lsp_home_team_TeamComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../lsp-home-team/TeamComponent */ "./resources/js/components/lsp-home-team/TeamComponent.vue");
+//
+//
+//
 //
 //
 //
@@ -7296,7 +7608,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
             orderType: this.request_type
           }
         }); // if(this.request_type == 'on_call') {
-        //   this.$router.push({ name: 'order-repair', params: { id: request.id, orderType: this.request_type } });
+        //   this.$router.push({ name: 'order-on-call', params: { id: request.id, orderType: this.request_type } });
         // } else {
         //   this.$router.push({ name: 'order', params: { id: request.id, orderType: this.request_type }});
         // }
@@ -7354,6 +7666,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -7504,6 +7818,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -40349,6 +40664,14 @@ var render = function() {
           _vm._v(" "),
           _c("TableRow", {
             attrs: {
+              label: "Phone Number",
+              value: _vm.teamDetail.leader.phone,
+              type: "request-detail"
+            }
+          }),
+          _vm._v(" "),
+          _c("TableRow", {
+            attrs: {
               label: "Man Power",
               value: _vm.teamDetail.man_power,
               type: "request-detail"
@@ -42121,18 +42444,6 @@ var render = function() {
                 attrs: { label: "FAT Port", value: "-", type: "request-detail" }
               }),
           _vm._v(" "),
-          _vm.data.product_usage && _vm.data.product_usage.onu_adapter
-            ? _c("TableRow", {
-                attrs: {
-                  label: "Router",
-                  value: _vm.data.product_usage.onu_adapter.name,
-                  type: "request-detail"
-                }
-              })
-            : _c("TableRow", {
-                attrs: { label: "ONU S/N", value: "-", type: "request-detail" }
-              }),
-          _vm._v(" "),
           _vm.data.product_usage && _vm.data.product_usage.onu_type
             ? _c("TableRow", {
                 attrs: {
@@ -42143,6 +42454,22 @@ var render = function() {
               })
             : _c("TableRow", {
                 attrs: { label: "ONU Type", value: "-", type: "request-detail" }
+              }),
+          _vm._v(" "),
+          _vm.data.odn_sn
+            ? _c("TableRow", {
+                attrs: {
+                  label: "Router Serial No",
+                  value: _vm.data.odn_sn,
+                  type: "request-detail"
+                }
+              })
+            : _c("TableRow", {
+                attrs: {
+                  label: "Router Serial No",
+                  value: "-",
+                  type: "request-detail"
+                }
               }),
           _vm._v(" "),
           _vm.data.product_usage && _vm.data.product_usage.fiber_patch_cord
@@ -42366,8 +42693,8 @@ var render = function() {
                   _c("TableRow", {
                     attrs: {
                       label: "Image",
-                      value: _vm.data.images,
-                      type: "image"
+                      value: _vm.demy,
+                      type: "repair-detail"
                     }
                   }),
                   _vm._v(" "),
@@ -42409,18 +42736,24 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "remarks" },
-        [
-          _c("h3", [_vm._v("Remarks")]),
-          _vm._v(" "),
-          _vm._l(_vm.detail.remarks, function(value, key) {
-            return _c("Remarks", { key: key, attrs: { value: value } })
-          })
-        ],
-        2
-      )
+      _vm.detail.remarks != null
+        ? _c(
+            "div",
+            { staticClass: "remarks" },
+            [
+              _c("h3", [_vm._v("Remarks")]),
+              _vm._v(" "),
+              _vm._l(_vm.detail.remarks, function(value, key) {
+                return _c("Remarks", { key: key, attrs: { value: value } })
+              })
+            ],
+            2
+          )
+        : _c("div", { staticClass: "remarks" }, [
+            _c("h3", [_vm._v("Remarks")]),
+            _vm._v(" "),
+            _c("p", [_vm._v("No Remark Yet!")])
+          ])
     ],
     1
   )
@@ -42612,9 +42945,34 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.detail.installation_step != null
+                _vm.detail.complete_at_by_5BB != null
                   ? _c("OrderStepChip", {
-                      attrs: { value: _vm.detail.installation_step.name }
+                      attrs: {
+                        slot: "order-chip",
+                        status: "Finish",
+                        value: "Finish"
+                      },
+                      slot: "order-chip"
+                    })
+                  : _vm.detail.complete_at_by_lsp != null &&
+                    _vm.detail.complete_at_by_5BB == null
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        status: "Complete",
+                        value: "Complete"
+                      },
+                      slot: "order-chip"
+                    })
+                  : _vm.detail.installation_step != null &&
+                    _vm.detail.complete_at_by_5BB == null
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        status: _vm.detail.status,
+                        value: _vm.detail.installation_step.name
+                      },
+                      slot: "order-chip"
                     })
                   : _vm._e()
               ],
@@ -42665,13 +43023,6 @@ var render = function() {
                   _c("p", [_vm._v("Due Date : "), _c("span", [_vm._v("N/A")])])
                 ]),
             _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Remark : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
-              ])
-            ]),
-            _vm._v(" "),
             _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
@@ -42681,48 +43032,60 @@ var render = function() {
                     ])
                   ])
                 ])
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [
+                _vm._v("Remark : "),
+                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
+              ])
+            ])
           ])
         ],
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "order-assigned-row" },
-        [
-          _c("span", [_vm._v("Assigned Team :")]),
-          _vm._v(" "),
-          !_vm.detail.lsp_team
-            ? _c("span", { staticClass: "dummy" }, [_vm._v("N/A")])
-            : _c("span", { staticClass: "dummy" }, [
-                _vm._v(_vm._s(_vm.detail.lsp_team.name))
-              ]),
-          _vm._v(" "),
-          !_vm.detail.lsp_team
-            ? _c("AssignOrSwitchTeamComponent", {
-                attrs: {
-                  customer: _vm.detail,
-                  teams: _vm.teams,
-                  type: "New",
-                  requestType: _vm.orderType,
-                  assignedTeam: _vm.detail.lsp_team
-                },
-                on: { reload: _vm.refresh }
-              })
-            : _c("AssignOrSwitchTeamComponent", {
-                attrs: {
-                  customer: _vm.detail,
-                  type: "Accept",
-                  teams: _vm.teams,
-                  requestType: _vm.orderType,
-                  assignedTeam: _vm.detail.lsp_team
-                },
-                on: { reload: _vm.refresh }
-              })
-        ],
-        1
-      ),
+      _c("div", { staticClass: "order-assigned-row" }, [
+        _c("span", [_vm._v("Assigned Team :")]),
+        _vm._v(" "),
+        !_vm.detail.lsp_team
+          ? _c("span", { staticClass: "dummy" }, [_vm._v("N/A")])
+          : _c("span", { staticClass: "dummy" }, [
+              _vm._v(_vm._s(_vm.detail.lsp_team.name))
+            ]),
+        _vm._v(" "),
+        _vm.detail.complete_at_by_lsp == null &&
+        _vm.detail.complete_at_by_5BB == null &&
+        _vm.detail.complete_at_by_lsp_team == null
+          ? _c(
+              "span",
+              [
+                !_vm.detail.lsp_team
+                  ? _c("AssignOrSwitchTeamComponent", {
+                      attrs: {
+                        customer: _vm.detail,
+                        teams: _vm.teams,
+                        type: "New",
+                        requestType: _vm.orderType,
+                        assignedTeam: _vm.detail.lsp_team
+                      },
+                      on: { reload: _vm.refresh }
+                    })
+                  : _c("AssignOrSwitchTeamComponent", {
+                      attrs: {
+                        customer: _vm.detail,
+                        type: "Accept",
+                        teams: _vm.teams,
+                        requestType: _vm.orderType,
+                        assignedTeam: _vm.detail.lsp_team
+                      },
+                      on: { reload: _vm.refresh }
+                    })
+              ],
+              1
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -42827,8 +43190,8 @@ var render = function() {
               _c("TableRow", {
                 attrs: {
                   label: "Promo Name",
-                  value: _vm.detail.promotion,
-                  type: "request-detail"
+                  value: _vm.detail.promotion ? _vm.detail.promotion : "-",
+                  type: "repair-detail"
                 }
               }),
               _vm._v(" "),
@@ -42836,7 +43199,7 @@ var render = function() {
                 attrs: {
                   label: "Create Date",
                   value: _vm.detail.created_at,
-                  type: "request-detail"
+                  type: "request-detail-time-stemp"
                 }
               })
             ],
@@ -43107,11 +43470,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "custom-search-box",
-                  on: {
-                    click: function($event) {
-                      _vm.showModal = true
-                    }
-                  }
+                  on: { click: _vm.openShowModal }
                 },
                 [_c("p", [_vm._v(_vm._s(_vm.oltResult))])]
               ),
@@ -43209,11 +43568,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "custom-search-box",
-                  on: {
-                    click: function($event) {
-                      _vm.showModal1 = true
-                    }
-                  }
+                  on: { click: _vm.openShowModal1 }
                 },
                 [_c("p", [_vm._v(_vm._s(_vm.fdtResult))])]
               ),
@@ -43321,6 +43676,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "activate-input",
+                attrs: { disabled: _vm.isComplete == true },
                 on: {
                   change: [
                     function($event) {
@@ -43386,6 +43742,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "activate-input",
+                attrs: { disabled: _vm.isComplete == true },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -43441,7 +43798,9 @@ var render = function() {
                   id: "onu-type",
                   isInstallation: true,
                   type: _vm.onu_type,
-                  defaultId: _vm.selectedOnuType
+                  defaultId: _vm.selectedOnuType,
+                  isRelocation: _vm.detail.type,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setOnuId }
               })
@@ -43449,10 +43808,52 @@ var render = function() {
                 attrs: {
                   id: "onu-type",
                   type: _vm.onu_type,
-                  isInstallation: true
+                  isInstallation: true,
+                  isRelocation: _vm.detail.type,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setOnuId }
               }),
+          _vm._v(" "),
+          _vm.showSerialNo
+            ? _c("div", [
+                _c(
+                  "label",
+                  { staticClass: "activate-label", attrs: { for: "fb-cable" } },
+                  [_vm._v("Router Serial No :")]
+                ),
+                _vm._v(" "),
+                this.errors.odnSn
+                  ? _c("span", [_vm._v("*Requried")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.odnSn,
+                      expression: "odnSn"
+                    }
+                  ],
+                  staticClass: "activate-input",
+                  attrs: {
+                    type: "text",
+                    min: "1",
+                    disabled: _vm.isComplete == true
+                  },
+                  domProps: { value: _vm.odnSn },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.odnSn = $event.target.value
+                    }
+                  }
+                })
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "label",
@@ -43468,7 +43869,8 @@ var render = function() {
                   id: "fpc",
                   isInstallation: true,
                   type: _vm.fiber_patch_cord,
-                  defaultId: _vm.selectedFpc
+                  defaultId: _vm.selectedFpc,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setFpcId }
               })
@@ -43477,40 +43879,47 @@ var render = function() {
                   id: "fpc",
                   type: _vm.fiber_patch_cord,
                   isInstallation: true,
-                  defaultId: _vm.selectedFpc
+                  defaultId: _vm.selectedFpc,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setFpcId }
               }),
           _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "activate-label", attrs: { for: "fpc" } },
-            [_vm._v("ONU Adapter :")]
-          ),
+          _vm.detail.type == "relocation"
+            ? _c(
+                "label",
+                { staticClass: "activate-label", attrs: { for: "fpc" } },
+                [_vm._v("ONU Adapter :")]
+              )
+            : _vm._e(),
           _vm._v(" "),
-          this.errors.onuAdapterId
+          _vm.detail.type == "relocation" && this.errors.onuAdapterId
             ? _c("span", [_vm._v("*Requried")])
             : _vm._e(),
           _vm._v(" "),
-          _vm.selectedOnuAdapter
+          _vm.selectedOnuAdapter && _vm.detail.type == "relocation"
             ? _c("TypeSlider", {
                 attrs: {
                   id: "onu-adapter",
                   isInstallation: true,
                   type: _vm.onu_adapter,
-                  defaultId: _vm.selectedOnuAdapter
+                  defaultId: _vm.selectedOnuAdapter,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setAdapterId }
               })
-            : _c("TypeSlider", {
+            : !_vm.selectedOnuAdapter && _vm.detail.type == "relocation"
+            ? _c("TypeSlider", {
                 attrs: {
                   id: "onu-adapter",
                   type: _vm.onu_adapter,
                   isInstallation: true,
-                  defaultId: _vm.selectedOnuAdapter
+                  defaultId: _vm.selectedOnuAdapter,
+                  isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setAdapterId }
-              }),
+              })
+            : _vm._e(),
           _vm._v(" "),
           _c("div", [
             _c(
@@ -43537,7 +43946,8 @@ var render = function() {
                 type: "number",
                 min: "1",
                 id: "fb-cable",
-                name: "fb-cable"
+                name: "fb-cable",
+                disabled: _vm.isComplete == true
               },
               domProps: { value: _vm.fiber_cable_length },
               on: {
@@ -43558,7 +43968,8 @@ var render = function() {
         attrs: {
           type: "activation",
           id: this.$route.params.id,
-          multipleRemarks: _vm.remarks
+          multipleRemarks: _vm.remarks,
+          isComplete: _vm.isComplete
         },
         on: { reload: _vm.getActivation }
       }),
@@ -43635,7 +44046,11 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("MultipleRemark", {
-        attrs: { id: this.$route.params.id, multipleRemarks: _vm.remarks },
+        attrs: {
+          id: this.$route.params.id,
+          isComplete: _vm.isComplete,
+          multipleRemarks: _vm.remarks
+        },
         on: {
           reload: function($event) {
             return _vm.getCabling()
@@ -43937,6 +44352,7 @@ var render = function() {
         attrs: {
           type: "splicing",
           id: this.$route.params.id,
+          isComplete: _vm.isComplete,
           multipleRemarks: _vm.remarks
         },
         on: {
@@ -44009,7 +44425,21 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.pole_issue },
+        attrs: {
+          data: _vm.surveyIssues.pole_issue,
+          isComplete: _vm.isComplete
+        },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["pole_issue"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44028,7 +44458,18 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.authority },
+        attrs: { data: _vm.surveyIssues.authority, isComplete: _vm.isComplete },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["authority"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44047,7 +44488,15 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.fat },
+        attrs: { data: _vm.surveyIssues.fat, isComplete: _vm.isComplete },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(void 0, ["fat"].concat(argsArray))
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44064,7 +44513,18 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.odn_issue },
+        attrs: { data: _vm.surveyIssues.odn_issue, isComplete: _vm.isComplete },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["odn_issue"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44083,7 +44543,21 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("SurveyIssue", {
-        attrs: { data: _vm.surveyIssues.customer_issue },
+        attrs: {
+          data: _vm.surveyIssues.customer_issue,
+          isComplete: _vm.isComplete
+        },
+        on: {
+          status: function($event) {
+            var i = arguments.length,
+              argsArray = Array(i)
+            while (i--) argsArray[i] = arguments[i]
+            return _vm.changeStatus.apply(
+              void 0,
+              ["customer_issue"].concat(argsArray)
+            )
+          }
+        },
         scopedSlots: _vm._u([
           {
             key: "issue-name",
@@ -44174,9 +44648,24 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.detail.installation_step != null
+                _vm.detail.complete_at_by_5BB != null
                   ? _c("OrderStepChip", {
-                      attrs: { value: _vm.detail.installation_step.name }
+                      attrs: {
+                        slot: "order-chip",
+                        status: "Finish",
+                        value: "Finish"
+                      },
+                      slot: "order-chip"
+                    })
+                  : _vm.detail.installation_step != null &&
+                    _vm.detail.complete_at_by_5BB == null
+                  ? _c("OrderStepChip", {
+                      attrs: {
+                        slot: "order-chip",
+                        status: _vm.detail.status,
+                        value: _vm.detail.installation_step.name
+                      },
+                      slot: "order-chip"
                     })
                   : _vm._e()
               ],
@@ -44222,13 +44711,6 @@ var render = function() {
                   _c("p", [_vm._v("Due Date : "), _c("span", [_vm._v("N/A")])])
                 ]),
             _vm._v(" "),
-            _c("div", { staticClass: "order-type" }, [
-              _c("p", [
-                _vm._v("Remark : "),
-                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
-              ])
-            ]),
-            _vm._v(" "),
             _vm.detail.priority_level != null
               ? _c("div", { staticClass: "order-type" }, [
                   _c("p", [
@@ -44238,7 +44720,14 @@ var render = function() {
                     ])
                   ])
                 ])
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "order-type" }, [
+              _c("p", [
+                _vm._v("Remark : "),
+                _c("span", [_vm._v(_vm._s(_vm.detail.remark))])
+              ])
+            ])
           ])
         ],
         1
@@ -44348,7 +44837,7 @@ var render = function() {
                 attrs: {
                   label: "Promo Name",
                   value: _vm.detail.promotion,
-                  type: "request-detail"
+                  type: "repair-detail"
                 }
               }),
               _vm._v(" "),
@@ -44356,7 +44845,7 @@ var render = function() {
                 attrs: {
                   label: "Create Date",
                   value: _vm.detail.created_at,
-                  type: "request-detail"
+                  type: "request-detail-time-stemp"
                 }
               })
             ],
@@ -44383,7 +44872,8 @@ var render = function() {
                   },
                   [_vm._v("Repair")]
                 )
-              : _vm.detail.installation_step != null
+              : _vm.detail.installation_step != null &&
+                _vm.detail.complete_at_by_5BB == null
               ? _c(
                   "a",
                   {
@@ -44391,6 +44881,15 @@ var render = function() {
                       "waves-effect waves-light btn orange dynamic-btn"
                   },
                   [_vm._v("Continue Installation")]
+                )
+              : _vm.detail.complete_at_by_5BB != null
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "waves-effect waves-light btn orange dynamic-btn"
+                  },
+                  [_vm._v("View Installation")]
                 )
               : _c(
                   "a",
@@ -45341,7 +45840,12 @@ var render = function() {
         _c(
           "div",
           { staticClass: "right" },
-          [_c("RemarkModal", { on: { "review-remark": _vm.storeRemark } })],
+          [
+            _c("RemarkModal", {
+              attrs: { isComplete: _vm.isComplete },
+              on: { "review-remark": _vm.storeRemark }
+            })
+          ],
           1
         )
       ]),
@@ -45363,7 +45867,11 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "mrb-2" }, [
               _c("p", [
-                _vm._v(_vm._s(_vm._f("format-date")(multipleRemark.created_at)))
+                _vm._v(
+                  _vm._s(
+                    _vm._f("format-date-with-time")(multipleRemark.updated_at)
+                  )
+                )
               ])
             ]),
             _vm._v(" "),
@@ -45372,7 +45880,11 @@ var render = function() {
               { staticClass: "mrb-3 master-right" },
               [
                 _c("RemarkModal", {
-                  attrs: { type: "update", preRemark: multipleRemark.name },
+                  attrs: {
+                    isComplete: _vm.isComplete,
+                    type: "update",
+                    preRemark: multipleRemark.name
+                  },
                   on: {
                     "review-remark": function($event) {
                       var i = arguments.length,
@@ -45387,6 +45899,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("ConfirmModal", {
+                  attrs: { isComplete: _vm.isComplete },
                   on: {
                     "delete-confirm": function($event) {
                       return _vm.deleteRemark(multipleRemark.id)
@@ -45594,28 +46107,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "right status-control-button" }, [
         _c(
-          "a",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isSelect,
-                expression: "!isSelect"
-              }
-            ],
-            staticClass: "button-fail",
-            on: {
-              click: function($event) {
-                return _vm.fail()
-              }
-            }
-          },
-          [_vm._v("Fail")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
+          "button",
           {
             directives: [
               {
@@ -45626,6 +46118,7 @@ var render = function() {
               }
             ],
             staticClass: "button-pass",
+            attrs: { disabled: _vm.isComplete },
             on: {
               click: function($event) {
                 return _vm.pass()
@@ -45636,7 +46129,29 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "a",
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.isSelect,
+                expression: "!isSelect"
+              }
+            ],
+            staticClass: "button-fail",
+            attrs: { disabled: _vm.isComplete },
+            on: {
+              click: function($event) {
+                return _vm.fail()
+              }
+            }
+          },
+          [_vm._v("Fail")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
           {
             directives: [
               {
@@ -45647,6 +46162,7 @@ var render = function() {
               }
             ],
             staticClass: "button-undo",
+            attrs: { disabled: _vm.isComplete },
             on: {
               click: function($event) {
                 return _vm.undo()
@@ -45676,6 +46192,7 @@ var render = function() {
                 expression: "!isMark"
               }
             ],
+            attrs: { isComplete: _vm.isComplete },
             on: { "review-remark": _vm.storeRemark }
           }),
           _vm._v(" "),
@@ -45689,6 +46206,7 @@ var render = function() {
               }
             ],
             attrs: {
+              isComplete: _vm.isComplete,
               type: "update",
               preRemark:
                 _vm.data.remark != null ? _vm.data.remark.name : _vm.remark
@@ -45705,6 +46223,7 @@ var render = function() {
                 expression: "isMark"
               }
             ],
+            attrs: { isComplete: _vm.isComplete },
             on: { "delete-confirm": _vm.deleteRemark }
           })
         ],
@@ -45767,22 +46286,39 @@ var render = function() {
   return _c(
     "swiper",
     { staticClass: "swiper", attrs: { options: _vm.swiperOption } },
-    _vm._l(_vm.type, function(typer, index) {
-      return _c(
-        "swiper-slide",
-        {
-          key: index,
-          class: { onClick: _vm.selected == typer.id },
-          nativeOn: {
-            click: function($event) {
-              return _vm.typeOnClick(typer)
+    [
+      _vm.isRelocation == "relocation"
+        ? _c(
+            "swiper-slide",
+            {
+              class: { onClick: _vm.selected == 0 },
+              nativeOn: {
+                click: function($event) {
+                  return _vm.typeOnClick(0)
+                }
+              }
+            },
+            [_vm._v("\n        None\n    ")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.type, function(typer, index) {
+        return _c(
+          "swiper-slide",
+          {
+            key: index,
+            class: { onClick: _vm.selected == typer.id },
+            nativeOn: {
+              click: function($event) {
+                return _vm.typeOnClick(typer)
+              }
             }
-          }
-        },
-        [_vm._v("\n        " + _vm._s(typer.name) + "\n    ")]
-      )
-    }),
-    1
+          },
+          [_vm._v("\n        " + _vm._s(typer.name) + "\n    ")]
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -45826,11 +46362,7 @@ var render = function() {
           )
         : _c("i", {
             staticClass: "far fa-trash-alt remark-setting",
-            on: {
-              click: function($event) {
-                _vm.showModal = true
-              }
-            }
+            on: { click: _vm.showOrHideModal }
           }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
@@ -46503,9 +47035,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "order-step" }, [
-    _c("span", [_vm._v(_vm._s(_vm.value))])
-  ])
+  return _vm.status === "Complete" || _vm.status === "Finish"
+    ? _c("div", { staticClass: "order-step", class: _vm.completeOrFinish }, [
+        _c("span", [_vm._v(_vm._s(_vm.status))])
+      ])
+    : _c("div", { staticClass: "order-step" }, [
+        _c("span", [_vm._v(_vm._s(_vm.value))])
+      ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46536,19 +47072,11 @@ var render = function() {
       _vm.type == "update"
         ? _c("i", {
             staticClass: "far fa-edit remark-setting",
-            on: {
-              click: function($event) {
-                _vm.showModal = true
-              }
-            }
+            on: { click: _vm.showOrHideModal }
           })
         : _c("i", {
             staticClass: "fas fa-plus add-remark",
-            on: {
-              click: function($event) {
-                _vm.showModal = true
-              }
-            }
+            on: { click: _vm.showOrHideModal }
           }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
@@ -46676,10 +47204,31 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            request.installation_step != null
+            request.complete_at_by_5BB != null
               ? _c("OrderStepChip", {
                   attrs: {
                     slot: "order-chip",
+                    status: "Finish",
+                    value: "Finish"
+                  },
+                  slot: "order-chip"
+                })
+              : request.complete_at_by_lsp != null &&
+                request.complete_at_by_5BB == null
+              ? _c("OrderStepChip", {
+                  attrs: {
+                    slot: "order-chip",
+                    status: "Complete",
+                    value: "Complete"
+                  },
+                  slot: "order-chip"
+                })
+              : request.installation_step != null &&
+                request.complete_at_by_5BB == null
+              ? _c("OrderStepChip", {
+                  attrs: {
+                    slot: "order-chip",
+                    status: request.status,
                     value: request.installation_step.name
                   },
                   slot: "order-chip"
@@ -46716,6 +47265,17 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(request.priority_level.name) + " "
                                 )
+                              ]
+                            },
+                            proxy: true
+                          }
+                        : null,
+                      request.estimated_issue != null
+                        ? {
+                            key: "issue",
+                            fn: function() {
+                              return [
+                                _vm._v(_vm._s(request.estimated_issue.name))
                               ]
                             },
                             proxy: true
@@ -46780,7 +47340,11 @@ var render = function() {
                         },
                         proxy: true
                       }
-                    : request.lsp_team && _vm.isHistory == false
+                    : request.lsp_team &&
+                      _vm.isHistory == false &&
+                      request.complete_at_by_lsp == null &&
+                      request.complete_at_by_5BB == null &&
+                      request.complete_at_by_lsp_team == null
                     ? {
                         key: "isAccept",
                         fn: function() {
@@ -46797,7 +47361,11 @@ var render = function() {
                         },
                         proxy: true
                       }
-                    : !request.lsp_team && _vm.isHistory == false
+                    : !request.lsp_team &&
+                      _vm.isHistory == false &&
+                      request.complete_at_by_lsp == null &&
+                      request.complete_at_by_5BB == null &&
+                      request.complete_at_by_lsp_team == null
                     ? {
                         key: "isAccept",
                         fn: function() {
@@ -46930,12 +47498,14 @@ var render = function() {
                                   proxy: true
                                 }
                               : null,
-                            _vm.request.issue != null
+                            _vm.request.estimated_issue != null
                               ? {
                                   key: "issue",
                                   fn: function() {
                                     return [
-                                      _vm._v(_vm._s(_vm.request.issue.name))
+                                      _vm._v(
+                                        _vm._s(_vm.request.estimated_issue.name)
+                                      )
                                     ]
                                   },
                                   proxy: true
@@ -47142,6 +47712,8 @@ var render = function() {
     _c("tr", [
       _vm.type == "request-detail"
         ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
+        : _vm.type == "request-detail-time-stemp"
+        ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
         : _vm.type == "repair-detail"
         ? _c("td", { staticClass: "table-color" }, [
             _vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))
@@ -47167,8 +47739,12 @@ var render = function() {
         : _c("td", [
             _vm.type == "request-detail"
               ? _c("p", [_vm._v(_vm._s(_vm.value))])
+              : _vm.type == "request-detail-time-stemp"
+              ? _c("p", [
+                  _vm._v(_vm._s(_vm._f("format-date-with-time")(_vm.value)))
+                ])
               : _vm.type == "repair-detail"
-              ? _c("p", [_vm._v(_vm._s(_vm.value.name))])
+              ? _c("p", [_vm._v(_vm._s(_vm.value.name ? _vm.value.name : "-"))])
               : _c("p", [
                   _vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))
                 ]),
@@ -47500,7 +48076,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "lsp-profile-body" }, [
-    _c("h4", [_vm._v("Team(" + _vm._s(_vm.response.data.teams_count) + ")")]),
+    _c("h4", [_vm._v("Team")]),
     _vm._v(" "),
     _c("table", [
       _c(
@@ -62764,7 +63340,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date', function (value
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('format-date-with-time', function (value) {
   var cuttedValue = value.slice(0, 10);
-  return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(12, 16);
+  return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(11, 16);
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
   if (value == 'on_call') return value.charAt(0).toUpperCase() + value.charAt(1) + ' ' + value.charAt(3).toUpperCase() + value.slice(4);

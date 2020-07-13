@@ -12,16 +12,20 @@
                 <TableRow v-for="(value,label) in detail.product_usage" :key="label" :label="label" :value="value" :type="'repair-detail'"></TableRow>
             </TeamInfo>
             <TeamInfo v-else>
-                <TableRow :label="'Image'" :value="data.images" :type="'image'"></TableRow>
+                <TableRow :label="'Image'" :value="demy" :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Onu Type'" :value="demy" :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Fiber Patch Cord'" :value="demy" :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Fiber Cable'" :value="demy" :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Onu Adapter'" :value="demy" :type="'repair-detail'"></TableRow>
             </TeamInfo>
         </div>
-        <div class="remarks">
+        <div class="remarks" v-if="detail.remarks != null">
             <h3>Remarks</h3>
             <Remarks v-for="(value, key) in detail.remarks" :key="key" :value="value"></Remarks>
+        </div>
+        <div class="remarks" v-else>
+            <h3>Remarks</h3>
+            <p>No Remark Yet!</p>
         </div>
     </div>
 </template>

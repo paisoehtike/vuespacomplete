@@ -24,11 +24,14 @@
             <TableRow v-if="data.fat_port" :label="'FAT Port'" :value="data.fat_port.name" :type="'request-detail'"></TableRow>
             <TableRow v-else :label="'FAT Port'" :value="'-'" :type="'request-detail'"></TableRow>
 
-            <TableRow v-if="data.product_usage && data.product_usage.onu_adapter" :label="'Router'" :value="data.product_usage.onu_adapter.name" :type="'request-detail'"></TableRow>
-            <TableRow v-else :label="'ONU S/N'" :value="'-'" :type="'request-detail'"></TableRow>
+            <!-- <TableRow v-if="data.product_usage && data.product_usage.onu_adapter" :label="'Router'" :value="data.product_usage.onu_adapter.name" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'ONU S/N'" :value="'-'" :type="'request-detail'"></TableRow> -->
 
             <TableRow v-if="data.product_usage && data.product_usage.onu_type" :label="'ONU Type'" :value="data.product_usage.onu_type.name" :type="'request-detail'"></TableRow>
             <TableRow v-else :label="'ONU Type'" :value="'-'" :type="'request-detail'"></TableRow>
+
+            <TableRow v-if="data.odn_sn" :label="'Router Serial No'" :value="data.odn_sn" :type="'request-detail'"></TableRow>
+            <TableRow v-else :label="'Router Serial No'" :value="'-'" :type="'request-detail'"></TableRow>
 
             <TableRow v-if="data.product_usage && data.product_usage.fiber_patch_cord" :label="'Fiber Patch Cord'" :value="data.product_usage.fiber_patch_cord.name" :type="'request-detail'"></TableRow>
             <TableRow v-else :label="'Fiber Patch Cord'" :value="'-'" :type="'request-detail'"></TableRow>

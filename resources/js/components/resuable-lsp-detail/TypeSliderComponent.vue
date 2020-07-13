@@ -1,6 +1,12 @@
 <template>
     <swiper class="swiper" :options="swiperOption">
         <swiper-slide
+        v-if="isRelocation == 'relocation'"
+        @click.native="typeOnClick(0)"
+        :class="{onClick:selected == 0}">
+            None
+        </swiper-slide>
+        <swiper-slide
         @click.native="typeOnClick(typer)"
         :class="{onClick:selected == typer.id}" 
         v-for="(typer, index) in type" 
@@ -16,7 +22,7 @@ import 'swiper/css/swiper.css';
 
 export default {
     props: [
-        'type', 'defaultId', 'isInstallation'
+        'type', 'defaultId', 'isInstallation', 'isRelocation', 'isComplete',
     ],
     name: 'swiper-example-free-mode',
     title: 'Free mode / No fixed positions',
@@ -27,6 +33,7 @@ export default {
     data() {
         return {
             selected: null,
+            complete: null,
             swiperOption: {
                 slidesPerView: 3,
                 spaceBetween: 18,
@@ -36,29 +43,31 @@ export default {
     },
     methods: {
         typeOnClick(typer) {
-            if (this.isInstallation) {
-                this.selected = typer.id;
-                this.$emit('type-id', typer.id);
-            } else {
-                if (this.selected == typer.id) {
-                    this.selected = null;
+            if(!this.isComplete) {
+                if(typer == 0) {
+                    this.selected = 0;
                     this.$emit('type-id', null);
                 } else {
-                    this.selected = typer.id;
-                    this.$emit('type-id', typer.id);
+                    if (this.isInstallation) {
+                        this.selected = typer.id;
+                        this.$emit('type-id', typer.id);
+                    } else {
+                        if (this.selected == typer.id) {
+                            this.selected = null;
+                            this.$emit('type-id', null);
+                        } else {
+                            this.selected = typer.id;
+                            this.$emit('type-id', typer.id);
+                        }
+                    }
                 }
             }
         }
     },
     watch: {
-        defaultId: function(val) {
+        defaultId(val) {
             this.selected = val;
         }
     },
-    mounted() {
-        if(defaultId) {
-            this.selected = defaultId;
-        }
-    }
 }
 </script>

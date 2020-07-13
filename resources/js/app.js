@@ -33,7 +33,7 @@ Vue.filter('format-date', function (value) {
 
 Vue.filter('format-date-with-time', function (value) {
     let cuttedValue = value.slice(0, 10);
-    return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(12, 16)
+    return cuttedValue.replace(/-/gi, '/') + ' | ' + value.slice(11, 16)
 });
 
 Vue.filter('capitalize', function (value) {

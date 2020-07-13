@@ -2,7 +2,7 @@
     <div class="">
         <!-- <p class="model-text">Reset Password</p> -->
         <p v-if="type == 'password-reset'" @click="showModal = true" class="model-text">Reset Password</p>
-        <i v-else @click="showModal = true" class="far fa-trash-alt remark-setting"></i>
+        <i v-else @click="showOrHideModal" class="far fa-trash-alt remark-setting"></i>
 
         <transition name="fade" appear>
             <div class="modal-box1" v-if="showModal" @click="showModal = false">
@@ -48,7 +48,7 @@
 
 <script>
 export default {
-    props: [ 'type', ],
+    props: [ 'type', 'isComplete'],
     data() {
         return {
             showModal: false,
@@ -67,6 +67,11 @@ export default {
         }
     },
     methods: {
+        showOrHideModal() {
+            if(!this.isComplete) {
+                this.showModal = true
+            }
+        },
         submitRemark() {
             this.$emit('delete-confirm');
             this.showModal = false;

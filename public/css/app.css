@@ -365,6 +365,10 @@
   color: #ed1c24;
 }
 
+.customer-home-container .home-customer-container .customer-header-row .customer-type-container .customer-date .issue {
+  font-size: 12px;
+}
+
 .customer-home-container .customer-home-footer-row {
   display: grid;
   grid-template-columns: 5% auto;
@@ -457,6 +461,14 @@
   width: 80px;
   text-align: center;
   border-radius: 10px;
+}
+
+.completeStatus {
+  background-color: #1a83ec !important;
+}
+
+.finishStatus {
+  background-color: #5f5f5f !important;
 }
 
 .customer-detail-chip {

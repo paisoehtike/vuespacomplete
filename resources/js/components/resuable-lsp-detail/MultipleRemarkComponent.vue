@@ -5,7 +5,7 @@
                 <p class="multi-remark-header">Remark</p>
             </div>
             <div class="right">
-                <RemarkModal @review-remark="storeRemark"></RemarkModal>
+                <RemarkModal @review-remark="storeRemark" :isComplete="isComplete"></RemarkModal>
             </div>
         </div>
         <div v-for="(multipleRemark, index) in multipleRemarks" :key="index" class="valign-wrapper multi-remark-body">
@@ -15,11 +15,11 @@
                 </p>
             </div>
             <div class="mrb-2">
-                <p>{{ multipleRemark.created_at | format-date}}</p>
+                <p>{{ multipleRemark.updated_at | format-date-with-time}}</p>
             </div>
             <div class="mrb-3 master-right">
-                <RemarkModal @review-remark="remarkUpdate(multipleRemark.id, ...arguments)" :type="'update'" :preRemark="multipleRemark.name"></RemarkModal>
-                <ConfirmModal @delete-confirm="deleteRemark(multipleRemark.id)"></ConfirmModal>
+                <RemarkModal @review-remark="remarkUpdate(multipleRemark.id, ...arguments)" :isComplete="isComplete" :type="'update'" :preRemark="multipleRemark.name"></RemarkModal>
+                <ConfirmModal @delete-confirm="deleteRemark(multipleRemark.id)" :isComplete="isComplete"></ConfirmModal>
             </div>
         </div>
         <!-- <div class="valign-wrapper multi-remark-body">
@@ -51,7 +51,7 @@ export default {
         ConfirmModal
     },
     props: [
-        'type', 'id', 'multipleRemarks'
+        'type', 'id', 'multipleRemarks', 'isComplete'
     ],
     methods: {
         deleteRemark(id) {

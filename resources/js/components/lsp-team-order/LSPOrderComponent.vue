@@ -54,7 +54,9 @@
       <OrderDetail>
         <div class="order-detail-header">
           <CustomerTypeChip v-if="detail.customer_type != null" :value="detail.customer_type.name"></CustomerTypeChip>
-          <OrderStepChip v-if="detail.installation_step != null" :value="detail.installation_step.name"></OrderStepChip>
+
+          <OrderStepChip v-if="detail.complete_at_by_5BB != null" :status="'Finish'" :value="'Finish'" slot="order-chip"></OrderStepChip>
+          <OrderStepChip v-else-if="detail.installation_step != null && detail.complete_at_by_5BB == null" :status="detail.status" :value="detail.installation_step.name" slot="order-chip"></OrderStepChip>
         </div>
         <div class="order-detail-id">
           <h4>{{detail.customer}}</h4>
@@ -71,11 +73,11 @@
         <div v-else class="order-type">
           <p>Due Date : <span>N/A</span></p>
         </div>
-        <div class="order-type">
-          <p>Remark : <span>{{detail.remark}}</span></p>
-        </div>
         <div v-if="detail.priority_level != null" class="order-type">
           <p>Priority Level : <span class="priority-level">{{detail.priority_level.name}}</span></p>
+        </div>
+        <div class="order-type">
+          <p>Remark : <span>{{detail.remark}}</span></p>
         </div>
       </OrderDetail>
     </div>
@@ -101,8 +103,8 @@
       <OrderInfo>
         <TableRow :label="'Order Id'" :value="detail.id" :type="'request-detail'"></TableRow>
         <TableRow :label="'Plan Name'" :value="detail.plan" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail'"></TableRow>
+        <TableRow :label="'Promo Name'" :value="detail.promotion" :type="'repair-detail'"></TableRow>
+        <TableRow :label="'Create Date'" :value="detail.created_at" :type="'request-detail-time-stemp'"></TableRow>
       </OrderInfo>
       <!-- <OrderInfo>
         <TableRow v-for="(value,label) in orderDetails" :key="label" :label="label" :value="value"></TableRow>
@@ -111,7 +113,8 @@
     <div class="team-order-button">
       <div @click="toSurvey" class="col s12 m6 l3 complete-btn">
         <a v-if="orderType == 'on_call'" class="waves-effect waves-light btn orange dynamic-btn">Repair</a>
-        <a v-else-if="detail.installation_step != null" class="waves-effect waves-light btn orange dynamic-btn">Continue Installation</a>
+        <a v-else-if="detail.installation_step != null && detail.complete_at_by_5BB == null" class="waves-effect waves-light btn orange dynamic-btn">Continue Installation</a>
+        <a v-else-if="detail.complete_at_by_5BB != null" class="waves-effect waves-light btn orange dynamic-btn">View Installation</a>
         <a v-else class="waves-effect waves-light btn orange dynamic-btn">Start Installation</a>
       </div>
     </div>

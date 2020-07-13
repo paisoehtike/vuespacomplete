@@ -29,7 +29,7 @@ export default {
     Header,
     HomeHeaderButton,
     HomeFooterButton,
-    RequestList
+    RequestList,
   },
   data() {
     return {

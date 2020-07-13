@@ -8,6 +8,7 @@
     <SquareImage></SquareImage>
     <TeamInfo>
       <TableRow :label="'Leader Name'" :value="teamDetail.leader_name" :type="'request-detail'"></TableRow>
+      <TableRow :label="'Phone Number'" :value="teamDetail.leader.phone" :type="'request-detail'"></TableRow>
       <TableRow :label="'Man Power'" :value="teamDetail.man_power" :type="'request-detail'"></TableRow>
       <TableRow :label="'Assigned Jobs'" :value="teamDetail.assigned_jobs" :type="'request-detail'"></TableRow>
       <TableRow :label="'Remaining Jobs'" :value="teamDetail.remaining_jobs" :type="'request-detail'"></TableRow>
@@ -219,6 +220,7 @@ export default {
         lsp_team_leader_id: this.teamDetail.leader_id,
         password: password,
       }).then( res => {
+        if(res.data.code == 200) alert('Successfully Processed!') 
         this.getDetail()
       }).catch(console.log('Error'));
     },
