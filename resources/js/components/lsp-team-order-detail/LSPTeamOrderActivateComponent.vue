@@ -85,7 +85,7 @@
             <div>
                 <label class="activate-label" for="fat-port">FAT :</label>
                 <span v-if="this.errors.fat">*Requried</span>
-                <select v-model="fat" class="activate-input" @change="getFatPort" :disabled="isComplete == true">
+                <select v-model="fat" class="activate-input" :disabled="isComplete == true">
                     <option disabled v-bind:value="''">Select FAT</option>
                     <option v-for="(data, index) in fats" :key="index" v-bind:value="data.id">
                         {{ data.name }}
@@ -125,8 +125,8 @@
 
             <label class="activate-label" for="fpc" v-if="detail.type == 'relocation'">ONU Adapter :</label>
             <span v-if="detail.type == 'relocation' && this.errors.onuAdapterId">*Requried</span>
-            <TypeSlider id="onu-adapter" v-if="selectedOnuAdapter && detail.type == 'relocation'" :isInstallation="true" :type="onu_adapter" :defaultId="selectedOnuAdapter" :isComplete="isComplete" @type-id="setAdapterId"></TypeSlider>
-            <TypeSlider id="onu-adapter" v-else-if="!selectedOnuAdapter && detail.type == 'relocation'" :type="onu_adapter" :isInstallation="true" :defaultId="selectedOnuAdapter" :isComplete="isComplete" @type-id="setAdapterId"></TypeSlider>
+            <TypeSlider id="onu-adapter" v-if="selectedOnuAdapter && detail.type == 'relocation'" :isInstallation="true" :type="onu_adapter" :defaultId="selectedOnuAdapter" :isRelocation="detail.type" :isComplete="isComplete" @type-id="setAdapterId"></TypeSlider>
+            <TypeSlider id="onu-adapter" v-else-if="!selectedOnuAdapter && detail.type == 'relocation'" :type="onu_adapter" :isInstallation="true" :defaultId="selectedOnuAdapter" :isRelocation="detail.type" :isComplete="isComplete" @type-id="setAdapterId"></TypeSlider>
 
             <div>
                 <label class="activate-label" for="fb-cable">Fibre Cable Length:</label>
@@ -214,7 +214,7 @@ export default {
             onu_adapter: null,
             onuAdapterId: null,
             onu_type: null,
-            onuId: null,
+            onuId: '',
             odnSn: null,
             termination_box: null,
 
@@ -361,13 +361,21 @@ export default {
             this.fiber_cable = data.fiber_cable;
         },
         setOnuId(id) {
-            this.onuId = id;
+            if(id == 0) {
+                this.onuId = null;
+            } else {
+                this.onuId = id;
+            }
         },  
         setFpcId(id) {
             this.fpcId = id;
         },
         setAdapterId(id) {
-            this.onuAdapterId = id;
+            if(id == 0) {
+                this.onuAdapterId = null;
+            } else {
+                this.onuAdapterId = id;
+            }
         },
         loadPreRemarks(remarks) {
             this.remarks = remarks;
@@ -399,16 +407,19 @@ export default {
                     }
                     if (res.data.data.fat_port) {
                         this.fat_port = res.data.data.fat_port.id;
+                        // this.fat_ports = res.data.data.fat_port;
                         this.fat_ports.push(res.data.data.fat_port);
                         this.isChanged = false
                     }
                     
                     this.onu_sn = res.data.data.onu_sn;
+
                     if (res.data.data.product_usage.onu_type != null) {
                         this.selectedOnuType = res.data.data.product_usage.onu_type.id;
                         this.onuId = res.data.data.product_usage.onu_type.id;
                         this.isChanged = false
                     }
+
                     if (res.data.data.product_usage.fiber_patch_cord != null) {
                         this.selectedFpc = res.data.data.product_usage.fiber_patch_cord.id;
                         this.fpcId = res.data.data.product_usage.fiber_patch_cord.id;
@@ -523,6 +534,7 @@ export default {
         getFatPort() {
             axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
             .then( res => {
+                // this.fat_ports = res.data.data
                 res.data.data.forEach(element => {
                     this.fat_ports.push(element)
                 });
@@ -580,7 +592,7 @@ export default {
             }
         },
         onuId(val) {
-            if(val == null) {
+            if(val == 0 || val == null) {
                 this.showSerialNo = false;
             } else {
                 this.showSerialNo = true;

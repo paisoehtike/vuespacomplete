@@ -46,7 +46,7 @@ export default {
             if(!this.isComplete) {
                 if(typer == 0) {
                     this.selected = 0;
-                    this.$emit('type-id', null);
+                    this.$emit('type-id', 0);
                 } else {
                     if (this.isInstallation) {
                         this.selected = typer.id;
