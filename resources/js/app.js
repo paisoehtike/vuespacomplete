@@ -20,7 +20,8 @@ Vue.mixin({
         return {
           get base_url() {
             // return "https://5bb-lsp-staging.mm-digital-solutions.com/api/";
-            return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+            // return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+            return "https://sdm.5bb.com.mm/api/";
           }
         }
     }
