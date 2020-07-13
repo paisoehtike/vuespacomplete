@@ -85,7 +85,7 @@
             <div>
                 <label class="activate-label" for="fat-port">FAT :</label>
                 <span v-if="this.errors.fat">*Requried</span>
-                <select v-model="fat" class="activate-input" :disabled="isComplete == true">
+                <select v-model="fat" class="activate-input" @change="resetOltPortList" :disabled="isComplete == true">
                     <option disabled v-bind:value="''">Select FAT</option>
                     <option v-for="(data, index) in fats" :key="index" v-bind:value="data.id">
                         {{ data.name }}
@@ -400,6 +400,7 @@ export default {
                     if (res.data.data.fat) {
                         this.fat = res.data.data.fat.id;
                         this.isChanged = false
+                        this.getFatPort()
                     }
                     if (res.data.data.odn_sn) {
                         this.odnSn = res.data.data.odn_sn;
@@ -534,10 +535,20 @@ export default {
         getFatPort() {
             axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
             .then( res => {
+                // this.fat_ports = null
                 // this.fat_ports = res.data.data
                 res.data.data.forEach(element => {
                     this.fat_ports.push(element)
                 });
+                if (!this.fat_port) {
+                    this.fat_port = ''
+                }
+            }).catch(console.log('Error'));
+        },
+        resetOltPortList() {
+            axios.get(`${this.base_url}get_fat_port_lists/${this.fat}`)
+            .then( res => {
+                this.fat_ports = res.data.data
                 if (!this.fat_port) {
                     this.fat_port = ''
                 }
@@ -553,7 +564,7 @@ export default {
             this.isChanged = true
         },
         fat: function(val) {
-            this.getFatPort();
+            // this.getFatPort();
             this.isChanged = true
         },
         fat_port() {

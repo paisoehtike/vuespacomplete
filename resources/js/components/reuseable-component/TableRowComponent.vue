@@ -14,7 +14,7 @@
       <td v-else>
         <p v-if="type == 'request-detail'">{{ value }}</p>
         <p v-else-if="type == 'request-detail-time-stemp'">{{ value | format-date-with-time }}</p>
-        <p v-else-if="type == 'repair-detail'">{{ value ? value.name : '-' }}</p>
+        <p v-else-if="type == 'repair-detail'">{{ value ? value : '-' }}</p>
         <p v-else>{{ value.status | passOrFail}}</p>
 
         <p v-if="value && value.remark != null" class="single-remark">{{ value.remark.name }}</p>
