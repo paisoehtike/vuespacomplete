@@ -7,7 +7,7 @@
         </div>
         <div class="replace-item">
             <h3>Replace Items</h3>
-            <TeamInfo v-if="detail.product_usage != null">
+            <TeamInfo v-if="detail && detail.product_usage != null">
                 <TableRow :label="'Image'" :value="detail.images" :type="'image'"></TableRow>
                 <TableRow v-for="(value,label) in detail.product_usage" :key="label" :label="label" :value="value" :type="'repair-detail'"></TableRow>
             </TeamInfo>
@@ -19,7 +19,7 @@
                 <TableRow :label="'Onu Adapter'" :value="demy" :type="'repair-detail'"></TableRow>
             </TeamInfo>
         </div>
-        <div class="remarks" v-if="detail.remarks != null">
+        <div class="remarks" v-if="detail && detail.remarks != null">
             <h3>Remarks</h3>
             <Remarks v-for="(value, key) in detail.remarks" :key="key" :value="value"></Remarks>
         </div>

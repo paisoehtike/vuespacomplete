@@ -25,8 +25,8 @@
             <h5>{{ response.data.complete_job }}</h5>
             <p>Complete</p>
         </div>
-        <div class="profile-body pb-4" v-show="response.data.assign_job != null">
-            <h5>{{ response.data.assign_job }}</h5>
+        <div class="profile-body pb-4" v-show="response.data.history_job != null">
+            <h5>{{ response.data.history_job }}</h5>
             <p>History</p>
         </div>
     </div>

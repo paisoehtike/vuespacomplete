@@ -3,7 +3,7 @@
     <tr>
       <td class="table-color" v-if="type == 'request-detail'">{{ label }}</td>
       <td class="table-color" v-else-if="type == 'request-detail-time-stemp'">{{ label }}</td>
-      <td class="table-color" v-else-if="type == 'repair-detail'">{{ label | capitalize}}</td>
+      <td class="table-color" v-else-if="type == 'repair-detail'">{{ label | capitalize }}</td>
       <td class="table-color" v-else-if="type == 'image'">{{ label }}</td>
       <td class="table-color" v-else>{{ value.name }}</td>
 
@@ -14,10 +14,10 @@
       <td v-else>
         <p v-if="type == 'request-detail'">{{ value }}</p>
         <p v-else-if="type == 'request-detail-time-stemp'">{{ value | format-date-with-time }}</p>
-        <p v-else-if="type == 'repair-detail'">{{ value.name ? value.name:'-' }}</p>
+        <p v-else-if="type == 'repair-detail'">{{ value ? value.name : '-' }}</p>
         <p v-else>{{ value.status | passOrFail}}</p>
 
-        <p v-if="value.remark != null" class="single-remark">{{ value.remark.name }}</p>
+        <p v-if="value && value.remark != null" class="single-remark">{{ value.remark.name }}</p>
       </td>
     </tr>
   </div>

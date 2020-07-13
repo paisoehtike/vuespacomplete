@@ -2279,6 +2279,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3823,6 +3836,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -4148,7 +4162,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       onu_adapter: null,
       onuAdapterId: null,
       onu_type: null,
-      onuId: null,
+      onuId: '',
       odnSn: null,
       termination_box: null,
       detail: null,
@@ -4299,13 +4313,21 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.fiber_cable = data.fiber_cable;
     },
     setOnuId: function setOnuId(id) {
-      this.onuId = id;
+      if (id == 0) {
+        this.onuId = null;
+      } else {
+        this.onuId = id;
+      }
     },
     setFpcId: function setFpcId(id) {
       this.fpcId = id;
     },
     setAdapterId: function setAdapterId(id) {
-      this.onuAdapterId = id;
+      if (id == 0) {
+        this.onuAdapterId = null;
+      } else {
+        this.onuAdapterId = id;
+      }
     },
     loadPreRemarks: function loadPreRemarks(remarks) {
       this.remarks = remarks;
@@ -4344,7 +4366,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         }
 
         if (res.data.data.fat_port) {
-          _this5.fat_port = res.data.data.fat_port.id;
+          _this5.fat_port = res.data.data.fat_port.id; // this.fat_ports = res.data.data.fat_port;
 
           _this5.fat_ports.push(res.data.data.fat_port);
 
@@ -4483,6 +4505,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this13 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
+        // this.fat_ports = res.data.data
         res.data.data.forEach(function (element) {
           _this13.fat_ports.push(element);
         });
@@ -4545,7 +4568,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       }
     },
     onuId: function onuId(val) {
-      if (val == null) {
+      if (val == 0 || val == null) {
         this.showSerialNo = false;
       } else {
         this.showSerialNo = true;
@@ -6770,7 +6793,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.isComplete) {
         if (typer == 0) {
           this.selected = 0;
-          this.$emit('type-id', null);
+          this.$emit('type-id', 0);
         } else {
           if (this.isInstallation) {
             this.selected = typer.id;
@@ -40772,10 +40795,31 @@ var render = function() {
                     slot: "customer-chip"
                   }),
                   _vm._v(" "),
-                  customer.installation_step != null
+                  customer.complete_at_by_5BB != null
                     ? _c("OrderStepChip", {
                         attrs: {
                           slot: "order-chip",
+                          status: "Finish",
+                          value: "Finish"
+                        },
+                        slot: "order-chip"
+                      })
+                    : customer.complete_at_by_lsp != null &&
+                      customer.complete_at_by_5BB == null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          status: "Complete",
+                          value: "Complete"
+                        },
+                        slot: "order-chip"
+                      })
+                    : customer.installation_step != null &&
+                      customer.complete_at_by_5BB == null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          status: customer.status,
                           value: customer.installation_step.name
                         },
                         slot: "order-chip"
@@ -40810,6 +40854,17 @@ var render = function() {
                                   _vm._v(
                                     _vm._s(customer.priority_level.name) + " "
                                   )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
+                        customer.estimated_issue != null
+                          ? {
+                              key: "issue",
+                              fn: function() {
+                                return [
+                                  _vm._v(_vm._s(customer.estimated_issue.name))
                                 ]
                               },
                               proxy: true
@@ -40906,10 +40961,31 @@ var render = function() {
                     slot: "customer-chip"
                   }),
                   _vm._v(" "),
-                  customer.installation_step != null
+                  customer.complete_at_by_5BB != null
                     ? _c("OrderStepChip", {
                         attrs: {
                           slot: "order-chip",
+                          status: "Finish",
+                          value: "Finish"
+                        },
+                        slot: "order-chip"
+                      })
+                    : customer.complete_at_by_lsp != null &&
+                      customer.complete_at_by_5BB == null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          status: "Complete",
+                          value: "Complete"
+                        },
+                        slot: "order-chip"
+                      })
+                    : customer.installation_step != null &&
+                      customer.complete_at_by_5BB == null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          status: customer.status,
                           value: customer.installation_step.name
                         },
                         slot: "order-chip"
@@ -40944,6 +41020,17 @@ var render = function() {
                                   _vm._v(
                                     _vm._s(customer.priority_level.name) + " "
                                   )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
+                        customer.estimated_issue != null
+                          ? {
+                              key: "issue",
+                              fn: function() {
+                                return [
+                                  _vm._v(_vm._s(customer.estimated_issue.name))
                                 ]
                               },
                               proxy: true
@@ -41040,10 +41127,31 @@ var render = function() {
                     slot: "customer-chip"
                   }),
                   _vm._v(" "),
-                  customer.installation_step != null
+                  customer.complete_at_by_5BB != null
                     ? _c("OrderStepChip", {
                         attrs: {
                           slot: "order-chip",
+                          status: "Finish",
+                          value: "Finish"
+                        },
+                        slot: "order-chip"
+                      })
+                    : customer.complete_at_by_lsp != null &&
+                      customer.complete_at_by_5BB == null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          status: "Complete",
+                          value: "Complete"
+                        },
+                        slot: "order-chip"
+                      })
+                    : customer.installation_step != null &&
+                      customer.complete_at_by_5BB == null
+                    ? _c("OrderStepChip", {
+                        attrs: {
+                          slot: "order-chip",
+                          status: customer.status,
                           value: customer.installation_step.name
                         },
                         slot: "order-chip"
@@ -41078,6 +41186,17 @@ var render = function() {
                                   _vm._v(
                                     _vm._s(customer.priority_level.name) + " "
                                   )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          : null,
+                        customer.estimated_issue != null
+                          ? {
+                              key: "issue",
+                              fn: function() {
+                                return [
+                                  _vm._v(_vm._s(customer.estimated_issue.name))
                                 ]
                               },
                               proxy: true
@@ -42662,7 +42781,7 @@ var render = function() {
         [
           _c("h3", [_vm._v("Replace Items")]),
           _vm._v(" "),
-          _vm.detail.product_usage != null
+          _vm.detail && _vm.detail.product_usage != null
             ? _c(
                 "TeamInfo",
                 [
@@ -42736,7 +42855,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm.detail.remarks != null
+      _vm.detail && _vm.detail.remarks != null
         ? _c(
             "div",
             { staticClass: "remarks" },
@@ -43145,7 +43264,15 @@ var render = function() {
               _c("TableRow", {
                 attrs: {
                   label: "Address",
-                  value: _vm.detail.customer_detail.address,
+                  value: _vm.detail.address,
+                  type: "request-detail"
+                }
+              }),
+              _vm._v(" "),
+              _c("TableRow", {
+                attrs: {
+                  label: "Old Address",
+                  value: _vm.detail.previous_address,
                   type: "request-detail"
                 }
               }),
@@ -43678,22 +43805,19 @@ var render = function() {
                 staticClass: "activate-input",
                 attrs: { disabled: _vm.isComplete == true },
                 on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.fat = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    },
-                    _vm.getFatPort
-                  ]
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.fat = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
                 }
               },
               [
@@ -43904,6 +44028,7 @@ var render = function() {
                   isInstallation: true,
                   type: _vm.onu_adapter,
                   defaultId: _vm.selectedOnuAdapter,
+                  isRelocation: _vm.detail.type,
                   isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setAdapterId }
@@ -43915,6 +44040,7 @@ var render = function() {
                   type: _vm.onu_adapter,
                   isInstallation: true,
                   defaultId: _vm.selectedOnuAdapter,
+                  isRelocation: _vm.detail.type,
                   isComplete: _vm.isComplete
                 },
                 on: { "type-id": _vm.setAdapterId }
@@ -47744,12 +47870,12 @@ var render = function() {
                   _vm._v(_vm._s(_vm._f("format-date-with-time")(_vm.value)))
                 ])
               : _vm.type == "repair-detail"
-              ? _c("p", [_vm._v(_vm._s(_vm.value.name ? _vm.value.name : "-"))])
+              ? _c("p", [_vm._v(_vm._s(_vm.value ? _vm.value.name : "-"))])
               : _c("p", [
                   _vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))
                 ]),
             _vm._v(" "),
-            _vm.value.remark != null
+            _vm.value && _vm.value.remark != null
               ? _c("p", { staticClass: "single-remark" }, [
                   _vm._v(_vm._s(_vm.value.remark.name))
                 ])
@@ -48181,14 +48307,14 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.response.data.assign_job != null,
-            expression: "response.data.assign_job != null"
+            value: _vm.response.data.history_job != null,
+            expression: "response.data.history_job != null"
           }
         ],
         staticClass: "profile-body pb-4"
       },
       [
-        _c("h5", [_vm._v(_vm._s(_vm.response.data.assign_job))]),
+        _c("h5", [_vm._v(_vm._s(_vm.response.data.history_job))]),
         _vm._v(" "),
         _c("p", [_vm._v("History")])
       ]
