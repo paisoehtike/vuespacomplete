@@ -3542,6 +3542,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -3558,9 +3570,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
   data: function data() {
     return {
       detail: null,
-      demy: {
-        name: '-'
-      }
+      demy: '-'
     };
   },
   methods: {
@@ -4358,6 +4368,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         if (res.data.data.fat) {
           _this5.fat = res.data.data.fat.id;
           _this5.isChanged = false;
+
+          _this5.getFatPort();
         }
 
         if (res.data.data.odn_sn) {
@@ -4505,6 +4517,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       var _this13 = this;
 
       axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
+        // this.fat_ports = null
         // this.fat_ports = res.data.data
         res.data.data.forEach(function (element) {
           _this13.fat_ports.push(element);
@@ -4512,6 +4525,17 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
         if (!_this13.fat_port) {
           _this13.fat_port = '';
+        }
+      })["catch"](console.log('Error'));
+    },
+    resetOltPortList: function resetOltPortList() {
+      var _this14 = this;
+
+      axios.get("".concat(this.base_url, "get_fat_port_lists/").concat(this.fat)).then(function (res) {
+        _this14.fat_ports = res.data.data;
+
+        if (!_this14.fat_port) {
+          _this14.fat_port = '';
         }
       })["catch"](console.log('Error'));
     }
@@ -4525,27 +4549,27 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       this.isChanged = true;
     },
     fat: function fat(val) {
-      this.getFatPort();
+      // this.getFatPort();
       this.isChanged = true;
     },
     fat_port: function fat_port() {
       this.isChanged = true;
     },
     oltSearchIndex: function oltSearchIndex(val) {
-      var _this14 = this;
+      var _this15 = this;
 
       if (val.length >= 2) {
         this.oltPage = 1;
         setTimeout(function () {
-          axios.get("".concat(_this14.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this14.oltPage)).then(function (res) {
-            _this14.oltSearchResult = res.data.data;
-            _this14.oltTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this15.base_url, "get_olt_lists?q=").concat(val, "&page=").concat(_this15.oltPage)).then(function (res) {
+            _this15.oltSearchResult = res.data.data;
+            _this15.oltTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
     },
     fdtSearchIndex: function fdtSearchIndex(val) {
-      var _this15 = this;
+      var _this16 = this;
 
       if (!this.olt) {
         this.errors.olt_null_error_for_fdt_search = true;
@@ -4555,9 +4579,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       if (val.length >= 2 && this.olt) {
         setTimeout(function () {
-          axios.get("".concat(_this15.base_url, "get_fdt_lists/").concat(_this15.olt, "?q=").concat(val, "&page=").concat(_this15.fdtPage)).then(function (res) {
-            _this15.fdtSearchResult = res.data.data;
-            _this15.fdtTotalPage = res.data.meta.total_pages;
+          axios.get("".concat(_this16.base_url, "get_fdt_lists/").concat(_this16.olt, "?q=").concat(val, "&page=").concat(_this16.fdtPage)).then(function (res) {
+            _this16.fdtSearchResult = res.data.data;
+            _this16.fdtTotalPage = res.data.meta.total_pages;
           })["catch"](console.log('Error'));
         }, 1000);
       }
@@ -5296,6 +5320,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+//
 //
 //
 //
@@ -42788,23 +42813,52 @@ var render = function() {
                   _c("TableRow", {
                     attrs: {
                       label: "Image",
-                      value: _vm.detail.images,
+                      value: _vm.detail.images ? _vm.detail.images : [],
                       type: "image"
                     }
                   }),
                   _vm._v(" "),
-                  _vm._l(_vm.detail.product_usage, function(value, label) {
-                    return _c("TableRow", {
-                      key: label,
-                      attrs: {
-                        label: label,
-                        value: value,
-                        type: "repair-detail"
-                      }
-                    })
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Onu Type",
+                      value: _vm.detail.product_usage.onu_type
+                        ? _vm.detail.product_usage.onu_type.name
+                        : "-",
+                      type: "repair-detail"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Fiber Patch Cord",
+                      value: _vm.detail.product_usage.fiber_patch_cord
+                        ? _vm.detail.product_usage.fiber_patch_cord.name
+                        : "-",
+                      type: "repair-detail"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Fiber Cable",
+                      value: _vm.detail.product_usage.fiber_cable
+                        ? _vm.detail.product_usage.fiber_cable.quantity
+                        : "-",
+                      type: "repair-detail"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("TableRow", {
+                    attrs: {
+                      label: "Onu Adapter",
+                      value: _vm.detail.product_usage.onu_adapter
+                        ? _vm.detail.product_usage.onu_adapter.name
+                        : "-",
+                      type: "repair-detail"
+                    }
                   })
                 ],
-                2
+                1
               )
             : _c(
                 "TeamInfo",
@@ -43805,19 +43859,22 @@ var render = function() {
                 staticClass: "activate-input",
                 attrs: { disabled: _vm.isComplete == true },
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.fat = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.fat = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.resetOltPortList
+                  ]
                 }
               },
               [
@@ -44917,10 +44974,20 @@ var render = function() {
               _c("TableRow", {
                 attrs: {
                   label: "Address",
-                  value: _vm.detail.customer_detail.address,
+                  value: _vm.detail.address,
                   type: "request-detail"
                 }
               }),
+              _vm._v(" "),
+              _vm.detail.previous_address
+                ? _c("TableRow", {
+                    attrs: {
+                      label: "Old Address",
+                      value: _vm.detail.previous_address,
+                      type: "request-detail"
+                    }
+                  })
+                : _vm._e(),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
@@ -47870,7 +47937,7 @@ var render = function() {
                   _vm._v(_vm._s(_vm._f("format-date-with-time")(_vm.value)))
                 ])
               : _vm.type == "repair-detail"
-              ? _c("p", [_vm._v(_vm._s(_vm.value ? _vm.value.name : "-"))])
+              ? _c("p", [_vm._v(_vm._s(_vm.value ? _vm.value : "-"))])
               : _c("p", [
                   _vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))
                 ]),
