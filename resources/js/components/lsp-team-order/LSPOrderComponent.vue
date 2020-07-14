@@ -89,9 +89,11 @@
         <TableRow :label="'PPOE Username'" :value="detail.customer_detail.ppoe_user_name" :type="'request-detail'"></TableRow>
         <TableRow :label="'PPOE Password'" :value="detail.customer_detail.ppoe_password" :type="'request-detail'"></TableRow>
         <TableRow :label="'Phone'" :value="detail.customer_detail.phone" :type="'request-detail'"></TableRow>
-        <TableRow :label="'Address'" :value="detail.address" :type="'request-detail'"></TableRow>
-        <TableRow v-if="detail.previous_address" :label="'Old Address'" :value="detail.previous_address" :type="'request-detail'"></TableRow>
+        <TableRow v-if="detail && detail.previous_address" :label="'From Address'" :value="detail.previous_address" :type="'request-detail'"></TableRow>
         <TableRow :label="'Township'" :value="detail.customer_detail.township.name" :type="'request-detail'"></TableRow>
+        <TableRow v-if="detail && detail.type == 'installation'" :label="'Address'" :value="detail.address" :type="'request-detail'"></TableRow>
+        <TableRow v-else-if="detail && detail.type == null" :label="'Address'" :value="detail.address ? detail.address : '-'" :type="'request-detail'"></TableRow>
+        <TableRow v-else :label="'To Address'" :value="detail.address" :type="'request-detail'"></TableRow>
         <!-- <TableRow
           v-for="(value,label) in customerDetails"
           :key="label"

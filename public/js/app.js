@@ -3847,6 +3847,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -5320,6 +5322,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reuseable_component_TableRowComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../reuseable-component/TableRowComponent */ "./resources/js/components/reuseable-component/TableRowComponent.vue");
 /* harmony import */ var _reuseable_component_CustomerTypeChipComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../reuseable-component/CustomerTypeChipComponent */ "./resources/js/components/reuseable-component/CustomerTypeChipComponent.vue");
 /* harmony import */ var _reuseable_component_OrderStepChipComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../reuseable-component/OrderStepChipComponent */ "./resources/js/components/reuseable-component/OrderStepChipComponent.vue");
+//
+//
 //
 //
 //
@@ -7468,6 +7472,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 
@@ -7505,15 +7544,24 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       errorMessage: "Something Went Wrong!",
       noRecordYet: false,
       apis: {
-        "new": "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
-        accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
-        history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
-        oncallNew: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
-        oncallAccepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
-        oncallHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",
-        lspTeamRemain: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
-        lspTeamHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history",
-        lspTeamComplete: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete"
+        // new: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=new",
+        // accepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=accepted",
+        // history: 'https://5bb-lsp-dev.mm-digital-solutions.com/api/installation_requests?type=history',
+        // oncallNew: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=new",
+        // oncallAccepted: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=accepted",
+        // oncallHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/on_call_requests?type=history",
+        // lspTeamRemain: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=remaining",
+        // lspTeamHistory: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=history",
+        // lspTeamComplete: "https://5bb-lsp-dev.mm-digital-solutions.com/api/lsp_team/home?type=complete"
+        "new": "https://sdm.5bb.com.mm/api/api/installation_requests?type=new",
+        accepted: "https://sdm.5bb.com.mm/api/api/installation_requests?type=accepted",
+        history: "https://sdm.5bb.com.mm/api/api/installation_requests?type=history",
+        oncallNew: "https://sdm.5bb.com.mm/api/api/on_call_requests?type=new",
+        oncallAccepted: "https://sdm.5bb.com.mm/api/api/on_call_requests?type=accepted",
+        oncallHistory: "https://sdm.5bb.com.mm/api/api/on_call_requests?type=history",
+        lspTeamRemain: "https://sdm.5bb.com.mm/api/api/lsp_team/home?type=remaining",
+        lspTeamHistory: "https://sdm.5bb.com.mm/api/api/lsp_team/home?type=history",
+        lspTeamComplete: "https://sdm.5bb.com.mm/api/api/lsp_team/home?type=complete"
       }
     };
   },
@@ -7538,7 +7586,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       }).then(function (res) {
         if (res.status == 201) {
           _this.showModal = false;
-          alert('successfully Processed!');
+          alert("successfully Processed!");
         }
       })["catch"](console.log("Error"));
     },
@@ -7621,24 +7669,24 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       if (event.target.id == "accept") {
         if (this.request_type == "on_call") {
           axios.post(this.base_url + "on_call_requests_accepted/" + request.id).then(function (response) {
-            if (response.data.code == 200) alert('Successfully Professed!');
+            if (response.data.code == 200) alert("Successfully Professed!");
 
             _this4.filterRequest(request.id);
-          })["catch"](console.log('Error'));
+          })["catch"](console.log("Error"));
         } else {
           axios.post(this.base_url + "installation_requests_accepted/" + request.id).then(function (response) {
-            if (response.data.code == 200) alert('Successfully Professed!');
+            if (response.data.code == 200) alert("Successfully Professed!");
 
             _this4.filterRequest(request.id);
-          })["catch"](console.log('Error'));
+          })["catch"](console.log("Error"));
         }
       } else if (event.target.id == "assignOrSwitch") {
         this.request = request;
 
-        if (request.type == 'installation' || request.type == 'relocation') {
-          this.requesterType = 'installation';
+        if (request.type == "installation" || request.type == "relocation") {
+          this.requesterType = "installation";
         } else {
-          this.requesterType = 'on_call';
+          this.requesterType = "on_call";
         }
 
         if (request.lsp_team != null) {
@@ -7650,7 +7698,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
         this.showModal = true;
       } else {
         this.$router.push({
-          name: 'order',
+          name: "order",
           params: {
             id: request.id,
             orderType: this.request_type
@@ -7664,7 +7712,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     },
     toTeamOrder: function toTeamOrder(request) {
       this.$router.push({
-        name: 'lsp-order',
+        name: "lsp-order",
         params: {
           id: request.id,
           orderType: request.request_type
@@ -7674,10 +7722,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
     getTeams: function getTeams() {
       var _this5 = this;
 
-      if (this.type == 'admin' && this.status == 'accepted' || this.status == 'oncall-accepted') {
-        axios.get(this.base_url + 'team_lists').then(function (res) {
+      if (this.type == "admin" && this.status == "accepted" || this.status == "oncall-accepted") {
+        axios.get(this.base_url + "team_lists").then(function (res) {
           _this5.bindTeams(res);
-        })["catch"](console.log('Something Went Wrong!'));
+        })["catch"](console.log("Something Went Wrong!"));
       }
     },
     bindTeams: function bindTeams(res) {
@@ -7714,6 +7762,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -42844,7 +42894,7 @@ var render = function() {
                       value: _vm.detail.product_usage.fiber_cable
                         ? _vm.detail.product_usage.fiber_cable.quantity
                         : "-",
-                      type: "repair-detail"
+                      type: "repair-detail-fiber-cable"
                     }
                   }),
                   _vm._v(" "),
@@ -43315,21 +43365,15 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("TableRow", {
-                attrs: {
-                  label: "Address",
-                  value: _vm.detail.address,
-                  type: "request-detail"
-                }
-              }),
-              _vm._v(" "),
-              _c("TableRow", {
-                attrs: {
-                  label: "Old Address",
-                  value: _vm.detail.previous_address,
-                  type: "request-detail"
-                }
-              }),
+              _vm.detail && _vm.detail.previous_address
+                ? _c("TableRow", {
+                    attrs: {
+                      label: "From Address",
+                      value: _vm.detail.previous_address,
+                      type: "request-detail"
+                    }
+                  })
+                : _vm._e(),
               _vm._v(" "),
               _c("TableRow", {
                 attrs: {
@@ -43337,7 +43381,31 @@ var render = function() {
                   value: _vm.detail.customer_detail.township.name,
                   type: "request-detail"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.detail && _vm.detail.type == "installation"
+                ? _c("TableRow", {
+                    attrs: {
+                      label: "Address",
+                      value: _vm.detail.address,
+                      type: "request-detail"
+                    }
+                  })
+                : _vm.detail && _vm.detail.type == null
+                ? _c("TableRow", {
+                    attrs: {
+                      label: "Address",
+                      value: _vm.detail.address ? _vm.detail.address : "-",
+                      type: "request-detail"
+                    }
+                  })
+                : _c("TableRow", {
+                    attrs: {
+                      label: "To Address",
+                      value: _vm.detail.address,
+                      type: "request-detail"
+                    }
+                  })
             ],
             1
           )
@@ -44971,18 +45039,10 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("TableRow", {
-                attrs: {
-                  label: "Address",
-                  value: _vm.detail.address,
-                  type: "request-detail"
-                }
-              }),
-              _vm._v(" "),
-              _vm.detail.previous_address
+              _vm.detail && _vm.detail.previous_address
                 ? _c("TableRow", {
                     attrs: {
-                      label: "Old Address",
+                      label: "From Address",
                       value: _vm.detail.previous_address,
                       type: "request-detail"
                     }
@@ -44995,7 +45055,31 @@ var render = function() {
                   value: _vm.detail.customer_detail.township.name,
                   type: "request-detail"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.detail && _vm.detail.type == "installation"
+                ? _c("TableRow", {
+                    attrs: {
+                      label: "Address",
+                      value: _vm.detail.address,
+                      type: "request-detail"
+                    }
+                  })
+                : _vm.detail && _vm.detail.type == null
+                ? _c("TableRow", {
+                    attrs: {
+                      label: "Address",
+                      value: _vm.detail.address ? _vm.detail.address : "-",
+                      type: "request-detail"
+                    }
+                  })
+                : _c("TableRow", {
+                    attrs: {
+                      label: "To Address",
+                      value: _vm.detail.address,
+                      type: "request-detail"
+                    }
+                  })
             ],
             1
           )
@@ -47455,9 +47539,7 @@ var render = function() {
                             key: "priority-date",
                             fn: function() {
                               return [
-                                _vm._v(
-                                  _vm._s(request.priority_level.name) + " "
-                                )
+                                _vm._v(_vm._s(request.priority_level.name))
                               ]
                             },
                             proxy: true
@@ -47911,6 +47993,10 @@ var render = function() {
         ? _c("td", { staticClass: "table-color" }, [
             _vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))
           ])
+        : _vm.type == "repair-detail-fiber-cable"
+        ? _c("td", { staticClass: "table-color" }, [
+            _vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))
+          ])
         : _vm.type == "image"
         ? _c("td", { staticClass: "table-color" }, [_vm._v(_vm._s(_vm.label))])
         : _c("td", { staticClass: "table-color" }, [
@@ -47938,6 +48024,8 @@ var render = function() {
                 ])
               : _vm.type == "repair-detail"
               ? _c("p", [_vm._v(_vm._s(_vm.value ? _vm.value : "-"))])
+              : _vm.type == "repair-detail-fiber-cable"
+              ? _c("p", [_vm._v(_vm._s(_vm.value ? _vm.value + " m" : "-"))])
               : _c("p", [
                   _vm._v(_vm._s(_vm._f("passOrFail")(_vm.value.status)))
                 ]),
@@ -63521,7 +63609,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     return {
       get base_url() {
         // return "https://5bb-lsp-staging.mm-digital-solutions.com/api/";
-        return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+        // return "https://5bb-lsp-dev.mm-digital-solutions.com/api/";
+        return "https://sdm.5bb.com.mm/api/";
       }
 
     };

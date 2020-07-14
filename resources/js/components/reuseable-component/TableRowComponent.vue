@@ -4,6 +4,7 @@
       <td class="table-color" v-if="type == 'request-detail'">{{ label }}</td>
       <td class="table-color" v-else-if="type == 'request-detail-time-stemp'">{{ label }}</td>
       <td class="table-color" v-else-if="type == 'repair-detail'">{{ label | capitalize }}</td>
+      <td class="table-color" v-else-if="type == 'repair-detail-fiber-cable'">{{ label | capitalize }}</td>
       <td class="table-color" v-else-if="type == 'image'">{{ label }}</td>
       <td class="table-color" v-else>{{ value.name }}</td>
 
@@ -15,6 +16,7 @@
         <p v-if="type == 'request-detail'">{{ value }}</p>
         <p v-else-if="type == 'request-detail-time-stemp'">{{ value | format-date-with-time }}</p>
         <p v-else-if="type == 'repair-detail'">{{ value ? value : '-' }}</p>
+        <p v-else-if="type == 'repair-detail-fiber-cable'">{{ value ? value + ' m' : '-' }}</p>
         <p v-else>{{ value.status | passOrFail}}</p>
 
         <p v-if="value && value.remark != null" class="single-remark">{{ value.remark.name }}</p>

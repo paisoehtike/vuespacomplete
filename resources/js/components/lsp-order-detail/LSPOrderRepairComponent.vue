@@ -17,7 +17,7 @@
                     :type="'repair-detail'"></TableRow>
                 <TableRow :label="'Fiber Cable'" 
                     :value="detail.product_usage.fiber_cable ? detail.product_usage.fiber_cable.quantity : '-'" 
-                    :type="'repair-detail'"></TableRow>
+                    :type="'repair-detail-fiber-cable'"></TableRow>
                 <TableRow :label="'Onu Adapter'" 
                     :value="detail.product_usage.onu_adapter ? detail.product_usage.onu_adapter.name : '-'" 
                     :type="'repair-detail'"></TableRow>
