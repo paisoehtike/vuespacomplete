@@ -1,0 +1,74 @@
+.team-detail-container {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+
+  .detail-header-row {
+    grid-column: 2/3;
+    display: flex;
+    margin-top: 16px;
+    i {
+      margin-top: 7px;
+      margin-right: 30px;
+      cursor: pointer;
+    }
+    h5 {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+    .fa-edit {
+      margin-left: auto;
+      z-index: 1000;
+      font-size: 20px;
+    }
+  }
+
+  .password-reset {
+    grid-column: 2/3;
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 90%;
+
+    .model-text {
+      font-size: 15px;
+      text-decoration: underline;
+      color: #ec911a;
+      text-align: right;
+    }
+  }
+  .detail-button {
+    grid-column: 2/3;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 5% 30% 30% 30% 5%;
+    text-align: center;
+
+    .button {
+      color: $text-gery;
+    }
+
+    .remain {
+      grid-column: 2/3;
+    }
+    .complete {
+      grid-column: 3/4;
+    }
+    .history {
+      grid-column: 4/5;
+    }
+
+    .remain, .complete, .history {
+        cursor: pointer;
+    }
+
+    .remain-class, .complete-class, .history-class {
+      border-bottom: 2px solid $text-orange;
+      color: $text-black;
+      font-weight: bold;
+    }
+  }
+
+  .team-customer-detail {
+    grid-column: 2/3;
+    margin-top: 20px;
+  }
+}

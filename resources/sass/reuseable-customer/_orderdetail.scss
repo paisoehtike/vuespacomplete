@@ -1,0 +1,23 @@
+.order-detail-container {
+    .order-detail-header {
+        display: flex;
+    }
+
+    .order-detail-id {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        h4 {
+            margin: 0;
+        }
+    }
+
+    .order-type {
+        margin-bottom: 10px;
+        p {
+            margin: 0;
+        }
+        .issue, .priority-level {
+            color: $text-red;
+        }
+    }
+}

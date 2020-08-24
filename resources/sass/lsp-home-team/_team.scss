@@ -1,0 +1,53 @@
+.team-container {
+  grid-column: 2/3;
+  border: 1px solid $border-gery;
+  border-radius: 10px;
+  min-height: 90px;
+  display: grid;
+  grid-template-columns: 5% 45% 45% 5%;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  .team-body-row {
+    grid-column: 2/3;
+    h5 {
+      margin-top: 7px;
+      margin-bottom: 5px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    h5, .name {
+        color: $text-black;
+    }
+    .remaing-row {
+        color: $text-gery;
+    }
+  }
+  .team-complete-row {
+    text-align: end;
+    grid-column: 3/4;
+    .team-user-row {
+      margin-top: 7px;
+    }
+    .complete-row {
+      margin-top: 5px;
+    }
+
+    .team-user-row, .complete-row {
+        color: $text-gery;
+    }
+  }
+}
+
+.assign-team-wrapper {
+  height: 191px;
+  overflow: auto;
+}
+
+.teamClick {
+  background: #ec911a;
+  h5, .name, .remaing-row, .team-user-row, .complete-row {
+    color: #fff !important;
+  }
+}
